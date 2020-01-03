@@ -26,6 +26,7 @@ const Entry = (props: EntryProps) => {
   }
   return (
     <div style={boxStyle} onClick={() => dispatch(levelActive(c.to))}>
+      {c.id}
     </div>
   )
 }

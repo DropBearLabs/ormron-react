@@ -8,8 +8,8 @@ export const levels: ILevel[] = [
       // 0
       id: "ormron_street",
       connections: [
-        {id:"con1", to: 1, image: "temp-obj1.png", position: {x:SCREENWIDTH-200, y:GROUNDLEVEL}},
-        {id:"con2",to: 2, image: "temp-obj2.png", position: {x:400, y:GROUNDLEVEL}}
+        {id:"to_ormron_arena", to: 1, image: "temp-obj1.png", position: {x:SCREENWIDTH-200, y:GROUNDLEVEL}},
+        {id:"to_ormron_garden",to: 2, image: "temp-obj2.png", position: {x:400, y:GROUNDLEVEL}}
       ],
       backgrounds: [{image: "temp1.jpg"}],
       npcs: [
@@ -20,41 +20,41 @@ export const levels: ILevel[] = [
       ]
     },
     {
-      // 2
+      // 1
       id: "ormron_arena",
       connections: [
-        {id:"con3", to: 0, image: "temp-obj3.png", position: {x:10, y:GROUNDLEVEL}},
+        {id:"to_ormron_street", to: 0, image: "temp-obj3.png", position: {x:10, y:GROUNDLEVEL}},
       ],
       backgrounds: [{image: "temp2.jpg"}],
       npcs: []
     },
     {
-      // 3
+      // 2
       id: "ormron_garden",
       connections: [
-        {id:"con4", to: 0, image: "temp-obj3.png", position: {x:10, y:GROUNDLEVEL}},
-        {id:"con5", to: 4, image: "temp-obj1.png", position: {x:400, y:GROUNDLEVEL}},
-        {id:"con6", to: 3, image: "temp-obj2.png", position: {x:SCREENWIDTH-200, y:GROUNDLEVEL}},
+        {id:"to_ormron_street", to: 0, image: "temp-obj3.png", position: {x:10, y:GROUNDLEVEL}},
+        {id:"to_ormron_gazebo", to: 3, image: "temp-obj1.png", position: {x:400, y:GROUNDLEVEL}},
+        {id:"to_ormron_school", to: 4, image: "temp-obj2.png", position: {x:SCREENWIDTH-200, y:GROUNDLEVEL}},
       ],
       backgrounds: [{image: "temp3.jpg"}],
       npcs: []
     },
     {
-      // 4
+      // 3
       id: "ormron_gazebo",
       connections: [
-        {id:"con7", to: 3, image: "temp-obj3.png", position: {x:10, y:GROUNDLEVEL}},
+        {id:"to_ormron_garden", to: 2, image: "temp-obj3.png", position: {x:10, y:GROUNDLEVEL}},
       ],
-      backgrounds: [{image: "temp5.jpg"}],
+      backgrounds: [{image: "temp4.jpg"}],
       npcs: []
     },
     {
-      // 5
+      // 4
       id: "ormron_school",
       connections: [
-        {id:"con8", to: 3, image: "temp-obj3.png", position: {x:10, y:GROUNDLEVEL}}
+        {id:"to_ormron_garden", to: 2, image: "temp-obj3.png", position: {x:10, y:GROUNDLEVEL}}
       ],
-      backgrounds: [{image: "temp4.jpg"}],
+      backgrounds: [{image: "temp5.jpg"}],
       npcs: []
     },
   ]
