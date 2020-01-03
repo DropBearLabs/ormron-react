@@ -1,6 +1,6 @@
 import { levels } from "./data/Levels";
 import { dialogues } from "./data/Dialogues";
-import { IDialogue, ILevel } from "./data/Types";
+import { IDialogue, ILevel, INpc } from "./data/Types";
 
 export function findDialogue(dialogueId: string){
     const dialogue: IDialogue | undefined = dialogues.find(d => d.id ===dialogueId);
@@ -14,3 +14,10 @@ export function findLevel(levelId: string){
     if(level===undefined) throw Error("Unknown level id" + levelId);
     return level;
   }
+
+export function findNPC(levelId: string, npcId: string){
+  const level = findLevel(levelId);
+  const npc: INpc | undefined = level.npcs.find(n => n.id ===npcId);
+  if(npc===undefined) throw Error("Unknown npc id" + npcId);
+  return npc;
+}

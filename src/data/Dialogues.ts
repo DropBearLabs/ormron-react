@@ -1,18 +1,20 @@
 import { IDialogue } from "./Types";
 
 export const dialogues: IDialogue[] = [
+    // 0
     {
         id: "ormron_street_Maya_1",	
-        characterId: "char-Maya",
+        characterId: "char_Maya",
         image: "temp-dial1.png",	
         lines: [
             "Good day, headmaster! I am here to..."
         ],
-        nextNode: "ormron_street_Olija_2",
+        nextNode: 1,
     }, 
+    // 1
     {	
         id: "ormron_street_Olija_2",
-        characterId: "npc-Olija",
+        characterId: "npc_Olija",
         image: "temp-dial2.png",	
         lines: [
             "Are you here for your final tests? Good. I have to say...",
@@ -20,11 +22,14 @@ export const dialogues: IDialogue[] = [
             "You have no idea what lies ahead. But let's start.",
             "First - Talk to headmaster Dario and get into Arena for some practice."
         ],
-        nextNode: "ormron_street_Maya_3",	
+        nextNode: 2,	
     },
+    // 2
     {	id: "ormron_street_Maya_3",
         image: "temp-dial1.png",
-        characterId: "char-Maya",	
-        lines: ["Will do, headmaster!",]
+        characterId: "char_Maya",	
+        lines: ["Will do, headmaster!"],
+        dialClear: {"npc_Olija" : null},
+        dialStart: {"npc_Dario" : "temp-icon1.png"},
     },
 ]

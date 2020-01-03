@@ -1,70 +1,21 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { levelActive } from "./store/actions";
 import { levels } from "./data/Levels";
-import { findDialogue, findLevel } from "./helpers";
-import { AppContext } from "./AppContext";
-import { ILevel, IConnection, INpc, IDialogue } from "./data/Types";
+import { dialogues } from "./data/Dialogues"; 
+import { IConnection, INpc } from "./data/Types";
 import { Dialogue } from "./Dialogue";
+import { NPC } from "./Npc";
 import './App.css';
-let eventLog: Array<string> = [];
-
-type NPCStateProps = { 
-  state: string | undefined
-}
-
-const NPCState = (props: NPCStateProps) => {
-  const imgStyle = {
-    height: "100px",
-    width: "100px",
-    marginTop: "-100px",
-    border: "0",
-  }
-
-  if(props.state) {
-    return <img style={imgStyle} src={props.state+".png"} />
-  } else {
-    return null;
-  }
-}
-
-type NPCProps = {
-  n: INpc
-}
-const NPC = (props: NPCProps) => {
-  const npcStyle = {
-    backgroundImage: `url(${props.n.image})`,
-    left: props.n.position.x,
-    bottom: props.n.position.y,
-    height: "300px",
-    width: "230px",
-    position: 'absolute' as 'absolute',
-    textAlign: 'center' as 'center', 
-  }
-
-  const context = useContext(AppContext);
-
-  function triggerEvent(event: any, source: any){
-    const type = event.target.dataset.type;
-    if(type==="npc" && source.trigger.dialogueId){
-      console.log(`Triggered NPC ${source.name} with ${source.trigger.dialogueId}`);
-      const dialogue = findDialogue(source.trigger.dialogueId);
-      context.setDialogue(dialogue);
-    }
-  }
-
-  return (
-    <div style={npcStyle} data-type='npc' onClick={(e) => triggerEvent(e, props.n)}>
-      <NPCState state={props.n.state}/>
-    </div>
-  )
-}
 
 type EntryProps = {
   c: IConnection,
-  setLevel: (level: ILevel) => void
 }
 
 const Entry = (props: EntryProps) => {
-  const {c, setLevel} = props;
+  const dispatch = useDispatch();
+  const { c } = props;
   const boxStyle = {
     left: c.position.x,
     bottom: c.position.y,
@@ -74,44 +25,24 @@ const Entry = (props: EntryProps) => {
     backgroundImage: `url(${c.image})`,
   }
   return (
-    <div style={boxStyle} onClick={() =>setLevel(findLevel(c.to))}>
-      {c.to}
+    <div style={boxStyle} onClick={() => dispatch(levelActive(c.to))}>
     </div>
   )
 }
 
 const App: React.FC = () => {
-  const [level, setLevel] = useState(levels[0]);
-  const [dialogue, setDialogue] = useState(null as IDialogue | null);
-  const cleanDialogue = () => {
-    setDialogue(null);
-  }
+  console.log("GSO", useSelector((state: any) => state));
+  const dialogueInd = useSelector((state: any) => state.activeDialogue);
+  const levelInd = useSelector((state: any) => state.activeLevel);
+  const levelState = useSelector((state: any) => state.levels);
 
-  const findEvent = (event: string) => {
-    return eventLog.some(e => e===event);
-  }
-
-  const addEvent = (event: string) => {
-    eventLog.push(event);
-  }
-
-  const appContextValue = {
-    setDialogue,
-    cleanDialogue,
-    findEvent,
-    addEvent
-  }
-  
   return (
-    <AppContext.Provider value={appContextValue}>
     <div className="App">
-      <img src={level.backgrounds
-      [0].image} />
-      {level.connections.map(c => <Entry c={c} setLevel={setLevel} key={c.id}/>)}
-      {level.npcs.map(n => <NPC n={n} key={n.id}/>)}
-      {dialogue ? <Dialogue dialogue={dialogue}/> : null}
+      <img src={levels[levelInd].backgrounds[0].image} />
+      {levels[levelInd].connections.map((c: IConnection) => <Entry c={c} key={c.id}/>)}
+      {levels[levelInd].npcs.map((n: INpc) => <NPC n={n} key={n.id} state={levelState[levelInd]}/>)}
+      {dialogueInd!=null ? <Dialogue dialogue={dialogues[dialogueInd]}/> : null}
     </div>
-    </AppContext.Provider>
   );
 }
 

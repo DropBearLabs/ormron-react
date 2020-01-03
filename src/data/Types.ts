@@ -1,3 +1,9 @@
+export type IGso = {
+  activeLevel: number,
+  activeDialogue: IDialogue | null,
+  levels: any
+}
+
 export type ILevel = {
 	id: string
 	connections: IConnection[],
@@ -7,7 +13,7 @@ export type ILevel = {
 
 export type IConnection = {
   id: string,
-  to: string,
+  to: number,
   position: IPoint,
   image: string
 }
@@ -27,11 +33,10 @@ export type INpc = {
   image: string,
   position: IPoint,
   trigger: ITrigger | false,
-  state?: string,
 }
 
 export type ITrigger = {
-  dialogueId: string | null,
+  dialogueId: number | null,
   triggerType: string
 }
 
@@ -44,6 +49,7 @@ export type IDialogue = {
   characterId: string,
   image: string,
   lines: string[],
-  nextNode?: string | IDialContinuation,
-  postCondition?: string
+  nextNode?: number | IDialContinuation,
+  dialStart?: any,
+  dialClear?: any
 }
