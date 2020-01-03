@@ -1,12 +1,11 @@
-import React, { useContext, useState } from 'react';
-import { AppContext } from "./AppContext";
+import React, { useState } from 'react';
+import { dialogueActive, npcInactive, npcActive } from "./store/actions";
 import { IDialogue } from "./data/Types";
-import { findDialogue } from './helpers';
-import { dialogues } from './data/Dialogues';
+import { useDispatch } from 'react-redux';
 
 type DialogueProps = {
     dialogue: IDialogue,
-  }
+}
 
 
 const DialogueLine = (props: any) => {
@@ -32,7 +31,9 @@ const DialogueCharacter = (props: DialogueProps) => {
     )
 }
 
+
 const DialogueOutput = (props: DialogueProps) => {
+    const dispatch = useDispatch();
     const dialoguePaperStyle = {
         height: "200px",
         width: "1024px",
@@ -42,16 +43,17 @@ const DialogueOutput = (props: DialogueProps) => {
         position: 'absolute' as 'absolute',
     }
     const [lineN, setLineN] = useState(0);
-    const context = useContext(AppContext);
     const nextLine = () => {
         const isLastLine = lineN===props.dialogue.lines.length-1;
         if(isLastLine){
             console.log("Is Last line");
-            if(typeof props.dialogue.nextNode=="string"){
-                context.setDialogue(findDialogue(props.dialogue.nextNode));
+            if(typeof props.dialogue.nextNode=="number"){
+                dispatch(dialogueActive(props.dialogue.nextNode));
                 setLineN(0);
             } else {
-                context.cleanDialogue();
+                dispatch(dialogueActive(null));
+                if(props.dialogue.dialClear) dispatch(npcInactive(props.dialogue.dialClear));
+                if(props.dialogue.dialStart) dispatch(npcActive(props.dialogue.dialStart));
             }
         }
         
@@ -66,8 +68,6 @@ const DialogueOutput = (props: DialogueProps) => {
         </div>
     )
 }
-
-
 
 
 export const Dialogue = (props: DialogueProps) => {
