@@ -32,4 +32,18 @@ export const dialogues: IDialogue[] = [
         dialClear: {"npc_Olija" : null},
         dialStart: {"npc_Dario" : "temp-icon1.png"},
     },
+    //3
+    {   id: "ormron_street_Maya_6",
+        image: "temp-dial1.png",
+        characterId: "char_Maya",
+        lines: ["Hi, headmaster Dario. I am here to train!"],
+        nextNode: 4
+    },
+    // 4
+    {   id: "ormron_street_Dario_7",
+        image: "temp-dial3.png",
+        characterId: "npc_Dario",
+        lines: ["Go in. You need to survive at least 3 rounds to get a pass.", 
+        "Arena entrance is just behind me. Good luck!"],
+    }
 ]

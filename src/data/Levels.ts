@@ -15,7 +15,8 @@ export const levels: ILevel[] = [
       npcs: [
         {id: "npc_Olija", name: "Olija", position: {x:30, y:GROUNDLEVEL-50}, image: "temp-npc1.png", 
           trigger: {dialogueId: 0, triggerType: "DIALOGUE"}},
-        {id: "npc_Dario", name: "Dario", position: {x:700, y:GROUNDLEVEL-50}, image: "temp-npc2.png", trigger: false}
+        {id: "npc_Dario", name: "Dario", position: {x:700, y:GROUNDLEVEL-50}, image: "temp-npc2.png", 
+          trigger: {dialogueId: 3, triggerType: "DIALOGUE"}}
       ]
     },
     {
