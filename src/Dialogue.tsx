@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { dialogueActive, npcInactive, npcActive } from "./store/actions";
+import { dialogueActive, npcInactive, npcActive, showInfoline, startQuest } from "./store/actions";
 import { IDialogue } from "./data/Types";
 import { useDispatch } from 'react-redux';
 
@@ -46,14 +46,18 @@ const DialogueOutput = (props: DialogueProps) => {
     const nextLine = () => {
         const isLastLine = lineN===props.dialogue.lines.length-1;
         if(isLastLine){
-            console.log("Is Last line");
-            if(typeof props.dialogue.nextNode=="number"){
+            if(typeof props.dialogue.nextNode=="number"){ 
                 dispatch(dialogueActive(props.dialogue.nextNode));
                 setLineN(0);
             } else {
                 dispatch(dialogueActive(null));
                 if(props.dialogue.dialClear) dispatch(npcInactive(props.dialogue.dialClear));
                 if(props.dialogue.dialStart) dispatch(npcActive(props.dialogue.dialStart));
+                if(props.dialogue.infoline){
+                    dispatch(showInfoline(props.dialogue.infoline));
+                    setTimeout(function(){ dispatch(showInfoline(null)) }, 2000);
+                }
+                if(props.dialogue.questStart) dispatch(startQuest(props.dialogue.questStart));
             }
         }
         

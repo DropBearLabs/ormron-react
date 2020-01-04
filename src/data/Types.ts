@@ -1,7 +1,11 @@
 export type IGso = {
   activeLevel: number,
-  activeDialogue: IDialogue | null,
-  levels: any
+  infoline: string | null,
+  activeDialogue: number | null,
+  questsTaken: number[],
+  activeQuest: number | null,
+  quests: any
+  levels: any,
 }
 
 export type ILevel = {
@@ -51,5 +55,19 @@ export type IDialogue = {
   lines: string[],
   nextNode?: number | IDialContinuation,
   dialStart?: any,
-  dialClear?: any
+  dialClear?: any,
+  infoline? : string
+  questStart?: any
+}
+
+export type IQuest = {
+  id: string,
+  name: string,
+  main: boolean,
+  steps: IQuestStep[]
+}
+
+export type IQuestStep = {
+  name: string,
+  event: string
 }

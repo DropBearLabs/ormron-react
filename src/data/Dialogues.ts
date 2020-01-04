@@ -29,8 +29,11 @@ export const dialogues: IDialogue[] = [
         image: "temp-dial1.png",
         characterId: "char_Maya",	
         lines: ["Will do, headmaster!"],
+        infoline: "NEW QUEST: Fight in Arena",
+
         dialClear: {"npc_Olija" : null},
         dialStart: {"npc_Dario" : "temp-icon1.png"},
+        questStart: {0 : "0_ARENA_ACCESS"},
     },
     //3
     {   id: "ormron_street_Maya_6",
@@ -45,5 +48,7 @@ export const dialogues: IDialogue[] = [
         characterId: "npc_Dario",
         lines: ["Go in. You need to survive at least 3 rounds to get a pass.", 
         "Arena entrance is just behind me. Good luck!"],
+        dialClear: {"npc_Dario" : null},
+        infoline: "QUEST UPDATED: Fight in Arena",
     }
 ]

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { dialogueActive } from "./store/actions";
+import { dialogueActive, showInfoline } from "./store/actions";
 import { INpc } from "./data/Types";
 
 type NPCStateProps = {
@@ -41,7 +41,7 @@ export const NPC = (props: NPCProps) => {
   
     const dispatch = useDispatch();
     function triggerEvent(event: any, source: any){
-    
+      dispatch(showInfoline(null));
       const type = event.target.dataset.type;
       if(type==="npc" && source.trigger.dialogueId>=0){
         console.log(`Triggered NPC ${source.name} with ${source.trigger.dialogueId}`);
