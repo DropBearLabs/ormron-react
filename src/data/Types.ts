@@ -1,11 +1,28 @@
 export interface IGso {
+  chapter: number;
   activeLevel: number;
   infoline: string | null;
   activeDialogue: number | null;
+  activeMap: number | null;
   questsTaken: number[];
   activeQuest: number | null;
   quests: any;
   levels: any;
+  maps: any;
+}
+
+export interface IMap {
+  id: number;
+  name: string;
+  levels: IMapLevel[];
+}
+
+export interface IMapLevel {
+  id: number;
+  name: string;
+  image: string;
+  open: boolean;
+  position: IPoint;
 }
 
 export interface ILevel {

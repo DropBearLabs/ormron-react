@@ -1,14 +1,16 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { displayQuest, levelActive } from "./store/actions";
+import { displayQuest, levelActive, displayMap } from "./store/actions";
 import { dialogues } from "./data/Dialogues";
 import { quests } from "./data/Quests";
 import { levels } from "./data/Levels";
+import { maps } from "./data/Maps";
 import { INpc, IConnection } from "./data/Types";
 import { NPC } from "./Npc";
 import { Quest } from "./Quest";
 import { Dialogue } from "./Dialogue";
+import { Map } from "./Map";
 
 import "./App.css";
 
@@ -70,18 +72,17 @@ const Menu = (props: IMenuProps) => {
     left: "130px"
   };
 
-  const toggleQuest = () => {
-    if (props.quest.length > 0) {
-      dispatch(displayQuest(props.quest[0]));
-    }
-  };
   return (
     <div style={menuStyle}>
-      <img style={iconMapStyle} src="temp-icon3.png" />
+      <img
+        style={iconMapStyle}
+        src="temp-icon3.png"
+        onClick={() => dispatch(displayMap(0))}
+      />
       <img
         style={iconQuestStyle}
         src="temp-icon4.png"
-        onClick={() => toggleQuest()}
+        onClick={() => dispatch(displayQuest(props.quest[0]))}
       />
       <img style={iconInventoryStyle} src="temp-icon5.png" />
     </div>
@@ -118,6 +119,9 @@ const App: React.FC = () => {
   const questActive = useSelector((state: any) => state.activeQuest);
   const questsTaken = useSelector((state: any) => state.questsTaken);
   const questsState = useSelector((state: any) => state.quests);
+  const mapsState = useSelector((state: any) => state.maps);
+  const mapId = useSelector((state: any) => state.activeMap);
+  const chapter = useSelector((state: any) => state.chapter);
 
   return (
     <div className="App">
@@ -139,6 +143,9 @@ const App: React.FC = () => {
           state={questsState}
           quests={questsTaken.map((q: number) => quests[q])}
         />
+      ) : null}
+      {mapId != null ? (
+        <Map chapter={chapter} map={maps[mapId]} state={mapsState} />
       ) : null}
     </div>
   );

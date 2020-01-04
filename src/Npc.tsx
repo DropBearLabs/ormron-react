@@ -40,15 +40,15 @@ export const NPC = (props: INPCProps) => {
   };
 
   const dispatch = useDispatch();
+  const npcState = props.state[props.n.id];
+
   function triggerEvent(event: any, source: any) {
     dispatch(showInfoline(null));
     const type = event.target.dataset.type;
-    if (type === "npc" && source.trigger.dialogueId >= 0) {
+    if (type === "npc" && source.trigger.dialogueId >= 0 && npcState != null) {
       dispatch(dialogueActive(source.trigger.dialogueId));
     }
   }
-
-  const npcState = props.state[props.n.id];
 
   return (
     <div

@@ -4,6 +4,7 @@ import {
   NPC_ACTIVE,
   NPC_INACTIVE,
   SHOW_INFOLINE,
+  SHOW_MAP,
   SHOW_QUEST,
   START_QUEST
 } from "../data/Constants";
@@ -54,3 +55,8 @@ export const startQuest = (condition: any) => {
     type: START_QUEST
   };
 };
+
+export const displayMap = (id: number | null) => ({
+  payload: id,
+  type: SHOW_MAP
+});

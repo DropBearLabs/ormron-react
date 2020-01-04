@@ -5,6 +5,8 @@ const GROUNDLEVEL = 200;
 export const levels: ILevel[] = [
   {
     // 0
+    id: 0,
+    name: "ormron_street",
     backgrounds: [{ image: "temp1.jpg" }],
     connections: [
       {
@@ -20,8 +22,6 @@ export const levels: ILevel[] = [
         to: 2
       }
     ],
-    id: 0,
-    name: "ormron_street",
     npcs: [
       {
         id: "npc_Olija",
@@ -41,6 +41,8 @@ export const levels: ILevel[] = [
   },
   {
     // 1
+    id: 1,
+    name: "ormron_arena",
     backgrounds: [{ image: "temp2.jpg" }],
     connections: [
       {
@@ -50,12 +52,12 @@ export const levels: ILevel[] = [
         to: 0
       }
     ],
-    id: 1,
-    name: "ormron_arena",
     npcs: []
   },
   {
     // 2
+    id: 2,
+    name: "ormron_garden",
     backgrounds: [{ image: "temp3.jpg" }],
     connections: [
       {
@@ -77,11 +79,11 @@ export const levels: ILevel[] = [
         to: 4
       }
     ],
-    id: 2,
-    name: "ormron_garden",
     npcs: []
   },
   {
+    id: 3,
+    name: "ormron_gazebo",
     // 3
     backgrounds: [{ image: "temp4.jpg" }],
     connections: [
@@ -92,12 +94,12 @@ export const levels: ILevel[] = [
         to: 2
       }
     ],
-    id: 3,
-    name: "ormron_gazebo",
     npcs: []
   },
   {
     // 4
+    id: 4,
+    name: "ormron_school",
     backgrounds: [{ image: "temp5.jpg" }],
     connections: [
       {
@@ -107,8 +109,6 @@ export const levels: ILevel[] = [
         to: 2
       }
     ],
-    id: 0,
-    name: "ormron_school",
     npcs: []
   }
 ];

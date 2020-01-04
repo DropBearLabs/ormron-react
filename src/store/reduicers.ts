@@ -5,7 +5,8 @@ import {
   NPC_INACTIVE,
   SHOW_INFOLINE,
   SHOW_QUEST,
-  START_QUEST
+  START_QUEST,
+  SHOW_MAP
 } from "../data/Constants";
 import { gso } from "../data/Gso";
 import { IGso } from "../data/Types";
@@ -55,6 +56,10 @@ export default function GsoReduicer(
     case SHOW_QUEST:
       return Object.assign({}, state, {
         activeQuest: action.payload
+      });
+    case SHOW_MAP:
+      return Object.assign({}, state, {
+        activeMap: action.payload
       });
     default:
       return initialState;
