@@ -33,7 +33,7 @@ export const dialogues: IDialogue[] = [
 
         dialClear: {"npc_Olija" : null},
         dialStart: {"npc_Dario" : "temp-icon1.png"},
-        questStart: {0 : "0_ARENA_ACCESS"},
+        questStart: {0 : "0_ARENA_START"},
     },
     //3
     {   id: "ormron_street_Maya_6",
@@ -50,5 +50,6 @@ export const dialogues: IDialogue[] = [
         "Arena entrance is just behind me. Good luck!"],
         dialClear: {"npc_Dario" : null},
         infoline: "QUEST UPDATED: Fight in Arena",
+        questStart: {0 : "0_ARENA_ACCESS"},
     }
 ]

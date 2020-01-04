@@ -72,7 +72,6 @@ const Menu = (props: menuProps) => {
       dispatch(displayQuest(props.quest[0]))
     }
   }
-  console.log(props.quest);
   return(
     <div style={menuStyle}>
       <img style={iconMapStyle} src="temp-icon3.png" />

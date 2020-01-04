@@ -16,6 +16,7 @@ const SingleLine = (props: SingleLineProps) => {
     color: "grey",
     fontSize: "1em"
   }
+  console.log(props.name, props.completed);
   return (
     <li style={props.completed ? completedStyle : currentStyle }>{props.name}</li>
   )
@@ -33,16 +34,17 @@ const SingleQuest = (props: SingleQuestProps) =>{
     textAlign: "left" as "left",
   }
   const allSteps: IQuestStep[] = props.quest.steps;
-  const completedSteps = props.state[props.quest.id];
+
   const isCompleted = (step: string) => {
-    return completedSteps.indexOf(step)!=-1;
+    return props.state.indexOf(step)!=-1;
   }
   const availableSteps = allSteps.filter(q => isCompleted(q.event));
 
   // + next step to show
-  if(completedSteps.length<allSteps.length){
-    availableSteps.push(allSteps[completedSteps.length]);
+  if(props.state.length<allSteps.length){
+    availableSteps.push(allSteps[props.state.length]);
   }
+
   return(
     <div style={singleQuestStyle}>
       <h2>{props.quest.name}</h2>

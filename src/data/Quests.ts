@@ -7,6 +7,7 @@ export const quests: IQuest[] = [
         name: "Fight in Arena",
         main: true,
         steps: [
+            {name: "Talk to grandmaster Olija about your exams", event: "0_ARENA_START"},
             {name: "Talk to master Dario to participate in Arena fight", event: "0_ARENA_ACCESS"},
             {name: "Enter Arena", event: "0_ARENA_ENTER"},
             {name: "Win 3 fights in Arena", event: "0_ARENA_3FIGHTS"},
