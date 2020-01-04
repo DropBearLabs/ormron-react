@@ -1,7 +1,6 @@
-import { DIALOGUE_ACTIVE, LEVEL_ACTIVE, NPC_INACTIVE, NPC_ACTIVE, SHOW_INFOLINE, START_QUEST} from "../data/Constants";
+import { DIALOGUE_ACTIVE, LEVEL_ACTIVE, NPC_INACTIVE, NPC_ACTIVE, SHOW_INFOLINE, START_QUEST, SHOW_QUEST} from "../data/Constants";
 import { IGso } from "../data/Types";
 import { gso } from "../data/Gso";
-import { identifier } from "@babel/types";
 
 const initialState: IGso = gso;
 
@@ -14,7 +13,6 @@ export default function GsoReduicer(state: IGso | void = initialState, action:an
                 activeLevel: action.payload
                 })
         case DIALOGUE_ACTIVE:
-            console.log(action);
             return Object.assign({}, state, {
                 activeDialogue: action.payload!=null ? action.payload : null
               })
@@ -34,7 +32,13 @@ export default function GsoReduicer(state: IGso | void = initialState, action:an
                     questsToUpdate[action.payload.quest] = [];
                 }
                 questsToUpdate[action.payload.quest].push(action.payload.state);
-                return Object.assign({}, state, {quests: questsToUpdate})
+                const quesstsExisting = [...state.questsTaken]
+                quesstsExisting.push(action.payload.quest);
+                return Object.assign({}, state, {quests: questsToUpdate, questsTaken: quesstsExisting})
+        case SHOW_QUEST:
+                return Object.assign({}, state, {
+                    activeQuest: action.payload
+                  })
         default:
             return initialState;
     }

@@ -3,7 +3,7 @@ import { IQuest } from "./Types";
 export const quests: IQuest[] = [
     //0
     {
-        id:"tutorial_arena",
+        id: 0,
         name: "Fight in Arena",
         main: true,
         steps: [

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { levelActive } from "./store/actions";
+import { levelActive, displayQuest } from "./store/actions";
 import { levels } from "./data/Levels";
 import { dialogues } from "./data/Dialogues"; 
 import { quests } from "./data/Quests"; 
@@ -30,7 +30,12 @@ const InfoLine = (props: infolineProps) => {
   )
 }
 
-const Menu = () => {
+type menuProps = {
+  quest: any
+}
+
+const Menu = (props: menuProps) => {
+  const dispatch = useDispatch();
   const menuStyle = {
     top:"0",
     right: "15px",
@@ -39,8 +44,41 @@ const Menu = () => {
     position: 'absolute' as 'absolute',
     backgroundImage: `url(temp-backg3.png)`,
   }
+
+  const iconMapStyle = {
+    width: "70px",
+    height: "70px",
+    position: 'relative' as 'relative',
+    top:"100px",
+  }
+
+  const iconQuestStyle = {
+    width: "70px",
+    height: "70px",
+    position: 'relative' as 'relative',
+    top:"130px",
+  }
+
+  const iconInventoryStyle = {
+    width: "70px",
+    height: "70px",
+    position: 'relative' as 'relative',
+    top:"30px",
+    left: "130px"
+  }
+
+  const toggleQuest = () => {
+    if(props.quest.length > 0) {
+      dispatch(displayQuest(props.quest[0]))
+    }
+  }
+  console.log(props.quest);
   return(
-    <div style={menuStyle}></div>
+    <div style={menuStyle}>
+      <img style={iconMapStyle} src="temp-icon3.png" />
+      <img style={iconQuestStyle} src="temp-icon4.png" onClick={() => toggleQuest()}/>
+      <img style={iconInventoryStyle} src="temp-icon5.png" />
+    </div>
   )
 }
 
@@ -74,6 +112,7 @@ const App: React.FC = () => {
   const infoline = useSelector((state: any) => state.infoline);
   const questActive = useSelector((state:any) => state.activeQuest);
   const questsTaken = useSelector((state:any) => state.questsTaken);
+  const questsState = useSelector((state:any) => state.quests);
 
   return (
     <div className="App">
@@ -82,8 +121,8 @@ const App: React.FC = () => {
       {levels[levelInd].npcs.map((n: INpc) => <NPC n={n} key={n.id} state={levelState[levelInd]}/>)}
       {dialogueInd!=null ? <Dialogue dialogue={dialogues[dialogueInd]}/> : null}
       {infoline!=null ? <InfoLine line={infoline}/> : null}
-      <Menu />
-      {questActive!=null ? <Quest active={questActive} quests={questsTaken.map((q: number) => quests[q])} /> : null}
+      <Menu quest={questsTaken}/>
+      {questActive!=null ? <Quest active={questActive} state={questsState} quests={questsTaken.map((q: number) => quests[q])} /> : null}
     </div>
   );
 }

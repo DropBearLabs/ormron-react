@@ -1,4 +1,4 @@
-import { DIALOGUE_ACTIVE, LEVEL_ACTIVE, NPC_INACTIVE, NPC_ACTIVE, SHOW_INFOLINE, START_QUEST } from "../data/Constants";
+import { DIALOGUE_ACTIVE, LEVEL_ACTIVE, NPC_INACTIVE, NPC_ACTIVE, SHOW_INFOLINE, START_QUEST, SHOW_QUEST } from "../data/Constants";
 
 export const dialogueActive = (index: number | null) => ({
     type: DIALOGUE_ACTIVE,
@@ -31,6 +31,10 @@ export const showInfoline = (text: string | null) => ({
     payload: text
 });
 
+export const displayQuest = (id: number | null) => ({
+    type: SHOW_QUEST,
+    payload: id
+});
 
 export const startQuest = (condition: any) => {
     const quest = Object.keys(condition)[0];

@@ -61,7 +61,7 @@ export type IDialogue = {
 }
 
 export type IQuest = {
-  id: string,
+  id: number,
   name: string,
   main: boolean,
   steps: IQuestStep[]
