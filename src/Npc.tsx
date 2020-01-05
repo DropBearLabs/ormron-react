@@ -40,9 +40,7 @@ export const NPC = (props: INPCProps) => {
   };
 
   const dispatch = useDispatch();
-  console.log(props.state);
-  console.log(props.n.id);
-  const npcState = props.state[props.n.id] ? props.state[props.n.id] : null;
+  const npcState = props.state[props.n.id];
 
   function triggerEvent(event: any, source: any) {
     dispatch(showInfoline(null));
