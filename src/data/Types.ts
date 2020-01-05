@@ -72,10 +72,11 @@ export interface IDialogue {
   image: string;
   lines: string[];
   nextNode?: number | IDialContinuation;
+  infoline?: string;
   dialStart?: any;
   dialClear?: any;
-  infoline?: string;
   questStart?: any;
+  mapUpdate?: any;
 }
 
 export interface IQuest {

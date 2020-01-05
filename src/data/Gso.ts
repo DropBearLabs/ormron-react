@@ -13,6 +13,6 @@ export const gso: IGso = {
     }
   ],
   quests: [],
-  maps: [0, 1, 2, 3, 4],
+  maps: [0],
   questsTaken: []
 };

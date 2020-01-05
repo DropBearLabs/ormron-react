@@ -91,6 +91,7 @@ const Menu = (props: IMenuProps) => {
 
 interface IEntryProps {
   c: IConnection;
+  state: number[];
 }
 
 const Entry = (props: IEntryProps) => {
@@ -104,8 +105,15 @@ const Entry = (props: IEntryProps) => {
     position: "absolute" as "absolute",
     backgroundImage: `url(${c.image})`
   };
+  const isOpen = (id: number) => {
+    return props.state.indexOf(id) !== -1;
+  };
+
   return (
-    <div style={boxStyle} onClick={() => dispatch(levelActive(c.to))}>
+    <div
+      style={boxStyle}
+      onClick={() => (isOpen(c.to) ? dispatch(levelActive(c.to)) : null)}
+    >
       {c.id}
     </div>
   );
@@ -127,7 +135,7 @@ const App: React.FC = () => {
     <div className="App">
       <img src={levels[levelInd].backgrounds[0].image} />
       {levels[levelInd].connections.map((c: IConnection) => (
-        <Entry c={c} key={c.id} />
+        <Entry c={c} key={c.id} state={mapsState} />
       ))}
       {levels[levelInd].npcs.map((n: INpc) => (
         <NPC n={n} key={n.id} state={levelState[levelInd]} />

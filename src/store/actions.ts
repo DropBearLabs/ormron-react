@@ -6,7 +6,8 @@ import {
   SHOW_INFOLINE,
   SHOW_MAP,
   SHOW_QUEST,
-  START_QUEST
+  START_QUEST,
+  UPDATE_MAP
 } from "../data/Constants";
 
 export const dialogueActive = (index: number | null) => ({
@@ -60,3 +61,12 @@ export const displayMap = (id: number | null) => ({
   payload: id,
   type: SHOW_MAP
 });
+
+export const updateMap = (condition: any) => {
+  const map = Object.keys(condition)[0];
+  const state = Object.values(condition)[0];
+  return {
+    payload: { map, state },
+    type: UPDATE_MAP
+  };
+};

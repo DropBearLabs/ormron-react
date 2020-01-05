@@ -7,3 +7,4 @@ export const SHOW_INFOLINE = "SHOW_INFOLINE";
 export const SHOW_MAP = "SHOW_MAP";
 export const START_QUEST = "START_QUEST";
 export const SHOW_QUEST = "SHOW_QUEST";
+export const UPDATE_MAP = "UPDATE_MAP";

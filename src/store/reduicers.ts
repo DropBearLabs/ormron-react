@@ -6,7 +6,8 @@ import {
   SHOW_INFOLINE,
   SHOW_QUEST,
   START_QUEST,
-  SHOW_MAP
+  SHOW_MAP,
+  UPDATE_MAP
 } from "../data/Constants";
 import { gso } from "../data/Gso";
 import { IGso } from "../data/Types";
@@ -61,6 +62,12 @@ export default function GsoReduicer(
       return Object.assign({}, state, {
         activeMap: action.payload
       });
+    case UPDATE_MAP:
+      const mapsToUpdate = [...state.maps];
+      if (action.payload.state === "OPEN") {
+        mapsToUpdate.push(parseInt(action.payload.map, 0));
+      }
+      return Object.assign({}, state, { maps: mapsToUpdate });
     default:
       return initialState;
   }
