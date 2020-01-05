@@ -10,6 +10,9 @@ export const gso: IGso = {
   levels: [
     {
       npc_Olija: "temp-icon1.png"
+    },
+    {
+      npc_Dario1: "temp-icon1.png"
     }
   ],
   quests: [],

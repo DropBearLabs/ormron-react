@@ -8,18 +8,18 @@ export const quests: IQuest[] = [
     name: "Fight in Arena",
     steps: [
       {
-        event: "0_ARENA_START",
-        name: "Talk to grandmaster Olija about your exams"
+        name: "Talk to grandmaster Olija about your exams",
+        event: "0_ARENA_START"
       },
       {
-        event: "0_ARENA_ACCESS",
-        name: "Talk to master Dario to participate in Arena fight"
+        name: "Talk to master Dario to participate in Arena fight",
+        event: "0_ARENA_ACCESS"
       },
-      { event: "0_ARENA_ENTER", name: "Enter Arena" },
-      { event: "0_ARENA_3FIGHTS", name: "Win 3 fights in Arena" },
+      { name: "Enter Arena", event: "0_ARENA_ENTER" },
+      { name: "Win 3 fights in Arena", event: "0_ARENA_3FIGHTS" },
       {
-        event: "0_ARENA_CLOSED",
-        name: "Tell Dario that you've finished your Arena Training"
+        name: "Tell Olija that you've finished your Arena Training",
+        event: "0_ARENA_CLOSED"
       }
     ]
   }

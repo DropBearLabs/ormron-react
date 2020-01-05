@@ -1,7 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { displayQuest, levelActive, displayMap } from "./store/actions";
+import {
+  displayQuest,
+  levelActive,
+  displayMap,
+  updateQuest,
+  updateLevel
+} from "./store/actions";
 import { dialogues } from "./data/Dialogues";
 import { quests } from "./data/Quests";
 import { levels } from "./data/Levels";
@@ -13,6 +19,7 @@ import { Dialogue } from "./Dialogue";
 import { Map } from "./Map";
 
 import "./App.css";
+import { pipelineTopicExpression } from "@babel/types";
 
 interface IInfolineProps {
   line: string | null;
@@ -92,6 +99,7 @@ const Menu = (props: IMenuProps) => {
 interface IEntryProps {
   c: IConnection;
   state: number[];
+  levelState: any;
 }
 
 const Entry = (props: IEntryProps) => {
@@ -109,11 +117,22 @@ const Entry = (props: IEntryProps) => {
     return props.state.indexOf(id) !== -1;
   };
 
+  const firstTimeVisit = () => {
+    return props.levelState[c.id] === undefined;
+  };
+
+  const triggerEntry = () => {
+    if (isOpen(c.to)) {
+      dispatch(levelActive(c.to));
+    }
+    if (isOpen(c.to) && props.c.questUpdate && firstTimeVisit()) {
+      dispatch(updateQuest(props.c.questUpdate));
+      dispatch(updateLevel(props.c.levelStart));
+    }
+  };
+
   return (
-    <div
-      style={boxStyle}
-      onClick={() => (isOpen(c.to) ? dispatch(levelActive(c.to)) : null)}
-    >
+    <div style={boxStyle} onClick={() => triggerEntry()}>
       {c.id}
     </div>
   );
@@ -135,7 +154,12 @@ const App: React.FC = () => {
     <div className="App">
       <img src={levels[levelInd].backgrounds[0].image} />
       {levels[levelInd].connections.map((c: IConnection) => (
-        <Entry c={c} key={c.id} state={mapsState} />
+        <Entry
+          c={c}
+          key={c.id}
+          state={mapsState}
+          levelState={levelState[levelInd]}
+        />
       ))}
       {levels[levelInd].npcs.map((n: INpc) => (
         <NPC n={n} key={n.id} state={levelState[levelInd]} />

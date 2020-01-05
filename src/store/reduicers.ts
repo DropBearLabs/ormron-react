@@ -7,7 +7,8 @@ import {
   SHOW_QUEST,
   START_QUEST,
   SHOW_MAP,
-  UPDATE_MAP
+  UPDATE_MAP,
+  UPDATE_LEVEL
 } from "../data/Constants";
 import { gso } from "../data/Gso";
 import { IGso } from "../data/Types";
@@ -32,12 +33,12 @@ export default function GsoReduicer(
       });
     case NPC_INACTIVE:
       const levelsToClear = [...state.levels];
-      levelsToClear[state.activeLevel][action.payload.character] =
+      levelsToClear[action.payload.level][action.payload.character] =
         action.payload.state;
       return Object.assign({}, state, { levels: levelsToClear });
     case NPC_ACTIVE:
       const levelsToUpdate = [...state.levels];
-      levelsToUpdate[state.activeLevel][action.payload.character] =
+      levelsToUpdate[action.payload.level][action.payload.character] =
         action.payload.state;
       return Object.assign({}, state, { levels: levelsToUpdate });
     case SHOW_INFOLINE:
@@ -68,6 +69,11 @@ export default function GsoReduicer(
         mapsToUpdate.push(parseInt(action.payload.map, 0));
       }
       return Object.assign({}, state, { maps: mapsToUpdate });
+    case UPDATE_LEVEL:
+      const levelsToUpdate1 = [...state.levels];
+      levelsToUpdate1[action.payload.level][action.payload.name] =
+        action.payload.state;
+      return Object.assign({}, state, { levels: levelsToUpdate1 });
     default:
       return initialState;
   }

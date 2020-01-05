@@ -13,12 +13,16 @@ export const levels: ILevel[] = [
         id: "to_ormron_arena",
         image: "temp-obj1.png",
         position: { x: SCREENWIDTH - 200, y: GROUNDLEVEL },
-        to: 1
+        origin: 0,
+        to: 1,
+        questUpdate: { 0: "0_ARENA_ENTER" },
+        levelStart: { 0: "to_ormron_arena" }
       },
       {
         id: "to_ormron_garden",
         image: "temp-obj2.png",
         position: { x: 400, y: GROUNDLEVEL },
+        origin: 0,
         to: 2
       }
     ],
@@ -28,14 +32,14 @@ export const levels: ILevel[] = [
         image: "temp-npc1.png",
         name: "Olija",
         position: { x: 30, y: GROUNDLEVEL - 50 },
-        trigger: { dialogueId: 0, triggerType: "DIALOGUE" }
+        trigger: { id: 0, triggerType: "DIALOGUE" }
       },
       {
         id: "npc_Dario",
         image: "temp-npc2.png",
         name: "Dario",
         position: { x: 700, y: GROUNDLEVEL - 50 },
-        trigger: { dialogueId: 3, triggerType: "DIALOGUE" }
+        trigger: { id: 3, triggerType: "DIALOGUE" }
       }
     ]
   },
@@ -49,10 +53,19 @@ export const levels: ILevel[] = [
         id: "to_ormron_street",
         image: "temp-obj3.png",
         position: { x: 10, y: GROUNDLEVEL },
+        origin: 1,
         to: 0
       }
     ],
-    npcs: []
+    npcs: [
+      {
+        id: "npc_Dario1",
+        image: "temp-npc2.png",
+        name: "Dario",
+        position: { x: 700, y: GROUNDLEVEL - 50 },
+        trigger: { id: 5, triggerType: "DIALOGUE" }
+      }
+    ]
   },
   {
     // 2
@@ -64,18 +77,21 @@ export const levels: ILevel[] = [
         id: "to_ormron_street",
         image: "temp-obj3.png",
         position: { x: 10, y: GROUNDLEVEL },
+        origin: 2,
         to: 0
       },
       {
         id: "to_ormron_gazebo",
         image: "temp-obj1.png",
         position: { x: 400, y: GROUNDLEVEL },
+        origin: 2,
         to: 3
       },
       {
         id: "to_ormron_school",
         image: "temp-obj2.png",
         position: { x: SCREENWIDTH - 200, y: GROUNDLEVEL },
+        origin: 2,
         to: 4
       }
     ],
@@ -91,6 +107,7 @@ export const levels: ILevel[] = [
         id: "to_ormron_garden",
         image: "temp-obj3.png",
         position: { x: 10, y: GROUNDLEVEL },
+        origin: 3,
         to: 2
       }
     ],
@@ -106,6 +123,7 @@ export const levels: ILevel[] = [
         id: "to_ormron_garden",
         image: "temp-obj3.png",
         position: { x: 10, y: GROUNDLEVEL },
+        origin: 4,
         to: 2
       }
     ],

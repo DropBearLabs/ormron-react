@@ -36,8 +36,12 @@ export interface ILevel {
 export interface IConnection {
   id: string;
   to: number;
+  origin: number;
   position: IPoint;
   image: string;
+  trigger?: ITrigger | false;
+  questUpdate?: any;
+  levelStart?: any;
 }
 
 export interface IPoint {
@@ -58,7 +62,7 @@ export interface INpc {
 }
 
 export interface ITrigger {
-  dialogueId: number | null;
+  id: number | null;
   triggerType: string;
 }
 
@@ -67,7 +71,8 @@ export interface IDialContinuation {
 }
 
 export interface IDialogue {
-  id: string;
+  id: number;
+  name: string;
   characterId: string;
   image: string;
   lines: string[];
@@ -75,7 +80,7 @@ export interface IDialogue {
   infoline?: string;
   dialStart?: any;
   dialClear?: any;
-  questStart?: any;
+  questUpdate?: any;
   mapUpdate?: any;
 }
 

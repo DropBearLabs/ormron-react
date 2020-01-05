@@ -2,7 +2,7 @@ import { levels } from "./data/Levels";
 import { dialogues } from "./data/Dialogues";
 import { IDialogue, ILevel, INpc } from "./data/Types";
 
-export function findDialogue(dialogueId: string) {
+export function findDialogue(dialogueId: number) {
   const dialogue: IDialogue | undefined = dialogues.find(
     (d: IDialogue) => d.id === dialogueId
   );

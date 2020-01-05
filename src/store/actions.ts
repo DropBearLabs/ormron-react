@@ -7,7 +7,8 @@ import {
   SHOW_MAP,
   SHOW_QUEST,
   START_QUEST,
-  UPDATE_MAP
+  UPDATE_MAP,
+  UPDATE_LEVEL
 } from "../data/Constants";
 
 export const dialogueActive = (index: number | null) => ({
@@ -20,20 +21,32 @@ export const levelActive = (index: number) => ({
   type: LEVEL_ACTIVE
 });
 
-export const npcInactive = (condition: any) => {
-  const character = Object.keys(condition)[0];
-  const state = Object.values(condition)[0];
+export const updateLevel = (condition: any) => {
+  const level = Object.keys(condition)[0];
+  const name = Object.values(condition)[0];
+  const state = "triggered";
   return {
-    payload: { character, state },
+    payload: { level, name, state },
+    type: UPDATE_LEVEL
+  };
+};
+
+export const npcInactive = (condition: any) => {
+  const level = Object.keys(condition)[0];
+  const character = Object.values(condition)[0];
+  const state = null;
+  return {
+    payload: { level, character, state },
     type: NPC_INACTIVE
   };
 };
 
 export const npcActive = (condition: any) => {
-  const character = Object.keys(condition)[0];
-  const state = Object.values(condition)[0];
+  const level = Object.keys(condition)[0];
+  const character = Object.values(condition)[0];
+  const state = "temp-icon1.png";
   return {
-    payload: { character, state },
+    payload: { level, character, state },
     type: NPC_ACTIVE
   };
 };
@@ -48,7 +61,7 @@ export const displayQuest = (id: number | null) => ({
   type: SHOW_QUEST
 });
 
-export const startQuest = (condition: any) => {
+export const updateQuest = (condition: any) => {
   const quest = Object.keys(condition)[0];
   const state = Object.values(condition)[0];
   return {

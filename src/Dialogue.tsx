@@ -4,7 +4,7 @@ import {
   npcInactive,
   npcActive,
   showInfoline,
-  startQuest,
+  updateQuest,
   updateMap
 } from "./store/actions";
 import { IDialogue } from "./data/Types";
@@ -73,8 +73,8 @@ const DialogueOutput = (props: IDialogueProps) => {
             dispatch(showInfoline(null));
           }, 2000);
         }
-        if (props.dialogue.questStart) {
-          dispatch(startQuest(props.dialogue.questStart));
+        if (props.dialogue.questUpdate) {
+          dispatch(updateQuest(props.dialogue.questUpdate));
         }
         if (props.dialogue.mapUpdate) {
           dispatch(updateMap(props.dialogue.mapUpdate));
