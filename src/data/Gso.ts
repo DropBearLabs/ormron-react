@@ -14,6 +14,10 @@ export const gso: IGso = {
     },
     {
       npc_Dario1: 2
+    },
+    {
+      npc_Nell: false,
+      npc_Tara: false
     }
   ],
   quests: [],

@@ -44,6 +44,7 @@ export interface IConnection {
   trigger?: number | false;
   questUpdate?: any;
   levelStart?: any;
+  dialogueActive?: any;
 }
 
 export interface IPoint {

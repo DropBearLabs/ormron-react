@@ -99,8 +99,44 @@ export const dialogues: IDialogue[] = [
       "Go there and report back to me when the issue is resolved."
     ],
     dialUpdate: [[0, "npc_Olija", false]],
-    mapUpdate: [{ 2: "OPEN" }, { 3: "OPEN" }, { 4: "OPEN" }, { 5: "OPEN" }],
+    mapUpdate: [
+      { 2: "OPEN" },
+      { 3: "OPEN" },
+      { 4: "OPEN" },
+      { 5: "OPEN" },
+      { 6: "OPEN" }
+    ],
     infoline: "QUEST STARTED: Water problems",
     questUpdate: { 1: "1_CAMP_START" }
+  },
+  {
+    id: 8,
+    name: "ormron_street_Nell_11",
+    characterId: "npc_Nell",
+    image: "temp-dial4.png",
+    lines: ["Hi, Lady Maya!"],
+    nextNode: 9
+  },
+  {
+    id: 9,
+    name: "ormron_street_Maya_12",
+    characterId: "char_Maya",
+    image: "temp-dial1.png",
+    lines: [
+      "Nell? What are you doing here? Shouldn't you be busy with your finals?"
+    ],
+    nextNode: 10
+  },
+  {
+    id: 10,
+    name: "ormron_street_Nell_13",
+    characterId: "npc_Nell",
+    image: "temp-dial4.png",
+    lines: [
+      "I kinda am. Headmaster Olija told me I need to learn how to be a part of a team...",
+      "I gues it means I need to partner up with someone.",
+      "Hey, Lady Maya, do you want to be my partner?",
+      "For the finals I mean..."
+    ]
   }
 ];

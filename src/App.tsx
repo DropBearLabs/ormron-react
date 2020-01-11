@@ -6,7 +6,8 @@ import {
   levelActive,
   displayMap,
   updateQuest,
-  updateLevel
+  updateLevel,
+  dialogueActive
 } from "./store/actions";
 import { dialogues } from "./data/Dialogues";
 import { quests } from "./data/Quests";
@@ -128,6 +129,9 @@ const Entry = (props: IEntryProps) => {
     if (isOpen(c.to) && props.c.questUpdate && firstTimeVisit()) {
       dispatch(updateQuest(props.c.questUpdate));
       dispatch(updateLevel(props.c.levelStart));
+    }
+    if (isOpen(c.to) && props.c.dialogueActive && firstTimeVisit()) {
+      dispatch(dialogueActive(props.c.dialogueActive));
     }
   };
 

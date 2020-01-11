@@ -27,7 +27,8 @@ export const connections: IConnection[] = [
     image: "temp-obj2.png",
     position: { x: 400, y: GROUNDLEVEL },
     origin: 0,
-    to: 2
+    to: 2,
+    dialogueActive: 8
   },
   {
     id: 3,
