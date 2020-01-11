@@ -1,7 +1,7 @@
 import React from "react";
 import { IQuest, IQuestStep } from "./data/Types";
 import { useDispatch } from "react-redux";
-import { displayQuest } from "./store/actions";
+import { displayQuest, updateQuest, finishQuest } from "./store/actions";
 
 interface ISingleLineProps {
   name: string;
@@ -28,6 +28,7 @@ interface ISingleQuestProps {
   state: any;
 }
 const SingleQuest = (props: ISingleQuestProps) => {
+  const dispatch = useDispatch();
   const singleQuestStyle = {
     paddingTop: "50px",
     paddingLeft: "100px",
@@ -50,8 +51,6 @@ const SingleQuest = (props: ISingleQuestProps) => {
   // + next step to show
   if (props.state.length < allSteps.length) {
     availableSteps.push(allSteps[props.state.length]);
-  } else {
-    console.log("This was last step");
   }
 
   return (

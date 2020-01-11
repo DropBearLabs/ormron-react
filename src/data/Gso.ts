@@ -17,6 +17,7 @@ export const gso: IGso = {
     }
   ],
   quests: [],
+  questsCompleted: [],
   maps: [0],
   questsTaken: []
 };

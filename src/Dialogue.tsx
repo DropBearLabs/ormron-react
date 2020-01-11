@@ -4,7 +4,8 @@ import {
   showInfoline,
   updateQuest,
   updateMap,
-  npcUpdate
+  npcUpdate,
+  finishQuest
 } from "./store/actions";
 import { IDialogue } from "./data/Types";
 import { useDispatch } from "react-redux";
@@ -74,6 +75,9 @@ const DialogueOutput = (props: IDialogueProps) => {
         }
         if (props.dialogue.mapUpdate) {
           props.dialogue.mapUpdate.map((m: any) => dispatch(updateMap(m)));
+        }
+        if (props.dialogue.questFinish) {
+          dispatch(finishQuest(props.dialogue.questFinish));
         }
       }
     }

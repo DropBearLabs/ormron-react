@@ -83,6 +83,7 @@ export const dialogues: IDialogue[] = [
     lines: ["I had my qualifications at Arena. Ready for more exitement!"],
     dialUpdate: [[0, "npc_Olija", 4]],
     questUpdate: { 0: "0_ARENA_CLOSED" },
+    questFinish: { 0: "Fight in Arena" },
     infoline: "QUEST COMPLETED: Fight in Arena"
   },
   {

@@ -5,6 +5,7 @@ import {
   SHOW_MAP,
   SHOW_QUEST,
   UPDATE_QUEST,
+  FINISH_QUEST,
   UPDATE_MAP,
   UPDATE_LEVEL,
   NPC_UPDATE
@@ -56,6 +57,14 @@ export const updateQuest = (condition: any) => {
   return {
     payload: { quest, state },
     type: UPDATE_QUEST
+  };
+};
+
+export const finishQuest = (condition: any) => {
+  const quest = parseInt(Object.keys(condition)[0], 0);
+  return {
+    payload: quest,
+    type: FINISH_QUEST
   };
 };
 

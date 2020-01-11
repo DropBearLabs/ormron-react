@@ -2,6 +2,7 @@ import {
   DIALOGUE_ACTIVE,
   LEVEL_ACTIVE,
   SHOW_INFOLINE,
+  FINISH_QUEST,
   SHOW_QUEST,
   UPDATE_QUEST,
   SHOW_MAP,
@@ -21,7 +22,6 @@ export default function GsoReduicer(
   if (!state) {
     return initialState;
   }
-  console.log("GSO", state);
   switch (action.type) {
     case LEVEL_ACTIVE:
       return Object.assign({}, state, {
@@ -41,18 +41,26 @@ export default function GsoReduicer(
     case UPDATE_QUEST:
       const questsToUpdate = [...state.quests];
       if (!questsToUpdate[action.payload.quest]) {
-        console.log("Couldn't find quest here", action.payload.quest);
         questsToUpdate[action.payload.quest] = [];
       }
-      console.log("Found a quest", questsToUpdate[action.payload.quest]);
       questsToUpdate[action.payload.quest].push(action.payload.state);
       const quesstsExisting = [...state.questsTaken];
-      if (quesstsExisting.indexOf(action.payload.quest) == -1) {
+      if (quesstsExisting.indexOf(action.payload.quest) === -1) {
         quesstsExisting.push(action.payload.quest);
       }
       return Object.assign({}, state, {
         quests: questsToUpdate,
         questsTaken: quesstsExisting
+      });
+    case FINISH_QUEST:
+      const questsToRemove = [...state.questsTaken];
+      const completedQuests = [...state.questsCompleted];
+      const index = questsToRemove.indexOf(action.payload.quest);
+      const completed = questsToRemove.splice(index, 1);
+      completedQuests.push(completed[0]);
+      return Object.assign({}, state, {
+        questsCompleted: completedQuests,
+        questsTaken: questsToRemove
       });
     case SHOW_QUEST:
       return Object.assign({}, state, {

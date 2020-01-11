@@ -1,5 +1,9 @@
 import { IQuest } from "./Types";
 
+/*
+Rvery quest should start with a complete state that will be completed when test is triggered.
+Example: 'Ask a master about a new challenge'; 
+*/
 export const quests: IQuest[] = [
   // 0
   {
@@ -28,6 +32,10 @@ export const quests: IQuest[] = [
     main: true,
     name: "Water problems",
     steps: [
+      {
+        name: "Talk to Olija about your main challenge",
+        event: "1_NEW_CHALLENGE"
+      },
       { name: "Get to bedouin camp", event: "1_CAMP_START" },
       { name: "Talk to camp leader", event: "	1_CAMP_CHAT" },
       {

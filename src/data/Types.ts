@@ -6,6 +6,7 @@ export interface IGso {
   activeMap: number | null;
   questsTaken: number[];
   activeQuest: number | null;
+  questsCompleted: number[];
   quests: any;
   levels: any;
   maps: any;
@@ -81,6 +82,7 @@ export interface IDialogue {
   dialUpdate?: any[];
   questUpdate?: any;
   mapUpdate?: any;
+  questFinish?: any;
 }
 
 export interface IQuest {
