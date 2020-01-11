@@ -1,5 +1,4 @@
 import React from "react";
-import { quests } from "./data/Quests";
 import { IQuest, IQuestStep } from "./data/Types";
 import { useDispatch } from "react-redux";
 import { displayQuest } from "./store/actions";
@@ -37,8 +36,13 @@ const SingleQuest = (props: ISingleQuestProps) => {
   const allSteps: IQuestStep[] = props.quest.steps;
 
   const isCompleted = (step: string) => {
-    return props.state.indexOf(step) !== -1;
+    if (props.state) {
+      return props.state.indexOf(step) !== -1;
+    } else {
+      return false;
+    }
   };
+
   const availableSteps = allSteps.filter((q: IQuestStep) =>
     isCompleted(q.event)
   );
@@ -46,6 +50,8 @@ const SingleQuest = (props: ISingleQuestProps) => {
   // + next step to show
   if (props.state.length < allSteps.length) {
     availableSteps.push(allSteps[props.state.length]);
+  } else {
+    console.log("This was last step");
   }
 
   return (
@@ -96,14 +102,17 @@ export const Quest = (props: IQuestProps) => {
         src="temp-icon2.png"
         onClick={() => dispatch(displayQuest(null))}
       />
-      {quests.map((q: IQuest) => (
-        <SingleQuest
-          key={q.id}
-          quest={q}
-          active={props.active}
-          state={props.state[q.id]}
-        />
-      ))}
+      {props.quests.map((q: IQuest) => {
+        console.log("Taken quests", props.quests);
+        return (
+          <SingleQuest
+            key={q.id}
+            quest={q}
+            active={props.active}
+            state={props.state[q.id]}
+          />
+        );
+      })}
     </div>
   );
 };

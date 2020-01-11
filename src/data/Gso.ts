@@ -9,10 +9,11 @@ export const gso: IGso = {
   infoline: null,
   levels: [
     {
-      npc_Olija: "temp-icon1.png"
+      npc_Olija: 0,
+      npc_Dario: false
     },
     {
-      npc_Dario1: "temp-icon1.png"
+      npc_Dario1: 2
     }
   ],
   quests: [],

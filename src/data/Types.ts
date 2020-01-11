@@ -28,18 +28,19 @@ export interface IMapLevel {
 export interface ILevel {
   id: number;
   name: string;
-  connections: IConnection[];
+  connections: number[];
   backgrounds: IBackground[];
   npcs: INpc[];
 }
 
 export interface IConnection {
-  id: string;
+  id: number;
+  name: string;
   to: number;
   origin: number;
   position: IPoint;
   image: string;
-  trigger?: ITrigger | false;
+  trigger?: number | false;
   questUpdate?: any;
   levelStart?: any;
 }
@@ -58,7 +59,6 @@ export interface INpc {
   name: string;
   image: string;
   position: IPoint;
-  trigger: ITrigger | false;
 }
 
 export interface ITrigger {
@@ -78,8 +78,7 @@ export interface IDialogue {
   lines: string[];
   nextNode?: number | IDialContinuation;
   infoline?: string;
-  dialStart?: any;
-  dialClear?: any;
+  dialUpdate?: any[];
   questUpdate?: any;
   mapUpdate?: any;
 }

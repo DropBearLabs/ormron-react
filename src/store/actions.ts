@@ -1,14 +1,13 @@
 import {
   DIALOGUE_ACTIVE,
   LEVEL_ACTIVE,
-  NPC_ACTIVE,
-  NPC_INACTIVE,
   SHOW_INFOLINE,
   SHOW_MAP,
   SHOW_QUEST,
-  START_QUEST,
+  UPDATE_QUEST,
   UPDATE_MAP,
-  UPDATE_LEVEL
+  UPDATE_LEVEL,
+  NPC_UPDATE
 } from "../data/Constants";
 
 export const dialogueActive = (index: number | null) => ({
@@ -31,23 +30,13 @@ export const updateLevel = (condition: any) => {
   };
 };
 
-export const npcInactive = (condition: any) => {
-  const level = Object.keys(condition)[0];
-  const character = Object.values(condition)[0];
-  const state = null;
+export const npcUpdate = (condition: any) => {
+  const level = condition[0];
+  const character = condition[1];
+  const state = condition[2];
   return {
     payload: { level, character, state },
-    type: NPC_INACTIVE
-  };
-};
-
-export const npcActive = (condition: any) => {
-  const level = Object.keys(condition)[0];
-  const character = Object.values(condition)[0];
-  const state = "temp-icon1.png";
-  return {
-    payload: { level, character, state },
-    type: NPC_ACTIVE
+    type: NPC_UPDATE
   };
 };
 
@@ -62,11 +51,11 @@ export const displayQuest = (id: number | null) => ({
 });
 
 export const updateQuest = (condition: any) => {
-  const quest = Object.keys(condition)[0];
+  const quest = parseInt(Object.keys(condition)[0], 0);
   const state = Object.values(condition)[0];
   return {
     payload: { quest, state },
-    type: START_QUEST
+    type: UPDATE_QUEST
   };
 };
 

@@ -19,7 +19,7 @@ import { Dialogue } from "./Dialogue";
 import { Map } from "./Map";
 
 import "./App.css";
-import { pipelineTopicExpression } from "@babel/types";
+import { findDialogue, findConnection } from "./helpers";
 
 interface IInfolineProps {
   line: string | null;
@@ -133,7 +133,7 @@ const Entry = (props: IEntryProps) => {
 
   return (
     <div style={boxStyle} onClick={() => triggerEntry()}>
-      {c.id}
+      {c.name}
     </div>
   );
 };
@@ -149,18 +149,20 @@ const App: React.FC = () => {
   const mapsState = useSelector((state: any) => state.maps);
   const mapId = useSelector((state: any) => state.activeMap);
   const chapter = useSelector((state: any) => state.chapter);
-
   return (
     <div className="App">
       <img src={levels[levelInd].backgrounds[0].image} />
-      {levels[levelInd].connections.map((c: IConnection) => (
-        <Entry
-          c={c}
-          key={c.id}
-          state={mapsState}
-          levelState={levelState[levelInd]}
-        />
-      ))}
+      {levels[levelInd].connections.map((c: number) => {
+        const connection = findConnection(c);
+        return (
+          <Entry
+            c={connection}
+            key={connection.id}
+            state={mapsState}
+            levelState={levelState[levelInd]}
+          />
+        );
+      })}
       {levels[levelInd].npcs.map((n: INpc) => (
         <NPC n={n} key={n.id} state={levelState[levelInd]} />
       ))}

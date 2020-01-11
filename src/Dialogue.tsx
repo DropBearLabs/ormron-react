@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import {
   dialogueActive,
-  npcInactive,
-  npcActive,
   showInfoline,
   updateQuest,
-  updateMap
+  updateMap,
+  npcUpdate
 } from "./store/actions";
 import { IDialogue } from "./data/Types";
 import { useDispatch } from "react-redux";
@@ -61,11 +60,8 @@ const DialogueOutput = (props: IDialogueProps) => {
         setLineN(0);
       } else {
         dispatch(dialogueActive(null));
-        if (props.dialogue.dialClear) {
-          dispatch(npcInactive(props.dialogue.dialClear));
-        }
-        if (props.dialogue.dialStart) {
-          dispatch(npcActive(props.dialogue.dialStart));
+        if (props.dialogue.dialUpdate) {
+          props.dialogue.dialUpdate.map((d: any) => dispatch(npcUpdate(d)));
         }
         if (props.dialogue.infoline) {
           dispatch(showInfoline(props.dialogue.infoline));
@@ -77,7 +73,7 @@ const DialogueOutput = (props: IDialogueProps) => {
           dispatch(updateQuest(props.dialogue.questUpdate));
         }
         if (props.dialogue.mapUpdate) {
-          dispatch(updateMap(props.dialogue.mapUpdate));
+          props.dialogue.mapUpdate.map((m: any) => dispatch(updateMap(m)));
         }
       }
     }

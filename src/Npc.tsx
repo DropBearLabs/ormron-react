@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 
 import { dialogueActive, showInfoline } from "./store/actions";
 import { INpc } from "./data/Types";
+import { findTrigger } from "./helpers";
 
 interface INPCStateProps {
   state: string | null;
@@ -40,22 +41,20 @@ export const NPC = (props: INPCProps) => {
   };
 
   const dispatch = useDispatch();
-  const npcState = props.state[props.n.id];
-
-  function triggerEvent(event: any, source: any) {
+  const npcTrigger = props.state[props.n.id];
+  function triggerEvent(event: any) {
     dispatch(showInfoline(null));
-    if (
-      source.trigger.triggerType === "DIALOGUE" &&
-      source.trigger.id >= 0 &&
-      npcState != null
-    ) {
-      dispatch(dialogueActive(source.trigger.id));
+    if (npcTrigger === false) {
+      return;
+    }
+    const trigger = findTrigger(npcTrigger);
+    if (trigger.id != null && trigger.triggerType === "DIALOGUE") {
+      dispatch(dialogueActive(trigger.id));
     }
   }
-
   return (
-    <div style={npcStyle} onClick={(e: any) => triggerEvent(e, props.n)}>
-      <NPCState state={npcState ? npcState : null} />
+    <div style={npcStyle} onClick={(e: any) => triggerEvent(e)}>
+      <NPCState state={npcTrigger !== false ? "temp-icon1.png" : null} />
     </div>
   );
 };

@@ -1,6 +1,24 @@
 import { levels } from "./data/Levels";
 import { dialogues } from "./data/Dialogues";
+import { triggers } from "./data/Triggers";
+import { connections } from "./data/Connections";
 import { IDialogue, ILevel, INpc } from "./data/Types";
+
+export function findConnection(id: number) {
+  const connection = connections[id];
+  if (connection === undefined) {
+    throw Error("Unknown connection id" + id);
+  }
+  return connection;
+}
+
+export function findTrigger(id: number) {
+  const trigger = triggers[id];
+  if (trigger === undefined) {
+    throw Error("Unknown trigger id" + id);
+  }
+  return trigger;
+}
 
 export function findDialogue(dialogueId: number) {
   const dialogue: IDialogue | undefined = dialogues.find(
