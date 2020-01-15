@@ -7,12 +7,13 @@ import {
   npcUpdate,
   finishQuest
 } from "./store/actions";
-import { IDialogue } from "./data/Types";
+import { IDialogue, IDialogueChoice } from "./data/Types";
 import { useDispatch } from "react-redux";
 
 interface IDialogueLineProps {
   nextLine: () => void;
   line: string;
+  choice: boolean;
 }
 
 const DialogueLine = (props: IDialogueLineProps) => {
@@ -20,8 +21,13 @@ const DialogueLine = (props: IDialogueLineProps) => {
     fontSize: "18pt",
     padding: "2em"
   };
+  const showNextLine = () => {
+    if (!props.choice) {
+      props.nextLine();
+    }
+  };
   return (
-    <div style={dialogueLineStyle} onClick={props.nextLine}>
+    <div style={dialogueLineStyle} onClick={showNextLine}>
       {props.line}
     </div>
   );
@@ -29,6 +35,11 @@ const DialogueLine = (props: IDialogueLineProps) => {
 
 interface IDialogueProps {
   dialogue: IDialogue;
+}
+
+interface IDialogueChoiceProps {
+  choice: IDialogueChoice[];
+  setLineN: any;
 }
 
 const DialogueCharacter = (props: IDialogueProps) => {
@@ -42,6 +53,26 @@ const DialogueCharacter = (props: IDialogueProps) => {
   return <div style={dialogueCharacterStyle}></div>;
 };
 
+const DialogueChoices = (props: IDialogueChoiceProps) => {
+  const choicesStye = {
+    textAlign: "center" as "center"
+  };
+  const dispatch = useDispatch();
+  const choiceMade = (c: IDialogueChoice) => {
+    dispatch(dialogueActive(c.nextDial));
+    props.setLineN(0);
+  };
+  return (
+    <div style={choicesStye}>
+      {props.choice.map((c: IDialogueChoice) => (
+        <button key={c.id} onClick={() => choiceMade(c)}>
+          {c.text}
+        </button>
+      ))}
+    </div>
+  );
+};
+
 const DialogueOutput = (props: IDialogueProps) => {
   const dispatch = useDispatch();
   const dialoguePaperStyle = {
@@ -52,10 +83,13 @@ const DialogueOutput = (props: IDialogueProps) => {
     margin: "0px 0 auto",
     position: "absolute" as "absolute"
   };
+
   const [lineN, setLineN] = useState(0);
+  const isLastLine = (line: number) => {
+    return lineN === props.dialogue.lines.length - 1;
+  };
   const nextLine = () => {
-    const isLastLine = lineN === props.dialogue.lines.length - 1;
-    if (isLastLine) {
+    if (isLastLine(lineN)) {
       if (typeof props.dialogue.nextNode === "number") {
         dispatch(dialogueActive(props.dialogue.nextNode));
         setLineN(0);
@@ -82,14 +116,20 @@ const DialogueOutput = (props: IDialogueProps) => {
       }
     }
 
-    if (!isLastLine) {
+    if (!isLastLine(lineN)) {
       setLineN(lineN + 1);
     }
   };
-
   return (
     <div style={dialoguePaperStyle}>
-      <DialogueLine line={props.dialogue.lines[lineN]} nextLine={nextLine} />
+      <DialogueLine
+        line={props.dialogue.lines[lineN]}
+        nextLine={nextLine}
+        choice={typeof props.dialogue.choice === "object" && isLastLine(lineN)}
+      />
+      {props.dialogue.choice && isLastLine(lineN) ? (
+        <DialogueChoices choice={props.dialogue.choice} setLineN={setLineN} />
+      ) : null}
     </div>
   );
 };

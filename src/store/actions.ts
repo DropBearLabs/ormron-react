@@ -11,10 +11,12 @@ import {
   NPC_UPDATE
 } from "../data/Constants";
 
-export const dialogueActive = (index: number | null) => ({
-  payload: index,
-  type: DIALOGUE_ACTIVE
-});
+export const dialogueActive = (index: number | null) => {
+  return {
+    payload: index,
+    type: DIALOGUE_ACTIVE
+  };
+};
 
 export const levelActive = (index: number) => ({
   payload: index,

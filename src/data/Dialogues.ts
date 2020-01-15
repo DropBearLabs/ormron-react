@@ -137,6 +137,49 @@ export const dialogues: IDialogue[] = [
       "I gues it means I need to partner up with someone.",
       "Hey, Lady Maya, do you want to be my partner?",
       "For the finals I mean..."
+    ],
+    choice: [
+      { text: "Sure", nextDial: 11, id: 1 },
+      { text: "No way", nextDial: 12, id: 2 }
     ]
+  },
+  {
+    id: 11,
+    name: "ormron_street_Maya_14",
+    characterId: "char_Maya",
+    image: "temp-dial1.png",
+    lines: [
+      "It's hard for you to find a team, isn't it? Sure, you can join me."
+    ],
+    nextNode: 14
+    //nell_join_party	Nell: + 1
+  },
+  {
+    id: 12,
+    name: "ormron_street_Maya_15",
+    characterId: "char_Maya",
+    image: "temp-dial1.png",
+    lines: [
+      "It's hard for you to find a team for a reason. You are hopless, Nell.",
+      "You have no self-control and let's be honest here. You are not that bright."
+    ],
+    nextNode: 13
+    //Nell: - 1
+  },
+  {
+    id: 13,
+    name: "ormron_street_Nell_16",
+    characterId: "npc_Nell",
+    image: "temp-dial4.png",
+    lines: [
+      "It is unfair, Lady Maya. But I am sure we will end up on one team somehow!"
+    ]
+  },
+  {
+    id: 14,
+    name: "ormron_street_Maya_24",
+    characterId: "npc_Nell",
+    image: "temp-dial4.png",
+    lines: ["Thank you so much. But what are we actually doing?"]
   }
 ];

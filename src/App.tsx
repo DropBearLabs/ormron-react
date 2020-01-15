@@ -123,15 +123,15 @@ const Entry = (props: IEntryProps) => {
   };
 
   const triggerEntry = () => {
+    if (props.c.dialogueActiveStart && firstTimeVisit()) {
+      dispatch(dialogueActive(props.c.dialogueActiveStart));
+    }
     if (isOpen(c.to)) {
       dispatch(levelActive(c.to));
     }
     if (isOpen(c.to) && props.c.questUpdate && firstTimeVisit()) {
       dispatch(updateQuest(props.c.questUpdate));
       dispatch(updateLevel(props.c.levelStart));
-    }
-    if (isOpen(c.to) && props.c.dialogueActive && firstTimeVisit()) {
-      dispatch(dialogueActive(props.c.dialogueActive));
     }
   };
 

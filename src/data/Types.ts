@@ -44,7 +44,8 @@ export interface IConnection {
   trigger?: number | false;
   questUpdate?: any;
   levelStart?: any;
-  dialogueActive?: any;
+  dialogueActiveStart?: any;
+  dialogueActiveEnd?: any;
 }
 
 export interface IPoint {
@@ -84,6 +85,13 @@ export interface IDialogue {
   questUpdate?: any;
   mapUpdate?: any;
   questFinish?: any;
+  choice?: IDialogueChoice[];
+}
+
+export interface IDialogueChoice {
+  id: number;
+  text: string;
+  nextDial: number;
 }
 
 export interface IQuest {
