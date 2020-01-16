@@ -9,3 +9,4 @@ export const FINISH_QUEST = "FINISH_QUEST";
 export const SHOW_QUEST = "SHOW_QUEST";
 export const UPDATE_MAP = "UPDATE_MAP";
 export const UPDATE_LEVEL = "UPDATE_LEVEL";
+export const SHOW_PARTY = "SHOW_PARTY";

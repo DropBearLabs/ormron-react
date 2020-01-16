@@ -1,7 +1,7 @@
 import React from "react";
 import { IQuest, IQuestStep } from "./data/Types";
 import { useDispatch } from "react-redux";
-import { displayQuest, updateQuest, finishQuest } from "./store/actions";
+import { displayQuest } from "./store/actions";
 
 interface ISingleLineProps {
   name: string;
@@ -102,7 +102,6 @@ export const Quest = (props: IQuestProps) => {
         onClick={() => dispatch(displayQuest(null))}
       />
       {props.quests.map((q: IQuest) => {
-        console.log("Taken quests", props.quests);
         return (
           <SingleQuest
             key={q.id}

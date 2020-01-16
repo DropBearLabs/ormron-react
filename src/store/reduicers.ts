@@ -8,7 +8,8 @@ import {
   SHOW_MAP,
   UPDATE_MAP,
   UPDATE_LEVEL,
-  NPC_UPDATE
+  NPC_UPDATE,
+  SHOW_PARTY
 } from "../data/Constants";
 import { gso } from "../data/Gso";
 import { IGso } from "../data/Types";
@@ -81,6 +82,10 @@ export default function GsoReduicer(
       levelsToUpdate1[action.payload.level][action.payload.name] =
         action.payload.state;
       return Object.assign({}, state, { levels: levelsToUpdate1 });
+    case SHOW_PARTY:
+      return Object.assign({}, state, {
+        partySelection: action.payload
+      });
     default:
       return initialState;
   }

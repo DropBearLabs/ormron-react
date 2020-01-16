@@ -8,7 +8,8 @@ import {
   FINISH_QUEST,
   UPDATE_MAP,
   UPDATE_LEVEL,
-  NPC_UPDATE
+  NPC_UPDATE,
+  SHOW_PARTY
 } from "../data/Constants";
 
 export const dialogueActive = (index: number | null) => {
@@ -81,5 +82,12 @@ export const updateMap = (condition: any) => {
   return {
     payload: { map, state },
     type: UPDATE_MAP
+  };
+};
+
+export const selectParty = (party: any) => {
+  return {
+    payload: party,
+    type: SHOW_PARTY
   };
 };

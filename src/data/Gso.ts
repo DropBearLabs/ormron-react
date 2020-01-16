@@ -10,6 +10,7 @@ export const gso: IGso = {
   activeQuest: null,
   activeMap: null,
   infoline: null,
+  partySelection: null, //[{ id: "maya", name: "Maya" }],
   levels: [
     { npc_Olija: false, npc_Dario: false, to_ormron_arena: "triggered" },
     { npc_Dario1: false },

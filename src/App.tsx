@@ -7,20 +7,24 @@ import {
   displayMap,
   updateQuest,
   updateLevel,
-  dialogueActive
+  dialogueActive,
+  selectParty
 } from "./store/actions";
 import { dialogues } from "./data/Dialogues";
 import { quests } from "./data/Quests";
 import { levels } from "./data/Levels";
 import { maps } from "./data/Maps";
-import { INpc, IConnection } from "./data/Types";
+import { INpc, IConnection, IPartyMember } from "./data/Types";
 import { NPC } from "./Npc";
 import { Quest } from "./Quest";
 import { Dialogue } from "./Dialogue";
+import { Party } from "./Party";
 import { Map } from "./Map";
 
 import "./App.css";
-import { findDialogue, findConnection } from "./helpers";
+import { findConnection } from "./helpers";
+
+let party: string[] = ["maya", "nell"];
 
 interface IInfolineProps {
   line: string | null;
@@ -126,6 +130,10 @@ const Entry = (props: IEntryProps) => {
     if (props.c.dialogueActiveStart && firstTimeVisit()) {
       dispatch(dialogueActive(props.c.dialogueActiveStart));
     }
+    if (props.c.partySelect && isOpen(c.to)) {
+      dispatch(selectParty(party));
+      return;
+    }
     if (isOpen(c.to)) {
       dispatch(levelActive(c.to));
     }
@@ -153,6 +161,8 @@ const App: React.FC = () => {
   const mapsState = useSelector((state: any) => state.maps);
   const mapId = useSelector((state: any) => state.activeMap);
   const chapter = useSelector((state: any) => state.chapter);
+  const party = useSelector((state: any) => state.partySelection);
+
   return (
     <div className="App">
       <img src={levels[levelInd].backgrounds[0].image} />
@@ -185,6 +195,7 @@ const App: React.FC = () => {
       {mapId != null ? (
         <Map chapter={chapter} map={maps[mapId]} state={mapsState} />
       ) : null}
+      {party != null ? <Party party={party} /> : null}
     </div>
   );
 };

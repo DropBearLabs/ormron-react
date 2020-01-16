@@ -9,7 +9,8 @@ export const connections: IConnection[] = [
     image: "temp-obj3.png",
     position: { x: 0, y: GROUNDLEVEL },
     origin: 0,
-    to: 6
+    to: 6,
+    partySelect: true
   },
   {
     id: 1,
@@ -19,7 +20,8 @@ export const connections: IConnection[] = [
     origin: 0,
     to: 1,
     questUpdate: { 0: "0_ARENA_ENTER" },
-    levelStart: { 0: "to_ormron_arena" }
+    levelStart: { 0: "to_ormron_arena" },
+    partySelect: false
   },
   {
     id: 2,
@@ -28,7 +30,8 @@ export const connections: IConnection[] = [
     position: { x: 400, y: GROUNDLEVEL },
     origin: 0,
     to: 2,
-    dialogueActiveStart: 8
+    dialogueActiveStart: 8,
+    partySelect: false
   },
   {
     id: 3,
@@ -36,7 +39,8 @@ export const connections: IConnection[] = [
     image: "temp-obj3.png",
     position: { x: 10, y: GROUNDLEVEL },
     origin: 1,
-    to: 0
+    to: 0,
+    partySelect: false
   },
   {
     id: 4,
@@ -44,7 +48,8 @@ export const connections: IConnection[] = [
     image: "temp-obj3.png",
     position: { x: 10, y: GROUNDLEVEL },
     origin: 2,
-    to: 0
+    to: 0,
+    partySelect: false
   },
   {
     id: 5,
@@ -52,7 +57,8 @@ export const connections: IConnection[] = [
     image: "temp-obj1.png",
     position: { x: 400, y: GROUNDLEVEL },
     origin: 2,
-    to: 3
+    to: 3,
+    partySelect: false
   },
   {
     id: 6,
@@ -60,7 +66,8 @@ export const connections: IConnection[] = [
     image: "temp-obj2.png",
     position: { x: SCREENWIDTH - 200, y: GROUNDLEVEL },
     origin: 2,
-    to: 4
+    to: 4,
+    partySelect: false
   },
   {
     id: 7,
@@ -68,7 +75,8 @@ export const connections: IConnection[] = [
     image: "temp-obj3.png",
     position: { x: 10, y: GROUNDLEVEL },
     origin: 3,
-    to: 2
+    to: 2,
+    partySelect: false
   },
   {
     id: 8,
@@ -76,6 +84,7 @@ export const connections: IConnection[] = [
     image: "temp-obj3.png",
     position: { x: 10, y: GROUNDLEVEL },
     origin: 4,
-    to: 2
+    to: 2,
+    partySelect: false
   }
 ];
