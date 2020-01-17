@@ -43,7 +43,7 @@ export interface ILevel {
   name: string;
   connections: number[];
   backgrounds: IBackground[];
-  npcs: INpc[];
+  npcs: number[];
 }
 
 export interface IConnection {

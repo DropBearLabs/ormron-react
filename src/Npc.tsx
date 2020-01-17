@@ -26,15 +26,15 @@ const NPCState = (props: INPCStateProps) => {
 };
 
 interface INPCProps {
-  n: INpc;
+  npc: INpc;
   state: any;
 }
 
 export const NPC = (props: INPCProps) => {
   const npcStyle = {
-    backgroundImage: `url(${props.n.image})`,
-    left: props.n.position.x,
-    bottom: props.n.position.y,
+    backgroundImage: `url(${props.npc.image})`,
+    left: props.npc.position.x,
+    bottom: props.npc.position.y,
     height: "300px",
     width: "230px",
     position: "absolute" as "absolute",
@@ -42,7 +42,7 @@ export const NPC = (props: INPCProps) => {
   };
 
   const dispatch = useDispatch();
-  const npcTrigger = props.state[props.n.id];
+  const npcTrigger = props.state[props.npc.id];
   function triggerEvent(event: ITrigger) {
     dispatch(showInfoline(null));
     if (npcTrigger === false) {

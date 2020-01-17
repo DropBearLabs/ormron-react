@@ -1,5 +1,6 @@
 import { levels } from "./data/Levels";
 import { dialogues } from "./data/Dialogues";
+import { npcs } from "./data/Npcs";
 import { triggers } from "./data/Triggers";
 import { connections } from "./data/Connections";
 import { IDialogue, ILevel, INpc } from "./data/Types";
@@ -20,6 +21,14 @@ export function findTrigger(id: number) {
   return trigger;
 }
 
+export function findNpc(id: number) {
+  const npc = npcs[id];
+  if (npc === undefined) {
+    throw Error("Unknown npc id" + id);
+  }
+  return npc;
+}
+
 export function findDialogue(dialogueId: number) {
   const dialogue: IDialogue | undefined = dialogues.find(
     (d: IDialogue) => d.id === dialogueId
@@ -38,13 +47,4 @@ export function findLevel(levelId: number) {
     throw Error("Unknown level id" + levelId);
   }
   return level;
-}
-
-export function findNPC(levelId: number, npcId: string) {
-  const level = findLevel(levelId);
-  const npc: INpc | undefined = level.npcs.find((n: INpc) => n.id === npcId);
-  if (npc === undefined) {
-    throw Error("Unknown npc id" + npcId);
-  }
-  return npc;
 }

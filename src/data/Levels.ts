@@ -1,5 +1,4 @@
 import { ILevel } from "./Types";
-const GROUNDLEVEL = 200;
 
 export const levels: ILevel[] = [
   {
@@ -7,54 +6,21 @@ export const levels: ILevel[] = [
     name: "ormron_street",
     backgrounds: [{ image: "temp1.jpg" }],
     connections: [0, 1, 2],
-    npcs: [
-      {
-        id: "npc_Olija",
-        image: "temp-npc1.png",
-        name: "Olija",
-        position: { x: 30, y: GROUNDLEVEL - 50 }
-      },
-      {
-        id: "npc_Dario",
-        image: "temp-npc2.png",
-        name: "Dario",
-        position: { x: 700, y: GROUNDLEVEL - 50 }
-      }
-    ]
+    npcs: [0, 1]
   },
   {
     id: 1,
     name: "ormron_arena",
     backgrounds: [{ image: "temp2.jpg" }],
     connections: [3],
-    npcs: [
-      {
-        id: "npc_Dario1",
-        image: "temp-npc2.png",
-        name: "Dario",
-        position: { x: 700, y: GROUNDLEVEL - 50 }
-      }
-    ]
+    npcs: [2]
   },
   {
     id: 2,
     name: "ormron_garden",
     backgrounds: [{ image: "temp3.jpg" }],
     connections: [4, 5, 6],
-    npcs: [
-      {
-        id: "npc_Nell",
-        image: "temp-main2.png",
-        name: "Nell",
-        position: { x: 120, y: GROUNDLEVEL - 50 }
-      },
-      {
-        id: "npc_Tara",
-        image: "temp-main3.png",
-        name: "Tara",
-        position: { x: 370, y: GROUNDLEVEL - 50 }
-      }
-    ]
+    npcs: [3, 4]
   },
   {
     id: 3,

@@ -57,6 +57,7 @@ export const displayQuest = (id: number | null) => ({
 });
 
 export const updateQuest = (condition: any) => {
+  console.log("updateQuest", condition);
   const quest = condition[0];
   const state = condition[1];
   return {

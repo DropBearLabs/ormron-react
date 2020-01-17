@@ -1,7 +1,7 @@
 import { IGso } from "./Types";
 
 //AFTER Tutorial
-//*
+/*
 export const gso: IGso = {
   chapter: 0,
   activeDialogue: null,
@@ -31,8 +31,8 @@ export const gso: IGso = {
   party: [],
   influence: [0, 0, 0, 0]
 };
-//*/
-/*
+*/
+//*
 
 export const gso: IGso = {
   chapter: 0,
@@ -62,4 +62,4 @@ export const gso: IGso = {
   maps: [0],
   questsTaken: []
 };
-*/
+//*/

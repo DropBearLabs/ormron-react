@@ -113,17 +113,22 @@ const DialogueOutput = (props: IDialogueProps) => {
         dispatch(showInfoline(null));
       }, 2000);
     }
-    if (trigger.triggerType === "NPC_UPDATE") {
-      dispatch(npcUpdate(trigger.data));
-    }
-    if (trigger.triggerType === "QUEST_UPDATE") {
-      dispatch(updateQuest(trigger.data));
-    }
-    if (trigger.triggerType === "MAP_UPDATE") {
-      dispatch(updateMap(trigger.data));
-    }
-    if (trigger.triggerType === "QUEST_END") {
-      dispatch(finishQuest(trigger.data));
+    console.log("my trigger", trigger.triggerType);
+    switch (trigger.triggerType) {
+      case "NPC_UPDATE":
+        dispatch(npcUpdate(trigger.data));
+        return;
+      case "QUEST_UPDATE":
+        dispatch(updateQuest(trigger.data));
+        return;
+      case "MAP_UPDATE":
+        dispatch(updateMap(trigger.data));
+        return;
+      case "QUEST_END":
+        dispatch(finishQuest(trigger.data));
+        return;
+      default:
+        return;
     }
   }
 

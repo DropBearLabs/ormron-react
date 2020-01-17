@@ -14,7 +14,7 @@ import { dialogues } from "./data/Dialogues";
 import { quests } from "./data/Quests";
 import { levels } from "./data/Levels";
 import { maps } from "./data/Maps";
-import { INpc, IConnection, IPartyMember } from "./data/Types";
+import { INpc, IConnection } from "./data/Types";
 import { NPC } from "./Npc";
 import { Quest } from "./Quest";
 import { Dialogue } from "./Dialogue";
@@ -23,6 +23,7 @@ import { Map } from "./Map";
 
 import "./App.css";
 import { findConnection } from "./helpers";
+import { findNpc } from "./helpers";
 
 let party: string[] = ["maya"];
 
@@ -177,9 +178,10 @@ const App: React.FC = () => {
           />
         );
       })}
-      {levels[levelInd].npcs.map((n: INpc) => (
-        <NPC n={n} key={n.id} state={levelState[levelInd]} />
-      ))}
+      {levels[levelInd].npcs.map((n: number) => {
+        const npc = findNpc(n);
+        return <NPC npc={npc} key={npc.id} state={levelState[levelInd]} />;
+      })}
       {dialogueInd != null ? (
         <Dialogue dialogue={dialogues[dialogueInd]} />
       ) : null}
