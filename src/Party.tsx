@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { IPartyMember } from "./data/Types";
-import { isAbsolute } from "path";
+let currentSelection: string[] = ["maya"];
 
-let allParty: IPartyMember[] = [
+const allParty: IPartyMember[] = [
   {
     id: "grey",
     name: "Grey",
@@ -47,6 +47,7 @@ let allParty: IPartyMember[] = [
 
 interface IPartyMemberProps {
   char: IPartyMember;
+  select: any;
 }
 const PartyMember = (props: IPartyMemberProps) => {
   const charStyle = {
@@ -63,14 +64,41 @@ const PartyMember = (props: IPartyMemberProps) => {
     left: "80px"
   };
 
-  const [selected, select] = useState(null);
+  const setSelection = (id: string) => {
+    if (currentSelection.length > 2) {
+      currentSelection.push(id);
+      currentSelection.splice(1, 1);
+      return id;
+    } else {
+      currentSelection.push(id);
+      return id;
+    }
+  };
+  const getImage = (id: any) => {
+    const char = allParty.filter((p: any) => p.id === id);
+    if (char.length !== 1) {
+      throw Error("Unknown character id" + id);
+    }
+    let image = char[0].image;
+    if (!props.char.opened) {
+      image = char[0].placeholder;
+    }
+    if (currentSelection.indexOf(id) !== -1) {
+      image = char[0].selected;
+    }
+    return image;
+  };
+
+  const canBeSelected =
+    props.char.opened && currentSelection.indexOf(props.char.id) === -1;
   return (
     <div style={charStyle}>
-      <img
-        src={props.char.opened ? props.char.image : props.char.placeholder}
-      />
-      {props.char.opened && props.char.id !== "maya" ? (
-        <button style={buttonStyle} onClick={() => select}>
+      <img src={getImage(props.char.id)} />
+      {canBeSelected ? (
+        <button
+          style={buttonStyle}
+          onClick={() => props.select(setSelection(props.char.id))}
+        >
           Select
         </button>
       ) : null}
@@ -80,6 +108,7 @@ const PartyMember = (props: IPartyMemberProps) => {
 
 interface IPartyProps {
   party: string[] | null;
+  required?: string;
 }
 
 export const Party = (props: IPartyProps) => {
@@ -93,6 +122,10 @@ export const Party = (props: IPartyProps) => {
     backgroundImage: `url(temp-backg4.png)`
   };
 
+  const [selected, select] = useState("maya");
+  if (props.required) {
+    currentSelection.push(props.required);
+  }
   return (
     <div style={partyStyle}>
       <h1>PARTY</h1>
@@ -100,7 +133,7 @@ export const Party = (props: IPartyProps) => {
         if (props.party && props.party.indexOf(char.id) !== -1) {
           char.opened = true;
         }
-        return <PartyMember char={char} key={char.id} />;
+        return <PartyMember char={char} key={char.id} select={select} />;
       })}
     </div>
   );

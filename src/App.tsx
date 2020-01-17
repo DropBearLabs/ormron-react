@@ -24,7 +24,7 @@ import { Map } from "./Map";
 import "./App.css";
 import { findConnection } from "./helpers";
 
-let party: string[] = ["maya", "nell"];
+let party: string[] = ["maya"];
 
 interface IInfolineProps {
   line: string | null;
