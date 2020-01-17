@@ -15,6 +15,7 @@ import {
 } from "../data/Constants";
 
 export const dialogueActive = (index: number | null) => {
+  console.log("Activating dialogue", index);
   return {
     payload: index,
     type: DIALOGUE_ACTIVE

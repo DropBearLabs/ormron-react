@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { dialogueActive, showInfoline } from "./store/actions";
 import { INpc, ITrigger } from "./data/Types";
 import { findTrigger } from "./helpers";
+import { tsConstructorType } from "@babel/types";
 
 interface INPCStateProps {
   state: string | null;
@@ -42,14 +43,13 @@ export const NPC = (props: INPCProps) => {
 
   const dispatch = useDispatch();
   const npcTrigger = props.state[props.n.id];
+  console.log("npcTrigger", npcTrigger);
   function triggerEvent(event: ITrigger) {
     dispatch(showInfoline(null));
     if (npcTrigger === false) {
       return;
-    }
-    const trigger = findTrigger(npcTrigger);
-    if (trigger.id != null && trigger.triggerType === "DIALOGUE") {
-      dispatch(dialogueActive(trigger.id));
+    } else {
+      dispatch(dialogueActive(npcTrigger));
     }
   }
   return (

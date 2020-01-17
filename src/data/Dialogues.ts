@@ -32,7 +32,7 @@ export const dialogues: IDialogue[] = [
     image: "temp-dial1.png",
     infoline: "NEW QUEST: Fight in Arena",
     lines: ["Will do, headmaster!"],
-    triggers: [1, 2, 4]
+    triggers: [0, 1, 2]
   },
   // 3
   {
@@ -54,7 +54,7 @@ export const dialogues: IDialogue[] = [
       "Go in. You need to survive at least 3 rounds to get a pass.",
       "Arena entrance is just behind me. Good luck!"
     ],
-    triggers: [8, 9, 10]
+    triggers: [3, 4, 5]
   },
   {
     id: 5,
@@ -63,7 +63,7 @@ export const dialogues: IDialogue[] = [
     image: "temp-dial3.png",
     infoline: "QUEST UPDATED: Fight in Arena",
     lines: ["I am debug an you just won 3 fights!"],
-    triggers: [11, 12, 13]
+    triggers: [6, 7, 8]
   },
   {
     id: 6,
@@ -72,7 +72,7 @@ export const dialogues: IDialogue[] = [
     image: "temp-dial1.png",
     lines: ["I had my qualifications at Arena. Ready for more exitement!"],
     infoline: "QUEST COMPLETED: Fight in Arena",
-    triggers: [14, 15, 16]
+    triggers: [9, 10, 11]
   },
   {
     id: 7,
@@ -87,7 +87,7 @@ export const dialogues: IDialogue[] = [
       "I sent another student there yesterday but he didn't come back.",
       "Go there and report back to me when the issue is resolved."
     ],
-    triggers: [17, 18, 19, 20, 21, 22, 23]
+    triggers: [0, 12, 13, 14, 15, 16, 17]
   },
   {
     id: 8,
@@ -119,8 +119,8 @@ export const dialogues: IDialogue[] = [
       "For the finals I mean..."
     ],
     choice: [
-      { text: "Sure", nextDial: 11, id: 1, triggers: [24] },
-      { text: "No way", nextDial: 12, id: 2, triggers: [25] }
+      { text: "Sure", nextDial: 11, id: 1, triggers: [18] },
+      { text: "No way", nextDial: 12, id: 2, triggers: [19] }
     ]
   },
   {

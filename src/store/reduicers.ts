@@ -22,7 +22,7 @@ export default function GsoReduicer(
   state: IGso | void = initialState,
   action: any
 ) {
-  //console.log(state);
+  console.log(state);
   if (!state) {
     return initialState;
   }
