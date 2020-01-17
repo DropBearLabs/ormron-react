@@ -22,7 +22,6 @@ export default function GsoReduicer(
   state: IGso | void = initialState,
   action: any
 ) {
-  console.log(state);
   if (!state) {
     return initialState;
   }
@@ -90,15 +89,18 @@ export default function GsoReduicer(
         partySelection: action.payload
       });
     case UPDATE_PARTY:
-      if (action.payload.update === "add") {
-        const partyToUpdate1 = [...state.party];
+      const partyToUpdate = [...state.party];
+      if (
+        action.payload.update === "add" &&
+        partyToUpdate.indexOf(action.payload.character) === -1
+      ) {
         return Object.assign({}, state, {
-          party: partyToUpdate1.push(action.payload.character)
+          party: partyToUpdate.concat(action.payload.character)
         });
       }
     case UPDATE_INFLUENCE:
       const influenceToChange = { ...state.influence };
-      influenceToChange[action.payload.character] += action.payload.num;
+      influenceToChange[action.payload.index] += action.payload.num;
       return Object.assign({}, state, {
         influence: influenceToChange
       });

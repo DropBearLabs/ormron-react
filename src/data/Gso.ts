@@ -1,8 +1,7 @@
 import { IGso } from "./Types";
 
-/*
-AFTER Tutorial
-
+//AFTER Tutorial
+//*
 export const gso: IGso = {
   chapter: 0,
   activeDialogue: null,
@@ -10,7 +9,7 @@ export const gso: IGso = {
   activeQuest: null,
   activeMap: null,
   infoline: null,
-  partySelection: null, //[{ id: "maya", name: "Maya" }],
+  partySelection: null,
   levels: [
     { npc_Olija: false, npc_Dario: false, to_ormron_arena: "triggered" },
     { npc_Dario1: false },
@@ -28,10 +27,12 @@ export const gso: IGso = {
   ],
   questsCompleted: [0],
   maps: [0, 1, 2, 3, 4, 5, 6],
-  questsTaken: [1]
+  questsTaken: [1],
+  party: [],
+  influence: [0, 0, 0, 0]
 };
-*/
-///*
+//*/
+/*
 
 export const gso: IGso = {
   chapter: 0,
@@ -61,4 +62,4 @@ export const gso: IGso = {
   maps: [0],
   questsTaken: []
 };
-//*/
+*/

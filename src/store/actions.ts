@@ -15,7 +15,6 @@ import {
 } from "../data/Constants";
 
 export const dialogueActive = (index: number | null) => {
-  console.log("Activating dialogue", index);
   return {
     payload: index,
     type: DIALOGUE_ACTIVE
@@ -105,10 +104,12 @@ export const updateParty = (condition: any) => {
 };
 
 export const updateInfluence = (condition: any) => {
+  const allChars = ["dart", "grey", "nell", "tara"];
   const character = condition[0];
+  const index = allChars.indexOf(character);
   const num = condition[1];
   return {
-    payload: { character, num },
+    payload: { character, index, num },
     type: UPDATE_INFLUENCE
   };
 };

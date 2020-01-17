@@ -119,7 +119,7 @@ export const dialogues: IDialogue[] = [
       "For the finals I mean..."
     ],
     choice: [
-      { text: "Sure", nextDial: 11, id: 1, triggers: [18] },
+      { text: "Sure", nextDial: 11, id: 1, triggers: [18, 20] },
       { text: "No way", nextDial: 12, id: 2, triggers: [19] }
     ]
   },

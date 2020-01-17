@@ -107,7 +107,6 @@ const DialogueOutput = (props: IDialogueProps) => {
 
   function triggerEvent(id: number) {
     const trigger = findTrigger(id);
-    console.log("found trigger", trigger);
     if (props.dialogue.infoline) {
       dispatch(showInfoline(props.dialogue.infoline));
       setTimeout(() => {
@@ -136,7 +135,6 @@ const DialogueOutput = (props: IDialogueProps) => {
       } else {
         dispatch(dialogueActive(null));
         if (props.dialogue.triggers) {
-          console.log("found triggers");
           props.dialogue.triggers.forEach((t: number) => triggerEvent(t));
         }
       }

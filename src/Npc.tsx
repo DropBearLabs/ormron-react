@@ -43,7 +43,6 @@ export const NPC = (props: INPCProps) => {
 
   const dispatch = useDispatch();
   const npcTrigger = props.state[props.n.id];
-  console.log("npcTrigger", npcTrigger);
   function triggerEvent(event: ITrigger) {
     dispatch(showInfoline(null));
     if (npcTrigger === false) {
