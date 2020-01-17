@@ -9,7 +9,9 @@ import {
   UPDATE_MAP,
   UPDATE_LEVEL,
   NPC_UPDATE,
-  SHOW_PARTY
+  SHOW_PARTY,
+  UPDATE_PARTY,
+  UPDATE_INFLUENCE
 } from "../data/Constants";
 
 export const dialogueActive = (index: number | null) => {
@@ -55,8 +57,8 @@ export const displayQuest = (id: number | null) => ({
 });
 
 export const updateQuest = (condition: any) => {
-  const quest = parseInt(Object.keys(condition)[0], 0);
-  const state = Object.values(condition)[0];
+  const quest = condition[0];
+  const state = condition[1];
   return {
     payload: { quest, state },
     type: UPDATE_QUEST
@@ -64,7 +66,7 @@ export const updateQuest = (condition: any) => {
 };
 
 export const finishQuest = (condition: any) => {
-  const quest = parseInt(Object.keys(condition)[0], 0);
+  const quest = condition[0];
   return {
     payload: quest,
     type: FINISH_QUEST
@@ -77,8 +79,8 @@ export const displayMap = (id: number | null) => ({
 });
 
 export const updateMap = (condition: any) => {
-  const map = Object.keys(condition)[0];
-  const state = Object.values(condition)[0];
+  const map = condition[0];
+  const state = condition[1];
   return {
     payload: { map, state },
     type: UPDATE_MAP
@@ -90,4 +92,34 @@ export const selectParty = (party: any) => {
     payload: party,
     type: SHOW_PARTY
   };
+};
+
+export const updateParty = (condition: any) => {
+  const character = condition[0];
+  const update = condition[1];
+  return {
+    payload: { character, update },
+    type: UPDATE_PARTY
+  };
+};
+
+export const updateInfluence = (condition: any) => {
+  const character = condition[0];
+  const num = condition[1];
+  return {
+    payload: { character, num },
+    type: UPDATE_INFLUENCE
+  };
+};
+
+export default {
+  dialogueActive,
+  levelActive,
+  npcUpdate,
+  showInfoline,
+  displayQuest,
+  finishQuest,
+  displayMap,
+  updateMap,
+  selectParty
 };

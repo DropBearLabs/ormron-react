@@ -10,3 +10,5 @@ export const SHOW_QUEST = "SHOW_QUEST";
 export const UPDATE_MAP = "UPDATE_MAP";
 export const UPDATE_LEVEL = "UPDATE_LEVEL";
 export const SHOW_PARTY = "SHOW_PARTY";
+export const UPDATE_PARTY = "UPDATE_PARTY";
+export const UPDATE_INFLUENCE = "UPDATE_INFLUENCE";

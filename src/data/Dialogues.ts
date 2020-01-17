@@ -32,11 +32,7 @@ export const dialogues: IDialogue[] = [
     image: "temp-dial1.png",
     infoline: "NEW QUEST: Fight in Arena",
     lines: ["Will do, headmaster!"],
-    dialUpdate: [
-      [0, "npc_Olija", false],
-      [0, "npc_Dario", 1]
-    ],
-    questUpdate: { 0: "0_ARENA_START" }
+    triggers: [1, 2, 4]
   },
   // 3
   {
@@ -58,9 +54,7 @@ export const dialogues: IDialogue[] = [
       "Go in. You need to survive at least 3 rounds to get a pass.",
       "Arena entrance is just behind me. Good luck!"
     ],
-    questUpdate: { 0: "0_ARENA_ACCESS" },
-    dialUpdate: [[0, "npc_Dario", false]],
-    mapUpdate: [{ 1: "OPEN" }]
+    triggers: [8, 9, 10]
   },
   {
     id: 5,
@@ -69,11 +63,7 @@ export const dialogues: IDialogue[] = [
     image: "temp-dial3.png",
     infoline: "QUEST UPDATED: Fight in Arena",
     lines: ["I am debug an you just won 3 fights!"],
-    questUpdate: { 0: "0_ARENA_3FIGHTS" },
-    dialUpdate: [
-      [1, "npc_Dario1", false],
-      [0, "npc_Olija", 3]
-    ]
+    triggers: [11, 12, 13]
   },
   {
     id: 6,
@@ -81,16 +71,15 @@ export const dialogues: IDialogue[] = [
     characterId: "char_Maya",
     image: "temp-dial1.png",
     lines: ["I had my qualifications at Arena. Ready for more exitement!"],
-    dialUpdate: [[0, "npc_Olija", 4]],
-    questUpdate: { 0: "0_ARENA_CLOSED" },
-    questFinish: { 0: "Fight in Arena" },
-    infoline: "QUEST COMPLETED: Fight in Arena"
+    infoline: "QUEST COMPLETED: Fight in Arena",
+    triggers: [14, 15, 16]
   },
   {
     id: 7,
     name: "ormron_street_Olija_10",
     characterId: "npc_Olija",
     image: "temp-dial2.png",
+    infoline: "QUEST STARTED: Water problems",
     lines: [
       "Have you thought long and hard about your next step? Well...",
       "There's a bedoun camp to the south. They're having problems with water.",
@@ -98,16 +87,7 @@ export const dialogues: IDialogue[] = [
       "I sent another student there yesterday but he didn't come back.",
       "Go there and report back to me when the issue is resolved."
     ],
-    dialUpdate: [[0, "npc_Olija", false]],
-    mapUpdate: [
-      { 2: "OPEN" },
-      { 3: "OPEN" },
-      { 4: "OPEN" },
-      { 5: "OPEN" },
-      { 6: "OPEN" }
-    ],
-    infoline: "QUEST STARTED: Water problems",
-    questUpdate: { 1: "1_CAMP_START" }
+    triggers: [17, 18, 19, 20, 21, 22, 23]
   },
   {
     id: 8,
@@ -139,8 +119,8 @@ export const dialogues: IDialogue[] = [
       "For the finals I mean..."
     ],
     choice: [
-      { text: "Sure", nextDial: 11, id: 1 },
-      { text: "No way", nextDial: 12, id: 2 }
+      { text: "Sure", nextDial: 11, id: 1, triggers: [24] },
+      { text: "No way", nextDial: 12, id: 2, triggers: [25] }
     ]
   },
   {
@@ -152,7 +132,6 @@ export const dialogues: IDialogue[] = [
       "It's hard for you to find a team, isn't it? Sure, you can join me."
     ],
     nextNode: 14
-    //nell_join_party	Nell: + 1
   },
   {
     id: 12,
@@ -164,7 +143,6 @@ export const dialogues: IDialogue[] = [
       "You have no self-control and let's be honest here. You are not that bright."
     ],
     nextNode: 13
-    //Nell: - 1
   },
   {
     id: 13,

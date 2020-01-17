@@ -1,14 +1,18 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+
 import {
   dialogueActive,
   showInfoline,
   updateQuest,
   updateMap,
   npcUpdate,
-  finishQuest
+  finishQuest,
+  updateParty,
+  updateInfluence
 } from "./store/actions";
 import { IDialogue, IDialogueChoice } from "./data/Types";
-import { useDispatch } from "react-redux";
+import { findTrigger } from "./helpers";
 
 interface IDialogueLineProps {
   nextLine: () => void;
@@ -58,9 +62,21 @@ const DialogueChoices = (props: IDialogueChoiceProps) => {
     textAlign: "center" as "center"
   };
   const dispatch = useDispatch();
+
+  function triggerEvent(id: number) {
+    const trigger = findTrigger(id);
+    if (trigger.triggerType === "PARTY_CHANGE") {
+      dispatch(updateParty(trigger.data));
+    }
+    if (trigger.triggerType === "INFLUENCE_CHANGE") {
+      dispatch(updateInfluence(trigger.data));
+    }
+  }
+
   const choiceMade = (c: IDialogueChoice) => {
     dispatch(dialogueActive(c.nextDial));
     props.setLineN(0);
+    c.triggers.forEach((n: number) => triggerEvent(n));
   };
   return (
     <div style={choicesStye}>
@@ -88,6 +104,29 @@ const DialogueOutput = (props: IDialogueProps) => {
   const isLastLine = (line: number) => {
     return lineN === props.dialogue.lines.length - 1;
   };
+
+  function triggerEvent(id: number) {
+    const trigger = findTrigger(id);
+    if (props.dialogue.infoline) {
+      dispatch(showInfoline(props.dialogue.infoline));
+      setTimeout(() => {
+        dispatch(showInfoline(null));
+      }, 2000);
+    }
+    if (trigger.triggerType === "NPC_UPDATE") {
+      dispatch(npcUpdate(trigger.data));
+    }
+    if (trigger.triggerType === "QUEST_UPDATE") {
+      dispatch(updateQuest(trigger.data));
+    }
+    if (trigger.triggerType === "MAP_UPDATE") {
+      dispatch(updateMap(trigger.data));
+    }
+    if (trigger.triggerType === "QUEST_END") {
+      dispatch(finishQuest(trigger.data));
+    }
+  }
+
   const nextLine = () => {
     if (isLastLine(lineN)) {
       if (typeof props.dialogue.nextNode === "number") {
@@ -95,23 +134,8 @@ const DialogueOutput = (props: IDialogueProps) => {
         setLineN(0);
       } else {
         dispatch(dialogueActive(null));
-        if (props.dialogue.dialUpdate) {
-          props.dialogue.dialUpdate.map((d: any) => dispatch(npcUpdate(d)));
-        }
-        if (props.dialogue.infoline) {
-          dispatch(showInfoline(props.dialogue.infoline));
-          setTimeout(() => {
-            dispatch(showInfoline(null));
-          }, 2000);
-        }
-        if (props.dialogue.questUpdate) {
-          dispatch(updateQuest(props.dialogue.questUpdate));
-        }
-        if (props.dialogue.mapUpdate) {
-          props.dialogue.mapUpdate.map((m: any) => dispatch(updateMap(m)));
-        }
-        if (props.dialogue.questFinish) {
-          dispatch(finishQuest(props.dialogue.questFinish));
+        if (props.dialogue.triggers) {
+          props.dialogue.triggers.forEach((t: number) => triggerEvent(t));
         }
       }
     }

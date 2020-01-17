@@ -11,6 +11,8 @@ export interface IGso {
   quests: any;
   levels: any;
   maps: any;
+  party: string[];
+  influence: number[];
 }
 
 export interface IMap {
@@ -78,6 +80,7 @@ export interface INpc {
 export interface ITrigger {
   id: number | null;
   triggerType: string;
+  data?: any;
 }
 
 export interface IDialContinuation {
@@ -92,17 +95,15 @@ export interface IDialogue {
   lines: string[];
   nextNode?: number | IDialContinuation;
   infoline?: string;
-  dialUpdate?: any[];
-  questUpdate?: any;
-  mapUpdate?: any;
-  questFinish?: any;
   choice?: IDialogueChoice[];
+  triggers?: number[];
 }
 
 export interface IDialogueChoice {
   id: number;
   text: string;
   nextDial: number;
+  triggers: number[];
 }
 
 export interface IQuest {

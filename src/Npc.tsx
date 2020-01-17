@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import { dialogueActive, showInfoline } from "./store/actions";
-import { INpc } from "./data/Types";
+import { INpc, ITrigger } from "./data/Types";
 import { findTrigger } from "./helpers";
 
 interface INPCStateProps {
@@ -42,7 +42,7 @@ export const NPC = (props: INPCProps) => {
 
   const dispatch = useDispatch();
   const npcTrigger = props.state[props.n.id];
-  function triggerEvent(event: any) {
+  function triggerEvent(event: ITrigger) {
     dispatch(showInfoline(null));
     if (npcTrigger === false) {
       return;

@@ -9,7 +9,9 @@ import {
   UPDATE_MAP,
   UPDATE_LEVEL,
   NPC_UPDATE,
-  SHOW_PARTY
+  SHOW_PARTY,
+  UPDATE_PARTY,
+  UPDATE_INFLUENCE
 } from "../data/Constants";
 import { gso } from "../data/Gso";
 import { IGso } from "../data/Types";
@@ -20,6 +22,7 @@ export default function GsoReduicer(
   state: IGso | void = initialState,
   action: any
 ) {
+  //console.log(state);
   if (!state) {
     return initialState;
   }
@@ -85,6 +88,19 @@ export default function GsoReduicer(
     case SHOW_PARTY:
       return Object.assign({}, state, {
         partySelection: action.payload
+      });
+    case UPDATE_PARTY:
+      if (action.payload.update === "add") {
+        const partyToUpdate1 = [...state.party];
+        return Object.assign({}, state, {
+          party: partyToUpdate1.push(action.payload.character)
+        });
+      }
+    case UPDATE_INFLUENCE:
+      const influenceToChange = { ...state.influence };
+      influenceToChange[action.payload.character] += action.payload.num;
+      return Object.assign({}, state, {
+        influence: influenceToChange
       });
     default:
       return initialState;
