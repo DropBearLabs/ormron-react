@@ -2,7 +2,7 @@ import {
   ACTIVE_DIALOGUE,
   LEVEL_ACTIVE,
   SHOW_INFOLINE,
-  SHOW_MAP,
+  ACTIVE_MAP,
   SHOW_QUEST,
   UPDATE_QUEST,
   FINISH_QUEST,
@@ -76,9 +76,9 @@ export const finishQuest = (condition: any) => {
   };
 };
 
-export const displayMap = (id: number | null) => ({
+export const activeMap = (id: number | null) => ({
   payload: id,
-  type: SHOW_MAP
+  type: ACTIVE_MAP
 });
 
 export const updateMap = (condition: any) => {
@@ -124,7 +124,7 @@ export default {
   showInfoline,
   displayQuest,
   finishQuest,
-  displayMap,
+  activeMap,
   updateMap,
   selectParty
 };

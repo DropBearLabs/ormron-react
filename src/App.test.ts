@@ -44,13 +44,13 @@ test("Activate dialogue", () => {
 });
 
 test("Activate map", () => {
-  expect(reduicer(initialState, actions.displayMap(0))).toMatchObject({
+  expect(reduicer(initialState, actions.activeMap(0))).toMatchObject({
     activeMap: 0
   });
 
   initialState.activeMap = 0;
 
-  expect(reduicer(initialState, actions.displayMap(null))).toMatchObject({
+  expect(reduicer(initialState, actions.activeMap(null))).toMatchObject({
     activeMap: null
   });
 });

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   displayQuest,
   levelActive,
-  displayMap,
+  activeMap,
   updateQuest,
   updateLevel,
   activeDialogue,
@@ -90,7 +90,7 @@ const Menu = (props: IMenuProps) => {
       <img
         style={iconMapStyle}
         src="temp-icon3.png"
-        onClick={() => dispatch(displayMap(0))}
+        onClick={() => dispatch(activeMap(0))}
       />
       <img
         style={iconQuestStyle}
