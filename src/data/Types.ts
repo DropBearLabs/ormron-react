@@ -2,7 +2,7 @@ export interface IGso {
   chapter: number;
   activeLevel: number;
   infoline: string | null;
-  partySelection: IPartyMember[] | null;
+  partySelection: string[] | null;
   activeDialogue: number | null;
   activeMap: number | null;
   questsTaken: number[];

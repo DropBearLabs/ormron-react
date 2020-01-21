@@ -42,3 +42,27 @@ test("Activate dialogue", () => {
     activeDialogue: null
   });
 });
+
+test("Activate map", () => {
+  expect(reduicer(initialState, actions.displayMap(0))).toMatchObject({
+    activeMap: 0
+  });
+
+  initialState.activeMap = 0;
+
+  expect(reduicer(initialState, actions.displayMap(null))).toMatchObject({
+    activeMap: null
+  });
+});
+
+test("Party selection", () => {
+  expect(reduicer(initialState, actions.selectParty(["maya"]))).toMatchObject({
+    partySelection: ["maya"]
+  });
+
+  initialState.partySelection = ["maya"];
+
+  expect(reduicer(initialState, actions.selectParty(null))).toMatchObject({
+    partySelection: null
+  });
+});
