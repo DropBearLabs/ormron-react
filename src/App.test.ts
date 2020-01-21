@@ -32,13 +32,13 @@ let initialState: IGso = {
 };
 
 test("Activate dialogue", () => {
-  expect(reduicer(initialState, actions.dialogueActive(1))).toMatchObject({
+  expect(reduicer(initialState, actions.activeDialogue(1))).toMatchObject({
     activeDialogue: 1
   });
 
   initialState.activeDialogue = 1;
 
-  expect(reduicer(initialState, actions.dialogueActive(null))).toMatchObject({
+  expect(reduicer(initialState, actions.activeDialogue(null))).toMatchObject({
     activeDialogue: null
   });
 });

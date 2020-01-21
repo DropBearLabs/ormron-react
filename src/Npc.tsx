@@ -1,10 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { dialogueActive, showInfoline } from "./store/actions";
+import { activeDialogue, showInfoline } from "./store/actions";
 import { INpc, ITrigger } from "./data/Types";
-import { findTrigger } from "./helpers";
-import { tsConstructorType } from "@babel/types";
 
 interface INPCStateProps {
   state: string | null;
@@ -48,7 +46,7 @@ export const NPC = (props: INPCProps) => {
     if (npcTrigger === false) {
       return;
     } else {
-      dispatch(dialogueActive(npcTrigger));
+      dispatch(activeDialogue(npcTrigger));
     }
   }
   return (

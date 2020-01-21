@@ -1,5 +1,5 @@
 import {
-  DIALOGUE_ACTIVE,
+  ACTIVE_DIALOGUE,
   LEVEL_ACTIVE,
   SHOW_INFOLINE,
   FINISH_QUEST,
@@ -30,7 +30,7 @@ export default function GsoReduicer(
       return Object.assign({}, state, {
         activeLevel: action.payload
       });
-    case DIALOGUE_ACTIVE:
+    case ACTIVE_DIALOGUE:
       return Object.assign({}, state, {
         activeDialogue: action.payload != null ? action.payload : null
       });

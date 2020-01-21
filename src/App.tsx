@@ -7,7 +7,7 @@ import {
   displayMap,
   updateQuest,
   updateLevel,
-  dialogueActive,
+  activeDialogue,
   selectParty
 } from "./store/actions";
 import { dialogues } from "./data/Dialogues";
@@ -128,8 +128,8 @@ const Entry = (props: IEntryProps) => {
   };
 
   const triggerEntry = () => {
-    if (props.c.dialogueActiveStart && firstTimeVisit()) {
-      dispatch(dialogueActive(props.c.dialogueActiveStart));
+    if (props.c.activeDialogueStart && firstTimeVisit()) {
+      dispatch(activeDialogue(props.c.activeDialogueStart));
     }
     if (props.c.partySelect && isOpen(c.to)) {
       dispatch(selectParty(party));

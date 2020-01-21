@@ -30,7 +30,7 @@ export const connections: IConnection[] = [
     position: { x: 400, y: GROUNDLEVEL },
     origin: 0,
     to: 2,
-    dialogueActiveStart: 8,
+    activeDialogueStart: 8,
     partySelect: false
   },
   {

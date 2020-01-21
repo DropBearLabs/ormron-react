@@ -1,5 +1,5 @@
 import {
-  DIALOGUE_ACTIVE,
+  ACTIVE_DIALOGUE,
   LEVEL_ACTIVE,
   SHOW_INFOLINE,
   SHOW_MAP,
@@ -14,10 +14,10 @@ import {
   UPDATE_INFLUENCE
 } from "../data/Constants";
 
-export const dialogueActive = (index: number | null) => {
+export const activeDialogue = (index: number | null) => {
   return {
     payload: index,
-    type: DIALOGUE_ACTIVE
+    type: ACTIVE_DIALOGUE
   };
 };
 
@@ -118,7 +118,7 @@ export const updateInfluence = (condition: any) => {
 };
 
 export default {
-  dialogueActive,
+  activeDialogue,
   levelActive,
   npcUpdate,
   showInfoline,
