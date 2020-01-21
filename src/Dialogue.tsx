@@ -113,7 +113,6 @@ const DialogueOutput = (props: IDialogueProps) => {
         dispatch(showInfoline(null));
       }, 2000);
     }
-    console.log("my trigger", trigger.triggerType);
     switch (trigger.triggerType) {
       case "NPC_UPDATE":
         dispatch(npcUpdate(trigger.data));

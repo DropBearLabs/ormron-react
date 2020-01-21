@@ -51,17 +51,19 @@ export const showInfoline = (text: string | null) => ({
   type: SHOW_INFOLINE
 });
 
-export const displayQuest = (id: number | null) => ({
-  payload: id,
-  type: SHOW_QUEST
-});
+export const displayQuest = (id: number | null) => {
+  return {
+    payload: id,
+    type: SHOW_QUEST
+  };
+};
 
 export const updateQuest = (condition: any) => {
   console.log("updateQuest", condition);
   const quest = condition[0];
-  const state = condition[1];
+  const name = condition[1];
   return {
-    payload: { quest, state },
+    payload: { quest, name },
     type: UPDATE_QUEST
   };
 };

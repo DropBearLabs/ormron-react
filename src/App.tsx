@@ -182,22 +182,22 @@ const App: React.FC = () => {
         const npc = findNpc(n);
         return <NPC npc={npc} key={npc.id} state={levelState[levelInd]} />;
       })}
-      {dialogueInd != null ? (
+      {dialogueInd !== null ? (
         <Dialogue dialogue={dialogues[dialogueInd]} />
       ) : null}
-      {infoline != null ? <InfoLine line={infoline} /> : null}
+      {infoline !== null ? <InfoLine line={infoline} /> : null}
       <Menu quest={questsTaken} />
-      {questActive != null ? (
+      {questActive !== null ? (
         <Quest
           active={questActive}
           state={questsState}
           quests={questsTaken.map((q: number) => quests[q])}
         />
       ) : null}
-      {mapId != null ? (
+      {mapId !== null ? (
         <Map chapter={chapter} map={maps[mapId]} state={mapsState} />
       ) : null}
-      {party != null ? <Party party={party} /> : null}
+      {party !== null ? <Party party={party} /> : null}
     </div>
   );
 };

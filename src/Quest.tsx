@@ -93,7 +93,7 @@ export const Quest = (props: IQuestProps) => {
     top: "50px",
     left: "340px"
   };
-
+  console.log("Quest", props.quests);
   return (
     <div style={menuStyle}>
       <img

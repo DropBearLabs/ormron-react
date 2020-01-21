@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { IPartyMember } from "./data/Types";
+import { selectParty } from "./store/actions";
+import { useDispatch } from "react-redux";
 let currentSelection: string[] = ["maya"];
 
 const allParty: IPartyMember[] = [
@@ -112,6 +114,7 @@ interface IPartyProps {
 }
 
 export const Party = (props: IPartyProps) => {
+  const dispatch = useDispatch();
   const partyStyle = {
     top: "0",
     right: "15px",
@@ -122,12 +125,23 @@ export const Party = (props: IPartyProps) => {
     backgroundImage: `url(temp-backg4.png)`
   };
 
+  const closeButtonStyle = {
+    position: "relative" as "relative",
+    top: "50px",
+    left: "340px"
+  };
+
   const [selected, select] = useState("maya");
   if (props.required) {
     currentSelection.push(props.required);
   }
   return (
     <div style={partyStyle}>
+      <img
+        style={closeButtonStyle}
+        src="temp-icon2.png"
+        onClick={() => dispatch(selectParty(null))}
+      />
       <h1>PARTY</h1>
       {allParty.map((char: IPartyMember) => {
         if (props.party && props.party.indexOf(char.id) !== -1) {

@@ -47,8 +47,11 @@ export default function GsoReduicer(
         questsToUpdate[action.payload.quest] = [];
       }
       questsToUpdate[action.payload.quest].push(action.payload.state);
+      console.log("questsToUpdate", questsToUpdate);
       const quesstsExisting = [...state.questsTaken];
+      console.log("quesstsExisting", quesstsExisting);
       if (quesstsExisting.indexOf(action.payload.quest) === -1) {
+        console.log("NOW PUSH");
         quesstsExisting.push(action.payload.quest);
       }
       return Object.assign({}, state, {
@@ -57,10 +60,13 @@ export default function GsoReduicer(
       });
     case FINISH_QUEST:
       const questsToRemove = [...state.questsTaken];
+      console.log("questsToRemove", questsToRemove);
+      const completed = questsToRemove.splice(action.payload.quest, 1);
+      console.log(completed);
       const completedQuests = [...state.questsCompleted];
-      const index = questsToRemove.indexOf(action.payload.quest);
-      const completed = questsToRemove.splice(index, 1);
       completedQuests.push(completed[0]);
+      console.log("completedQuests", completedQuests);
+      console.log("new quest state", [...state.questsTaken]);
       return Object.assign({}, state, {
         questsCompleted: completedQuests,
         questsTaken: questsToRemove
