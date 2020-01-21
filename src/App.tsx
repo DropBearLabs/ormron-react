@@ -131,7 +131,7 @@ const Entry = (props: IEntryProps) => {
     if (props.c.activeDialogueStart && firstTimeVisit()) {
       dispatch(activeDialogue(props.c.activeDialogueStart));
     }
-    if (props.c.partySelect && isOpen(c.to)) {
+    if (props.c.selectParty && isOpen(c.to)) {
       dispatch(selectParty(party));
       return;
     }
@@ -162,7 +162,7 @@ const App: React.FC = () => {
   const mapsState = useSelector((state: any) => state.maps);
   const mapId = useSelector((state: any) => state.activeMap);
   const chapter = useSelector((state: any) => state.chapter);
-  const party = useSelector((state: any) => state.partySelection);
+  const party = useSelector((state: any) => state.selectParty);
 
   return (
     <div className="App">

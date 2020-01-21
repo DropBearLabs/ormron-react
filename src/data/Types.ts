@@ -2,7 +2,7 @@ export interface IGso {
   chapter: number;
   activeLevel: number;
   infoline: string | null;
-  partySelection: string[] | null;
+  selectParty: string[] | null;
   activeDialogue: number | null;
   activeMap: number | null;
   questsTaken: number[];
@@ -53,12 +53,12 @@ export interface IConnection {
   origin: number;
   position: IPoint;
   image: string;
-  partySelect: boolean;
+  selectParty: boolean;
   trigger?: number | false;
   questUpdate?: any;
   levelStart?: any;
-  dialogueActiveStart?: any;
-  dialogueActiveEnd?: any;
+  activeDialogueStart?: any;
+  activeDialogueEnd?: any;
 }
 
 export interface IPoint {

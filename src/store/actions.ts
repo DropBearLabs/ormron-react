@@ -9,7 +9,7 @@ import {
   UPDATE_MAP,
   UPDATE_LEVEL,
   NPC_UPDATE,
-  SHOW_PARTY,
+  SELECT_PARTY,
   UPDATE_PARTY,
   UPDATE_INFLUENCE
 } from "../data/Constants";
@@ -93,7 +93,7 @@ export const updateMap = (condition: any) => {
 export const selectParty = (party: any) => {
   return {
     payload: party,
-    type: SHOW_PARTY
+    type: SELECT_PARTY
   };
 };
 

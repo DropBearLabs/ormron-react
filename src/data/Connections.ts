@@ -10,7 +10,7 @@ export const connections: IConnection[] = [
     position: { x: 0, y: GROUNDLEVEL },
     origin: 0,
     to: 6,
-    partySelect: true
+    selectParty: true
   },
   {
     id: 1,
@@ -21,7 +21,7 @@ export const connections: IConnection[] = [
     to: 1,
     questUpdate: { 0: "0_ARENA_ENTER" },
     levelStart: { 0: "to_ormron_arena" },
-    partySelect: false
+    selectParty: false
   },
   {
     id: 2,
@@ -31,7 +31,7 @@ export const connections: IConnection[] = [
     origin: 0,
     to: 2,
     activeDialogueStart: 8,
-    partySelect: false
+    selectParty: false
   },
   {
     id: 3,
@@ -40,7 +40,7 @@ export const connections: IConnection[] = [
     position: { x: 10, y: GROUNDLEVEL },
     origin: 1,
     to: 0,
-    partySelect: false
+    selectParty: false
   },
   {
     id: 4,
@@ -49,7 +49,7 @@ export const connections: IConnection[] = [
     position: { x: 10, y: GROUNDLEVEL },
     origin: 2,
     to: 0,
-    partySelect: false
+    selectParty: false
   },
   {
     id: 5,
@@ -58,7 +58,7 @@ export const connections: IConnection[] = [
     position: { x: 400, y: GROUNDLEVEL },
     origin: 2,
     to: 3,
-    partySelect: false
+    selectParty: false
   },
   {
     id: 6,
@@ -67,7 +67,7 @@ export const connections: IConnection[] = [
     position: { x: SCREENWIDTH - 200, y: GROUNDLEVEL },
     origin: 2,
     to: 4,
-    partySelect: false
+    selectParty: false
   },
   {
     id: 7,
@@ -76,7 +76,7 @@ export const connections: IConnection[] = [
     position: { x: 10, y: GROUNDLEVEL },
     origin: 3,
     to: 2,
-    partySelect: false
+    selectParty: false
   },
   {
     id: 8,
@@ -85,6 +85,6 @@ export const connections: IConnection[] = [
     position: { x: 10, y: GROUNDLEVEL },
     origin: 4,
     to: 2,
-    partySelect: false
+    selectParty: false
   }
 ];

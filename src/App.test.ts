@@ -11,7 +11,7 @@ let initialState: IGso = {
   activeQuest: null,
   activeMap: null,
   infoline: null,
-  partySelection: null,
+  selectParty: null,
   levels: [
     {
       npc_Olija: 0,
@@ -57,12 +57,12 @@ test("Activate map", () => {
 
 test("Party selection", () => {
   expect(reduicer(initialState, actions.selectParty(["maya"]))).toMatchObject({
-    partySelection: ["maya"]
+    selectParty: ["maya"]
   });
 
-  initialState.partySelection = ["maya"];
+  initialState.selectParty = ["maya"];
 
   expect(reduicer(initialState, actions.selectParty(null))).toMatchObject({
-    partySelection: null
+    selectParty: null
   });
 });
