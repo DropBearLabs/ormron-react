@@ -7,7 +7,6 @@ import {
   UPDATE_QUEST,
   FINISH_QUEST,
   UPDATE_MAP,
-  UPDATE_LEVEL,
   NPC_UPDATE,
   SELECT_PARTY,
   UPDATE_PARTY,
@@ -25,16 +24,6 @@ export const levelActive = (index: number) => ({
   payload: index,
   type: LEVEL_ACTIVE
 });
-
-export const updateLevel = (condition: any) => {
-  const level = Object.keys(condition)[0];
-  const name = Object.values(condition)[0];
-  const state = "triggered";
-  return {
-    payload: { level, name, state },
-    type: UPDATE_LEVEL
-  };
-};
 
 export const npcUpdate = (condition: any) => {
   const level = condition[0];
@@ -59,7 +48,6 @@ export const displayQuest = (id: number | null) => {
 };
 
 export const updateQuest = (condition: any) => {
-  console.log("updateQuest", condition);
   const quest = condition[0];
   const name = condition[1];
   return {
@@ -126,5 +114,6 @@ export default {
   finishQuest,
   activeMap,
   updateMap,
-  selectParty
+  selectParty,
+  updateQuest
 };

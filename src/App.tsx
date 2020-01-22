@@ -3,12 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import {
   displayQuest,
-  levelActive,
   activeMap,
-  updateQuest,
-  updateLevel,
-  activeDialogue,
-  selectParty
+  showInfoline,
+  levelActive,
+  updateQuest
 } from "./store/actions";
 import { dialogues } from "./data/Dialogues";
 import { quests } from "./data/Quests";
@@ -22,7 +20,7 @@ import { Party } from "./Party";
 import { Map } from "./Map";
 
 import "./App.css";
-import { findConnection } from "./helpers";
+import { findConnection, findTrigger } from "./helpers";
 import { findNpc } from "./helpers";
 
 let party: string[] = ["maya"];
@@ -127,25 +125,37 @@ const Entry = (props: IEntryProps) => {
     return props.levelState[c.id] === undefined;
   };
 
-  const triggerEntry = () => {
-    if (props.c.activeDialogueStart && firstTimeVisit()) {
-      dispatch(activeDialogue(props.c.activeDialogueStart));
-    }
-    if (props.c.selectParty && isOpen(c.to)) {
-      dispatch(selectParty(party));
+  const triggerEntry = (triggers: any) => {
+    if (!triggers) {
       return;
     }
-    if (isOpen(c.to)) {
-      dispatch(levelActive(c.to));
-    }
-    if (isOpen(c.to) && props.c.questUpdate && firstTimeVisit()) {
-      dispatch(updateQuest(props.c.questUpdate));
-      dispatch(updateLevel(props.c.levelStart));
-    }
+    triggers.forEach((t: number) => triggerEvent(t));
   };
 
+  function triggerEvent(id: number) {
+    const trigger = findTrigger(id);
+    if (c.infoline) {
+      dispatch(showInfoline(c.infoline));
+      setTimeout(() => {
+        dispatch(showInfoline(null));
+      }, 2000);
+    }
+    switch (trigger.triggerType) {
+      case "LEVEL_ACTIVE":
+        if (isOpen(trigger.data)) {
+          dispatch(levelActive(trigger.data));
+        }
+        return;
+      case "QUEST_UPDATE":
+        dispatch(updateQuest(trigger.data));
+        return;
+      default:
+        return;
+    }
+  }
+
   return (
-    <div style={boxStyle} onClick={() => triggerEntry()}>
+    <div style={boxStyle} onClick={() => triggerEntry(c.triggers)}>
       {c.name}
     </div>
   );

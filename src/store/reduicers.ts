@@ -7,7 +7,7 @@ import {
   UPDATE_QUEST,
   ACTIVE_MAP,
   UPDATE_MAP,
-  UPDATE_LEVEL,
+  OPEN_CONNECTION,
   NPC_UPDATE,
   SELECT_PARTY,
   UPDATE_PARTY,
@@ -43,17 +43,16 @@ export default function GsoReduicer(
       return Object.assign({}, state, { infoline: action.payload });
     case UPDATE_QUEST:
       const questsToUpdate = [...state.quests];
+      const quesstsExisting = [...state.questsTaken];
       if (!questsToUpdate[action.payload.quest]) {
         questsToUpdate[action.payload.quest] = [];
       }
-      questsToUpdate[action.payload.quest].push(action.payload.state);
-      console.log("questsToUpdate", questsToUpdate);
-      const quesstsExisting = [...state.questsTaken];
-      console.log("quesstsExisting", quesstsExisting);
+      questsToUpdate[action.payload.quest].push(action.payload.name);
+
       if (quesstsExisting.indexOf(action.payload.quest) === -1) {
-        console.log("NOW PUSH");
         quesstsExisting.push(action.payload.quest);
       }
+
       return Object.assign({}, state, {
         quests: questsToUpdate,
         questsTaken: quesstsExisting
@@ -85,11 +84,6 @@ export default function GsoReduicer(
         mapsToUpdate.push(parseInt(action.payload.map, 0));
       }
       return Object.assign({}, state, { maps: mapsToUpdate });
-    case UPDATE_LEVEL:
-      const levelsToUpdate1 = [...state.levels];
-      levelsToUpdate1[action.payload.level][action.payload.name] =
-        action.payload.state;
-      return Object.assign({}, state, { levels: levelsToUpdate1 });
     case SELECT_PARTY:
       return Object.assign({}, state, {
         selectParty: action.payload

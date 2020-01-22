@@ -31,5 +31,9 @@ export const triggers: ITrigger[] = [
   { id: 17, triggerType: "QUEST_UPDATE", data: [1, "1_CAMP_START"] },
   { id: 18, triggerType: "PARTY_CHANGE", data: ["nell", "add"] },
   { id: 19, triggerType: "INFLUENCE_CHANGE", data: ["nell", -1] },
-  { id: 20, triggerType: "INFLUENCE_CHANGE", data: ["nell", 1] }
+  { id: 20, triggerType: "INFLUENCE_CHANGE", data: ["nell", 1] },
+  { id: 21, triggerType: "QUEST_UPDATE", data: [0, "0_ARENA_ENTER"] },
+  { id: 22, triggerType: "LEVEL_ACTIVE", data: 0 },
+  { id: 23, triggerType: "LEVEL_ACTIVE", data: 1 },
+  { id: 24, triggerType: "LEVEL_ACTIVE", data: 2 }
 ];

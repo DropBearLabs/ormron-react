@@ -49,16 +49,11 @@ export interface ILevel {
 export interface IConnection {
   id: number;
   name: string;
-  to: number;
-  origin: number;
   position: IPoint;
   image: string;
   selectParty: boolean;
-  trigger?: number | false;
-  questUpdate?: any;
-  levelStart?: any;
-  activeDialogueStart?: any;
-  activeDialogueEnd?: any;
+  triggers?: number[];
+  infoline?: string;
 }
 
 export interface IPoint {
