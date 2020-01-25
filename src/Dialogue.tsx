@@ -10,11 +10,11 @@ import {
   finishQuest,
   updateParty,
   updateInfluence,
-  openLevel,
   openConnection
 } from "./store/actions";
 import { IDialogue, IDialogueChoice } from "./data/Types";
 import { findTrigger } from "./helpers";
+import { questCanBeUpdated } from "./rules";
 
 interface IDialogueLineProps {
   nextLine: () => void;
@@ -39,18 +39,14 @@ const DialogueLine = (props: IDialogueLineProps) => {
   );
 };
 
-interface IDialogueProps {
-  dialogue: IDialogue;
-}
-
 interface IDialogueChoiceProps {
   choice: IDialogueChoice[];
   setLineN: any;
 }
 
-const DialogueCharacter = (props: IDialogueProps) => {
+const DialogueCharacter = ({ dialogue }: { dialogue: IDialogue }) => {
   const dialogueCharacterStyle = {
-    backgroundImage: `url(${props.dialogue.image})`,
+    backgroundImage: `url(${dialogue.image})`,
     position: "absolute" as "absolute",
     height: "400px",
     width: "500px",
@@ -91,7 +87,12 @@ const DialogueChoices = (props: IDialogueChoiceProps) => {
   );
 };
 
-const DialogueOutput = (props: IDialogueProps) => {
+interface IDialogueOutputProps {
+  dialogue: IDialogue;
+  quests: any;
+}
+
+const DialogueOutput = (props: IDialogueOutputProps) => {
   const dispatch = useDispatch();
   const dialoguePaperStyle = {
     height: "200px",
@@ -120,7 +121,11 @@ const DialogueOutput = (props: IDialogueProps) => {
         dispatch(npcUpdate(trigger.data));
         return;
       case "UPDATE_QUEST":
-        dispatch(questUpdate(trigger.data));
+        console.log("let's update with", props.quests, trigger.data);
+        console.log(questCanBeUpdated(props.quests, trigger.data));
+        if (questCanBeUpdated(props.quests, trigger.data)) {
+          dispatch(questUpdate(trigger.data));
+        }
         return;
       case "MAP_UPDATE":
         dispatch(updateMap(trigger.data));
@@ -167,6 +172,11 @@ const DialogueOutput = (props: IDialogueProps) => {
   );
 };
 
+interface IDialogueProps {
+  dialogue: IDialogue;
+  quests: any;
+}
+
 export const Dialogue = (props: IDialogueProps) => {
   const dialogueStyle = {
     height: "760px",
@@ -179,7 +189,9 @@ export const Dialogue = (props: IDialogueProps) => {
   return (
     <div style={dialogueStyle} id="DialoguePopup">
       {props.dialogue ? <DialogueCharacter dialogue={props.dialogue} /> : null}
-      {props.dialogue ? <DialogueOutput dialogue={props.dialogue} /> : null}
+      {props.dialogue ? (
+        <DialogueOutput dialogue={props.dialogue} quests={props.quests} />
+      ) : null}
     </div>
   );
 };

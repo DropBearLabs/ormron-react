@@ -1,14 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { quests } from "./data/Quests";
+import { questCanBeUpdated } from "./rules";
 import { IConnection, ITrigger } from "./data/Types";
 
 import {
   showInfoline,
   levelActive,
   questUpdate,
-  openLevel,
   openConnection
 } from "./store/actions";
 import { findTrigger } from "./helpers";
@@ -22,7 +21,7 @@ interface IConnectionProps {
 
 export const Connection = (props: IConnectionProps) => {
   const dispatch = useDispatch();
-  const { c, state, levelState } = props;
+  const { c, levelState } = props;
   const doorStyle = {
     left: c.position.x,
     bottom: c.position.y,
@@ -47,30 +46,8 @@ export const Connection = (props: IConnectionProps) => {
     triggers.forEach((t: number) => triggerEvent(t));
   };
 
-  const canBeUpdated = (data: any) => {
-    if (props.quests.length === 0) {
-      // Quest is not taken
-      return false;
-    }
-    const steps = quests[data[0]].steps.map((x: any) => x.event);
-    const currentStep = data[1];
-    const currentStepIndex = steps.indexOf(data[1]);
-    const prevStep = steps[currentStepIndex - 1];
-    const currentQuestEvents = props.quests[data[0]];
-    if (currentQuestEvents.indexOf(prevStep) === -1) {
-      // Previous step wasn't completed
-      return false;
-    }
-    if (currentQuestEvents.indexOf(currentStep) !== -1) {
-      // This step was completed already
-      return false;
-    }
-    return true;
-  };
-
   function triggerEvent(id: number) {
     const trigger: ITrigger = findTrigger(id);
-    console.log(trigger);
     if (c.infoline) {
       dispatch(showInfoline(c.infoline));
       setTimeout(() => {
@@ -84,7 +61,7 @@ export const Connection = (props: IConnectionProps) => {
         }
         return;
       case "UPDATE_QUEST":
-        if (canBeUpdated(trigger.data)) {
+        if (questCanBeUpdated(props.quests, trigger.data)) {
           dispatch(questUpdate(trigger.data));
         }
         return;

@@ -128,7 +128,7 @@ const App: React.FC = () => {
         return <NPC npc={npc} key={npc.id} state={levelState[levelInd]} />;
       })}
       {dialogueInd !== null ? (
-        <Dialogue dialogue={dialogues[dialogueInd]} />
+        <Dialogue dialogue={dialogues[dialogueInd]} quests={questsState} />
       ) : null}
       {infoline !== null ? <InfoLine line={infoline} /> : null}
       <Menu quest={questsTaken} />
