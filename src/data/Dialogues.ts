@@ -73,7 +73,7 @@ export const dialogues: IDialogue[] = [
     image: "temp-dial1.png",
     lines: ["I had my qualifications at Arena. Ready for more exitement!"],
     infoline: "QUEST COMPLETED: Fight in Arena",
-    triggers: [9, 10, 11]
+    triggers: [9, 10, 11, 26]
   },
   {
     id: 7,

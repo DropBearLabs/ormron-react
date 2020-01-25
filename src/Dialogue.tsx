@@ -121,8 +121,6 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
         dispatch(npcUpdate(trigger.data));
         return;
       case "UPDATE_QUEST":
-        console.log("let's update with", props.quests, trigger.data);
-        console.log(questCanBeUpdated(props.quests, trigger.data));
         if (questCanBeUpdated(props.quests, trigger.data)) {
           dispatch(questUpdate(trigger.data));
         }

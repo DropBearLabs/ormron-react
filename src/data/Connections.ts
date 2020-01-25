@@ -31,7 +31,7 @@ export const connections: IConnection[] = [
   },
   {
     id: 3,
-    name: "to_ormron_street",
+    name: "arena_to_street",
     open: "temp-obj3c.png",
     closed: "temp-obj3.png",
     position: { x: 10, y: GROUNDLEVEL },
@@ -40,7 +40,7 @@ export const connections: IConnection[] = [
   },
   {
     id: 4,
-    name: "to_ormron_street",
+    name: "garden_to_street",
     open: "temp-obj3c.png",
     closed: "temp-obj3.png",
     position: { x: 10, y: GROUNDLEVEL },
@@ -48,7 +48,7 @@ export const connections: IConnection[] = [
   },
   {
     id: 5,
-    name: "to_ormron_gazebo",
+    name: "garden_to_gasebo",
     open: "temp-obj1c.png",
     closed: "temp-obj1.png",
     position: { x: 400, y: GROUNDLEVEL },
@@ -56,26 +56,10 @@ export const connections: IConnection[] = [
   },
   {
     id: 6,
-    name: "to_ormron_school",
+    name: "garden_to_school",
     open: "temp-obj2c.png",
     closed: "temp-obj2.png",
     position: { x: SCREENWIDTH - 200, y: GROUNDLEVEL },
-    selectParty: false
-  },
-  {
-    id: 7,
-    name: "to_ormron_garden",
-    open: "temp-obj3c.png",
-    closed: "temp-obj3.png",
-    position: { x: 10, y: GROUNDLEVEL },
-    selectParty: false
-  },
-  {
-    id: 8,
-    name: "to_ormron_garden",
-    open: "temp-obj3c.png",
-    closed: "temp-obj3.png",
-    position: { x: 10, y: GROUNDLEVEL },
     selectParty: false
   }
 ];

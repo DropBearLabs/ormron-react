@@ -36,5 +36,6 @@ export const triggers: ITrigger[] = [
   { id: 22, triggerType: "LEVEL_ACTIVE", data: [0] },
   { id: 23, triggerType: "LEVEL_ACTIVE", data: [1] },
   { id: 24, triggerType: "LEVEL_ACTIVE", data: [2] },
-  { id: 25, triggerType: "OPEN_CONNECTION", data: [0, "street_to_arena"] }
+  { id: 25, triggerType: "OPEN_CONNECTION", data: [0, "street_to_arena"] },
+  { id: 26, triggerType: "OPEN_CONNECTION", data: [0, "street_to_garden"] }
 ];

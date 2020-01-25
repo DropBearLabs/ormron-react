@@ -35,10 +35,6 @@ export const Connection = (props: IConnectionProps) => {
     return levelState[c.name] !== "closed";
   };
 
-  const firstTimeVisit = () => {
-    return levelState[c.name] === "open";
-  };
-
   const triggerEntry = (triggers: any) => {
     if (!triggers) {
       return;

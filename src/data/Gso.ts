@@ -55,7 +55,8 @@ export const gso: IGso = {
     },
     {
       npc_Dario1: 5,
-      state: "closed"
+      state: "closed",
+      arena_to_street: "visited"
     },
     {
       npc_Nell: false,
