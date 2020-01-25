@@ -4,12 +4,14 @@ import { useDispatch } from "react-redux";
 import {
   activeDialogue,
   showInfoline,
-  updateQuest,
+  questUpdate,
   updateMap,
   npcUpdate,
   finishQuest,
   updateParty,
-  updateInfluence
+  updateInfluence,
+  openLevel,
+  openConnection
 } from "./store/actions";
 import { IDialogue, IDialogueChoice } from "./data/Types";
 import { findTrigger } from "./helpers";
@@ -117,14 +119,17 @@ const DialogueOutput = (props: IDialogueProps) => {
       case "NPC_UPDATE":
         dispatch(npcUpdate(trigger.data));
         return;
-      case "QUEST_UPDATE":
-        dispatch(updateQuest(trigger.data));
+      case "UPDATE_QUEST":
+        dispatch(questUpdate(trigger.data));
         return;
       case "MAP_UPDATE":
         dispatch(updateMap(trigger.data));
         return;
       case "QUEST_END":
         dispatch(finishQuest(trigger.data));
+        return;
+      case "OPEN_CONNECTION":
+        dispatch(openConnection(trigger.data));
         return;
       default:
         return;
@@ -138,10 +143,10 @@ const DialogueOutput = (props: IDialogueProps) => {
         setLineN(0);
       } else {
         dispatch(activeDialogue(null));
-        if (props.dialogue.triggers) {
-          props.dialogue.triggers.forEach((t: number) => triggerEvent(t));
-        }
       }
+    }
+    if (props.dialogue.triggers) {
+      props.dialogue.triggers.forEach((t: number) => triggerEvent(t));
     }
 
     if (!isLastLine(lineN)) {

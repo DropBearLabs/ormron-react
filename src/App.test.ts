@@ -100,7 +100,7 @@ test("Party selection", () => {
 
 test("Quest update", () => {
   expect(
-    reduicer(initialState, actions.updateQuest([0, "0_ARENA_START"]))
+    reduicer(initialState, actions.questUpdate([0, "0_ARENA_START"]))
   ).toMatchObject({
     quests: [["0_ARENA_START"]],
     questsTaken: [0]
@@ -110,7 +110,7 @@ test("Quest update", () => {
   initialState.questsTaken = [0];
 
   expect(
-    reduicer(initialState, actions.updateQuest([0, "0_ARENA_ACCESS"]))
+    reduicer(initialState, actions.questUpdate([0, "0_ARENA_ACCESS"]))
   ).toMatchObject({
     quests: [["0_ARENA_START", "0_ARENA_ACCESS"]],
     questsTaken: [0]
@@ -120,7 +120,7 @@ test("Quest update", () => {
   initialState.questsTaken = [0];
 
   expect(
-    reduicer(initialState, actions.updateQuest([0, "0_ARENA_3FIGHTS"]))
+    reduicer(initialState, actions.questUpdate([0, "0_ARENA_3FIGHTS"]))
   ).toMatchObject({
     quests: [["0_ARENA_START", "0_ARENA_ACCESS", "0_ARENA_3FIGHTS"]],
     questsTaken: [0]

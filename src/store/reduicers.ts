@@ -6,12 +6,13 @@ import {
   SHOW_QUEST,
   UPDATE_QUEST,
   ACTIVE_MAP,
-  UPDATE_MAP,
-  OPEN_CONNECTION,
+  MAP_UPDATE,
   NPC_UPDATE,
   SELECT_PARTY,
   UPDATE_PARTY,
-  UPDATE_INFLUENCE
+  UPDATE_INFLUENCE,
+  OPEN_LEVEL,
+  OPEN_CONNECTION
 } from "../data/Constants";
 import { gso } from "../data/Gso";
 import { IGso } from "../data/Types";
@@ -57,6 +58,15 @@ export default function GsoReduicer(
         quests: questsToUpdate,
         questsTaken: quesstsExisting
       });
+    case OPEN_CONNECTION:
+      const levelsToUpdate1 = [...state.levels];
+      console.log(levelsToUpdate1);
+      console.log(levelsToUpdate1[action.payload.level]);
+      console.log(levelsToUpdate1[action.payload.level][action.payload.entry]);
+      levelsToUpdate1[action.payload.level][action.payload.entry] = "open";
+      return Object.assign({}, state, {
+        levels: levelsToUpdate1
+      });
     case FINISH_QUEST:
       const questsToRemove = [...state.questsTaken];
       console.log("questsToRemove", questsToRemove);
@@ -78,7 +88,7 @@ export default function GsoReduicer(
       return Object.assign({}, state, {
         activeMap: action.payload
       });
-    case UPDATE_MAP:
+    case MAP_UPDATE:
       const mapsToUpdate = [...state.maps];
       if (action.payload.state === "OPEN") {
         mapsToUpdate.push(parseInt(action.payload.map, 0));

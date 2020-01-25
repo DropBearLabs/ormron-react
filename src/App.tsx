@@ -1,27 +1,22 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  displayQuest,
-  activeMap,
-  showInfoline,
-  levelActive,
-  updateQuest
-} from "./store/actions";
+import { displayQuest, activeMap } from "./store/actions";
 import { dialogues } from "./data/Dialogues";
 import { quests } from "./data/Quests";
 import { levels } from "./data/Levels";
 import { maps } from "./data/Maps";
-import { INpc, IConnection } from "./data/Types";
 import { NPC } from "./Npc";
 import { Quest } from "./Quest";
 import { Dialogue } from "./Dialogue";
 import { Party } from "./Party";
 import { Map } from "./Map";
+import { Connection } from "./Connection";
+
+import { findConnection } from "./helpers";
+import { findNpc } from "./helpers";
 
 import "./App.css";
-import { findConnection, findTrigger } from "./helpers";
-import { findNpc } from "./helpers";
 
 let party: string[] = ["maya"];
 
@@ -100,67 +95,6 @@ const Menu = (props: IMenuProps) => {
   );
 };
 
-interface IEntryProps {
-  c: IConnection;
-  state: number[];
-  levelState: any;
-}
-
-const Entry = (props: IEntryProps) => {
-  const dispatch = useDispatch();
-  const { c } = props;
-  const boxStyle = {
-    left: c.position.x,
-    bottom: c.position.y,
-    width: "190px",
-    height: "300px",
-    position: "absolute" as "absolute",
-    backgroundImage: `url(${c.image})`
-  };
-  const isOpen = (id: number) => {
-    return props.state.indexOf(id) !== -1;
-  };
-
-  const firstTimeVisit = () => {
-    return props.levelState[c.id] === undefined;
-  };
-
-  const triggerEntry = (triggers: any) => {
-    if (!triggers) {
-      return;
-    }
-    triggers.forEach((t: number) => triggerEvent(t));
-  };
-
-  function triggerEvent(id: number) {
-    const trigger = findTrigger(id);
-    if (c.infoline) {
-      dispatch(showInfoline(c.infoline));
-      setTimeout(() => {
-        dispatch(showInfoline(null));
-      }, 2000);
-    }
-    switch (trigger.triggerType) {
-      case "LEVEL_ACTIVE":
-        if (isOpen(trigger.data)) {
-          dispatch(levelActive(trigger.data));
-        }
-        return;
-      case "QUEST_UPDATE":
-        dispatch(updateQuest(trigger.data));
-        return;
-      default:
-        return;
-    }
-  }
-
-  return (
-    <div style={boxStyle} onClick={() => triggerEntry(c.triggers)}>
-      {c.name}
-    </div>
-  );
-};
-
 const App: React.FC = () => {
   const dialogueInd = useSelector((state: any) => state.activeDialogue);
   const levelInd = useSelector((state: any) => state.activeLevel);
@@ -180,11 +114,12 @@ const App: React.FC = () => {
       {levels[levelInd].connections.map((c: number) => {
         const connection = findConnection(c);
         return (
-          <Entry
+          <Connection
             c={connection}
             key={connection.id}
-            state={mapsState}
+            state={levelState}
             levelState={levelState[levelInd]}
+            quests={questsState}
           />
         );
       })}

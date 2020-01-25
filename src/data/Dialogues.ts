@@ -41,7 +41,8 @@ export const dialogues: IDialogue[] = [
     characterId: "char_Maya",
     image: "temp-dial1.png",
     lines: ["Hi, headmaster Dario. I am here to train!"],
-    nextNode: 4
+    nextNode: 4,
+    triggers: [25]
   },
   // 4
   {

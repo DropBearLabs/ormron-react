@@ -6,11 +6,13 @@ import {
   SHOW_QUEST,
   UPDATE_QUEST,
   FINISH_QUEST,
-  UPDATE_MAP,
+  MAP_UPDATE,
   NPC_UPDATE,
   SELECT_PARTY,
   UPDATE_PARTY,
-  UPDATE_INFLUENCE
+  UPDATE_INFLUENCE,
+  OPEN_LEVEL,
+  OPEN_CONNECTION
 } from "../data/Constants";
 
 export const activeDialogue = (index: number | null) => {
@@ -24,6 +26,22 @@ export const levelActive = (index: number) => ({
   payload: index,
   type: LEVEL_ACTIVE
 });
+
+export const openConnection = (condition: any) => {
+  const level = condition[0];
+  const entry = condition[1];
+  return {
+    payload: { level, entry },
+    type: OPEN_CONNECTION
+  };
+};
+
+export const openLevel = (index: number) => {
+  return {
+    payload: index,
+    type: OPEN_LEVEL
+  };
+};
 
 export const npcUpdate = (condition: any) => {
   const level = condition[0];
@@ -47,7 +65,7 @@ export const displayQuest = (id: number | null) => {
   };
 };
 
-export const updateQuest = (condition: any) => {
+export const questUpdate = (condition: any) => {
   const quest = condition[0];
   const name = condition[1];
   return {
@@ -74,7 +92,7 @@ export const updateMap = (condition: any) => {
   const state = condition[1];
   return {
     payload: { map, state },
-    type: UPDATE_MAP
+    type: MAP_UPDATE
   };
 };
 
@@ -115,5 +133,6 @@ export default {
   activeMap,
   updateMap,
   selectParty,
-  updateQuest
+  questUpdate,
+  openLevel
 };

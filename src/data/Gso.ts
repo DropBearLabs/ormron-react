@@ -47,14 +47,20 @@ export const gso: IGso = {
   levels: [
     {
       npc_Olija: 0,
-      npc_Dario: false
+      npc_Dario: false,
+      state: "open",
+      street_to_map: "closed",
+      street_to_arena: "closed",
+      street_to_garden: "closed"
     },
     {
-      npc_Dario1: 5
+      npc_Dario1: 5,
+      state: "closed"
     },
     {
       npc_Nell: false,
-      npc_Tara: false
+      npc_Tara: false,
+      state: "closed"
     }
   ],
   quests: [],

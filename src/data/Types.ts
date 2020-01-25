@@ -50,7 +50,8 @@ export interface IConnection {
   id: number;
   name: string;
   position: IPoint;
-  image: string;
+  open: string;
+  closed: string;
   selectParty: boolean;
   triggers?: number[];
   infoline?: string;
