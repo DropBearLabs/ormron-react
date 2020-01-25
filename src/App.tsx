@@ -1,7 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { displayQuest, activeMap } from "./store/actions";
+import {
+  displayQuest,
+  activeMap,
+  activeDialogue,
+  clearLevelTriggers
+} from "./store/actions";
 import { dialogues } from "./data/Dialogues";
 import { quests } from "./data/Quests";
 import { levels } from "./data/Levels";
@@ -13,7 +18,7 @@ import { Party } from "./Party";
 import { Map } from "./Map";
 import { Connection } from "./Connection";
 
-import { findConnection } from "./helpers";
+import { findConnection, findTrigger } from "./helpers";
 import { findNpc } from "./helpers";
 
 import "./App.css";
@@ -96,6 +101,8 @@ const Menu = (props: IMenuProps) => {
 };
 
 const App: React.FC = () => {
+  const dispatch = useDispatch();
+
   const dialogueInd = useSelector((state: any) => state.activeDialogue);
   const levelInd = useSelector((state: any) => state.activeLevel);
   const levelState = useSelector((state: any) => state.levels);
@@ -108,6 +115,17 @@ const App: React.FC = () => {
   const chapter = useSelector((state: any) => state.chapter);
   const party = useSelector((state: any) => state.selectParty);
 
+  const triggerEvent = (id: number) => {
+    const trigger = findTrigger(id);
+    if (trigger.triggerType === "ACTIVE_DIALOGUE") {
+      dispatch(activeDialogue(trigger.data[0]));
+    }
+  };
+
+  const triggers = levelState[levelInd].triggers;
+  if (triggers && triggers.length > 0) {
+    triggers.forEach((n: number) => triggerEvent(n));
+  }
   return (
     <div className="App">
       <img src={levels[levelInd].backgrounds[0].image} />

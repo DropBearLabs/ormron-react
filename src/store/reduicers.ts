@@ -11,8 +11,8 @@ import {
   SELECT_PARTY,
   UPDATE_PARTY,
   UPDATE_INFLUENCE,
-  OPEN_LEVEL,
-  OPEN_CONNECTION
+  OPEN_CONNECTION,
+  LEVEL_TIGGERS_CLEAR
 } from "../data/Constants";
 import { gso } from "../data/Gso";
 import { IGso } from "../data/Types";
@@ -35,6 +35,10 @@ export default function GsoReduicer(
       return Object.assign({}, state, {
         activeDialogue: action.payload != null ? action.payload : null
       });
+    case LEVEL_TIGGERS_CLEAR:
+      const levelsToUpdate2 = [...state.levels];
+      levelsToUpdate2[action.payload].triggers = [];
+      return Object.assign({}, state, { levels: levelsToUpdate2 });
     case NPC_UPDATE:
       const levelsToUpdate = [...state.levels];
       levelsToUpdate[action.payload.level][action.payload.character] =
@@ -60,22 +64,15 @@ export default function GsoReduicer(
       });
     case OPEN_CONNECTION:
       const levelsToUpdate1 = [...state.levels];
-      console.log(levelsToUpdate1);
-      console.log(levelsToUpdate1[action.payload.level]);
-      console.log(levelsToUpdate1[action.payload.level][action.payload.entry]);
       levelsToUpdate1[action.payload.level][action.payload.entry] = "open";
       return Object.assign({}, state, {
         levels: levelsToUpdate1
       });
     case FINISH_QUEST:
       const questsToRemove = [...state.questsTaken];
-      console.log("questsToRemove", questsToRemove);
       const completed = questsToRemove.splice(action.payload.quest, 1);
-      console.log(completed);
       const completedQuests = [...state.questsCompleted];
       completedQuests.push(completed[0]);
-      console.log("completedQuests", completedQuests);
-      console.log("new quest state", [...state.questsTaken]);
       return Object.assign({}, state, {
         questsCompleted: completedQuests,
         questsTaken: questsToRemove

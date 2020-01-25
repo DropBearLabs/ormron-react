@@ -10,7 +10,8 @@ import {
   finishQuest,
   updateParty,
   updateInfluence,
-  openConnection
+  openConnection,
+  clearLevelTriggers
 } from "./store/actions";
 import { IDialogue, IDialogueChoice } from "./data/Types";
 import { findTrigger } from "./helpers";
@@ -133,6 +134,9 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
         return;
       case "OPEN_CONNECTION":
         dispatch(openConnection(trigger.data));
+        return;
+      case "LEVEL_TIGGERS_CLEAR":
+        dispatch(clearLevelTriggers(trigger.data[0]));
         return;
       default:
         return;

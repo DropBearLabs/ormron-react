@@ -96,7 +96,8 @@ export const dialogues: IDialogue[] = [
     characterId: "npc_Nell",
     image: "temp-dial4.png",
     lines: ["Hi, Lady Maya!"],
-    nextNode: 9
+    nextNode: 9,
+    triggers: [28]
   },
   {
     id: 9,

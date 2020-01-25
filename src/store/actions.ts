@@ -12,7 +12,8 @@ import {
   UPDATE_PARTY,
   UPDATE_INFLUENCE,
   OPEN_LEVEL,
-  OPEN_CONNECTION
+  OPEN_CONNECTION,
+  LEVEL_TIGGERS_CLEAR
 } from "../data/Constants";
 
 export const activeDialogue = (index: number | null) => {
@@ -122,6 +123,11 @@ export const updateInfluence = (condition: any) => {
     type: UPDATE_INFLUENCE
   };
 };
+
+export const clearLevelTriggers = (index: number) => ({
+  payload: index,
+  type: LEVEL_TIGGERS_CLEAR
+});
 
 export default {
   activeDialogue,

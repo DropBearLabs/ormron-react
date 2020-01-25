@@ -44,6 +44,7 @@ export interface ILevel {
   connections: number[];
   backgrounds: IBackground[];
   npcs: number[];
+  triggers?: number[];
 }
 
 export interface IConnection {

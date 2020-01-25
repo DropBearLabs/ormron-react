@@ -20,7 +20,7 @@ export const levels: ILevel[] = [
     name: "ormron_garden",
     backgrounds: [{ image: "temp3.jpg" }],
     connections: [4, 5, 6],
-    npcs: [3, 4]
+    npcs: [4]
   },
   {
     id: 3,

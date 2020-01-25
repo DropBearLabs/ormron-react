@@ -59,9 +59,9 @@ export const gso: IGso = {
       arena_to_street: "visited"
     },
     {
-      npc_Nell: false,
       npc_Tara: false,
-      state: "closed"
+      state: "closed",
+      triggers: [27]
     }
   ],
   quests: [],
