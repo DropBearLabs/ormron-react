@@ -93,6 +93,7 @@ export default function GsoReduicer(
       }
       return Object.assign({}, state, { maps: mapsToUpdate });
     case SELECT_PARTY:
+      console.log(action.payload);
       return Object.assign({}, state, {
         selectParty: action.payload
       });

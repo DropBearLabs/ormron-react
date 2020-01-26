@@ -1,12 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  displayQuest,
-  activeMap,
-  activeDialogue,
-  clearLevelTriggers
-} from "./store/actions";
+import { displayQuest, activeMap, activeDialogue } from "./store/actions";
 import { dialogues } from "./data/Dialogues";
 import { quests } from "./data/Quests";
 import { levels } from "./data/Levels";
@@ -22,8 +17,6 @@ import { findConnection, findTrigger } from "./helpers";
 import { findNpc } from "./helpers";
 
 import "./App.css";
-
-let party: string[] = ["maya"];
 
 interface IInfolineProps {
   line: string | null;
@@ -114,6 +107,7 @@ const App: React.FC = () => {
   const mapId = useSelector((state: any) => state.activeMap);
   const chapter = useSelector((state: any) => state.chapter);
   const party = useSelector((state: any) => state.selectParty);
+  const partyMembers = useSelector((state: any) => state.party);
 
   const triggerEvent = (id: number) => {
     const trigger = findTrigger(id);
@@ -138,6 +132,7 @@ const App: React.FC = () => {
             state={levelState}
             levelState={levelState[levelInd]}
             quests={questsState}
+            party={partyMembers}
           />
         );
       })}
@@ -160,7 +155,7 @@ const App: React.FC = () => {
       {mapId !== null ? (
         <Map chapter={chapter} map={maps[mapId]} state={mapsState} />
       ) : null}
-      {party !== null ? <Party party={party} /> : null}
+      {party !== null ? <Party party={partyMembers} /> : null}
     </div>
   );
 };

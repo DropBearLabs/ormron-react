@@ -8,7 +8,8 @@ import {
   showInfoline,
   levelActive,
   questUpdate,
-  openConnection
+  openConnection,
+  selectParty
 } from "./store/actions";
 import { findTrigger } from "./helpers";
 
@@ -17,6 +18,7 @@ interface IConnectionProps {
   state: number[];
   levelState: any;
   quests: any;
+  party: any;
 }
 
 export const Connection = (props: IConnectionProps) => {
@@ -35,6 +37,18 @@ export const Connection = (props: IConnectionProps) => {
     return levelState[c.name] !== "closed";
   };
 
+  const beforeExit = (triggers: any, party: any) => {
+    triggerEntry(triggers);
+    triggerParty(party);
+  };
+
+  const triggerParty = (party: any) => {
+    if (c.selectParty) {
+      console.log("SO SELECT");
+      dispatch(selectParty(props.party));
+    }
+  };
+
   const triggerEntry = (triggers: any) => {
     if (!triggers) {
       return;
@@ -45,10 +59,10 @@ export const Connection = (props: IConnectionProps) => {
   function triggerEvent(id: number) {
     const trigger: ITrigger = findTrigger(id);
     if (c.infoline) {
-      dispatch(showInfoline(c.infoline));
-      setTimeout(() => {
-        dispatch(showInfoline(null));
-      }, 2000);
+      // dispatch(showInfoline(c.infoline));
+      // setTimeout(() => {
+      //   dispatch(showInfoline(null));
+      // }, 2000);
     }
     switch (trigger.triggerType) {
       case "LEVEL_ACTIVE":
@@ -72,7 +86,7 @@ export const Connection = (props: IConnectionProps) => {
   }
 
   return (
-    <div style={doorStyle} onClick={() => triggerEntry(c.triggers)}>
+    <div style={doorStyle} onClick={() => beforeExit(c.triggers, props.party)}>
       {c.name}
     </div>
   );
