@@ -122,7 +122,6 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
         dispatch(npcUpdate(trigger.data));
         return;
       case "UPDATE_QUEST":
-        console.log("PLEASE UPDATE QUEST");
         if (questCanBeUpdated(props.quests, trigger.data)) {
           dispatch(questUpdate(trigger.data));
         }
@@ -147,7 +146,6 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
   const nextLine = () => {
     if (isLastLine(lineN)) {
       if (props.dialogue.triggers) {
-        console.log("I am triggering all triggers", props.dialogue.triggers);
         props.dialogue.triggers.forEach((t: number) => triggerEvent(t));
       }
       if (typeof props.dialogue.nextNode === "number") {

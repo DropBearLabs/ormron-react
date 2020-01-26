@@ -88,7 +88,7 @@ export const dialogues: IDialogue[] = [
       "I sent another student there yesterday but he didn't come back.",
       "Go there and report back to me when the issue is resolved."
     ],
-    triggers: [0, 12, 13, 14, 15, 16, 17]
+    triggers: [0, 12, 13, 14, 15, 16, 17, 29]
   },
   {
     id: 8,

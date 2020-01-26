@@ -14,7 +14,7 @@ export function findConnection(id: number) {
 }
 
 export function findTrigger(id: number) {
-  const trigger = triggers[id];
+  const trigger = triggers.find((t: any) => t.id === id);
   if (trigger === undefined) {
     throw Error("Unknown trigger id" + id);
   }
