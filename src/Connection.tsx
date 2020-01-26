@@ -5,7 +5,6 @@ import { questCanBeUpdated } from "./rules";
 import { IConnection, ITrigger } from "./data/Types";
 
 import {
-  showInfoline,
   levelActive,
   questUpdate,
   openConnection,

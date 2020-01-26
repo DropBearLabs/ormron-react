@@ -1,5 +1,5 @@
 import { INpc } from "./Types";
-const GROUNDLEVEL = 200;
+const GROUNDLEVEL = 150;
 export const npcs: INpc[] = [
   {
     id: "npc_Olija",
