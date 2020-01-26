@@ -12,10 +12,6 @@ export const quests: IQuest[] = [
     name: "Fight in Arena",
     steps: [
       {
-        name: "Talk to grandmaster Olija about your exams",
-        event: "0_ARENA_START"
-      },
-      {
         name: "Talk to master Dario to participate in Arena fight",
         event: "0_ARENA_ACCESS"
       },
@@ -32,10 +28,6 @@ export const quests: IQuest[] = [
     main: true,
     name: "Water problems",
     steps: [
-      {
-        name: "Talk to Olija about your main challenge",
-        event: "1_NEW_CHALLENGE"
-      },
       { name: "Get to bedouin camp", event: "1_CAMP_START" },
       { name: "Talk to camp leader", event: "	1_CAMP_CHAT" },
       {

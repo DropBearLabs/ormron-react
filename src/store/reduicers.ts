@@ -47,6 +47,7 @@ export default function GsoReduicer(
     case SHOW_INFOLINE:
       return Object.assign({}, state, { infoline: action.payload });
     case UPDATE_QUEST:
+      console.log("Update me reducer");
       const questsToUpdate = [...state.quests];
       const quesstsExisting = [...state.questsTaken];
       if (!questsToUpdate[action.payload.quest]) {

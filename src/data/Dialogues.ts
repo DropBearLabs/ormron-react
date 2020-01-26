@@ -55,7 +55,7 @@ export const dialogues: IDialogue[] = [
       "Go in. You need to survive at least 3 rounds to get a pass.",
       "Arena entrance is just behind me. Good luck!"
     ],
-    triggers: [3, 4, 5, 22]
+    triggers: [4, 5, 22]
   },
   {
     id: 5,

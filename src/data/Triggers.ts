@@ -1,7 +1,7 @@
 import { ITrigger } from "./Types";
 
 /*
-INDEX BASED
+INDEX BASED - DON'T JUST CHANGE IDS
 "NPC_UPDATE": [scene, npc, next dialogue]
 "UPDATE_QUEST": [scene, quest step]
 "MAP_UPDATE": [scene, state]
@@ -13,8 +13,8 @@ INDEX BASED
 export const triggers: ITrigger[] = [
   { id: 0, triggerType: "NPC_UPDATE", data: [0, "npc_Olija", false] },
   { id: 1, triggerType: "NPC_UPDATE", data: [0, "npc_Dario", 3] },
-  { id: 2, triggerType: "UPDATE_QUEST", data: [0, "0_ARENA_START"] },
-  { id: 3, triggerType: "UPDATE_QUEST", data: [0, "0_ARENA_ACCESS"] },
+  { id: 2, triggerType: "UPDATE_QUEST", data: [0, "0_ARENA_ACCESS"] },
+  { id: 3, triggerType: "UPDATE_QUEST", data: [0, "0_ARENA_ACCESS"] }, // This can be replaced
   { id: 4, triggerType: "NPC_UPDATE", data: [0, "npc_Dario", false] },
   { id: 5, triggerType: "MAP_UPDATE", data: [1, "OPEN"] },
   { id: 6, triggerType: "UPDATE_QUEST", data: [0, "0_ARENA_3FIGHTS"] },
