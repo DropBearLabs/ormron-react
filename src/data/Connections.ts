@@ -17,7 +17,7 @@ export const connections: IConnection[] = [
     open: "temp-obj1c.png",
     closed: "temp-obj1.png",
     position: { x: SCREENWIDTH - 200, y: GROUNDLEVEL },
-    triggers: [21, 23],
+    triggers: [6, 23],
     selectParty: false
   },
   {

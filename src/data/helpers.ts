@@ -1,9 +1,10 @@
-import { levels } from "./data/Levels";
-import { dialogues } from "./data/Dialogues";
-import { npcs } from "./data/Npcs";
-import { triggers } from "./data/Triggers";
-import { connections } from "./data/Connections";
-import { IDialogue, ILevel, INpc } from "./data/Types";
+import { levels } from "./Levels";
+import { dialogues } from "./Dialogues";
+import { npcs } from "./Npcs";
+import { quests } from "./Quests";
+import { triggers } from "./Triggers";
+import { connections } from "./Connections";
+import { IDialogue, ILevel, INpc } from "./Types";
 
 export function findConnection(id: number) {
   const connection = connections[id];
@@ -11,6 +12,14 @@ export function findConnection(id: number) {
     throw Error("Unknown connection id" + id);
   }
   return connection;
+}
+
+export function findQuest(id: string) {
+  const quest = quests.find((q: any) => q.id === id);
+  if (quest === undefined) {
+    throw Error("Unknown connection id" + id);
+  }
+  return quest;
 }
 
 export function findTrigger(id: number) {
@@ -39,7 +48,7 @@ export function findDialogue(dialogueId: number) {
   return dialogue;
 }
 
-export function findLevel(levelId: number) {
+export function findLevel(levelId: string) {
   const level: ILevel | undefined = levels.find(
     (l: ILevel) => l.id === levelId
   );

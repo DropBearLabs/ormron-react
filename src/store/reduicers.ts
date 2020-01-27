@@ -1,13 +1,13 @@
 import {
   ACTIVE_DIALOGUE,
-  LEVEL_ACTIVE,
+  ACTIVATE_LEVEL,
   SHOW_INFOLINE,
   FINISH_QUEST,
   SHOW_QUEST,
   UPDATE_QUEST,
   ACTIVE_MAP,
   MAP_UPDATE,
-  NPC_UPDATE,
+  UPDATE_NPC,
   SELECT_PARTY,
   UPDATE_PARTY,
   UPDATE_INFLUENCE,
@@ -15,7 +15,79 @@ import {
   LEVEL_TIGGERS_CLEAR
 } from "../data/Constants";
 import { gso } from "../data/Gso";
+import { quests } from "../data/Quests";
 import { IGso } from "../data/Types";
+import { findQuest } from "../data/helpers";
+
+const npcUpdate = (levelsToUpdate: any, payload: any) => {
+  const { level, character, setTo } = payload;
+  const levelsAll = levelsToUpdate.map((x: any) => x.id);
+  const index = levelsAll.indexOf(level);
+  levelsToUpdate[index][character] = setTo;
+  return levelsToUpdate;
+};
+
+const questUpdate = (questsToUpdate: any, quesstsTaken: any, payload: any) => {
+  const { quest, step } = payload;
+  const questsAll = questsToUpdate.map((x: any) => x.id);
+  const index = questsAll.indexOf(quest);
+  // If there's no quest with this name - create one;
+  if (index === -1) {
+    console.log("Redux acknoledges it's a new quest");
+    questsToUpdate.push({
+      id: quest,
+      completedSteps: [],
+      nextStep: step
+    });
+    quesstsTaken.push(quest);
+
+    return {
+      quests: questsToUpdate,
+      questsTaken: quesstsTaken
+    };
+  }
+
+  console.log("Redux knows this quest already");
+  const oldState = questsToUpdate[index];
+
+  // If this tep is already completed - do nothing
+  if (oldState.completedSteps.indexOf(step) !== -1) {
+    console.log("Already completed");
+    return {
+      quests: questsToUpdate,
+      questsTaken: quesstsTaken
+    };
+  }
+
+  const steps = findQuest(quest).steps.map((x: any) => x.event);
+  const lastStepIndex = steps.indexOf(oldState.nextStep);
+  const newStepIndex = steps.indexOf(step);
+
+  // If this step is not the next step for this quest - do nothing
+  if (newStepIndex - 1 !== lastStepIndex) {
+    console.log("Not the next step");
+    return {
+      quests: questsToUpdate,
+      questsTaken: quesstsTaken
+    };
+  }
+
+  // Update the quest and move on
+  console.log("Update the quest and move on");
+  console.log(oldState);
+  questsToUpdate[index] = {
+    id: quest,
+    completedSteps: oldState.completedSteps.concat(oldState.nextStep),
+    nextStep: step
+  };
+  console.log(questsToUpdate[index]);
+  console.log(questsToUpdate);
+
+  return {
+    quests: questsToUpdate,
+    questsTaken: quesstsTaken
+  };
+};
 
 const initialState: IGso = gso;
 
@@ -26,11 +98,26 @@ export default function GsoReduicer(
   if (!state) {
     return initialState;
   }
+  const levelsToUpdate = [...state.levels];
+  const questsToUpdate = [...state.quests];
+  const quesstsTaken = [...state.questsTaken];
   switch (action.type) {
-    case LEVEL_ACTIVE:
+    case ACTIVATE_LEVEL:
       return Object.assign({}, state, {
         activeLevel: action.payload
       });
+    case UPDATE_NPC:
+      return Object.assign({}, state, {
+        levels: npcUpdate(levelsToUpdate, action.payload)
+      });
+    case UPDATE_QUEST:
+      return Object.assign(
+        {},
+        state,
+        questUpdate(questsToUpdate, quesstsTaken, action.payload)
+      );
+    /* not refactored */
+
     case ACTIVE_DIALOGUE:
       return Object.assign({}, state, {
         activeDialogue: action.payload != null ? action.payload : null
@@ -39,30 +126,8 @@ export default function GsoReduicer(
       const levelsToUpdate2 = [...state.levels];
       levelsToUpdate2[action.payload].triggers = [];
       return Object.assign({}, state, { levels: levelsToUpdate2 });
-    case NPC_UPDATE:
-      const levelsToUpdate = [...state.levels];
-      levelsToUpdate[action.payload.level][action.payload.character] =
-        action.payload.state;
-      return Object.assign({}, state, { levels: levelsToUpdate });
     case SHOW_INFOLINE:
       return Object.assign({}, state, { infoline: action.payload });
-    case UPDATE_QUEST:
-      console.log("Update me reducer");
-      const questsToUpdate = [...state.quests];
-      const quesstsExisting = [...state.questsTaken];
-      if (!questsToUpdate[action.payload.quest]) {
-        questsToUpdate[action.payload.quest] = [];
-      }
-      questsToUpdate[action.payload.quest].push(action.payload.name);
-
-      if (quesstsExisting.indexOf(action.payload.quest) === -1) {
-        quesstsExisting.push(action.payload.quest);
-      }
-
-      return Object.assign({}, state, {
-        quests: questsToUpdate,
-        questsTaken: quesstsExisting
-      });
     case OPEN_CONNECTION:
       const levelsToUpdate1 = [...state.levels];
       levelsToUpdate1[action.payload.level][action.payload.entry] = "open";

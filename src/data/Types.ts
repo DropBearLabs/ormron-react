@@ -1,6 +1,6 @@
 export interface IGso {
   chapter: number;
-  activeLevel: number;
+  activeLevel: string;
   infoline: string | null;
   selectParty: string[] | null;
   activeDialogue: number | null;
@@ -39,8 +39,7 @@ export interface IPartyMember {
 }
 
 export interface ILevel {
-  id: number;
-  name: string;
+  id: string;
   connections: number[];
   backgrounds: IBackground[];
   npcs: number[];
@@ -104,7 +103,7 @@ export interface IDialogueChoice {
 }
 
 export interface IQuest {
-  id: number;
+  id: string;
   name: string;
   main: boolean;
   steps: IQuestStep[];

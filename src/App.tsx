@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { displayQuest, activeMap, activeDialogue } from "./store/actions";
 import { dialogues } from "./data/Dialogues";
 import { quests } from "./data/Quests";
-import { levels } from "./data/Levels";
 import { maps } from "./data/Maps";
 import { NPC } from "./Npc";
 import { Quest } from "./Quest";
@@ -13,10 +12,11 @@ import { Party } from "./Party";
 import { Map } from "./Map";
 import { Connection } from "./Connection";
 
-import { findConnection, findTrigger } from "./helpers";
-import { findNpc } from "./helpers";
+import { findConnection, findTrigger, findLevel } from "./data/helpers";
+import { findNpc } from "./data/helpers";
 
 import "./App.css";
+import { ILevel } from "./data/Types";
 
 interface IInfolineProps {
   line: string | null;
@@ -97,7 +97,7 @@ const App: React.FC = () => {
   const dispatch = useDispatch();
 
   const dialogueInd = useSelector((state: any) => state.activeDialogue);
-  const levelInd = useSelector((state: any) => state.activeLevel);
+  const levelId = useSelector((state: any) => state.activeLevel);
   const levelState = useSelector((state: any) => state.levels);
   const infoline = useSelector((state: any) => state.infoline);
   const questActive = useSelector((state: any) => state.activeQuest);
@@ -116,29 +116,40 @@ const App: React.FC = () => {
     }
   };
 
-  const triggers = levelState[levelInd].triggers;
+  const triggers = findLevel(levelId).triggers;
   if (triggers && triggers.length > 0) {
     triggers.forEach((n: number) => triggerEvent(n));
   }
+  const currentLevelState = (id: string) => {
+    const current = levelState.find((l: ILevel) => l.id === id);
+    if (!current) {
+      //Create this level in GSO
+      throw Error("Adiition of new levels to GSO is not implemented");
+    }
+    return current;
+  };
+
   return (
     <div className="App">
-      <img src={levels[levelInd].backgrounds[0].image} />
-      {levels[levelInd].connections.map((c: number) => {
+      <img src={findLevel(levelId).backgrounds[0].image} />
+      {findLevel(levelId).connections.map((c: number) => {
         const connection = findConnection(c);
         return (
           <Connection
             c={connection}
             key={connection.id}
             state={levelState}
-            levelState={levelState[levelInd]}
+            levelState={currentLevelState(levelId)}
             quests={questsState}
             party={partyMembers}
           />
         );
       })}
-      {levels[levelInd].npcs.map((n: number) => {
+      {findLevel(levelId).npcs.map((n: number) => {
         const npc = findNpc(n);
-        return <NPC npc={npc} key={npc.id} state={levelState[levelInd]} />;
+        return (
+          <NPC npc={npc} key={npc.id} state={currentLevelState(levelId)} />
+        );
       })}
       {dialogueInd !== null ? (
         <Dialogue dialogue={dialogues[dialogueInd]} quests={questsState} />

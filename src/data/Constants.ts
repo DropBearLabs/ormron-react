@@ -1,6 +1,6 @@
 export const ACTIVE_DIALOGUE = "ACTIVE_DIALOGUE";
-export const LEVEL_ACTIVE = "LEVEL_ACTIVE";
-export const NPC_UPDATE = "NPC_UPDATE";
+export const ACTIVATE_LEVEL = "ACTIVATE_LEVEL";
+export const UPDATE_NPC = "UPDATE_NPC";
 export const NPC_OBJECTIVE = "NPC_OBJECTIVE";
 export const SHOW_INFOLINE = "SHOW_INFOLINE";
 export const ACTIVE_MAP = "ACTIVE_MAP";

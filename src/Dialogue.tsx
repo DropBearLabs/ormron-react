@@ -14,8 +14,7 @@ import {
   clearLevelTriggers
 } from "./store/actions";
 import { IDialogue, IDialogueChoice } from "./data/Types";
-import { findTrigger } from "./helpers";
-import { questCanBeUpdated } from "./rules";
+import { findTrigger } from "./data/helpers";
 
 interface IDialogueLineProps {
   nextLine: () => void;
@@ -118,13 +117,11 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
       // }, 2000);
     }
     switch (trigger.triggerType) {
-      case "NPC_UPDATE":
+      case "UPDATE_NPC":
         dispatch(npcUpdate(trigger.data));
         return;
       case "UPDATE_QUEST":
-        if (questCanBeUpdated(props.quests, trigger.data)) {
-          dispatch(questUpdate(trigger.data));
-        }
+        dispatch(questUpdate(trigger.data));
         return;
       case "MAP_UPDATE":
         dispatch(updateMap(trigger.data));

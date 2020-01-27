@@ -22,7 +22,8 @@ export const dialogues: IDialogue[] = [
       "You have no idea what lies ahead. But let's start.",
       "First - Talk to headmaster Dario and get into Arena for some practice."
     ],
-    nextNode: 2
+    nextNode: 2,
+    triggers: [0, 1, 2]
   },
   // 2
   {
@@ -31,8 +32,8 @@ export const dialogues: IDialogue[] = [
     characterId: "char_Maya",
     image: "temp-dial1.png",
     infoline: "NEW QUEST: Fight in Arena",
-    lines: ["Will do, headmaster!"],
-    triggers: [0, 1, 2]
+    lines: ["Will do, headmaster!"]
+    //triggers: [3]
   },
   // 3
   {
@@ -55,7 +56,7 @@ export const dialogues: IDialogue[] = [
       "Go in. You need to survive at least 3 rounds to get a pass.",
       "Arena entrance is just behind me. Good luck!"
     ],
-    triggers: [4, 5, 22]
+    triggers: [3, 4, 5, 22]
   },
   {
     id: 5,
@@ -64,7 +65,7 @@ export const dialogues: IDialogue[] = [
     image: "temp-dial3.png",
     infoline: "QUEST UPDATED: Fight in Arena",
     lines: ["I am debug an you just won 3 fights!"],
-    triggers: [6, 7, 8]
+    triggers: [7, 8, 10]
   },
   {
     id: 6,
@@ -73,7 +74,7 @@ export const dialogues: IDialogue[] = [
     image: "temp-dial1.png",
     lines: ["I had my qualifications at Arena. Ready for more exitement!"],
     infoline: "QUEST COMPLETED: Fight in Arena",
-    triggers: [9, 10, 11, 26]
+    triggers: [9, 11, 26]
   },
   {
     id: 7,

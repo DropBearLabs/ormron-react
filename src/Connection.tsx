@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { questCanBeUpdated } from "./rules";
 import { IConnection, ITrigger } from "./data/Types";
 
 import {
@@ -10,7 +9,7 @@ import {
   openConnection,
   selectParty
 } from "./store/actions";
-import { findTrigger } from "./helpers";
+import { findTrigger } from "./data/helpers";
 
 interface IConnectionProps {
   c: IConnection;
@@ -64,15 +63,13 @@ export const Connection = (props: IConnectionProps) => {
       // }, 2000);
     }
     switch (trigger.triggerType) {
-      case "LEVEL_ACTIVE":
+      case "ACTIVATE_LEVEL":
         if (isOpen()) {
           dispatch(levelActive(trigger.data[0]));
         }
         return;
       case "UPDATE_QUEST":
-        if (questCanBeUpdated(props.quests, trigger.data)) {
-          dispatch(questUpdate(trigger.data));
-        }
+        dispatch(questUpdate(trigger.data));
         return;
       case "OPEN_CONNECTION":
         dispatch(openConnection(trigger.data));

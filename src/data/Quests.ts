@@ -7,24 +7,24 @@ Example: 'Ask a master about a new challenge';
 export const quests: IQuest[] = [
   // 0
   {
-    id: 0,
+    id: "tutorial",
     main: true,
     name: "Fight in Arena",
     steps: [
       {
         name: "Talk to master Dario to participate in Arena fight",
-        event: "0_ARENA_ACCESS"
+        event: "TALK_TO_DARIO"
       },
-      { name: "Enter Arena", event: "0_ARENA_ENTER" },
-      { name: "Win 3 fights in Arena", event: "0_ARENA_3FIGHTS" },
+      { name: "Enter Arena", event: "ENTER_ARENA" },
+      { name: "Win 3 fights in Arena", event: "WIN_3_FIGHTS" },
       {
         name: "Tell Olija that you've finished your Arena Training",
-        event: "0_ARENA_CLOSED"
+        event: "TALK_TO_OLIJA"
       }
     ]
   },
   {
-    id: 1,
+    id: "waterproblems",
     main: true,
     name: "Water problems",
     steps: [

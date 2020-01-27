@@ -1,13 +1,13 @@
 import {
   ACTIVE_DIALOGUE,
-  LEVEL_ACTIVE,
+  ACTIVATE_LEVEL,
   SHOW_INFOLINE,
   ACTIVE_MAP,
   SHOW_QUEST,
   UPDATE_QUEST,
   FINISH_QUEST,
   MAP_UPDATE,
-  NPC_UPDATE,
+  UPDATE_NPC,
   SELECT_PARTY,
   UPDATE_PARTY,
   UPDATE_INFLUENCE,
@@ -25,7 +25,7 @@ export const activeDialogue = (index: number | null) => {
 
 export const levelActive = (index: number) => ({
   payload: index,
-  type: LEVEL_ACTIVE
+  type: ACTIVATE_LEVEL
 });
 
 export const openConnection = (condition: any) => {
@@ -47,10 +47,10 @@ export const openLevel = (index: number) => {
 export const npcUpdate = (condition: any) => {
   const level = condition[0];
   const character = condition[1];
-  const state = condition[2];
+  const setTo = condition[2];
   return {
-    payload: { level, character, state },
-    type: NPC_UPDATE
+    payload: { level, character, setTo },
+    type: UPDATE_NPC
   };
 };
 
@@ -68,9 +68,9 @@ export const displayQuest = (id: number | null) => {
 
 export const questUpdate = (condition: any) => {
   const quest = condition[0];
-  const name = condition[1];
+  const step = condition[1];
   return {
-    payload: { quest, name },
+    payload: { quest, step },
     type: UPDATE_QUEST
   };
 };
