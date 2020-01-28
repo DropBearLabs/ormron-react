@@ -2,7 +2,7 @@ import {
   ACTIVE_DIALOGUE,
   ACTIVATE_LEVEL,
   SHOW_INFOLINE,
-  FINISH_QUEST,
+  END_QUEST,
   SHOW_QUEST,
   UPDATE_QUEST,
   ACTIVE_MAP,
@@ -15,7 +15,6 @@ import {
   LEVEL_TIGGERS_CLEAR
 } from "../data/Constants";
 import { gso } from "../data/Gso";
-import { quests } from "../data/Quests";
 import { IGso } from "../data/Types";
 import { findQuest } from "../data/helpers";
 
@@ -81,6 +80,22 @@ const questUpdate = (questsToUpdate: any, quesstsTaken: any, payload: any) => {
   };
 };
 
+const endQuest = (
+  questsTaken: any,
+  questsCompleted: any,
+  questsToUpdate: any,
+  payload: any
+) => {
+  questsCompleted.push(payload);
+  const updatedTaken = questsTaken.filter((q: any) => q !== payload);
+  const updatedQuests = questsToUpdate.filter((q: any) => q.id !== payload);
+
+  return {
+    quests: updatedQuests,
+    questsCompleted,
+    questsTaken: updatedTaken
+  };
+};
 const initialState: IGso = gso;
 
 export default function GsoReduicer(
@@ -93,6 +108,7 @@ export default function GsoReduicer(
   const levelsToUpdate = [...state.levels];
   const questsToUpdate = [...state.quests];
   const quesstsTaken = [...state.questsTaken];
+  const questsCompleted = [...state.questsCompleted];
   switch (action.type) {
     case ACTIVATE_LEVEL:
       return Object.assign({}, state, {
@@ -107,6 +123,12 @@ export default function GsoReduicer(
         {},
         state,
         questUpdate(questsToUpdate, quesstsTaken, action.payload)
+      );
+    case END_QUEST:
+      return Object.assign(
+        {},
+        state,
+        endQuest(quesstsTaken, questsCompleted, questsToUpdate, action.payload)
       );
     /* not refactored */
 
@@ -125,15 +147,6 @@ export default function GsoReduicer(
       levelsToUpdate1[action.payload.level][action.payload.entry] = "open";
       return Object.assign({}, state, {
         levels: levelsToUpdate1
-      });
-    case FINISH_QUEST:
-      const questsToRemove = [...state.questsTaken];
-      const completed = questsToRemove.splice(action.payload.quest, 1);
-      const completedQuests = [...state.questsCompleted];
-      completedQuests.push(completed[0]);
-      return Object.assign({}, state, {
-        questsCompleted: completedQuests,
-        questsTaken: questsToRemove
       });
     case SHOW_QUEST:
       return Object.assign({}, state, {

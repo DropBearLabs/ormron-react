@@ -5,7 +5,7 @@ import {
   ACTIVE_MAP,
   SHOW_QUEST,
   UPDATE_QUEST,
-  FINISH_QUEST,
+  END_QUEST,
   MAP_UPDATE,
   UPDATE_NPC,
   SELECT_PARTY,
@@ -75,11 +75,11 @@ export const questUpdate = (condition: any) => {
   };
 };
 
-export const finishQuest = (condition: any) => {
+export const endQuest = (condition: any) => {
   const quest = condition[0];
   return {
     payload: quest,
-    type: FINISH_QUEST
+    type: END_QUEST
   };
 };
 
@@ -135,7 +135,7 @@ export default {
   npcUpdate,
   showInfoline,
   displayQuest,
-  finishQuest,
+  endQuest,
   activeMap,
   updateMap,
   selectParty,

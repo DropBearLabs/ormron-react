@@ -47,7 +47,11 @@ const SingleQuest = (props: ISingleQuestProps) => {
         {allSteps.map((s: string) => {
           const step = findQuestEvent(props.quest.id, s);
           return (
-            <SingleLine name={step.name} completed={step.event !== lastStep} />
+            <SingleLine
+              key={step.name}
+              name={step.name}
+              completed={step.event !== lastStep}
+            />
           );
         })}
       </ul>

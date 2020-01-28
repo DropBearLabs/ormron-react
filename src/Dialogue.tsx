@@ -7,7 +7,7 @@ import {
   questUpdate,
   updateMap,
   npcUpdate,
-  finishQuest,
+  endQuest,
   updateParty,
   updateInfluence,
   openConnection,
@@ -126,8 +126,8 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
       case "MAP_UPDATE":
         dispatch(updateMap(trigger.data));
         return;
-      case "QUEST_END":
-        dispatch(finishQuest(trigger.data));
+      case "END_QUEST":
+        dispatch(endQuest(trigger.data));
         return;
       case "OPEN_CONNECTION":
         dispatch(openConnection(trigger.data));
