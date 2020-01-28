@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { displayQuest, activeMap, activeDialogue } from "./store/actions";
 import { dialogues } from "./data/Dialogues";
-import { quests } from "./data/Quests";
+import { quests as questsAll } from "./data/Quests";
 import { maps } from "./data/Maps";
 import { NPC } from "./Npc";
 import { Quest } from "./Quest";
@@ -12,7 +12,12 @@ import { Party } from "./Party";
 import { Map } from "./Map";
 import { Connection } from "./Connection";
 
-import { findConnection, findTrigger, findLevel } from "./data/helpers";
+import {
+  findConnection,
+  findTrigger,
+  findLevel,
+  findQuest
+} from "./data/helpers";
 import { findNpc } from "./data/helpers";
 
 import "./App.css";
@@ -159,8 +164,8 @@ const App: React.FC = () => {
       {questActive !== null ? (
         <Quest
           active={questActive}
-          state={questsState}
-          quests={questsTaken.map((q: number) => quests[q])}
+          allTakenQuests={questsState}
+          quests={questsTaken.map((q: string) => findQuest(q))}
         />
       ) : null}
       {mapId !== null ? (

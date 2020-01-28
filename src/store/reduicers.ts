@@ -33,7 +33,6 @@ const questUpdate = (questsToUpdate: any, quesstsTaken: any, payload: any) => {
   const index = questsAll.indexOf(quest);
   // If there's no quest with this name - create one;
   if (index === -1) {
-    console.log("Redux acknoledges it's a new quest");
     questsToUpdate.push({
       id: quest,
       completedSteps: [],
@@ -47,12 +46,10 @@ const questUpdate = (questsToUpdate: any, quesstsTaken: any, payload: any) => {
     };
   }
 
-  console.log("Redux knows this quest already");
   const oldState = questsToUpdate[index];
 
   // If this tep is already completed - do nothing
   if (oldState.completedSteps.indexOf(step) !== -1) {
-    console.log("Already completed");
     return {
       quests: questsToUpdate,
       questsTaken: quesstsTaken
@@ -65,7 +62,6 @@ const questUpdate = (questsToUpdate: any, quesstsTaken: any, payload: any) => {
 
   // If this step is not the next step for this quest - do nothing
   if (newStepIndex - 1 !== lastStepIndex) {
-    console.log("Not the next step");
     return {
       quests: questsToUpdate,
       questsTaken: quesstsTaken
@@ -73,15 +69,11 @@ const questUpdate = (questsToUpdate: any, quesstsTaken: any, payload: any) => {
   }
 
   // Update the quest and move on
-  console.log("Update the quest and move on");
-  console.log(oldState);
   questsToUpdate[index] = {
     id: quest,
     completedSteps: oldState.completedSteps.concat(oldState.nextStep),
     nextStep: step
   };
-  console.log(questsToUpdate[index]);
-  console.log(questsToUpdate);
 
   return {
     quests: questsToUpdate,

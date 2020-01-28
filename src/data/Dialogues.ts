@@ -1,7 +1,6 @@
 import { IDialogue } from "./Types";
 
 export const dialogues: IDialogue[] = [
-  // 0
   {
     id: 0,
     name: "ormron_street_Maya_1",
@@ -10,7 +9,6 @@ export const dialogues: IDialogue[] = [
     lines: ["Good day, headmaster! I am here to..."],
     nextNode: 1
   },
-  // 1
   {
     id: 1,
     name: "ormron_street_Olija_2",
@@ -25,7 +23,6 @@ export const dialogues: IDialogue[] = [
     nextNode: 2,
     triggers: [0, 1, 2]
   },
-  // 2
   {
     id: 2,
     name: "ormron_street_Maya_3",
@@ -33,9 +30,7 @@ export const dialogues: IDialogue[] = [
     image: "temp-dial1.png",
     infoline: "NEW QUEST: Fight in Arena",
     lines: ["Will do, headmaster!"]
-    //triggers: [3]
   },
-  // 3
   {
     id: 3,
     name: "ormron_street_Maya_6",
@@ -45,7 +40,6 @@ export const dialogues: IDialogue[] = [
     nextNode: 4,
     triggers: [25]
   },
-  // 4
   {
     id: 4,
     name: "ormron_street_Dario_7",

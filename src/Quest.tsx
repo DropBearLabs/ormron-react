@@ -2,6 +2,10 @@ import React from "react";
 import { IQuest, IQuestStep } from "./data/Types";
 import { useDispatch } from "react-redux";
 import { displayQuest } from "./store/actions";
+import { quests } from "./data/Quests";
+import { isCompositeComponent } from "react-dom/test-utils";
+import { all } from "q";
+import { findQuestEvent } from "./data/helpers";
 
 interface ISingleLineProps {
   name: string;
@@ -23,47 +27,29 @@ const SingleLine = (props: ISingleLineProps) => {
 };
 
 interface ISingleQuestProps {
-  quest: IQuest;
+  quest: any;
   active: number;
-  state: any;
 }
 const SingleQuest = (props: ISingleQuestProps) => {
-  const dispatch = useDispatch();
   const singleQuestStyle = {
     paddingTop: "50px",
     paddingLeft: "100px",
     textAlign: "left" as "left"
   };
-  const allSteps: IQuestStep[] = props.quest.steps;
 
-  const isCompleted = (step: string) => {
-    if (props.state) {
-      return props.state.indexOf(step) !== -1;
-    } else {
-      return false;
-    }
-  };
-
-  const availableSteps = allSteps.filter((q: IQuestStep) =>
-    isCompleted(q.event)
-  );
-
-  // + next step to show
-  if (props.state.length < allSteps.length) {
-    availableSteps.push(allSteps[props.state.length]);
-  }
-
+  const lastStep = props.quest.nextStep;
+  const completed = props.quest.completedSteps;
+  const allSteps = completed.concat(lastStep);
   return (
     <div style={singleQuestStyle}>
       <h2>{props.quest.name}</h2>
       <ul>
-        {availableSteps.map((s: IQuestStep) => (
-          <SingleLine
-            name={s.name}
-            completed={isCompleted(s.event)}
-            key={s.event}
-          />
-        ))}
+        {allSteps.map((s: string) => {
+          const step = findQuestEvent(props.quest.id, s);
+          return (
+            <SingleLine name={step.name} completed={step.event !== lastStep} />
+          );
+        })}
       </ul>
     </div>
   );
@@ -71,7 +57,7 @@ const SingleQuest = (props: ISingleQuestProps) => {
 
 interface IQuestProps {
   quests: IQuest[];
-  state: any;
+  allTakenQuests: any;
   active: number;
 }
 export const Quest = (props: IQuestProps) => {
@@ -100,16 +86,16 @@ export const Quest = (props: IQuestProps) => {
         src="temp-icon2.png"
         onClick={() => dispatch(displayQuest(null))}
       />
-      {props.quests.map((q: IQuest) => {
-        return (
-          <SingleQuest
-            key={q.id}
-            quest={q}
-            active={props.active}
-            state={props.state[q.id]}
-          />
-        );
-      })}
+      {props.quests &&
+        props.quests.map((q: IQuest) => {
+          return (
+            <SingleQuest
+              key={q.id}
+              active={props.active}
+              quest={props.allTakenQuests.find((t: any) => t.id === q.id)}
+            />
+          );
+        })}
     </div>
   );
 };
