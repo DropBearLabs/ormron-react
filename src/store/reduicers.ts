@@ -96,6 +96,18 @@ const endQuest = (
     questsTaken: updatedTaken
   };
 };
+
+const openConnection = (levelsToUpdate: any, payload: any) => {
+  const { level, entry } = payload;
+  const levelsAll = levelsToUpdate.map((x: any) => x.id);
+  const index = levelsAll.indexOf(level);
+  console.log("changing", levelsToUpdate[index][entry]);
+  levelsToUpdate[index][entry] = "open";
+  return {
+    levels: levelsToUpdate
+  };
+};
+
 const initialState: IGso = gso;
 
 export default function GsoReduicer(
@@ -130,6 +142,12 @@ export default function GsoReduicer(
         state,
         endQuest(quesstsTaken, questsCompleted, questsToUpdate, action.payload)
       );
+    case OPEN_CONNECTION:
+      return Object.assign(
+        {},
+        state,
+        openConnection(levelsToUpdate, action.payload)
+      );
     /* not refactored */
 
     case ACTIVE_DIALOGUE:
@@ -142,12 +160,6 @@ export default function GsoReduicer(
       return Object.assign({}, state, { levels: levelsToUpdate2 });
     case SHOW_INFOLINE:
       return Object.assign({}, state, { infoline: action.payload });
-    case OPEN_CONNECTION:
-      const levelsToUpdate1 = [...state.levels];
-      levelsToUpdate1[action.payload.level][action.payload.entry] = "open";
-      return Object.assign({}, state, {
-        levels: levelsToUpdate1
-      });
     case SHOW_QUEST:
       return Object.assign({}, state, {
         activeQuest: action.payload

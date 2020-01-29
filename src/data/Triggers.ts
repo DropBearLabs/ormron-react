@@ -4,7 +4,8 @@ import {
   ACTIVATE_LEVEL,
   UPDATE_NPC,
   UPDATE_QUEST,
-  END_QUEST
+  END_QUEST,
+  OPEN_CONNECTION
 } from "../data/Constants";
 
 export const triggers: ITrigger[] = [
@@ -48,9 +49,20 @@ export const triggers: ITrigger[] = [
   { id: 22, triggerType: ACTIVATE_LEVEL, data: ["ormron_street"] },
   { id: 23, triggerType: ACTIVATE_LEVEL, data: ["ormron_arena"] },
   { id: 24, triggerType: ACTIVATE_LEVEL, data: ["ormron_garden"] },
-  { id: 25, triggerType: "OPEN_CONNECTION", data: [0, "street_to_arena"] },
-  { id: 26, triggerType: "OPEN_CONNECTION", data: [0, "street_to_garden"] },
-  { id: 27, triggerType: "ACTIVE_DIALOGUE", data: [8] },
-  { id: 28, triggerType: "LEVEL_TIGGERS_CLEAR", data: [2] },
-  { id: 29, triggerType: "OPEN_CONNECTION", data: [0, "street_to_map"] }
+  {
+    id: 25,
+    triggerType: OPEN_CONNECTION,
+    data: ["ormron_street", "street_to_arena"]
+  },
+  {
+    id: 26,
+    triggerType: OPEN_CONNECTION,
+    data: ["ormron_street", "street_to_garden"]
+  },
+  {
+    id: 27,
+    triggerType: OPEN_CONNECTION,
+    data: ["ormron_street", "street_to_map"]
+  },
+  { id: 28, triggerType: "LEVEL_TIGGERS_CLEAR", data: [2] }
 ];

@@ -42,7 +42,6 @@ export const Connection = (props: IConnectionProps) => {
 
   const triggerParty = (party: any) => {
     if (c.selectParty) {
-      console.log("SO SELECT");
       dispatch(selectParty(props.party));
     }
   };

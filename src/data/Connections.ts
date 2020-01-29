@@ -1,6 +1,6 @@
 import { IConnection } from "./Types";
 const SCREENWIDTH = 1024;
-const GROUNDLEVEL = 300;
+const GROUNDLEVEL = 200;
 
 export const connections: IConnection[] = [
   {
