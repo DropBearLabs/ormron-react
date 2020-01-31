@@ -7,9 +7,11 @@ import {
   levelActive,
   questUpdate,
   openConnection,
-  selectParty
+  selectParty,
+  activeDialogue,
+  addGlobalEvent
 } from "./store/actions";
-import { findTrigger } from "./data/helpers";
+import { findTrigger, checkGlobalEvent } from "./data/helpers";
 
 interface IConnectionProps {
   c: IConnection;
@@ -17,6 +19,7 @@ interface IConnectionProps {
   levelState: any;
   quests: any;
   party: any;
+  globalevents: string[];
 }
 
 export const Connection = (props: IConnectionProps) => {
@@ -61,6 +64,16 @@ export const Connection = (props: IConnectionProps) => {
       //   dispatch(showInfoline(null));
       // }, 2000);
     }
+    if (trigger.condition) {
+      const res = checkGlobalEvent(
+        props.globalevents,
+        trigger.condition[0],
+        trigger.condition[1]
+      );
+      if (!res) {
+        return;
+      }
+    }
     switch (trigger.triggerType) {
       case "ACTIVATE_LEVEL":
         if (isOpen()) {
@@ -73,6 +86,10 @@ export const Connection = (props: IConnectionProps) => {
       case "OPEN_CONNECTION":
         dispatch(openConnection(trigger.data));
         return;
+      case "ACTIVE_DIALOGUE":
+        dispatch(activeDialogue(trigger.data));
+      case "ADD_GLOBAL_EVENT":
+        dispatch(addGlobalEvent(trigger.data));
       case "OPEN_LEVEL":
         return;
       default:

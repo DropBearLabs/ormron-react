@@ -113,6 +113,7 @@ const App: React.FC = () => {
   const chapter = useSelector((state: any) => state.chapter);
   const party = useSelector((state: any) => state.selectParty);
   const partyMembers = useSelector((state: any) => state.party);
+  const globalevents = useSelector((state: any) => state.globalEvents);
 
   const triggerEvent = (id: number) => {
     const trigger = findTrigger(id);
@@ -141,6 +142,7 @@ const App: React.FC = () => {
         const connection = findConnection(c);
         return (
           <Connection
+            globalevents={globalevents}
             c={connection}
             key={connection.id}
             state={levelState}

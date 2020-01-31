@@ -11,7 +11,8 @@ import {
   updateParty,
   updateInfluence,
   openConnection,
-  clearLevelTriggers
+  clearLevelTriggers,
+  addGlobalEvent
 } from "./store/actions";
 import { IDialogue, IDialogueChoice } from "./data/Types";
 import { findTrigger } from "./data/helpers";
@@ -132,9 +133,8 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
       case "OPEN_CONNECTION":
         dispatch(openConnection(trigger.data));
         return;
-      case "LEVEL_TIGGERS_CLEAR":
-        dispatch(clearLevelTriggers(trigger.data[0]));
-        return;
+      case "ADD_GLOBAL_EVENT":
+        dispatch(addGlobalEvent(trigger.data));
       default:
         return;
     }

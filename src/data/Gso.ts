@@ -11,6 +11,7 @@ export const gso: IGso = {
   activeMap: null,
   infoline: null,
   selectParty: null,
+  globalEvents: [],
   levels: [
     {
       id: "ormron_street",
@@ -21,7 +22,7 @@ export const gso: IGso = {
       street_to_map: "closed"
     },
     { id: "ormron_arena", npc_Dario1: 5 },
-    { id: "ormron_garden", npc_Nell: false, npc_Tara: false }
+    { id: "ormron_garden", npc_Tara: false }
   ],
   quests: [],
   questsCompleted: [],

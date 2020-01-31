@@ -7,7 +7,8 @@ export const dialogues: IDialogue[] = [
     characterId: "char_Maya",
     image: "temp-dial1.png",
     lines: ["Good day, headmaster! I am here to..."],
-    nextNode: 1
+    nextNode: 1,
+    triggers: [30]
   },
   {
     id: 1,
@@ -68,7 +69,7 @@ export const dialogues: IDialogue[] = [
     image: "temp-dial1.png",
     lines: ["I had my qualifications at Arena. Ready for more exitement!"],
     infoline: "QUEST COMPLETED: Fight in Arena",
-    triggers: [9, 11, 26]
+    triggers: [9, 11]
   },
   {
     id: 7,
@@ -83,7 +84,7 @@ export const dialogues: IDialogue[] = [
       "I sent another student there yesterday but he didn't come back.",
       "Go there and report back to me when the issue is resolved."
     ],
-    triggers: [0, 12, 13, 14, 15, 16, 17, 29]
+    triggers: [0, 12, 13, 14, 15, 16, 17, 26]
   },
   {
     id: 8,

@@ -12,7 +12,8 @@ import {
   UPDATE_PARTY,
   UPDATE_INFLUENCE,
   OPEN_CONNECTION,
-  LEVEL_TIGGERS_CLEAR
+  LEVEL_TIGGERS_CLEAR,
+  ADD_GLOBAL_EVENT
 } from "../data/Constants";
 import { gso } from "../data/Gso";
 import { IGso } from "../data/Types";
@@ -101,11 +102,15 @@ const openConnection = (levelsToUpdate: any, payload: any) => {
   const { level, entry } = payload;
   const levelsAll = levelsToUpdate.map((x: any) => x.id);
   const index = levelsAll.indexOf(level);
-  console.log("changing", levelsToUpdate[index][entry]);
   levelsToUpdate[index][entry] = "open";
   return {
     levels: levelsToUpdate
   };
+};
+
+const addGlobalEvent = (globalEvents: any, payload: any) => {
+  const newEvents = globalEvents.concat(payload);
+  return newEvents;
 };
 
 const initialState: IGso = gso;
@@ -121,6 +126,7 @@ export default function GsoReduicer(
   const questsToUpdate = [...state.quests];
   const quesstsTaken = [...state.questsTaken];
   const questsCompleted = [...state.questsCompleted];
+  const globalEvents = [...state.globalEvents];
   switch (action.type) {
     case ACTIVATE_LEVEL:
       return Object.assign({}, state, {
@@ -148,6 +154,10 @@ export default function GsoReduicer(
         state,
         openConnection(levelsToUpdate, action.payload)
       );
+    case ADD_GLOBAL_EVENT:
+      return Object.assign({}, state, {
+        globalEvents: addGlobalEvent(globalEvents, action.payload)
+      });
     /* not refactored */
 
     case ACTIVE_DIALOGUE:

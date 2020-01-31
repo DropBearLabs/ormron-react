@@ -8,6 +8,7 @@ export interface IGso {
   questsTaken: number[];
   activeQuest: number | null;
   questsCompleted: number[];
+  globalEvents: string[];
   quests: any;
   levels: any;
   maps: any;
@@ -77,6 +78,7 @@ export interface ITrigger {
   id: number | null;
   triggerType: string;
   data?: any;
+  condition?: any;
 }
 
 export interface IDialContinuation {

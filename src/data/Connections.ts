@@ -27,7 +27,7 @@ export const connections: IConnection[] = [
     closed: "temp-obj2.png",
     position: { x: 400, y: GROUNDLEVEL },
     selectParty: false,
-    triggers: [24]
+    triggers: [24, 25, 29]
   },
   {
     id: 3,

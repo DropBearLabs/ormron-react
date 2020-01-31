@@ -5,7 +5,9 @@ import {
   UPDATE_NPC,
   UPDATE_QUEST,
   END_QUEST,
-  OPEN_CONNECTION
+  OPEN_CONNECTION,
+  ACTIVE_DIALOGUE,
+  ADD_GLOBAL_EVENT
 } from "../data/Constants";
 
 export const triggers: ITrigger[] = [
@@ -64,5 +66,12 @@ export const triggers: ITrigger[] = [
     triggerType: OPEN_CONNECTION,
     data: ["ormron_street", "street_to_map"]
   },
-  { id: 28, triggerType: "LEVEL_TIGGERS_CLEAR", data: [2] }
+  { id: 28, triggerType: ADD_GLOBAL_EVENT, data: ["NELL_HANDSHAKE"] },
+  {
+    id: 29,
+    triggerType: ACTIVE_DIALOGUE,
+    data: 8,
+    condition: ["not", "NELL_HANDSHAKE"]
+  },
+  { id: 30, triggerType: ADD_GLOBAL_EVENT, data: ["GAME_START"] }
 ];

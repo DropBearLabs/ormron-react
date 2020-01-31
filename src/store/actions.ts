@@ -13,7 +13,8 @@ import {
   UPDATE_INFLUENCE,
   OPEN_LEVEL,
   OPEN_CONNECTION,
-  LEVEL_TIGGERS_CLEAR
+  LEVEL_TIGGERS_CLEAR,
+  ADD_GLOBAL_EVENT
 } from "../data/Constants";
 
 export const activeDialogue = (index: number | null) => {
@@ -34,6 +35,13 @@ export const openConnection = (condition: any) => {
   return {
     payload: { level, entry },
     type: OPEN_CONNECTION
+  };
+};
+
+export const addGlobalEvent = (event: string) => {
+  return {
+    payload: event,
+    type: ADD_GLOBAL_EVENT
   };
 };
 

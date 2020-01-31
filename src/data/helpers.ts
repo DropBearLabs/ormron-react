@@ -66,3 +66,16 @@ export function findLevel(levelId: string) {
   }
   return level;
 }
+
+export function checkGlobalEvent(
+  global: string[],
+  status: string,
+  event: string
+) {
+  console.log("Global", global);
+  if (status === "not") {
+    return global.indexOf(event) === -1;
+  } else {
+    return global.indexOf(event) !== -1;
+  }
+}
