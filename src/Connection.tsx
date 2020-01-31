@@ -77,7 +77,7 @@ export const Connection = (props: IConnectionProps) => {
     switch (trigger.triggerType) {
       case "ACTIVATE_LEVEL":
         if (isOpen()) {
-          dispatch(levelActive(trigger.data[0]));
+          dispatch(levelActive(trigger.data));
         }
         return;
       case "UPDATE_QUEST":

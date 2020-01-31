@@ -48,9 +48,9 @@ export const triggers: ITrigger[] = [
   { id: 18, triggerType: "PARTY_CHANGE", data: ["nell", "add"] },
   { id: 19, triggerType: "INFLUENCE_CHANGE", data: ["nell", -1] },
   { id: 20, triggerType: "INFLUENCE_CHANGE", data: ["nell", 1] },
-  { id: 22, triggerType: ACTIVATE_LEVEL, data: ["ormron_street"] },
-  { id: 23, triggerType: ACTIVATE_LEVEL, data: ["ormron_arena"] },
-  { id: 24, triggerType: ACTIVATE_LEVEL, data: ["ormron_garden"] },
+  { id: 22, triggerType: ACTIVATE_LEVEL, data: "ormron_street" },
+  { id: 23, triggerType: ACTIVATE_LEVEL, data: "ormron_arena" },
+  { id: 24, triggerType: ACTIVATE_LEVEL, data: "ormron_garden" },
   {
     id: 25,
     triggerType: OPEN_CONNECTION,
