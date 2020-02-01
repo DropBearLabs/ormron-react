@@ -15,7 +15,7 @@ import { findConnection, findLevel, findQuest } from "./data/helpers";
 import { findNpc } from "./data/helpers";
 
 import "./App.css";
-import { ILevel, IGso } from "./data/Types";
+import { ILevel, IGso, IGsoLevel } from "./data/Types";
 import { connections } from "./data/Connections";
 
 interface IInfolineProps {
@@ -109,7 +109,7 @@ const App: React.FC = () => {
   const globalevents = useSelector((state: IGso) => state.globalEvents);
 
   const currentLevelState = (id: string) => {
-    const current = levelState.find((l: any) => l.id === id);
+    const current = levelState.find((l: IGsoLevel) => l.id === id);
     if (!current) {
       //Create this level in GSO
       throw Error("Adiition of new levels to GSO is not implemented");
@@ -143,7 +143,7 @@ const App: React.FC = () => {
         );
       })}
       {dialogueInd !== null ? (
-        <Dialogue dialogue={dialogues[dialogueInd]} quests={questsState} />
+        <Dialogue dialogue={dialogues[dialogueInd]} />
       ) : null}
       {infoline !== null ? <InfoLine line={infoline} /> : null}
       {/*<Menu quest={questsTaken} />

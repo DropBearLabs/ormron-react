@@ -4,7 +4,7 @@ import { npcs } from "./Npcs";
 import { quests } from "./Quests";
 import { triggers } from "./Triggers";
 import { connections } from "./Connections";
-import { IDialogue, ILevel } from "./Types";
+import { IDialogue, ILevel, IQuest, IQuestStep, ITrigger } from "./Types";
 
 export function findConnection(id: number) {
   const connection = connections[id];
@@ -15,7 +15,7 @@ export function findConnection(id: number) {
 }
 
 export function findQuest(id: string) {
-  const quest = quests.find((q: any) => q.id === id);
+  const quest = quests.find((q: IQuest) => q.id === id);
   if (quest === undefined) {
     throw Error("Unknown quest id" + id);
   }
@@ -24,7 +24,7 @@ export function findQuest(id: string) {
 
 export function findQuestEvent(search: string, id: string) {
   const quest = findQuest(search);
-  const event = quest.steps.find((s: any) => s.event === id);
+  const event = quest.steps.find((s: IQuestStep) => s.event === id);
   if (event === undefined) {
     throw Error("Unknown event in steps" + id);
   }
@@ -32,7 +32,7 @@ export function findQuestEvent(search: string, id: string) {
 }
 
 export function findTrigger(id: string) {
-  const trigger = triggers.find((t: any) => t.id === id);
+  const trigger = triggers.find((t: ITrigger) => t.id === id);
   if (trigger === undefined) {
     throw Error("Unknown trigger id" + id);
   }

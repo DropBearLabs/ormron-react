@@ -49,7 +49,7 @@ const DialogueLine = (props: IDialogueLineProps) => {
 
 interface IDialogueChoiceProps {
   choice: IDialogueChoice[];
-  setLineN: any;
+  setLineN: (n: number) => void;
 }
 
 const DialogueCharacter = ({ dialogue }: { dialogue: IDialogue }) => {
@@ -100,7 +100,6 @@ const DialogueChoices = (props: IDialogueChoiceProps) => {
 
 interface IDialogueOutputProps {
   dialogue: IDialogue;
-  quests: any;
 }
 
 const DialogueOutput = (props: IDialogueOutputProps) => {
@@ -183,7 +182,6 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
 
 interface IDialogueProps {
   dialogue: IDialogue;
-  quests: any;
 }
 
 export const Dialogue = (props: IDialogueProps) => {
@@ -198,9 +196,7 @@ export const Dialogue = (props: IDialogueProps) => {
   return (
     <div style={dialogueStyle} id="DialoguePopup">
       {props.dialogue ? <DialogueCharacter dialogue={props.dialogue} /> : null}
-      {props.dialogue ? (
-        <DialogueOutput dialogue={props.dialogue} quests={props.quests} />
-      ) : null}
+      {props.dialogue ? <DialogueOutput dialogue={props.dialogue} /> : null}
     </div>
   );
 };

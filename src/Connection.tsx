@@ -23,7 +23,7 @@ import {
 interface IConnectionProps {
   connection: IConnection;
   connectionState: string;
-  party: any;
+  party: string[];
   globalevents: string[];
 }
 export const Connection = (props: IConnectionProps) => {
@@ -44,18 +44,18 @@ export const Connection = (props: IConnectionProps) => {
     return ((connectionState as unknown) as string) !== "closed";
   };
 
-  const beforeExit = (triggers: any, party: any) => {
+  const beforeExit = (triggers: string[] | undefined, party: string[]) => {
     triggerEntry(triggers);
     triggerParty(party);
   };
 
-  const triggerParty = (party: any) => {
+  const triggerParty = (party: string[]) => {
     if (connection.selectParty) {
       dispatch(selectParty(props.party));
     }
   };
 
-  const triggerEntry = (triggers: any) => {
+  const triggerEntry = (triggers: string[] | undefined) => {
     if (!triggers) {
       return;
     }
@@ -71,7 +71,7 @@ export const Connection = (props: IConnectionProps) => {
       // }, 2000);
     }
     if (trigger.condition) {
-      const res = trigger.condition.every((cond: any) =>
+      const res = trigger.condition.every((cond: string[]) =>
         checkGlobalEvent(globalevents, cond[0], cond[1])
       );
       if (!res) {

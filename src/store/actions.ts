@@ -29,7 +29,7 @@ export const levelActive = (index: string) => ({
   type: ACTIVATE_LEVEL
 });
 
-export const openConnection = (condition: any) => {
+export const openConnection = (condition: [string, string]) => {
   const level = condition[0];
   const entry = condition[1];
   return {
@@ -52,7 +52,7 @@ export const openLevel = (index: number) => {
   };
 };
 
-export const npcUpdate = (condition: any) => {
+export const npcUpdate = (condition: [string, string, number | false]) => {
   const level = condition[0];
   const character = condition[1];
   const setTo = condition[2];
@@ -74,7 +74,7 @@ export const displayQuest = (id: number | null) => {
   };
 };
 
-export const questUpdate = (condition: any) => {
+export const questUpdate = (condition: [string, string]) => {
   const quest = condition[0];
   const step = condition[1];
   return {
@@ -83,7 +83,7 @@ export const questUpdate = (condition: any) => {
   };
 };
 
-export const endQuest = (condition: any) => {
+export const endQuest = (condition: string[]) => {
   const quest = condition[0];
   return {
     payload: quest,
@@ -96,7 +96,7 @@ export const activeMap = (id: number | null) => ({
   type: ACTIVE_MAP
 });
 
-export const updateMap = (condition: any) => {
+export const updateMap = (condition: [number, string]) => {
   const map = condition[0];
   const state = condition[1];
   return {
@@ -105,14 +105,14 @@ export const updateMap = (condition: any) => {
   };
 };
 
-export const selectParty = (party: any) => {
+export const selectParty = (party: string[] | null) => {
   return {
     payload: party,
     type: SELECT_PARTY
   };
 };
 
-export const updateParty = (condition: any) => {
+export const updateParty = (condition: string[]) => {
   const character = condition[0];
   const update = condition[1];
   return {
@@ -121,7 +121,7 @@ export const updateParty = (condition: any) => {
   };
 };
 
-export const updateInfluence = (condition: any) => {
+export const updateInfluence = (condition: [string, number]) => {
   const allChars = ["dart", "grey", "nell", "tara"];
   const character = condition[0];
   const index = allChars.indexOf(character);

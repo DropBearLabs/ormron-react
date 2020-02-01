@@ -16,13 +16,14 @@ import {
   ADD_GLOBAL_EVENT
 } from "../data/Constants";
 import { gso } from "../data/Gso";
-import { IGso } from "../data/Types";
+import { IGso, IGsoLevel } from "../data/Types";
 import { findQuest } from "../data/helpers";
 
-const npcUpdate = (levelsToUpdate: any, payload: any) => {
+const npcUpdate = (levelsToUpdate: IGsoLevel[], payload: any) => {
   const { level, character, setTo } = payload;
   const levelsAll = levelsToUpdate.map((x: any) => x.id);
   const index = levelsAll.indexOf(level);
+  // @ts-ignore
   levelsToUpdate[index][character] = setTo;
   return levelsToUpdate;
 };
@@ -176,9 +177,10 @@ export default function GsoReduicer(
       });
     /* not refactored */
     case LEVEL_TIGGERS_CLEAR:
-    // const levelsToUpdate2 = [...state.levels];
-    // levelsToUpdate2[action.payload].triggers = [];
-    // return Object.assign({}, state, { levels: levelsToUpdate2 });
+      // const levelsToUpdate2 = [...state.levels];
+      // levelsToUpdate2[action.payload].triggers = [];
+      // return Object.assign({}, state, { levels: levelsToUpdate2 });
+      break;
     case SHOW_INFOLINE:
       return Object.assign({}, state, { infoline: action.payload });
     case MAP_UPDATE:
@@ -197,6 +199,7 @@ export default function GsoReduicer(
           party: partyToUpdate.concat(action.payload.character)
         });
       }
+      break;
     case UPDATE_INFLUENCE:
       const influenceToChange = { ...state.influence };
       influenceToChange[action.payload.index] += action.payload.num;
