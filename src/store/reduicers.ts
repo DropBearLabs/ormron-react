@@ -16,7 +16,7 @@ import {
   ADD_GLOBAL_EVENT
 } from "../data/Constants";
 import { gso } from "../data/Gso";
-import { IGso, IGsoLevel } from "../data/Types";
+import { IGso, IGsoLevel, IGsoQuest } from "../data/Types";
 import { findQuest } from "../data/helpers";
 
 const npcUpdate = (levelsToUpdate: IGsoLevel[], payload: any) => {
@@ -123,11 +123,11 @@ export default function GsoReduicer(
   if (!state) {
     return initialState;
   }
-  const levelsToUpdate = [...state.levels];
-  const questsToUpdate = [...state.quests];
-  const quesstsTaken = [...state.questsTaken];
-  const questsCompleted = [...state.questsCompleted];
-  const globalEvents = [...state.globalEvents];
+  const levelsToUpdate: IGsoLevel[] = [...state.levels];
+  const questsToUpdate: IGsoQuest[] = [...state.quests];
+  const quesstsTaken: string[] = [...state.questsTaken];
+  const questsCompleted: string[] = [...state.questsCompleted];
+  const globalEvents: string[] = [...state.globalEvents];
   switch (action.type) {
     case ACTIVATE_LEVEL:
       return Object.assign({}, state, {

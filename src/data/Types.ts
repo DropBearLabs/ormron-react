@@ -6,9 +6,9 @@ export interface IGso {
   selectParty: string[] | null;
   activeDialogue: number | null;
   activeMap: number | null;
-  questsTaken: number[];
+  questsTaken: string[];
   activeQuest: number | null;
-  questsCompleted: number[];
+  questsCompleted: string[];
   globalEvents: string[];
   quests: IGsoQuest[];
   levels: IGsoLevel[];
