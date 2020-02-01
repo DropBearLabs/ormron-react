@@ -54,7 +54,7 @@ export interface IConnection {
   open: string;
   closed: string;
   selectParty: boolean;
-  triggers?: number[];
+  triggers?: string[];
   infoline?: string;
 }
 
@@ -75,7 +75,7 @@ export interface INpc {
 }
 
 export interface ITrigger {
-  id: number | null;
+  id: string | null;
   triggerType: string;
   data?: any;
   condition?: any;
@@ -94,14 +94,14 @@ export interface IDialogue {
   nextNode?: number | IDialContinuation;
   infoline?: string;
   choice?: IDialogueChoice[];
-  triggers?: number[];
+  triggers?: string[];
 }
 
 export interface IDialogueChoice {
   id: number;
   text: string;
   nextDial: number;
-  triggers: number[];
+  triggers: string[];
 }
 
 export interface IQuest {

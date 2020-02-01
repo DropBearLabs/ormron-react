@@ -28,8 +28,8 @@ export const quests: IQuest[] = [
     main: true,
     name: "Water problems",
     steps: [
-      { name: "Get to bedouin camp", event: "1_CAMP_START" },
-      { name: "Talk to camp leader", event: "	1_CAMP_CHAT" },
+      { name: "Get to bedouin camp", event: "CAMP_START" },
+      { name: "Talk to camp leader", event: "	CAMP_CHAT" },
       {
         name: "Travel to riverbead to check what blocks the river",
         event: "1_CAMP_RIVER"

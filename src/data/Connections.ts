@@ -17,7 +17,7 @@ export const connections: IConnection[] = [
     open: "temp-obj1c.png",
     closed: "temp-obj1.png",
     position: { x: SCREENWIDTH - 200, y: GROUNDLEVEL },
-    triggers: [6, 23],
+    triggers: ["1_Quest_win_3_fights", "1_Activate_ormron_arena"],
     selectParty: false
   },
   {
@@ -27,7 +27,11 @@ export const connections: IConnection[] = [
     closed: "temp-obj2.png",
     position: { x: 400, y: GROUNDLEVEL },
     selectParty: false,
-    triggers: [24, 25, 29]
+    triggers: [
+      "1_Activate_ormron_garden",
+      "1_Open_connection_arena",
+      "1_Dial_Nell_handshake"
+    ]
   },
   {
     id: 3,
@@ -36,7 +40,7 @@ export const connections: IConnection[] = [
     closed: "temp-obj3.png",
     position: { x: 10, y: GROUNDLEVEL },
     selectParty: false,
-    triggers: [22]
+    triggers: ["1_Activate_ormron_street"]
   },
   {
     id: 4,
@@ -45,7 +49,7 @@ export const connections: IConnection[] = [
     closed: "temp-obj3.png",
     position: { x: 10, y: GROUNDLEVEL },
     selectParty: false,
-    triggers: [22]
+    triggers: ["1_Activate_ormron_street"]
   },
   {
     id: 5,

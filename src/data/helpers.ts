@@ -31,7 +31,7 @@ export function findQuestEvent(search: string, id: string) {
   return event;
 }
 
-export function findTrigger(id: number) {
+export function findTrigger(id: string) {
   const trigger = triggers.find((t: any) => t.id === id);
   if (trigger === undefined) {
     throw Error("Unknown trigger id" + id);
@@ -72,7 +72,6 @@ export function checkGlobalEvent(
   status: string,
   event: string
 ) {
-  console.log("Global", global);
   if (status === "not") {
     return global.indexOf(event) === -1;
   } else {

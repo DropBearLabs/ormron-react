@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 
 import {
   activeDialogue,
-  showInfoline,
   questUpdate,
   updateMap,
   npcUpdate,
@@ -11,11 +10,19 @@ import {
   updateParty,
   updateInfluence,
   openConnection,
-  clearLevelTriggers,
   addGlobalEvent
 } from "./store/actions";
 import { IDialogue, IDialogueChoice } from "./data/Types";
 import { findTrigger } from "./data/helpers";
+import {
+  ADD_GLOBAL_EVENT,
+  UPDATE_PARTY,
+  UPDATE_INFLUENCE,
+  UPDATE_NPC,
+  UPDATE_QUEST,
+  END_QUEST,
+  OPEN_CONNECTION
+} from "./data/Constants";
 
 interface IDialogueLineProps {
   nextLine: () => void;
@@ -62,20 +69,23 @@ const DialogueChoices = (props: IDialogueChoiceProps) => {
   };
   const dispatch = useDispatch();
 
-  function triggerEvent(id: number) {
+  function triggerEvent(id: string) {
     const trigger = findTrigger(id);
-    if (trigger.triggerType === "PARTY_CHANGE") {
-      dispatch(updateParty(trigger.data));
-    }
-    if (trigger.triggerType === "INFLUENCE_CHANGE") {
-      dispatch(updateInfluence(trigger.data));
+    switch (trigger.triggerType) {
+      case UPDATE_PARTY:
+        dispatch(updateParty(trigger.data));
+        return;
+      case UPDATE_INFLUENCE:
+        dispatch(updateInfluence(trigger.data));
+      default:
+        return;
     }
   }
 
   const choiceMade = (c: IDialogueChoice) => {
     dispatch(activeDialogue(c.nextDial));
     props.setLineN(0);
-    c.triggers.forEach((n: number) => triggerEvent(n));
+    c.triggers.forEach((n: string) => triggerEvent(n));
   };
   return (
     <div style={choicesStye}>
@@ -109,7 +119,7 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
     return lineN === props.dialogue.lines.length - 1;
   };
 
-  function triggerEvent(id: number) {
+  function triggerEvent(id: string) {
     const trigger = findTrigger(id);
     if (props.dialogue.infoline) {
       // dispatch(showInfoline(props.dialogue.infoline));
@@ -118,22 +128,22 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
       // }, 2000);
     }
     switch (trigger.triggerType) {
-      case "UPDATE_NPC":
+      case UPDATE_NPC:
         dispatch(npcUpdate(trigger.data));
         return;
-      case "UPDATE_QUEST":
+      case UPDATE_QUEST:
         dispatch(questUpdate(trigger.data));
         return;
       case "MAP_UPDATE":
         dispatch(updateMap(trigger.data));
         return;
-      case "END_QUEST":
+      case END_QUEST:
         dispatch(endQuest(trigger.data));
         return;
-      case "OPEN_CONNECTION":
+      case OPEN_CONNECTION:
         dispatch(openConnection(trigger.data));
         return;
-      case "ADD_GLOBAL_EVENT":
+      case ADD_GLOBAL_EVENT:
         dispatch(addGlobalEvent(trigger.data));
       default:
         return;
@@ -143,7 +153,7 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
   const nextLine = () => {
     if (isLastLine(lineN)) {
       if (props.dialogue.triggers) {
-        props.dialogue.triggers.forEach((t: number) => triggerEvent(t));
+        props.dialogue.triggers.forEach((t: string) => triggerEvent(t));
       }
       if (typeof props.dialogue.nextNode === "number") {
         dispatch(activeDialogue(props.dialogue.nextNode));

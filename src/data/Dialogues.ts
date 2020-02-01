@@ -8,7 +8,7 @@ export const dialogues: IDialogue[] = [
     image: "temp-dial1.png",
     lines: ["Good day, headmaster! I am here to..."],
     nextNode: 1,
-    triggers: [30]
+    triggers: ["1_Game_Start"]
   },
   {
     id: 1,
@@ -22,7 +22,11 @@ export const dialogues: IDialogue[] = [
       "First - Talk to headmaster Dario and get into Arena for some practice."
     ],
     nextNode: 2,
-    triggers: [0, 1, 2]
+    triggers: [
+      "1_Dial_Oliga_to_false",
+      "1_Dial_Dario_to_3",
+      "1_Quest_talk_to_Dario"
+    ]
   },
   {
     id: 2,
@@ -39,7 +43,7 @@ export const dialogues: IDialogue[] = [
     image: "temp-dial1.png",
     lines: ["Hi, headmaster Dario. I am here to train!"],
     nextNode: 4,
-    triggers: [25]
+    triggers: ["1_Open_connection_arena"]
   },
   {
     id: 4,
@@ -51,7 +55,12 @@ export const dialogues: IDialogue[] = [
       "Go in. You need to survive at least 3 rounds to get a pass.",
       "Arena entrance is just behind me. Good luck!"
     ],
-    triggers: [3, 4, 5, 22]
+    triggers: [
+      "1_Quest_enter_arena",
+      "2_Dial_Dario_to_false",
+      "1_Map_update_open",
+      "1_Activate_ormron_street"
+    ]
   },
   {
     id: 5,
@@ -60,7 +69,11 @@ export const dialogues: IDialogue[] = [
     image: "temp-dial3.png",
     infoline: "QUEST UPDATED: Fight in Arena",
     lines: ["I am debug an you just won 3 fights!"],
-    triggers: [7, 8, 10]
+    triggers: [
+      "2_Dial_Dario1_to_false",
+      "1_Dial_Olija_to_6",
+      "1_Quest_talk_to_Olija"
+    ]
   },
   {
     id: 6,
@@ -69,7 +82,7 @@ export const dialogues: IDialogue[] = [
     image: "temp-dial1.png",
     lines: ["I had my qualifications at Arena. Ready for more exitement!"],
     infoline: "QUEST COMPLETED: Fight in Arena",
-    triggers: [9, 11]
+    triggers: ["1_Dial_Olija_to_7", "1_Quest_End_tutorial"]
   },
   {
     id: 7,
@@ -84,7 +97,17 @@ export const dialogues: IDialogue[] = [
       "I sent another student there yesterday but he didn't come back.",
       "Go there and report back to me when the issue is resolved."
     ],
-    triggers: [0, 12, 13, 14, 15, 16, 17, 26]
+    triggers: [
+      "1_Dial_Oliga_to_false",
+      "2_Map_update_open",
+      "3_Map_update_open",
+      "4_Map_update_open",
+      "5_Map_update_open",
+      "6_Map_update_open",
+      "2_Quest_go_to_camp",
+      "1_Open_connection_garden",
+      "1_Global_Tutorial_complete"
+    ]
   },
   {
     id: 8,
@@ -93,7 +116,7 @@ export const dialogues: IDialogue[] = [
     image: "temp-dial4.png",
     lines: ["Hi, Lady Maya!"],
     nextNode: 9,
-    triggers: [28]
+    triggers: ["1_Global_Nell_handshake"]
   },
   {
     id: 9,
@@ -117,8 +140,13 @@ export const dialogues: IDialogue[] = [
       "For the finals I mean..."
     ],
     choice: [
-      { text: "Sure", nextDial: 11, id: 1, triggers: [18, 20] },
-      { text: "No way", nextDial: 12, id: 2, triggers: [19] }
+      {
+        text: "Sure",
+        nextDial: 11,
+        id: 1,
+        triggers: ["1_Patry_add_Nell", "1_Nell_add"]
+      },
+      { text: "No way", nextDial: 12, id: 2, triggers: ["1_Nell_lost"] }
     ]
   },
   {

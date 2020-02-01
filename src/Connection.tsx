@@ -12,6 +12,13 @@ import {
   addGlobalEvent
 } from "./store/actions";
 import { findTrigger, checkGlobalEvent } from "./data/helpers";
+import {
+  ACTIVATE_LEVEL,
+  UPDATE_QUEST,
+  OPEN_CONNECTION,
+  ACTIVE_DIALOGUE,
+  ADD_GLOBAL_EVENT
+} from "./data/Constants";
 
 interface IConnectionProps {
   c: IConnection;
@@ -53,10 +60,10 @@ export const Connection = (props: IConnectionProps) => {
     if (!triggers) {
       return;
     }
-    triggers.forEach((t: number) => triggerEvent(t));
+    triggers.forEach((t: string) => triggerEvent(t));
   };
 
-  function triggerEvent(id: number) {
+  function triggerEvent(id: string) {
     const trigger: ITrigger = findTrigger(id);
     if (c.infoline) {
       // dispatch(showInfoline(c.infoline));
@@ -65,33 +72,29 @@ export const Connection = (props: IConnectionProps) => {
       // }, 2000);
     }
     if (trigger.condition) {
-      const res = checkGlobalEvent(
-        props.globalevents,
-        trigger.condition[0],
-        trigger.condition[1]
+      const res = trigger.condition.every((cond: any) =>
+        checkGlobalEvent(props.globalevents, cond[0], cond[1])
       );
       if (!res) {
         return;
       }
     }
     switch (trigger.triggerType) {
-      case "ACTIVATE_LEVEL":
+      case ACTIVATE_LEVEL:
         if (isOpen()) {
           dispatch(levelActive(trigger.data));
         }
         return;
-      case "UPDATE_QUEST":
+      case UPDATE_QUEST:
         dispatch(questUpdate(trigger.data));
         return;
-      case "OPEN_CONNECTION":
+      case OPEN_CONNECTION:
         dispatch(openConnection(trigger.data));
         return;
-      case "ACTIVE_DIALOGUE":
+      case ACTIVE_DIALOGUE:
         dispatch(activeDialogue(trigger.data));
-      case "ADD_GLOBAL_EVENT":
+      case ADD_GLOBAL_EVENT:
         dispatch(addGlobalEvent(trigger.data));
-      case "OPEN_LEVEL":
-        return;
       default:
         return;
     }

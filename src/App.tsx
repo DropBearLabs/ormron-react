@@ -1,9 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { displayQuest, activeMap, activeDialogue } from "./store/actions";
+import { displayQuest, activeMap } from "./store/actions";
 import { dialogues } from "./data/Dialogues";
-import { quests as questsAll } from "./data/Quests";
 import { maps } from "./data/Maps";
 import { NPC } from "./Npc";
 import { Quest } from "./Quest";
@@ -12,12 +11,7 @@ import { Party } from "./Party";
 import { Map } from "./Map";
 import { Connection } from "./Connection";
 
-import {
-  findConnection,
-  findTrigger,
-  findLevel,
-  findQuest
-} from "./data/helpers";
+import { findConnection, findLevel, findQuest } from "./data/helpers";
 import { findNpc } from "./data/helpers";
 
 import "./App.css";
@@ -99,8 +93,6 @@ const Menu = (props: IMenuProps) => {
 };
 
 const App: React.FC = () => {
-  const dispatch = useDispatch();
-
   const dialogueInd = useSelector((state: any) => state.activeDialogue);
   const levelId = useSelector((state: any) => state.activeLevel);
   const levelState = useSelector((state: any) => state.levels);
@@ -115,17 +107,6 @@ const App: React.FC = () => {
   const partyMembers = useSelector((state: any) => state.party);
   const globalevents = useSelector((state: any) => state.globalEvents);
 
-  const triggerEvent = (id: number) => {
-    const trigger = findTrigger(id);
-    if (trigger.triggerType === "ACTIVE_DIALOGUE") {
-      dispatch(activeDialogue(trigger.data[0]));
-    }
-  };
-
-  const triggers = findLevel(levelId).triggers;
-  if (triggers && triggers.length > 0) {
-    triggers.forEach((n: number) => triggerEvent(n));
-  }
   const currentLevelState = (id: string) => {
     const current = levelState.find((l: ILevel) => l.id === id);
     if (!current) {
