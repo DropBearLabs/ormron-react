@@ -16,21 +16,28 @@ import {
   ADD_GLOBAL_EVENT
 } from "../data/Constants";
 import { gso } from "../data/Gso";
-import { IGso, IGsoLevel, IGsoQuest } from "../data/Types";
+import { IGso, IGsoLevel, IGsoQuest, IQuestStep } from "../data/Types";
 import { findQuest } from "../data/helpers";
 
-const npcUpdate = (levelsToUpdate: IGsoLevel[], payload: any) => {
+const npcUpdate = (
+  levelsToUpdate: IGsoLevel[],
+  payload: { level: string; character: string; setTo: number | false }
+) => {
   const { level, character, setTo } = payload;
-  const levelsAll = levelsToUpdate.map((x: any) => x.id);
+  const levelsAll = levelsToUpdate.map((x: IGsoLevel) => x.id);
   const index = levelsAll.indexOf(level);
   // @ts-ignore
   levelsToUpdate[index][character] = setTo;
   return levelsToUpdate;
 };
 
-const questUpdate = (questsToUpdate: any, quesstsTaken: any, payload: any) => {
+const questUpdate = (
+  questsToUpdate: IGsoQuest[],
+  quesstsTaken: string[],
+  payload: { quest: string; step: string }
+) => {
   const { quest, step } = payload;
-  const questsAll = questsToUpdate.map((x: any) => x.id);
+  const questsAll = questsToUpdate.map((x: IGsoQuest) => x.id);
   const index = questsAll.indexOf(quest);
   // If there's no quest with this name - create one;
   if (index === -1) {
@@ -57,7 +64,7 @@ const questUpdate = (questsToUpdate: any, quesstsTaken: any, payload: any) => {
     };
   }
 
-  const steps = findQuest(quest).steps.map((x: any) => x.event);
+  const steps = findQuest(quest).steps.map((x: IQuestStep) => x.event);
   const lastStepIndex = steps.indexOf(oldState.nextStep);
   const newStepIndex = steps.indexOf(step);
 
@@ -83,14 +90,16 @@ const questUpdate = (questsToUpdate: any, quesstsTaken: any, payload: any) => {
 };
 
 const endQuest = (
-  questsTaken: any,
-  questsCompleted: any,
-  questsToUpdate: any,
-  payload: any
+  questsTaken: string[],
+  questsCompleted: string[],
+  questsToUpdate: IGsoQuest[],
+  payload: string
 ) => {
   questsCompleted.push(payload);
-  const updatedTaken = questsTaken.filter((q: any) => q !== payload);
-  const updatedQuests = questsToUpdate.filter((q: any) => q.id !== payload);
+  const updatedTaken = questsTaken.filter((q: string) => q !== payload);
+  const updatedQuests = questsToUpdate.filter(
+    (q: IGsoQuest) => q.id !== payload
+  );
 
   return {
     quests: updatedQuests,
@@ -99,17 +108,21 @@ const endQuest = (
   };
 };
 
-const openConnection = (levelsToUpdate: any, payload: any) => {
+const openConnection = (
+  levelsToUpdate: IGsoLevel[],
+  payload: { level: string; entry: string }
+) => {
   const { level, entry } = payload;
-  const levelsAll = levelsToUpdate.map((x: any) => x.id);
+  const levelsAll = levelsToUpdate.map((x: IGsoLevel) => x.id);
   const index = levelsAll.indexOf(level);
+  //@ts-ignore
   levelsToUpdate[index].connections[entry] = "open";
   return {
     levels: levelsToUpdate
   };
 };
 
-const addGlobalEvent = (globalEvents: any, payload: any) => {
+const addGlobalEvent = (globalEvents: string[], payload: string) => {
   const newEvents = globalEvents.concat(payload);
   return newEvents;
 };
