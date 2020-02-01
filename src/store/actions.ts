@@ -24,7 +24,7 @@ export const activeDialogue = (index: number | null) => {
   };
 };
 
-export const levelActive = (index: number) => ({
+export const levelActive = (index: string) => ({
   payload: index,
   type: ACTIVATE_LEVEL
 });

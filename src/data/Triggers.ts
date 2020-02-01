@@ -13,7 +13,7 @@ import {
 } from "../data/Constants";
 
 export const triggers: ITrigger[] = [
-  { id: "1_Game_Start", triggerType: ADD_GLOBAL_EVENT, data: ["GAME_START"] },
+  { id: "1_Game_Start", triggerType: ADD_GLOBAL_EVENT, data: "GAME_START" },
   { id: "1_Map_update_open", triggerType: "MAP_UPDATE", data: [1, "OPEN"] }, //NEEDS REFACTORING
   { id: "2_Map_update_open", triggerType: "MAP_UPDATE", data: [2, "OPEN"] }, //NEEDS REFACTORING
   { id: "3_Map_update_open", triggerType: "MAP_UPDATE", data: [3, "OPEN"] }, //NEEDS REFACTORING
@@ -120,11 +120,11 @@ export const triggers: ITrigger[] = [
   {
     id: "1_Global_Tutorial_complete",
     triggerType: ADD_GLOBAL_EVENT,
-    data: ["TUTORIAL_COMPLETE"]
+    data: "TUTORIAL_COMPLETE"
   },
   {
     id: "1_Global_Nell_handshake",
     triggerType: ADD_GLOBAL_EVENT,
-    data: ["NELL_HANDSHAKE"]
+    data: "NELL_HANDSHAKE"
   }
 ];

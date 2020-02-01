@@ -15,7 +15,8 @@ import { findConnection, findLevel, findQuest } from "./data/helpers";
 import { findNpc } from "./data/helpers";
 
 import "./App.css";
-import { ILevel } from "./data/Types";
+import { ILevel, IGso } from "./data/Types";
+import { connections } from "./data/Connections";
 
 interface IInfolineProps {
   line: string | null;
@@ -39,7 +40,7 @@ const InfoLine = (props: IInfolineProps) => {
 };
 
 interface IMenuProps {
-  quest: any;
+  quest: IGso;
 }
 
 const Menu = (props: IMenuProps) => {
@@ -80,12 +81,12 @@ const Menu = (props: IMenuProps) => {
       <img
         style={iconMapStyle}
         src="temp-icon3.png"
-        onClick={() => dispatch(activeMap(0))}
+        //onClick={() => dispatch(activeMap(0))}
       />
       <img
         style={iconQuestStyle}
         src="temp-icon4.png"
-        onClick={() => dispatch(displayQuest(props.quest[0]))}
+        //onClick={() => dispatch(displayQuest(props.quest[0]))}
       />
       <img style={iconInventoryStyle} src="temp-icon5.png" />
     </div>
@@ -93,22 +94,22 @@ const Menu = (props: IMenuProps) => {
 };
 
 const App: React.FC = () => {
-  const dialogueInd = useSelector((state: any) => state.activeDialogue);
-  const levelId = useSelector((state: any) => state.activeLevel);
-  const levelState = useSelector((state: any) => state.levels);
-  const infoline = useSelector((state: any) => state.infoline);
-  const questActive = useSelector((state: any) => state.activeQuest);
-  const questsTaken = useSelector((state: any) => state.questsTaken);
-  const questsState = useSelector((state: any) => state.quests);
-  const mapsState = useSelector((state: any) => state.maps);
-  const mapId = useSelector((state: any) => state.activeMap);
-  const chapter = useSelector((state: any) => state.chapter);
-  const party = useSelector((state: any) => state.selectParty);
-  const partyMembers = useSelector((state: any) => state.party);
-  const globalevents = useSelector((state: any) => state.globalEvents);
+  const dialogueInd = useSelector((state: IGso) => state.activeDialogue);
+  const levelId = useSelector((state: IGso) => state.activeLevel);
+  const levelState = useSelector((state: IGso) => state.levels);
+  const infoline = useSelector((state: IGso) => state.infoline);
+  const questActive = useSelector((state: IGso) => state.activeQuest);
+  const questsTaken = useSelector((state: IGso) => state.questsTaken);
+  const questsState = useSelector((state: IGso) => state.quests);
+  const mapsState = useSelector((state: IGso) => state.maps);
+  const mapId = useSelector((state: IGso) => state.activeMap);
+  const chapter = useSelector((state: IGso) => state.chapter);
+  const party = useSelector((state: IGso) => state.selectParty);
+  const partyMembers = useSelector((state: IGso) => state.party);
+  const globalevents = useSelector((state: IGso) => state.globalEvents);
 
   const currentLevelState = (id: string) => {
-    const current = levelState.find((l: ILevel) => l.id === id);
+    const current = levelState.find((l: any) => l.id === id);
     if (!current) {
       //Create this level in GSO
       throw Error("Adiition of new levels to GSO is not implemented");
@@ -121,14 +122,16 @@ const App: React.FC = () => {
       <img src={findLevel(levelId).backgrounds[0].image} />
       {findLevel(levelId).connections.map((c: number) => {
         const connection = findConnection(c);
+        // @ts-ignore
+        const connectionState = (currentLevelState(levelId).connections[
+          connection.name
+        ] as unknown) as string;
         return (
           <Connection
             globalevents={globalevents}
-            c={connection}
+            connection={connection}
             key={connection.id}
-            state={levelState}
-            levelState={currentLevelState(levelId)}
-            quests={questsState}
+            connectionState={connectionState}
             party={partyMembers}
           />
         );
@@ -143,7 +146,7 @@ const App: React.FC = () => {
         <Dialogue dialogue={dialogues[dialogueInd]} quests={questsState} />
       ) : null}
       {infoline !== null ? <InfoLine line={infoline} /> : null}
-      <Menu quest={questsTaken} />
+      {/*<Menu quest={questsTaken} />
       {questActive !== null ? (
         <Quest
           active={questActive}
@@ -153,7 +156,7 @@ const App: React.FC = () => {
       ) : null}
       {mapId !== null ? (
         <Map chapter={chapter} map={maps[mapId]} state={mapsState} />
-      ) : null}
+      ) : null}*/}
       {party !== null ? <Party party={partyMembers} /> : null}
     </div>
   );

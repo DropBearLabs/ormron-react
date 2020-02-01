@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { IConnection, ITrigger } from "./data/Types";
+import { IConnection, ITrigger, IGsoLevel } from "./data/Types";
 
 import {
   levelActive,
@@ -21,28 +21,27 @@ import {
 } from "./data/Constants";
 
 interface IConnectionProps {
-  c: IConnection;
-  state: number[];
-  levelState: any;
-  quests: any;
+  connection: IConnection;
+  connectionState: string;
   party: any;
   globalevents: string[];
 }
-
 export const Connection = (props: IConnectionProps) => {
   const dispatch = useDispatch();
-  const { c, levelState } = props;
+  const { connection, connectionState, globalevents } = props;
   const doorStyle = {
-    left: c.position.x,
-    bottom: c.position.y,
+    left: connection.position.x,
+    bottom: connection.position.y,
     width: "190px",
     height: "300px",
     position: "absolute" as "absolute",
     backgroundImage:
-      levelState[c.name] !== "closed" ? `url(${c.open})` : `url(${c.closed})`
+      connectionState !== "closed"
+        ? `url(${connection.open})`
+        : `url(${connection.closed})`
   };
   const isOpen = () => {
-    return levelState[c.name] !== "closed";
+    return ((connectionState as unknown) as string) !== "closed";
   };
 
   const beforeExit = (triggers: any, party: any) => {
@@ -51,7 +50,7 @@ export const Connection = (props: IConnectionProps) => {
   };
 
   const triggerParty = (party: any) => {
-    if (c.selectParty) {
+    if (connection.selectParty) {
       dispatch(selectParty(props.party));
     }
   };
@@ -65,7 +64,7 @@ export const Connection = (props: IConnectionProps) => {
 
   function triggerEvent(id: string) {
     const trigger: ITrigger = findTrigger(id);
-    if (c.infoline) {
+    if (connection.infoline) {
       // dispatch(showInfoline(c.infoline));
       // setTimeout(() => {
       //   dispatch(showInfoline(null));
@@ -73,7 +72,7 @@ export const Connection = (props: IConnectionProps) => {
     }
     if (trigger.condition) {
       const res = trigger.condition.every((cond: any) =>
-        checkGlobalEvent(props.globalevents, cond[0], cond[1])
+        checkGlobalEvent(globalevents, cond[0], cond[1])
       );
       if (!res) {
         return;
@@ -93,16 +92,21 @@ export const Connection = (props: IConnectionProps) => {
         return;
       case ACTIVE_DIALOGUE:
         dispatch(activeDialogue(trigger.data));
+        return;
       case ADD_GLOBAL_EVENT:
         dispatch(addGlobalEvent(trigger.data));
+        return;
       default:
         return;
     }
   }
 
   return (
-    <div style={doorStyle} onClick={() => beforeExit(c.triggers, props.party)}>
-      {c.name}
+    <div
+      style={doorStyle}
+      onClick={() => beforeExit(connection.triggers, props.party)}
+    >
+      {connection.name}
     </div>
   );
 };

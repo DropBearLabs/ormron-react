@@ -102,7 +102,7 @@ const openConnection = (levelsToUpdate: any, payload: any) => {
   const { level, entry } = payload;
   const levelsAll = levelsToUpdate.map((x: any) => x.id);
   const index = levelsAll.indexOf(level);
-  levelsToUpdate[index][entry] = "open";
+  levelsToUpdate[index].connections[entry] = "open";
   return {
     levels: levelsToUpdate
   };
@@ -158,37 +158,35 @@ export default function GsoReduicer(
       return Object.assign({}, state, {
         globalEvents: addGlobalEvent(globalEvents, action.payload)
       });
-    /* not refactored */
-
     case ACTIVE_DIALOGUE:
       return Object.assign({}, state, {
         activeDialogue: action.payload != null ? action.payload : null
       });
-    case LEVEL_TIGGERS_CLEAR:
-      const levelsToUpdate2 = [...state.levels];
-      levelsToUpdate2[action.payload].triggers = [];
-      return Object.assign({}, state, { levels: levelsToUpdate2 });
-    case SHOW_INFOLINE:
-      return Object.assign({}, state, { infoline: action.payload });
-    case SHOW_QUEST:
+    case SELECT_PARTY:
       return Object.assign({}, state, {
-        activeQuest: action.payload
+        selectParty: action.payload
       });
     case ACTIVE_MAP:
       return Object.assign({}, state, {
         activeMap: action.payload
       });
+    case SHOW_QUEST:
+      return Object.assign({}, state, {
+        activeQuest: action.payload
+      });
+    /* not refactored */
+    case LEVEL_TIGGERS_CLEAR:
+    // const levelsToUpdate2 = [...state.levels];
+    // levelsToUpdate2[action.payload].triggers = [];
+    // return Object.assign({}, state, { levels: levelsToUpdate2 });
+    case SHOW_INFOLINE:
+      return Object.assign({}, state, { infoline: action.payload });
     case MAP_UPDATE:
       const mapsToUpdate = [...state.maps];
       if (action.payload.state === "OPEN") {
         mapsToUpdate.push(parseInt(action.payload.map, 0));
       }
       return Object.assign({}, state, { maps: mapsToUpdate });
-    case SELECT_PARTY:
-      console.log(action.payload);
-      return Object.assign({}, state, {
-        selectParty: action.payload
-      });
     case UPDATE_PARTY:
       const partyToUpdate = [...state.party];
       if (
