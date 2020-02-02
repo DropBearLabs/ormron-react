@@ -30,3 +30,5 @@ export const OPEN_LEVEL = "OPEN_LEVEL";
 export type OPEN_LEVEL = typeof OPEN_LEVEL;
 export const ADD_GLOBAL_EVENT = "ADD_GLOBAL_EVENT";
 export type ADD_GLOBAL_EVENT = typeof ADD_GLOBAL_EVENT;
+export const SET_PARTY = "SET_PARTY";
+export type SET_PARTY = typeof SET_PARTY;

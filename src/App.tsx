@@ -104,8 +104,8 @@ const App: React.FC = () => {
   const mapsState = useSelector((state: IGso) => state.maps);
   const mapId = useSelector((state: IGso) => state.activeMap);
   const chapter = useSelector((state: IGso) => state.chapter);
-  const party = useSelector((state: IGso) => state.selectParty);
-  const partyMembers = useSelector((state: IGso) => state.party);
+  const selectParty = useSelector((state: IGso) => state.selectParty);
+  const party = useSelector((state: IGso) => state.party);
   const globalevents = useSelector((state: IGso) => state.globalEvents);
 
   const currentLevelState = (id: string) => {
@@ -132,7 +132,6 @@ const App: React.FC = () => {
             connection={connection}
             key={connection.id}
             connectionState={connectionState}
-            party={partyMembers}
           />
         );
       })}
@@ -159,7 +158,9 @@ const App: React.FC = () => {
       {mapId !== null ? (
         <Map chapter={chapter} map={maps[mapId]} state={mapsState} />
       ) : null}*/}
-      {party !== null ? <Party party={partyMembers} /> : null}
+      {selectParty !== null ? (
+        <Party party={party} selectParty={selectParty} />
+      ) : null}
     </div>
   );
 };

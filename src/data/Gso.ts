@@ -10,7 +10,6 @@ export const gso: IGso = {
   activeQuest: null,
   activeMap: null,
   infoline: null,
-  selectParty: null,
   globalEvents: [],
   levels: [
     {
@@ -51,6 +50,14 @@ export const gso: IGso = {
   maps: [0],
   questsTaken: [],
   party: ["maya"],
+  selectParty: null,
+  setParty: {
+    maya: true,
+    tara: false,
+    grey: false,
+    dart: false,
+    nell: false
+  },
   influence: { nell: 0, dart: 0, tara: 0, grey: 0 }
 };
 //*/

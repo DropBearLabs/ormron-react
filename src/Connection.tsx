@@ -23,7 +23,6 @@ import {
 interface IConnectionProps {
   connection: IConnection;
   connectionState: string;
-  party: string[];
   globalevents: string[];
 }
 export const Connection = (props: IConnectionProps) => {
@@ -40,36 +39,35 @@ export const Connection = (props: IConnectionProps) => {
         ? `url(${connection.open})`
         : `url(${connection.closed})`
   };
+
   const isOpen = () => {
     return ((connectionState as unknown) as string) !== "closed";
   };
 
-  const beforeExit = (triggers: string[] | undefined, party: string[]) => {
-    triggerEntry(triggers);
-    triggerParty(party);
-  };
-
-  const triggerParty = (party: string[]) => {
+  const triggerEntry = () => {
     if (connection.selectParty) {
-      dispatch(selectParty(props.party));
+      const selectedParty = {
+        nell: connection.selectParty.includes("nell"),
+        tara: connection.selectParty.includes("tara"),
+        dart: connection.selectParty.includes("dart"),
+        maya: connection.selectParty.includes("maya"),
+        grey: connection.selectParty.includes("grey")
+      };
+      dispatch(selectParty(selectedParty));
     }
-  };
-
-  const triggerEntry = (triggers: string[] | undefined) => {
-    if (!triggers) {
-      return;
+    if (connection.triggers) {
+      connection.triggers.forEach((t: string) => triggerEvent(t));
     }
-    triggers.forEach((t: string) => triggerEvent(t));
   };
 
   function triggerEvent(id: string) {
     const trigger: ITrigger = findTrigger(id);
-    if (connection.infoline) {
-      // dispatch(showInfoline(c.infoline));
-      // setTimeout(() => {
-      //   dispatch(showInfoline(null));
-      // }, 2000);
-    }
+    // if (connection.infoline) {
+    // dispatch(showInfoline(c.infoline));
+    // setTimeout(() => {
+    //   dispatch(showInfoline(null));
+    // }, 2000);
+    // }
     if (trigger.condition) {
       const res = trigger.condition.every((cond: string[]) =>
         checkGlobalEvent(globalevents, cond[0], cond[1])
@@ -102,10 +100,7 @@ export const Connection = (props: IConnectionProps) => {
   }
 
   return (
-    <div
-      style={doorStyle}
-      onClick={() => beforeExit(connection.triggers, props.party)}
-    >
+    <div style={doorStyle} onClick={() => triggerEntry()}>
       {connection.name}
     </div>
   );

@@ -12,7 +12,8 @@ import {
   UPDATE_PARTY,
   UPDATE_INFLUENCE,
   OPEN_CONNECTION,
-  ADD_GLOBAL_EVENT
+  ADD_GLOBAL_EVENT,
+  SET_PARTY
 } from "../data/Constants";
 import { gso } from "../data/Gso";
 import {
@@ -27,7 +28,8 @@ import {
   IPayloadOpenConnection,
   IPayloadPartyUpdate,
   IGsoInfluence,
-  IPayloadUpdateInfluence
+  IPayloadUpdateInfluence,
+  IGsoParty
 } from "../data/Types";
 import { findQuest } from "../data/helpers";
 
@@ -227,7 +229,11 @@ export default function GsoReduicer(
       });
     case SELECT_PARTY:
       return Object.assign({}, state, {
-        selectParty: action.payload
+        selectParty: action.payload != null ? action.payload : null
+      });
+    case SET_PARTY:
+      return Object.assign({}, state, {
+        setParty: action.payload as any
       });
     case UPDATE_INFLUENCE:
       return Object.assign({}, state, {

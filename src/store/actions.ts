@@ -13,8 +13,10 @@ import {
   UPDATE_INFLUENCE,
   OPEN_LEVEL,
   OPEN_CONNECTION,
-  ADD_GLOBAL_EVENT
+  ADD_GLOBAL_EVENT,
+  SET_PARTY
 } from "../data/Constants";
+import { IGsoParty } from "../data/Types";
 
 export const activeDialogue = (index: number | null) => {
   return {
@@ -104,10 +106,17 @@ export const updateMap = (condition: [number, string]) => {
   };
 };
 
-export const selectParty = (party: string[] | null) => {
+export const selectParty = (required: IGsoParty | null) => {
+  return {
+    payload: required,
+    type: SELECT_PARTY
+  };
+};
+
+export const setParty = (party: IGsoParty) => {
   return {
     payload: party,
-    type: SELECT_PARTY
+    type: SET_PARTY
   };
 };
 

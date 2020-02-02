@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { IPartyMember } from "./data/Types";
-import { selectParty } from "./store/actions";
+import { IPartyMember, IGsoParty } from "./data/Types";
+import { selectParty, setParty } from "./store/actions";
 import { useDispatch } from "react-redux";
-let currentSelection: string[] = ["maya"];
 
 const allParty: IPartyMember[] = [
   {
@@ -19,7 +18,7 @@ const allParty: IPartyMember[] = [
     image: "temp-main5.png",
     placeholder: "temp-main5black.png",
     selected: "temp-main5selected.png",
-    opened: false
+    opened: true
   },
   {
     id: "maya",
@@ -35,7 +34,7 @@ const allParty: IPartyMember[] = [
     image: "temp-main2.png",
     placeholder: "temp-main2black.png",
     selected: "temp-main2selected.png",
-    opened: false
+    opened: true
   },
   {
     id: "tara",
@@ -49,9 +48,11 @@ const allParty: IPartyMember[] = [
 
 interface IPartyMemberProps {
   char: IPartyMember;
-  select: any;
+  currentSelection: any;
+  selectMember: any;
 }
 const PartyMember = (props: IPartyMemberProps) => {
+  const { char, currentSelection, selectMember } = props;
   const charStyle = {
     display: "inline" as "inline",
     marginLeft: "-40px",
@@ -66,40 +67,29 @@ const PartyMember = (props: IPartyMemberProps) => {
     left: "80px"
   };
 
-  const setSelection = (id: string) => {
-    if (currentSelection.length > 2) {
-      currentSelection.push(id);
-      currentSelection.splice(1, 1);
-      return id;
-    } else {
-      currentSelection.push(id);
-      return id;
-    }
-  };
-  const getImage = (id: any) => {
-    const char = allParty.filter((p: any) => p.id === id);
-    if (char.length !== 1) {
+  const getImage = (id: string) => {
+    const character = allParty.filter((p: IPartyMember) => p.id === id);
+    if (character.length !== 1) {
       throw Error("Unknown character id" + id);
     }
-    let image = char[0].image;
-    if (!props.char.opened) {
-      image = char[0].placeholder;
+    let image = character[0].image;
+    if (!char.opened) {
+      image = character[0].placeholder;
     }
-    if (currentSelection.indexOf(id) !== -1) {
-      image = char[0].selected;
+    if (currentSelection[character[0].id]) {
+      image = character[0].selected;
     }
     return image;
   };
 
-  const canBeSelected =
-    props.char.opened && currentSelection.indexOf(props.char.id) === -1;
+  const canBeSelected = true; //char.opened && currentSelection.indexOf(char.id) === -1;
   return (
     <div style={charStyle}>
-      <img src={getImage(props.char.id)} />
+      <img src={getImage(char.id)} />
       {canBeSelected ? (
         <button
           style={buttonStyle}
-          onClick={() => props.select(setSelection(props.char.id))}
+          onClick={() => props.selectMember(props.char.id)}
         >
           Select
         </button>
@@ -110,7 +100,7 @@ const PartyMember = (props: IPartyMemberProps) => {
 
 interface IPartyProps {
   party: string[] | null;
-  required?: string;
+  selectParty: IGsoParty | null;
 }
 
 export const Party = (props: IPartyProps) => {
@@ -130,11 +120,28 @@ export const Party = (props: IPartyProps) => {
     top: "50px",
     left: "340px"
   };
+  const [currentSelection, setSelection] = useState<IGsoParty | null>(
+    props.selectParty
+  );
 
-  const [selected, select] = useState("maya");
-  if (props.required) {
-    currentSelection.push(props.required);
-  }
+  const selectMember = (id: string) => {
+    // @ts-ignore
+    currentSelection[id] = !currentSelection[id];
+    const select =
+      currentSelection && Object.values(currentSelection).filter((c: any) => c);
+    if (select && select.length <= 3) {
+      setSelection(currentSelection && { ...currentSelection });
+    }
+  };
+
+  const setPartyExit = () => {
+    console.log("setPartyExit", currentSelection);
+    if (currentSelection) {
+      dispatch(setParty(currentSelection));
+      dispatch(selectParty(null));
+    }
+  };
+
   return (
     <div style={partyStyle}>
       <img
@@ -147,8 +154,16 @@ export const Party = (props: IPartyProps) => {
         if (props.party && props.party.indexOf(char.id) !== -1) {
           char.opened = true;
         }
-        return <PartyMember char={char} key={char.id} select={select} />;
+        return (
+          <PartyMember
+            char={char}
+            key={char.id}
+            selectMember={selectMember}
+            currentSelection={currentSelection}
+          />
+        );
       })}
+      <button onClick={() => setPartyExit()}>Let'sGo</button>
     </div>
   );
 };

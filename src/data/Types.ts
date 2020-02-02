@@ -12,7 +12,8 @@ import {
   UPDATE_PARTY,
   UPDATE_INFLUENCE,
   OPEN_CONNECTION,
-  ADD_GLOBAL_EVENT
+  ADD_GLOBAL_EVENT,
+  SET_PARTY
 } from "../data/Constants";
 
 export type IAction =
@@ -29,6 +30,7 @@ export type IAction =
   | UPDATE_PARTY
   | UPDATE_INFLUENCE
   | OPEN_CONNECTION
+  | SET_PARTY
   | ADD_GLOBAL_EVENT;
 
 export type IPayload =
@@ -68,11 +70,18 @@ export interface IPayloadUpdateInfluence {
   num: number;
 }
 
+export interface IGsoParty {
+  nell: boolean;
+  tara: boolean;
+  grey: boolean;
+  maya: boolean;
+  dart: boolean;
+}
+
 export interface IGso {
   chapter: number;
   activeLevel: string;
   infoline: string | null;
-  selectParty: string[] | null;
   activeDialogue: number | null;
   activeMap: number | null;
   questsTaken: string[];
@@ -83,6 +92,8 @@ export interface IGso {
   levels: IGsoLevel[];
   maps: number[];
   party: string[];
+  selectParty: IGsoParty | null;
+  setParty: IGsoParty;
   influence: IGsoInfluence;
 }
 
@@ -136,9 +147,8 @@ export interface IConnection {
   position: IPoint;
   open: string;
   closed: string;
-  selectParty: boolean;
+  selectParty: string[] | null;
   triggers?: string[];
-  infoline?: string;
 }
 
 export interface IPoint {
