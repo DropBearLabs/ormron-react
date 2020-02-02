@@ -1,4 +1,73 @@
-import { ACTIVATE_LEVEL } from "../data/Constants";
+import {
+  ACTIVE_DIALOGUE,
+  ACTIVATE_LEVEL,
+  SHOW_INFOLINE,
+  END_QUEST,
+  SHOW_QUEST,
+  UPDATE_QUEST,
+  ACTIVE_MAP,
+  MAP_UPDATE,
+  UPDATE_NPC,
+  SELECT_PARTY,
+  UPDATE_PARTY,
+  UPDATE_INFLUENCE,
+  OPEN_CONNECTION,
+  ADD_GLOBAL_EVENT
+} from "../data/Constants";
+
+export type IAction =
+  | ACTIVE_DIALOGUE
+  | ACTIVATE_LEVEL
+  | SHOW_INFOLINE
+  | END_QUEST
+  | SHOW_QUEST
+  | UPDATE_QUEST
+  | ACTIVE_MAP
+  | MAP_UPDATE
+  | UPDATE_NPC
+  | SELECT_PARTY
+  | UPDATE_PARTY
+  | UPDATE_INFLUENCE
+  | OPEN_CONNECTION
+  | ADD_GLOBAL_EVENT;
+
+export type IPayload =
+  | IPayloadNpcUpdate
+  | IPayloaQuestUpdate
+  | IPayloadOpenConnection
+  | IPayloadPartyUpdate
+  | IPayloadUpdateInfluence
+  | string
+  | number
+  | null;
+
+type mainCharacters = "nell" | "dart" | "tara" | "grey";
+export interface IPayloadNpcUpdate {
+  level: string;
+  character: string;
+  setTo: number | false;
+}
+
+export interface IPayloadPartyUpdate {
+  character: mainCharacters;
+  update: string;
+}
+
+export interface IPayloaQuestUpdate {
+  quest: string;
+  step: string;
+}
+
+export interface IPayloadOpenConnection {
+  level: string;
+  entry: string;
+}
+
+export interface IPayloadUpdateInfluence {
+  character: mainCharacters;
+  num: number;
+}
+
 export interface IGso {
   chapter: number;
   activeLevel: string;
@@ -14,13 +83,20 @@ export interface IGso {
   levels: IGsoLevel[];
   maps: number[];
   party: string[];
-  influence: number[];
+  influence: IGsoInfluence;
 }
 
 export interface IGsoQuest {
   id: string;
   completedSteps: string[];
   nextStep: string;
+}
+
+export interface IGsoInfluence {
+  nell: number;
+  dart: number;
+  tara: number;
+  grey: number;
 }
 
 export interface IMap {

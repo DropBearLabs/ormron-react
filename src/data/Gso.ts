@@ -45,6 +45,6 @@ export const gso: IGso = {
   maps: [0],
   questsTaken: [],
   party: ["maya"],
-  influence: [0, 0, 0, 0]
+  influence: { nell: 0, dart: 0, tara: 0, grey: 0 }
 };
 //*/

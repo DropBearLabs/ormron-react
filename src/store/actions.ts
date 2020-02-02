@@ -13,7 +13,6 @@ import {
   UPDATE_INFLUENCE,
   OPEN_LEVEL,
   OPEN_CONNECTION,
-  LEVEL_TIGGERS_CLEAR,
   ADD_GLOBAL_EVENT
 } from "../data/Constants";
 
@@ -122,20 +121,18 @@ export const updateParty = (condition: string[]) => {
 };
 
 export const updateInfluence = (condition: [string, number]) => {
-  const allChars = ["dart", "grey", "nell", "tara"];
   const character = condition[0];
-  const index = allChars.indexOf(character);
   const num = condition[1];
   return {
-    payload: { character, index, num },
+    payload: { character, num },
     type: UPDATE_INFLUENCE
   };
 };
 
-export const clearLevelTriggers = (index: number) => ({
-  payload: index,
-  type: LEVEL_TIGGERS_CLEAR
-});
+// export const clearLevelTriggers = (index: number) => ({
+//   payload: index,
+//   type: LEVEL_TIGGERS_CLEAR
+// });
 
 export default {
   activeDialogue,

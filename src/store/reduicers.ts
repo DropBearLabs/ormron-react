@@ -12,17 +12,26 @@ import {
   UPDATE_PARTY,
   UPDATE_INFLUENCE,
   OPEN_CONNECTION,
-  LEVEL_TIGGERS_CLEAR,
   ADD_GLOBAL_EVENT
 } from "../data/Constants";
 import { gso } from "../data/Gso";
-import { IGso, IGsoLevel, IGsoQuest, IQuestStep } from "../data/Types";
+import {
+  IGso,
+  IGsoLevel,
+  IGsoQuest,
+  IQuestStep,
+  IAction,
+  IPayload,
+  IPayloadNpcUpdate,
+  IPayloaQuestUpdate,
+  IPayloadOpenConnection,
+  IPayloadPartyUpdate,
+  IGsoInfluence,
+  IPayloadUpdateInfluence
+} from "../data/Types";
 import { findQuest } from "../data/helpers";
 
-const npcUpdate = (
-  levelsToUpdate: IGsoLevel[],
-  payload: { level: string; character: string; setTo: number | false }
-) => {
+const npcUpdate = (levelsToUpdate: IGsoLevel[], payload: IPayloadNpcUpdate) => {
   const { level, character, setTo } = payload;
   const levelsAll = levelsToUpdate.map((x: IGsoLevel) => x.id);
   const index = levelsAll.indexOf(level);
@@ -31,10 +40,23 @@ const npcUpdate = (
   return levelsToUpdate;
 };
 
+const updateParty = (partyToUpdate: string[], payload: IPayloadPartyUpdate) => {
+  const { character, update } = payload;
+  const found = partyToUpdate.includes(character);
+  if (update === "add" && !found) {
+    partyToUpdate.push(character);
+  }
+  if (update === "remove" && found) {
+    const index = partyToUpdate.indexOf(character);
+    partyToUpdate.splice(index, 1);
+  }
+  return partyToUpdate;
+};
+
 const questUpdate = (
   questsToUpdate: IGsoQuest[],
   quesstsTaken: string[],
-  payload: { quest: string; step: string }
+  payload: IPayloaQuestUpdate
 ) => {
   const { quest, step } = payload;
   const questsAll = questsToUpdate.map((x: IGsoQuest) => x.id);
@@ -110,7 +132,7 @@ const endQuest = (
 
 const openConnection = (
   levelsToUpdate: IGsoLevel[],
-  payload: { level: string; entry: string }
+  payload: IPayloadOpenConnection
 ) => {
   const { level, entry } = payload;
   const levelsAll = levelsToUpdate.map((x: IGsoLevel) => x.id);
@@ -127,11 +149,22 @@ const addGlobalEvent = (globalEvents: string[], payload: string) => {
   return newEvents;
 };
 
+const updateInfluence = (
+  influenceToUpdate: IGsoInfluence,
+  payload: IPayloadUpdateInfluence
+) => {
+  const { character, num } = payload;
+  const currentInfluence = influenceToUpdate[character].valueOf();
+  const newInfluence = currentInfluence + num;
+  influenceToUpdate[character] = newInfluence;
+  return influenceToUpdate;
+};
+
 const initialState: IGso = gso;
 
 export default function GsoReduicer(
   state: IGso | void = initialState,
-  action: any
+  action: { type: IAction; payload: IPayload }
 ) {
   if (!state) {
     return initialState;
@@ -141,6 +174,9 @@ export default function GsoReduicer(
   const quesstsTaken: string[] = [...state.questsTaken];
   const questsCompleted: string[] = [...state.questsCompleted];
   const globalEvents: string[] = [...state.globalEvents];
+  const partyToUpdate: string[] = [...state.party];
+  const influenceToUpdate: IGsoInfluence = { ...state.influence };
+
   switch (action.type) {
     case ACTIVATE_LEVEL:
       return Object.assign({}, state, {
@@ -148,37 +184,57 @@ export default function GsoReduicer(
       });
     case UPDATE_NPC:
       return Object.assign({}, state, {
-        levels: npcUpdate(levelsToUpdate, action.payload)
+        levels: npcUpdate(levelsToUpdate, action.payload as IPayloadNpcUpdate)
       });
     case UPDATE_QUEST:
       return Object.assign(
         {},
         state,
-        questUpdate(questsToUpdate, quesstsTaken, action.payload)
+        questUpdate(
+          questsToUpdate,
+          quesstsTaken,
+          action.payload as IPayloaQuestUpdate
+        )
       );
     case END_QUEST:
       return Object.assign(
         {},
         state,
-        endQuest(quesstsTaken, questsCompleted, questsToUpdate, action.payload)
+        endQuest(
+          quesstsTaken,
+          questsCompleted,
+          questsToUpdate,
+          action.payload as string
+        )
       );
     case OPEN_CONNECTION:
       return Object.assign(
         {},
         state,
-        openConnection(levelsToUpdate, action.payload)
+        openConnection(levelsToUpdate, action.payload as IPayloadOpenConnection)
       );
     case ADD_GLOBAL_EVENT:
       return Object.assign({}, state, {
-        globalEvents: addGlobalEvent(globalEvents, action.payload)
+        globalEvents: addGlobalEvent(globalEvents, action.payload as string)
       });
     case ACTIVE_DIALOGUE:
       return Object.assign({}, state, {
         activeDialogue: action.payload != null ? action.payload : null
       });
+    case UPDATE_PARTY:
+      return Object.assign({}, state, {
+        party: updateParty(partyToUpdate, action.payload as IPayloadPartyUpdate)
+      });
     case SELECT_PARTY:
       return Object.assign({}, state, {
         selectParty: action.payload
+      });
+    case UPDATE_INFLUENCE:
+      return Object.assign({}, state, {
+        influence: updateInfluence(
+          influenceToUpdate,
+          action.payload as IPayloadUpdateInfluence
+        )
       });
     case ACTIVE_MAP:
       return Object.assign({}, state, {
@@ -189,36 +245,14 @@ export default function GsoReduicer(
         activeQuest: action.payload
       });
     /* not refactored */
-    case LEVEL_TIGGERS_CLEAR:
-      // const levelsToUpdate2 = [...state.levels];
-      // levelsToUpdate2[action.payload].triggers = [];
-      // return Object.assign({}, state, { levels: levelsToUpdate2 });
-      break;
     case SHOW_INFOLINE:
       return Object.assign({}, state, { infoline: action.payload });
     case MAP_UPDATE:
       const mapsToUpdate = [...state.maps];
-      if (action.payload.state === "OPEN") {
-        mapsToUpdate.push(parseInt(action.payload.map, 0));
-      }
+      // if (action.payload.state === "OPEN") {
+      //   mapsToUpdate.push(parseInt(action.payload.map, 0));
+      // }
       return Object.assign({}, state, { maps: mapsToUpdate });
-    case UPDATE_PARTY:
-      const partyToUpdate = [...state.party];
-      if (
-        action.payload.update === "add" &&
-        partyToUpdate.indexOf(action.payload.character) === -1
-      ) {
-        return Object.assign({}, state, {
-          party: partyToUpdate.concat(action.payload.character)
-        });
-      }
-      break;
-    case UPDATE_INFLUENCE:
-      const influenceToChange = { ...state.influence };
-      influenceToChange[action.payload.index] += action.payload.num;
-      return Object.assign({}, state, {
-        influence: influenceToChange
-      });
     default:
       return initialState;
   }
