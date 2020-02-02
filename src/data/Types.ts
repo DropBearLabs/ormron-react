@@ -248,8 +248,10 @@ type connectionStatus = "closed" | "open" | "visited";
 
 interface IGsoLevelOrmronStreet {
   id: string;
-  npc_Olija: number | false;
-  npc_Dario: number | false;
+  npcs: {
+    npc_Olija: number | false;
+    npc_Dario: number | false;
+  };
   connections: {
     street_to_garden: connectionStatus;
     street_to_arena: connectionStatus;
@@ -259,7 +261,9 @@ interface IGsoLevelOrmronStreet {
 
 interface IGsoLevelOrmronArena {
   id: string;
-  npc_Dario1: number | false;
+  npcs: {
+    npc_Dario1: number | false;
+  };
   connections: {
     arena_to_street: connectionStatus;
   };
@@ -267,7 +271,9 @@ interface IGsoLevelOrmronArena {
 
 interface IGsoLevelOrmronGarden {
   id: string;
-  npc_Tara: number | false | undefined;
+  npcs: {
+    npc_Tara: number | false | undefined;
+  };
   connections: {
     garden_to_street: connectionStatus;
     garden_to_gazebo: connectionStatus;

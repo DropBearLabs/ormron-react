@@ -36,7 +36,7 @@ const npcUpdate = (levelsToUpdate: IGsoLevel[], payload: IPayloadNpcUpdate) => {
   const levelsAll = levelsToUpdate.map((x: IGsoLevel) => x.id);
   const index = levelsAll.indexOf(level);
   // @ts-ignore
-  levelsToUpdate[index][character] = setTo;
+  levelsToUpdate[index].npcs[character] = setTo;
   return levelsToUpdate;
 };
 

@@ -138,9 +138,11 @@ const App: React.FC = () => {
       })}
       {findLevel(levelId).npcs.map((n: number) => {
         const npc = findNpc(n);
-        return (
-          <NPC npc={npc} key={npc.id} state={currentLevelState(levelId)} />
-        );
+        // @ts-ignore
+        const npcState = (currentLevelState(levelId).npcs[
+          npc.id
+        ] as unknown) as number | false;
+        return <NPC npc={npc} key={npc.id} npcTrigger={npcState} />;
       })}
       {dialogueInd !== null ? (
         <Dialogue dialogue={dialogues[dialogueInd]} />

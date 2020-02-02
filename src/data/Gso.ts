@@ -15,8 +15,10 @@ export const gso: IGso = {
   levels: [
     {
       id: "ormron_street",
-      npc_Olija: 0,
-      npc_Dario: false,
+      npcs: {
+        npc_Olija: 0,
+        npc_Dario: false
+      },
       connections: {
         street_to_garden: "closed",
         street_to_arena: "closed",
@@ -25,14 +27,18 @@ export const gso: IGso = {
     },
     {
       id: "ormron_arena",
-      npc_Dario1: 5,
+      npcs: {
+        npc_Dario1: 5
+      },
       connections: {
         arena_to_street: "open"
       }
     },
     {
       id: "ormron_garden",
-      npc_Tara: false,
+      npcs: {
+        npc_Tara: false
+      },
       connections: {
         garden_to_street: "open",
         garden_to_gazebo: "open",

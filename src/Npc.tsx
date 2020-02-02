@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import { activeDialogue, showInfoline } from "./store/actions";
-import { INpc, ITrigger } from "./data/Types";
+import { INpc, ITrigger, IGsoLevel } from "./data/Types";
 
 interface INPCStateProps {
   state: string | null;
@@ -25,7 +25,7 @@ const NPCState = (props: INPCStateProps) => {
 
 interface INPCProps {
   npc: INpc;
-  state: any;
+  npcTrigger: number | false;
 }
 
 export const NPC = (props: INPCProps) => {
@@ -40,18 +40,17 @@ export const NPC = (props: INPCProps) => {
   };
 
   const dispatch = useDispatch();
-  const npcTrigger = props.state[props.npc.id];
-  function triggerEvent(event: ITrigger) {
-    dispatch(showInfoline(null));
-    if (npcTrigger === false) {
+  function triggerEvent() {
+    // dispatch(showInfoline(null));
+    if (props.npcTrigger === false) {
       return;
     } else {
-      dispatch(activeDialogue(npcTrigger));
+      dispatch(activeDialogue(props.npcTrigger));
     }
   }
   return (
-    <div style={npcStyle} onClick={(e: any) => triggerEvent(e)}>
-      <NPCState state={npcTrigger !== false ? "temp-icon1.png" : null} />
+    <div style={npcStyle} onClick={() => triggerEvent()}>
+      <NPCState state={props.npcTrigger !== false ? "temp-icon1.png" : null} />
     </div>
   );
 };
