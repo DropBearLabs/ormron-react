@@ -48,8 +48,8 @@ const allParty: IPartyMember[] = [
 
 interface IPartyMemberProps {
   char: IPartyMember;
-  currentSelection: any;
-  selectMember: any;
+  currentSelection: IGsoParty | null;
+  selectMember: (id: string) => void;
 }
 const PartyMember = (props: IPartyMemberProps) => {
   const { char, currentSelection, selectMember } = props;
@@ -76,24 +76,19 @@ const PartyMember = (props: IPartyMemberProps) => {
     if (!char.opened) {
       image = character[0].placeholder;
     }
-    if (currentSelection[character[0].id]) {
+    //@ts-ignore
+    if (currentSelection && currentSelection[character[0].id]) {
       image = character[0].selected;
     }
     return image;
   };
 
-  const canBeSelected = true; //char.opened && currentSelection.indexOf(char.id) === -1;
   return (
     <div style={charStyle}>
-      <img src={getImage(char.id)} />
-      {canBeSelected ? (
-        <button
-          style={buttonStyle}
-          onClick={() => props.selectMember(props.char.id)}
-        >
-          Select
-        </button>
-      ) : null}
+      <img
+        src={getImage(char.id)}
+        onClick={() => (char.opened ? selectMember(props.char.id) : null)}
+      />
     </div>
   );
 };
@@ -135,7 +130,10 @@ export const Party = (props: IPartyProps) => {
     // @ts-ignore
     currentSelection[id] = !currentSelection[id];
     const select =
-      currentSelection && Object.values(currentSelection).filter((c: any) => c);
+      currentSelection &&
+      Object.values(currentSelection).filter(
+        (c: { s: string; b: boolean }) => c
+      );
     if (select && select.length <= 3) {
       setSelection(currentSelection && { ...currentSelection });
     }

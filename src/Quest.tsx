@@ -1,11 +1,11 @@
 import React from "react";
-import { IQuest, IQuestStep } from "./data/Types";
+import { IQuest, IQuestStep, IGsoQuest } from "./data/Types";
 import { useDispatch } from "react-redux";
-import { displayQuest } from "./store/actions";
+import { showQuests } from "./store/actions";
 import { quests } from "./data/Quests";
 import { isCompositeComponent } from "react-dom/test-utils";
 import { all } from "q";
-import { findQuestEvent } from "./data/helpers";
+import { findQuestEvent, findQuest } from "./data/helpers";
 
 interface ISingleLineProps {
   name: string;
@@ -27,8 +27,8 @@ const SingleLine = (props: ISingleLineProps) => {
 };
 
 interface ISingleQuestProps {
-  quest: any;
-  active: number;
+  quest: IGsoQuest;
+  active: string;
 }
 const SingleQuest = (props: ISingleQuestProps) => {
   const singleQuestStyle = {
@@ -40,9 +40,10 @@ const SingleQuest = (props: ISingleQuestProps) => {
   const lastStep = props.quest.nextStep;
   const completed = props.quest.completedSteps;
   const allSteps = completed.concat(lastStep);
+  const questData = findQuest(props.quest.id);
   return (
     <div style={singleQuestStyle}>
-      <h2>{props.quest.name}</h2>
+      <h2>{questData.name}</h2>
       <ul>
         {allSteps.map((s: string) => {
           const step = findQuestEvent(props.quest.id, s);
@@ -61,8 +62,8 @@ const SingleQuest = (props: ISingleQuestProps) => {
 
 interface IQuestProps {
   quests: IQuest[];
-  allTakenQuests: any;
-  active: number;
+  allTakenQuests: IGsoQuest[];
+  active: string;
 }
 export const Quest = (props: IQuestProps) => {
   const dispatch = useDispatch();
@@ -88,17 +89,17 @@ export const Quest = (props: IQuestProps) => {
       <img
         style={closeButtonStyle}
         src="temp-icon2.png"
-        onClick={() => dispatch(displayQuest(null))}
+        onClick={() => dispatch(showQuests(null))}
       />
       {props.quests &&
         props.quests.map((q: IQuest) => {
-          return (
-            <SingleQuest
-              key={q.id}
-              active={props.active}
-              quest={props.allTakenQuests.find((t: any) => t.id === q.id)}
-            />
+          const quest = props.allTakenQuests.find(
+            (t: IGsoQuest) => t.id === q.id
           );
+          if (quest === undefined) {
+            throw new Error(`Quest with id ${q.id} doesn't exist`);
+          }
+          return <SingleQuest key={q.id} active={props.active} quest={quest} />;
         })}
     </div>
   );

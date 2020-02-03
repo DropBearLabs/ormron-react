@@ -3,7 +3,7 @@ import {
   ACTIVATE_LEVEL,
   SHOW_INFOLINE,
   END_QUEST,
-  SHOW_QUEST,
+  SHOW_QUESTS,
   UPDATE_QUEST,
   ACTIVE_MAP,
   MAP_UPDATE,
@@ -246,7 +246,7 @@ export default function GsoReduicer(
       return Object.assign({}, state, {
         activeMap: action.payload
       });
-    case SHOW_QUEST:
+    case SHOW_QUESTS:
       return Object.assign({}, state, {
         activeQuest: action.payload
       });

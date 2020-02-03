@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { IMap, IMapLevel } from "./data/Types";
+import { IMap, IMapLevel, IGso } from "./data/Types";
 import { activeMap } from "./store/actions";
 
 interface ILevelProps {
@@ -28,7 +28,7 @@ const Level = (props: ILevelProps) => {
 interface IMapProps {
   chapter: number;
   map: IMap;
-  state: any;
+  state: IGso;
 }
 export const Map = (props: IMapProps) => {
   const dispatch = useDispatch();

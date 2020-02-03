@@ -1,11 +1,9 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { displayQuest, activeMap } from "./store/actions";
 import { dialogues } from "./data/Dialogues";
 import { maps } from "./data/Maps";
 import { NPC } from "./Npc";
-import { Quest } from "./Quest";
 import { Dialogue } from "./Dialogue";
 import { Party } from "./Party";
 import { Map } from "./Map";
@@ -15,8 +13,9 @@ import { findConnection, findLevel, findQuest } from "./data/helpers";
 import { findNpc } from "./data/helpers";
 
 import "./App.css";
-import { ILevel, IGso, IGsoLevel } from "./data/Types";
-import { connections } from "./data/Connections";
+import { IGso, IGsoLevel } from "./data/Types";
+import { Menu } from "./Menu";
+import { Quest } from "./Quest";
 
 interface IInfolineProps {
   line: string | null;
@@ -35,60 +34,6 @@ const InfoLine = (props: IInfolineProps) => {
   return (
     <div style={infoStyle}>
       <h1>{props.line}</h1>
-    </div>
-  );
-};
-
-interface IMenuProps {
-  quest: IGso;
-}
-
-const Menu = (props: IMenuProps) => {
-  const dispatch = useDispatch();
-  const menuStyle = {
-    top: "0",
-    right: "15px",
-    width: "200px",
-    height: "200px",
-    position: "absolute" as "absolute",
-    backgroundImage: `url(temp-backg3.png)`
-  };
-
-  const iconMapStyle = {
-    width: "70px",
-    height: "70px",
-    position: "relative" as "relative",
-    top: "100px"
-  };
-
-  const iconQuestStyle = {
-    width: "70px",
-    height: "70px",
-    position: "relative" as "relative",
-    top: "130px"
-  };
-
-  const iconInventoryStyle = {
-    width: "70px",
-    height: "70px",
-    position: "relative" as "relative",
-    top: "30px",
-    left: "130px"
-  };
-
-  return (
-    <div style={menuStyle}>
-      <img
-        style={iconMapStyle}
-        src="temp-icon3.png"
-        //onClick={() => dispatch(activeMap(0))}
-      />
-      <img
-        style={iconQuestStyle}
-        src="temp-icon4.png"
-        //onClick={() => dispatch(displayQuest(props.quest[0]))}
-      />
-      <img style={iconInventoryStyle} src="temp-icon5.png" />
     </div>
   );
 };
@@ -147,7 +92,8 @@ const App: React.FC = () => {
         <Dialogue dialogue={dialogues[dialogueInd]} />
       ) : null}
       {infoline !== null ? <InfoLine line={infoline} /> : null}
-      {/*<Menu quest={questsTaken} />
+      {<Menu activeQuest={questActive} quests={questsState} />}
+      {console.log("questActive", questActive)}
       {questActive !== null ? (
         <Quest
           active={questActive}
@@ -155,7 +101,7 @@ const App: React.FC = () => {
           quests={questsTaken.map((q: string) => findQuest(q))}
         />
       ) : null}
-      {mapId !== null ? (
+      {/*mapId !== null ? (
         <Map chapter={chapter} map={maps[mapId]} state={mapsState} />
       ) : null}*/}
       {selectParty !== null ? (

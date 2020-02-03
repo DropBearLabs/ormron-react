@@ -3,7 +3,7 @@ import {
   ACTIVATE_LEVEL,
   SHOW_INFOLINE,
   END_QUEST,
-  SHOW_QUEST,
+  SHOW_QUESTS,
   UPDATE_QUEST,
   ACTIVE_MAP,
   MAP_UPDATE,
@@ -21,7 +21,7 @@ export type IAction =
   | ACTIVATE_LEVEL
   | SHOW_INFOLINE
   | END_QUEST
-  | SHOW_QUEST
+  | SHOW_QUESTS
   | UPDATE_QUEST
   | ACTIVE_MAP
   | MAP_UPDATE
@@ -37,6 +37,7 @@ export type IPayload =
   | IPayloadNpcUpdate
   | IPayloaQuestUpdate
   | IPayloadOpenConnection
+  | IPayloadDisplayQuests
   | IPayloadPartyUpdate
   | IPayloadUpdateInfluence
   | string
@@ -48,6 +49,10 @@ export interface IPayloadNpcUpdate {
   level: string;
   character: string;
   setTo: number | false;
+}
+
+export interface IPayloadDisplayQuests {
+  quests: IGsoQuest[] | null;
 }
 
 export interface IPayloadPartyUpdate {
@@ -85,7 +90,7 @@ export interface IGso {
   activeDialogue: number | null;
   activeMap: number | null;
   questsTaken: string[];
-  activeQuest: number | null;
+  activeQuest: string | null;
   questsCompleted: string[];
   globalEvents: string[];
   quests: IGsoQuest[];

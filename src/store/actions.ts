@@ -3,7 +3,7 @@ import {
   ACTIVATE_LEVEL,
   SHOW_INFOLINE,
   ACTIVE_MAP,
-  SHOW_QUEST,
+  SHOW_QUESTS,
   UPDATE_QUEST,
   END_QUEST,
   MAP_UPDATE,
@@ -16,7 +16,7 @@ import {
   ADD_GLOBAL_EVENT,
   SET_PARTY
 } from "../data/Constants";
-import { IGsoParty } from "../data/Types";
+import { IGsoParty, IGsoQuest } from "../data/Types";
 
 export const activeDialogue = (index: number | null) => {
   return {
@@ -68,10 +68,10 @@ export const showInfoline = (text: string | null) => ({
   type: SHOW_INFOLINE
 });
 
-export const displayQuest = (id: number | null) => {
+export const showQuests = (quest: string | null) => {
   return {
-    payload: id,
-    type: SHOW_QUEST
+    payload: quest,
+    type: SHOW_QUESTS
   };
 };
 
@@ -148,7 +148,7 @@ export default {
   levelActive,
   npcUpdate,
   showInfoline,
-  displayQuest,
+  showQuests,
   endQuest,
   activeMap,
   updateMap,
