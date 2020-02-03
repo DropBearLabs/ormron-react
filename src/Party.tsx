@@ -120,6 +120,13 @@ export const Party = (props: IPartyProps) => {
     top: "50px",
     left: "340px"
   };
+
+  const startButtonStyle = {
+    position: "absolute" as "absolute",
+    bottom: "100px",
+    width: "80%",
+    right: "100px"
+  };
   const [currentSelection, setSelection] = useState<IGsoParty | null>(
     props.selectParty
   );
@@ -163,7 +170,9 @@ export const Party = (props: IPartyProps) => {
           />
         );
       })}
-      <button onClick={() => setPartyExit()}>Let'sGo</button>
+      <button style={startButtonStyle} onClick={() => setPartyExit()}>
+        Let'sGo
+      </button>
     </div>
   );
 };
