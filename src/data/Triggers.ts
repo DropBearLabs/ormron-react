@@ -9,17 +9,42 @@ import {
   ACTIVE_DIALOGUE,
   ADD_GLOBAL_EVENT,
   UPDATE_INFLUENCE,
-  UPDATE_PARTY
+  UPDATE_PARTY,
+  MAP_UPDATE
 } from "../data/Constants";
 
 export const triggers: ITrigger[] = [
   { id: "1_Game_Start", triggerType: ADD_GLOBAL_EVENT, data: "GAME_START" },
-  { id: "1_Map_update_open", triggerType: "MAP_UPDATE", data: [1, "OPEN"] }, //NEEDS REFACTORING
-  { id: "2_Map_update_open", triggerType: "MAP_UPDATE", data: [2, "OPEN"] }, //NEEDS REFACTORING
-  { id: "3_Map_update_open", triggerType: "MAP_UPDATE", data: [3, "OPEN"] }, //NEEDS REFACTORING
-  { id: "4_Map_update_open", triggerType: "MAP_UPDATE", data: [4, "OPEN"] }, //NEEDS REFACTORING
-  { id: "5_Map_update_open", triggerType: "MAP_UPDATE", data: [5, "OPEN"] }, //NEEDS REFACTORING
-  { id: "6_Map_update_open", triggerType: "MAP_UPDATE", data: [6, "OPEN"] }, //NEEDS REFACTORING
+  {
+    id: "1_Map_update_open",
+    triggerType: MAP_UPDATE,
+    data: ["ormron_streets", "OPEN"]
+  },
+  {
+    id: "2_Map_update_open",
+    triggerType: MAP_UPDATE,
+    data: ["ormron_arena", "OPEN"]
+  },
+  {
+    id: "3_Map_update_open",
+    triggerType: MAP_UPDATE,
+    data: ["ormron_garden", "OPEN"]
+  },
+  {
+    id: "4_Map_update_open",
+    triggerType: MAP_UPDATE,
+    data: ["ormron_gazebo", "OPEN"]
+  },
+  {
+    id: "5_Map_update_open",
+    triggerType: MAP_UPDATE,
+    data: ["ormron_school", "OPEN"]
+  },
+  {
+    id: "6_Map_update_open",
+    triggerType: MAP_UPDATE,
+    data: ["desert_1", "OPEN"]
+  },
   {
     id: "1_Dial_Oliga_to_false",
     triggerType: UPDATE_NPC,

@@ -29,7 +29,8 @@ import {
   IPayloadPartyUpdate,
   IGsoInfluence,
   IPayloadUpdateInfluence,
-  IGsoParty
+  IGsoParty,
+  IPayloadUpdateMap
 } from "../data/Types";
 import { findQuest } from "../data/helpers";
 
@@ -151,6 +152,19 @@ const addGlobalEvent = (globalEvents: string[], payload: string) => {
   return newEvents;
 };
 
+const updateMap = (mapsToUpdate: string[], payload: IPayloadUpdateMap) => {
+  const { map, state } = payload;
+  const exists = mapsToUpdate.find((m: string) => map === m);
+  if (state === "OPEN" && !exists) {
+    mapsToUpdate.push(map);
+  }
+  if (state === "CLOSE" && exists) {
+    const index = mapsToUpdate.indexOf(map);
+    mapsToUpdate.slice(index, 1);
+  }
+  return mapsToUpdate;
+};
+
 const updateInfluence = (
   influenceToUpdate: IGsoInfluence,
   payload: IPayloadUpdateInfluence
@@ -178,6 +192,7 @@ export default function GsoReduicer(
   const globalEvents: string[] = [...state.globalEvents];
   const partyToUpdate: string[] = [...state.party];
   const influenceToUpdate: IGsoInfluence = { ...state.influence };
+  const mapsToUpdate = [...state.maps];
 
   switch (action.type) {
     case ACTIVATE_LEVEL:
@@ -187,6 +202,10 @@ export default function GsoReduicer(
     case UPDATE_NPC:
       return Object.assign({}, state, {
         levels: npcUpdate(levelsToUpdate, action.payload as IPayloadNpcUpdate)
+      });
+    case SHOW_QUESTS:
+      return Object.assign({}, state, {
+        activeQuest: action.payload
       });
     case UPDATE_QUEST:
       return Object.assign(
@@ -246,19 +265,13 @@ export default function GsoReduicer(
       return Object.assign({}, state, {
         activeMap: action.payload
       });
-    case SHOW_QUESTS:
+    case MAP_UPDATE:
       return Object.assign({}, state, {
-        activeQuest: action.payload
+        maps: updateMap(mapsToUpdate, action.payload as IPayloadUpdateMap)
       });
     /* not refactored */
     case SHOW_INFOLINE:
       return Object.assign({}, state, { infoline: action.payload });
-    case MAP_UPDATE:
-      const mapsToUpdate = [...state.maps];
-      // if (action.payload.state === "OPEN") {
-      //   mapsToUpdate.push(parseInt(action.payload.map, 0));
-      // }
-      return Object.assign({}, state, { maps: mapsToUpdate });
     default:
       return initialState;
   }

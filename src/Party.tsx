@@ -140,7 +140,6 @@ export const Party = (props: IPartyProps) => {
   };
 
   const setPartyExit = () => {
-    console.log("setPartyExit", currentSelection);
     if (currentSelection) {
       dispatch(setParty(currentSelection));
       dispatch(selectParty(null));

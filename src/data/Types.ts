@@ -40,6 +40,7 @@ export type IPayload =
   | IPayloadDisplayQuests
   | IPayloadPartyUpdate
   | IPayloadUpdateInfluence
+  | IPayloadUpdateMap
   | string
   | number
   | null;
@@ -75,6 +76,11 @@ export interface IPayloadUpdateInfluence {
   num: number;
 }
 
+export interface IPayloadUpdateMap {
+  map: string;
+  state: string;
+}
+
 export interface IGsoParty {
   nell: boolean;
   tara: boolean;
@@ -88,14 +94,14 @@ export interface IGso {
   activeLevel: string;
   infoline: string | null;
   activeDialogue: number | null;
-  activeMap: number | null;
+  activeMap: string | null;
   questsTaken: string[];
   activeQuest: string | null;
   questsCompleted: string[];
   globalEvents: string[];
   quests: IGsoQuest[];
   levels: IGsoLevel[];
-  maps: number[];
+  maps: string[];
   party: string[];
   selectParty: IGsoParty | null;
   setParty: IGsoParty;
@@ -122,7 +128,7 @@ export interface IMap {
 }
 
 export interface IMapLevel {
-  id: number;
+  id: string;
   name: string;
   image: string;
   open: boolean;
@@ -201,7 +207,7 @@ interface ITriggerGlobalEvent {
 interface ITriggerMapUpdate {
   id: string;
   triggerType: "MAP_UPDATE";
-  data: [number, string];
+  data: [string, string];
   condition?: string[][];
 }
 

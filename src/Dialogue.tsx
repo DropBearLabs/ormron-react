@@ -21,7 +21,8 @@ import {
   UPDATE_NPC,
   UPDATE_QUEST,
   END_QUEST,
-  OPEN_CONNECTION
+  OPEN_CONNECTION,
+  MAP_UPDATE
 } from "./data/Constants";
 
 interface IDialogueLineProps {
@@ -133,7 +134,7 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
       case UPDATE_QUEST:
         dispatch(questUpdate(trigger.data));
         return;
-      case "MAP_UPDATE":
+      case MAP_UPDATE:
         dispatch(updateMap(trigger.data));
         return;
       case END_QUEST:

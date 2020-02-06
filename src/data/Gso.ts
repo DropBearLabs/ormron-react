@@ -47,7 +47,7 @@ export const gso: IGso = {
   ],
   quests: [],
   questsCompleted: [],
-  maps: [0],
+  maps: ["ormron_streets"],
   questsTaken: [],
   party: ["maya"],
   selectParty: null,

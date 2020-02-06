@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { IMap, IMapLevel, IGso } from "./data/Types";
+import { IMap, IMapLevel, IGso, IGsoLevel } from "./data/Types";
 import { activeMap } from "./store/actions";
 
 interface ILevelProps {
@@ -28,7 +28,7 @@ const Level = (props: ILevelProps) => {
 interface IMapProps {
   chapter: number;
   map: IMap;
-  state: IGso;
+  state: string[];
 }
 export const Map = (props: IMapProps) => {
   const dispatch = useDispatch();
@@ -50,8 +50,9 @@ export const Map = (props: IMapProps) => {
     left: "340px"
   };
 
-  const isAvailable = (id: number) => {
-    return props.state.indexOf(id) !== -1;
+  const isAvailable = (id: string) => {
+    const level = props.state.find((l: string) => l === id);
+    return level !== undefined;
   };
   return (
     <div style={mapStyle}>

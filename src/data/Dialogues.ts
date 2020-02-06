@@ -57,8 +57,8 @@ export const dialogues: IDialogue[] = [
     ],
     triggers: [
       "1_Quest_enter_arena",
+      "2_Map_update_open",
       "2_Dial_Dario_to_false",
-      "1_Map_update_open",
       "1_Activate_ormron_street"
     ]
   },
@@ -99,7 +99,6 @@ export const dialogues: IDialogue[] = [
     ],
     triggers: [
       "1_Dial_Oliga_to_false",
-      "2_Map_update_open",
       "3_Map_update_open",
       "4_Map_update_open",
       "5_Map_update_open",

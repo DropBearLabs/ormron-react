@@ -93,7 +93,6 @@ const App: React.FC = () => {
       ) : null}
       {infoline !== null ? <InfoLine line={infoline} /> : null}
       {<Menu activeQuest={questActive} quests={questsState} />}
-      {console.log("questActive", questActive)}
       {questActive !== null ? (
         <Quest
           active={questActive}
@@ -101,9 +100,9 @@ const App: React.FC = () => {
           quests={questsTaken.map((q: string) => findQuest(q))}
         />
       ) : null}
-      {/*mapId !== null ? (
-        <Map chapter={chapter} map={maps[mapId]} state={mapsState} />
-      ) : null}*/}
+      {mapId !== null ? (
+        <Map chapter={chapter} map={maps[0]} state={mapsState} />
+      ) : null}
       {selectParty !== null ? (
         <Party party={party} selectParty={selectParty} />
       ) : null}

@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { IGsoQuest } from "./data/Types";
-import { showQuests } from "./store/actions";
+import { showQuests, activeMap } from "./store/actions";
 
 interface IMenuProps {
   activeQuest: string | null;
@@ -46,7 +46,7 @@ export const Menu = (props: IMenuProps) => {
       <img
         style={iconMapStyle}
         src="temp-icon3.png"
-        //onClick={() => dispatch(activeMap(0))}
+        onClick={() => dispatch(activeMap(0))}
       />
       <img
         style={iconQuestStyle}

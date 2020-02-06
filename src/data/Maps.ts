@@ -8,56 +8,56 @@ export const maps: IMap[] = [
     name: "Ormron",
     levels: [
       {
-        id: 0,
+        id: "ormron_streets",
         name: "Ormron streets",
         image: "temp-map1.png",
         open: true,
         position: { x: MIDDLE_X - 270, y: MIDDLE_Y }
       },
       {
-        id: 1,
+        id: "ormron_arena",
         name: "Ormron arena",
         image: "temp-map2.png",
         open: false,
         position: { x: MIDDLE_X - 270, y: MIDDLE_Y + 80 }
       },
       {
-        id: 2,
+        id: "ormron_garden",
         name: "Ormron garden",
         image: "temp-map3.png",
         open: false,
         position: { x: MIDDLE_X - 340, y: MIDDLE_Y - 60 }
       },
       {
-        id: 3,
+        id: "ormron_gazebo",
         name: "Ormron gazebo",
         image: "temp-map4.png",
         open: false,
         position: { x: MIDDLE_X - 410, y: MIDDLE_Y }
       },
       {
-        id: 4,
+        id: "ormron_school",
         name: "Ormron school",
         image: "temp-map5.png",
         open: false,
         position: { x: MIDDLE_X - 340, y: MIDDLE_Y + 30 }
       },
       {
-        id: 5,
+        id: "orandmaster_office",
         name: "Grandmaster office",
         image: "temp-map6.png",
         open: false,
         position: { x: MIDDLE_X - 390, y: MIDDLE_Y + 90 }
       },
       {
-        id: 6,
+        id: "desert_1",
         name: "Desert",
         image: "temp-map7.png",
         open: false,
         position: { x: MIDDLE_X - 200, y: MIDDLE_Y - 50 }
       },
       {
-        id: 7,
+        id: "oesert",
         name: "Desert",
         image: "temp-map7.png",
         open: false,

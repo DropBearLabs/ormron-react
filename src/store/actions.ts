@@ -97,7 +97,7 @@ export const activeMap = (id: number | null) => ({
   type: ACTIVE_MAP
 });
 
-export const updateMap = (condition: [number, string]) => {
+export const updateMap = (condition: [string, string]) => {
   const map = condition[0];
   const state = condition[1];
   return {
