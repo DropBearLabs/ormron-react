@@ -9,13 +9,20 @@ import { Party } from "./Party";
 import { Map } from "./Map";
 import { Connection } from "./Connection";
 
-import { findConnection, findLevel, findQuest } from "./data/helpers";
+import {
+  findConnection,
+  findLevel,
+  findQuest,
+  connectionLevelStatus,
+  npcLevelStatus
+} from "./data/helpers";
 import { findNpc } from "./data/helpers";
 
 import "./App.css";
-import { IGso, IGsoLevel } from "./data/Types";
+import { IGso } from "./types/Types";
 import { Menu } from "./Menu";
 import { Quest } from "./Quest";
+import { IConnectionLevel, IGsoLevel, INPCLevel } from "./types/TypeLevels";
 
 interface IInfolineProps {
   line: string | null;
@@ -65,12 +72,14 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <img src={findLevel(levelId).backgrounds[0].image} />
-      {findLevel(levelId).connections.map((c: number) => {
+      {findLevel(levelId).connections.map((c: string) => {
         const connection = findConnection(c);
-        // @ts-ignore
-        const connectionState = (currentLevelState(levelId).connections[
-          connection.name
-        ] as unknown) as string;
+        const connectionId = (connection.id as unknown) as IConnectionLevel;
+        const connectionState = connectionLevelStatus(
+          currentLevelState(levelId),
+          connectionId
+        );
+
         return (
           <Connection
             globalevents={globalevents}
@@ -80,13 +89,13 @@ const App: React.FC = () => {
           />
         );
       })}
-      {findLevel(levelId).npcs.map((n: number) => {
+      {findLevel(levelId).npcs.map((n: string) => {
         const npc = findNpc(n);
-        // @ts-ignore
-        const npcState = (currentLevelState(levelId).npcs[
-          npc.id
-        ] as unknown) as number | false;
-        return <NPC npc={npc} key={npc.id} npcTrigger={npcState} />;
+        const npcId = (npc.id as unknown) as INPCLevel;
+        const npcState = npcLevelStatus(currentLevelState(levelId), npcId);
+        if (npcState !== undefined) {
+          return <NPC npc={npc} key={npc.id} npcTrigger={npcState} />;
+        }
       })}
       {dialogueInd !== null ? (
         <Dialogue dialogue={dialogues[dialogueInd]} />

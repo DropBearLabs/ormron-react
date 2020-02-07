@@ -12,7 +12,7 @@ import {
   openConnection,
   addGlobalEvent
 } from "./store/actions";
-import { IDialogue, IDialogueChoice } from "./data/Types";
+import { IDialogue, IDialogueChoice } from "./types/Types";
 import { findTrigger } from "./data/helpers";
 import {
   ADD_GLOBAL_EVENT,

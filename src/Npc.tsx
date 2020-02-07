@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import { activeDialogue, showInfoline } from "./store/actions";
-import { INpc, ITrigger, IGsoLevel } from "./data/Types";
+import { INpc } from "./types/Types";
 
 interface INPCStateProps {
   state: string | null;
@@ -25,7 +25,7 @@ const NPCState = (props: INPCStateProps) => {
 
 interface INPCProps {
   npc: INpc;
-  npcTrigger: number | false;
+  npcTrigger: number | false | null;
 }
 
 export const NPC = (props: INPCProps) => {

@@ -1,4 +1,4 @@
-import { IMap } from "./Types";
+import { IMap } from "../types/Types";
 const MIDDLE_X = 500;
 const MIDDLE_Y = 350;
 

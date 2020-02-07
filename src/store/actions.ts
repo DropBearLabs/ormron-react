@@ -16,7 +16,7 @@ import {
   ADD_GLOBAL_EVENT,
   SET_PARTY
 } from "../data/Constants";
-import { IGsoParty, IGsoQuest } from "../data/Types";
+import { IGsoParty, IGsoQuest } from "../types/Types";
 
 export const activeDialogue = (index: number | null) => {
   return {

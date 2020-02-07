@@ -1,5 +1,3 @@
-import { ITrigger } from "./Types";
-
 import {
   ACTIVATE_LEVEL,
   UPDATE_NPC,
@@ -12,6 +10,7 @@ import {
   UPDATE_PARTY,
   MAP_UPDATE
 } from "../data/Constants";
+import { ITrigger } from "../types/TypeTriggers";
 
 export const triggers: ITrigger[] = [
   { id: "1_Game_Start", triggerType: ADD_GLOBAL_EVENT, data: "GAME_START" },

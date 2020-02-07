@@ -1,19 +1,22 @@
-import { IConnection } from "./Types";
+import { IConnection } from "../types/Types";
+import {
+  IGsoLevelOrmronStreetConnections,
+  IGsoLevelOrmronArenaConnections,
+  IGsoLevelOrmronGardenConnections
+} from "../types/TypeLevels";
 const SCREENWIDTH = 1024;
 const GROUNDLEVEL = 200;
 
 export const connections: IConnection[] = [
   {
-    id: 0,
-    name: "street_to_map",
+    id: IGsoLevelOrmronStreetConnections.street_to_map,
     open: "temp-obj3c.png",
     closed: "temp-obj3.png",
     position: { x: 0, y: GROUNDLEVEL },
     selectParty: ["maya"]
   },
   {
-    id: 1,
-    name: "street_to_arena",
+    id: IGsoLevelOrmronStreetConnections.street_to_arena,
     open: "temp-obj1c.png",
     closed: "temp-obj1.png",
     position: { x: SCREENWIDTH - 200, y: GROUNDLEVEL },
@@ -21,8 +24,7 @@ export const connections: IConnection[] = [
     selectParty: ["maya"]
   },
   {
-    id: 2,
-    name: "street_to_garden",
+    id: IGsoLevelOrmronStreetConnections.street_to_garden,
     open: "temp-obj2c.png",
     closed: "temp-obj2.png",
     position: { x: 400, y: GROUNDLEVEL },
@@ -34,8 +36,7 @@ export const connections: IConnection[] = [
     ]
   },
   {
-    id: 3,
-    name: "arena_to_street",
+    id: IGsoLevelOrmronArenaConnections.arena_to_street,
     open: "temp-obj3c.png",
     closed: "temp-obj3.png",
     position: { x: 10, y: GROUNDLEVEL },
@@ -43,8 +44,7 @@ export const connections: IConnection[] = [
     triggers: ["1_Activate_ormron_street"]
   },
   {
-    id: 4,
-    name: "garden_to_street",
+    id: IGsoLevelOrmronGardenConnections.garden_to_street,
     open: "temp-obj3c.png",
     closed: "temp-obj3.png",
     position: { x: 10, y: GROUNDLEVEL },
@@ -52,16 +52,14 @@ export const connections: IConnection[] = [
     triggers: ["1_Activate_ormron_street"]
   },
   {
-    id: 5,
-    name: "garden_to_gasebo",
+    id: IGsoLevelOrmronGardenConnections.garden_to_gazebo,
     open: "temp-obj1c.png",
     closed: "temp-obj1.png",
     position: { x: 400, y: GROUNDLEVEL },
     selectParty: null
   },
   {
-    id: 6,
-    name: "garden_to_school",
+    id: IGsoLevelOrmronGardenConnections.garden_to_school,
     open: "temp-obj2c.png",
     closed: "temp-obj2.png",
     position: { x: SCREENWIDTH - 200, y: GROUNDLEVEL },

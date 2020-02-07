@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { IMap, IMapLevel, IGso, IGsoLevel } from "./data/Types";
+import { IMap, IMapLevel } from "./types/Types";
 import { activeMap } from "./store/actions";
 
 interface ILevelProps {

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { IGsoQuest } from "./data/Types";
+import { IGsoQuest } from "./types/Types";
 import { showQuests, activeMap } from "./store/actions";
 
 interface IMenuProps {

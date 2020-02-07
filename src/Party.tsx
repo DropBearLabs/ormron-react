@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { IPartyMember, IGsoParty } from "./data/Types";
+import { IPartyMember, IGsoParty } from "./types/Types";
 import { selectParty, setParty } from "./store/actions";
 import { useDispatch } from "react-redux";
+import { MainCharacters } from "./types/TypeActions";
 
 const allParty: IPartyMember[] = [
   {
-    id: "grey",
+    id: MainCharacters.grey,
     name: "Grey",
     image: "temp-main4.png",
     placeholder: "temp-main4black.png",
@@ -13,7 +14,7 @@ const allParty: IPartyMember[] = [
     opened: false
   },
   {
-    id: "dart",
+    id: MainCharacters.dart,
     name: "Dart",
     image: "temp-main5.png",
     placeholder: "temp-main5black.png",
@@ -21,7 +22,7 @@ const allParty: IPartyMember[] = [
     opened: true
   },
   {
-    id: "maya",
+    id: MainCharacters.maya,
     name: "Maya",
     image: "temp-main1.png",
     placeholder: "temp-main1black.png",
@@ -29,7 +30,7 @@ const allParty: IPartyMember[] = [
     opened: false
   },
   {
-    id: "nell",
+    id: MainCharacters.nell,
     name: "Nell",
     image: "temp-main2.png",
     placeholder: "temp-main2black.png",
@@ -37,7 +38,7 @@ const allParty: IPartyMember[] = [
     opened: true
   },
   {
-    id: "tara",
+    id: MainCharacters.tara,
     name: "Tara",
     image: "temp-main3.png",
     placeholder: "temp-main3black.png",
@@ -49,7 +50,7 @@ const allParty: IPartyMember[] = [
 interface IPartyMemberProps {
   char: IPartyMember;
   currentSelection: IGsoParty | null;
-  selectMember: (id: string) => void;
+  selectMember: (id: MainCharacters) => void;
 }
 const PartyMember = (props: IPartyMemberProps) => {
   const { char, currentSelection, selectMember } = props;
@@ -68,17 +69,17 @@ const PartyMember = (props: IPartyMemberProps) => {
   };
 
   const getImage = (id: string) => {
-    const character = allParty.filter((p: IPartyMember) => p.id === id);
-    if (character.length !== 1) {
+    const character = allParty.find((p: IPartyMember) => p.id === id);
+    if (!character) {
       throw Error("Unknown character id" + id);
     }
-    let image = character[0].image;
+    let image = character.image;
     if (!char.opened) {
-      image = character[0].placeholder;
+      image = character.placeholder;
     }
-    //@ts-ignore
-    if (currentSelection && currentSelection[character[0].id]) {
-      image = character[0].selected;
+    const charId = character.id;
+    if (currentSelection && currentSelection[charId]) {
+      image = character.selected;
     }
     return image;
   };
@@ -126,9 +127,11 @@ export const Party = (props: IPartyProps) => {
     props.selectParty
   );
 
-  const selectMember = (id: string) => {
-    // @ts-ignore
-    currentSelection[id] = !currentSelection[id];
+  const selectMember = (id: MainCharacters) => {
+    if (currentSelection !== null) {
+      currentSelection[id] = !currentSelection[id];
+    }
+
     const select =
       currentSelection &&
       Object.values(currentSelection).filter(

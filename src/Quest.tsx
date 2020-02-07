@@ -1,5 +1,5 @@
 import React from "react";
-import { IQuest, IQuestStep, IGsoQuest } from "./data/Types";
+import { IQuest, IQuestStep, IGsoQuest } from "./types/Types";
 import { useDispatch } from "react-redux";
 import { showQuests } from "./store/actions";
 import { quests } from "./data/Quests";

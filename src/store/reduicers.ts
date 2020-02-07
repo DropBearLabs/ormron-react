@@ -16,23 +16,19 @@ import {
   SET_PARTY
 } from "../data/Constants";
 import { gso } from "../data/Gso";
+import { findQuest } from "../data/helpers";
+import { IGso, IGsoQuest, IQuestStep, IGsoInfluence } from "../types/Types";
+import { IGsoLevel } from "../types/TypeLevels";
 import {
-  IGso,
-  IGsoLevel,
-  IGsoQuest,
-  IQuestStep,
-  IAction,
-  IPayload,
   IPayloadNpcUpdate,
+  IPayloadPartyUpdate,
   IPayloaQuestUpdate,
   IPayloadOpenConnection,
-  IPayloadPartyUpdate,
-  IGsoInfluence,
+  IPayloadUpdateMap,
   IPayloadUpdateInfluence,
-  IGsoParty,
-  IPayloadUpdateMap
-} from "../data/Types";
-import { findQuest } from "../data/helpers";
+  IAction,
+  IPayload
+} from "../types/TypeActions";
 
 const npcUpdate = (levelsToUpdate: IGsoLevel[], payload: IPayloadNpcUpdate) => {
   const { level, character, setTo } = payload;
@@ -170,8 +166,10 @@ const updateInfluence = (
   payload: IPayloadUpdateInfluence
 ) => {
   const { character, num } = payload;
+  // @ts-ignore
   const currentInfluence = influenceToUpdate[character].valueOf();
   const newInfluence = currentInfluence + num;
+  // @ts-ignore
   influenceToUpdate[character] = newInfluence;
   return influenceToUpdate;
 };

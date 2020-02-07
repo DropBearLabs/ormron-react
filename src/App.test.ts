@@ -1,6 +1,6 @@
 import actions from "./store/actions";
 import reduicer from "./store/reduicers";
-import { IGso } from "./data/Types";
+import { IGso } from "./types/Types";
 
 let initialState: IGso = {
   chapter: 0,

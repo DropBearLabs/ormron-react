@@ -1,4 +1,4 @@
-import { IQuest } from "./Types";
+import { IQuest } from "../types/Types";
 
 /*
 Rvery quest should start with a complete state that will be completed when test is triggered.

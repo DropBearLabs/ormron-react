@@ -1,10 +1,14 @@
-import { IDialogue } from "./Types";
+import { IDialogue } from "../types/Types";
+import {
+  IGsoLevelOrmronStreetNPCs,
+  IGsoLevelOrmronArenaNPCs,
+  IGsoLevelOrmronGardenNPCs
+} from "../types/TypeLevels";
 
 export const dialogues: IDialogue[] = [
   {
     id: 0,
-    name: "ormron_street_Maya_1",
-    characterId: "char_Maya",
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
     image: "temp-dial1.png",
     lines: ["Good day, headmaster! I am here to..."],
     nextNode: 1,
@@ -12,8 +16,7 @@ export const dialogues: IDialogue[] = [
   },
   {
     id: 1,
-    name: "ormron_street_Olija_2",
-    characterId: "npc_Olija",
+    characterId: IGsoLevelOrmronStreetNPCs.npc_Olija,
     image: "temp-dial2.png",
     lines: [
       "Are you here for your final tests? Good. I have to say...",
@@ -30,16 +33,14 @@ export const dialogues: IDialogue[] = [
   },
   {
     id: 2,
-    name: "ormron_street_Maya_3",
-    characterId: "char_Maya",
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
     image: "temp-dial1.png",
     infoline: "NEW QUEST: Fight in Arena",
     lines: ["Will do, headmaster!"]
   },
   {
     id: 3,
-    name: "ormron_street_Maya_6",
-    characterId: "char_Maya",
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
     image: "temp-dial1.png",
     lines: ["Hi, headmaster Dario. I am here to train!"],
     nextNode: 4,
@@ -47,8 +48,7 @@ export const dialogues: IDialogue[] = [
   },
   {
     id: 4,
-    name: "ormron_street_Dario_7",
-    characterId: "npc_Dario",
+    characterId: IGsoLevelOrmronStreetNPCs.npc_Dario,
     image: "temp-dial3.png",
     infoline: "QUEST UPDATED: Fight in Arena",
     lines: [
@@ -64,8 +64,7 @@ export const dialogues: IDialogue[] = [
   },
   {
     id: 5,
-    name: "ormron_street_Dario_debug",
-    characterId: "npc_Dario",
+    characterId: IGsoLevelOrmronArenaNPCs.npc_Dario1,
     image: "temp-dial3.png",
     infoline: "QUEST UPDATED: Fight in Arena",
     lines: ["I am debug an you just won 3 fights!"],
@@ -77,8 +76,7 @@ export const dialogues: IDialogue[] = [
   },
   {
     id: 6,
-    name: "ormron_street_Maya_9",
-    characterId: "char_Maya",
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
     image: "temp-dial1.png",
     lines: ["I had my qualifications at Arena. Ready for more exitement!"],
     infoline: "QUEST COMPLETED: Fight in Arena",
@@ -86,8 +84,7 @@ export const dialogues: IDialogue[] = [
   },
   {
     id: 7,
-    name: "ormron_street_Olija_10",
-    characterId: "npc_Olija",
+    characterId: IGsoLevelOrmronStreetNPCs.npc_Olija,
     image: "temp-dial2.png",
     infoline: "QUEST STARTED: Water problems",
     lines: [
@@ -110,8 +107,7 @@ export const dialogues: IDialogue[] = [
   },
   {
     id: 8,
-    name: "ormron_street_Nell_11",
-    characterId: "npc_Nell",
+    characterId: IGsoLevelOrmronGardenNPCs.char_Nell,
     image: "temp-dial4.png",
     lines: ["Hi, Lady Maya!"],
     nextNode: 9,
@@ -119,8 +115,7 @@ export const dialogues: IDialogue[] = [
   },
   {
     id: 9,
-    name: "ormron_street_Maya_12",
-    characterId: "char_Maya",
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
     image: "temp-dial1.png",
     lines: [
       "Nell? What are you doing here? Shouldn't you be busy with your finals?"
@@ -129,8 +124,7 @@ export const dialogues: IDialogue[] = [
   },
   {
     id: 10,
-    name: "ormron_street_Nell_13",
-    characterId: "npc_Nell",
+    characterId: IGsoLevelOrmronGardenNPCs.char_Nell,
     image: "temp-dial4.png",
     lines: [
       "I kinda am. Headmaster Olija told me I need to learn how to be a part of a team...",
@@ -150,8 +144,7 @@ export const dialogues: IDialogue[] = [
   },
   {
     id: 11,
-    name: "ormron_street_Maya_14",
-    characterId: "char_Maya",
+    characterId: IGsoLevelOrmronGardenNPCs.char_Nell,
     image: "temp-dial1.png",
     lines: [
       "It's hard for you to find a team, isn't it? Sure, you can join me."
@@ -160,8 +153,7 @@ export const dialogues: IDialogue[] = [
   },
   {
     id: 12,
-    name: "ormron_street_Maya_15",
-    characterId: "char_Maya",
+    characterId: IGsoLevelOrmronGardenNPCs.char_Nell,
     image: "temp-dial1.png",
     lines: [
       "It's hard for you to find a team for a reason. You are hopless, Nell.",
@@ -171,8 +163,7 @@ export const dialogues: IDialogue[] = [
   },
   {
     id: 13,
-    name: "ormron_street_Nell_16",
-    characterId: "npc_Nell",
+    characterId: IGsoLevelOrmronGardenNPCs.char_Nell,
     image: "temp-dial4.png",
     lines: [
       "It is unfair, Lady Maya. But I am sure we will end up on one team somehow!"
@@ -180,8 +171,7 @@ export const dialogues: IDialogue[] = [
   },
   {
     id: 14,
-    name: "ormron_street_Maya_24",
-    characterId: "npc_Nell",
+    characterId: IGsoLevelOrmronGardenNPCs.char_Nell,
     image: "temp-dial4.png",
     lines: ["Thank you so much. But what are we actually doing?"]
   }

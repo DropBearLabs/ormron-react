@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { IConnection, ITrigger, IGsoLevel } from "./data/Types";
+import { IConnection } from "./types/Types";
 
 import {
   levelActive,
@@ -19,6 +19,7 @@ import {
   ACTIVE_DIALOGUE,
   ADD_GLOBAL_EVENT
 } from "./data/Constants";
+import { ITrigger } from "./types/TypeTriggers";
 
 interface IConnectionProps {
   connection: IConnection;
@@ -101,7 +102,7 @@ export const Connection = (props: IConnectionProps) => {
 
   return (
     <div style={doorStyle} onClick={() => triggerEntry()}>
-      {connection.name}
+      {connection.id}
     </div>
   );
 };
