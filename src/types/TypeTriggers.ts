@@ -47,7 +47,7 @@ interface ITriggerMapUpdate {
 interface ITriggerNpcUpdate {
   id: string;
   triggerType: UPDATE_NPC;
-  data: [string, string, number | false];
+  data: [string, string, number | null];
   condition?: string[][];
 }
 

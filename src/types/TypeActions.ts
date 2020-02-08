@@ -58,7 +58,7 @@ export type IPayload =
 export interface IPayloadNpcUpdate {
   level: string;
   character: INPCLevel;
-  setTo: number | false;
+  setTo: number | null;
 }
 
 export interface IPayloadDisplayQuests {

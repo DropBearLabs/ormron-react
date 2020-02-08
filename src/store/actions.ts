@@ -16,7 +16,7 @@ import {
   ADD_GLOBAL_EVENT,
   SET_PARTY
 } from "../data/Constants";
-import { IGsoParty, IGsoQuest } from "../types/Types";
+import { IGsoParty } from "../types/Types";
 
 export const activeDialogue = (index: number | null) => {
   return {
@@ -53,7 +53,7 @@ export const openLevel = (index: number) => {
   };
 };
 
-export const npcUpdate = (condition: [string, string, number | false]) => {
+export const npcUpdate = (condition: [string, string, number | null]) => {
   const level = condition[0];
   const character = condition[1];
   const setTo = condition[2];

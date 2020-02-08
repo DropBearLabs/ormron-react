@@ -92,6 +92,7 @@ export interface INpc {
   name: string;
   image: string;
   position: IPoint;
+  available: boolean;
 }
 
 export interface IDialContinuation {

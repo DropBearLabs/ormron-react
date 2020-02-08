@@ -19,8 +19,7 @@ import { gso } from "../data/Gso";
 import {
   findQuest,
   npcLevelStatus,
-  connectionLevelStatus,
-  setNpcLevelStatus
+  connectionLevelStatus
 } from "../data/helpers";
 import { IGso, IGsoQuest, IQuestStep, IGsoInfluence } from "../types/Types";
 import { IGsoLevel, ConnectionStatus } from "../types/TypeLevels";
@@ -39,7 +38,7 @@ const npcUpdate = (levelsToUpdate: IGsoLevel[], payload: IPayloadNpcUpdate) => {
   const { level, character, setTo } = payload;
   const levelsAll = levelsToUpdate.map((x: IGsoLevel) => x.id);
   const index = levelsAll.indexOf(level);
-  setNpcLevelStatus(levelsToUpdate[index], character, setTo);
+  npcLevelStatus(levelsToUpdate[index], character, setTo);
   return levelsToUpdate;
 };
 

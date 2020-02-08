@@ -47,7 +47,7 @@ export const triggers: ITrigger[] = [
   {
     id: "1_Dial_Oliga_to_false",
     triggerType: UPDATE_NPC,
-    data: ["ormron_street", "npc_Olija", false]
+    data: ["ormron_street", "npc_Olija", null]
   },
   {
     id: "1_Dial_Olija_to_6",
@@ -67,12 +67,12 @@ export const triggers: ITrigger[] = [
   {
     id: "2_Dial_Dario_to_false",
     triggerType: UPDATE_NPC,
-    data: ["ormron_street", "npc_Dario", false]
+    data: ["ormron_street", "npc_Dario", null]
   },
   {
     id: "2_Dial_Dario1_to_false",
     triggerType: UPDATE_NPC,
-    data: ["ormron_arena", "npc_Dario1", false]
+    data: ["ormron_arena", "npc_Dario1", null]
   },
   {
     id: "1_Dial_Nell_handshake",

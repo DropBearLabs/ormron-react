@@ -7,7 +7,7 @@ export enum ConnectionStatus {
 interface IConnectedLevel<Connections extends string, NPCs extends string> {
   id: string;
   connections: { [s in Connections]: ConnectionStatus };
-  npcs: { [s in NPCs]: number | false | undefined };
+  npcs: { [s in NPCs]: number | null };
 }
 
 type MapAll<T, K extends keyof T> = T extends {} ? keyof T[K] : never;

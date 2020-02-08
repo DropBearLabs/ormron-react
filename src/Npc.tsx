@@ -25,7 +25,7 @@ const NPCState = (props: INPCStateProps) => {
 
 interface INPCProps {
   npc: INpc;
-  npcTrigger: number | false | null;
+  npcTrigger: number | null;
 }
 
 export const NPC = (props: INPCProps) => {
@@ -42,7 +42,7 @@ export const NPC = (props: INPCProps) => {
   const dispatch = useDispatch();
   function triggerEvent() {
     // dispatch(showInfoline(null));
-    if (props.npcTrigger === false) {
+    if (props.npcTrigger === null) {
       return;
     } else {
       dispatch(activeDialogue(props.npcTrigger));
@@ -50,7 +50,7 @@ export const NPC = (props: INPCProps) => {
   }
   return (
     <div style={npcStyle} onClick={() => triggerEvent()}>
-      <NPCState state={props.npcTrigger !== false ? "temp-icon1.png" : null} />
+      <NPCState state={props.npcTrigger !== null ? "temp-icon1.png" : null} />
     </div>
   );
 };
