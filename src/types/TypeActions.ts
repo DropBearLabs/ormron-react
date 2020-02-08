@@ -16,6 +16,7 @@ import {
   SET_PARTY
 } from "../data/Constants";
 import { IGsoQuest } from "./Types";
+import { INPCLevel } from "./TypeLevels";
 
 export enum MainCharacters {
   nell = "nell",
@@ -56,7 +57,7 @@ export type IPayload =
 
 export interface IPayloadNpcUpdate {
   level: string;
-  character: string;
+  character: INPCLevel;
   setTo: number | false;
 }
 

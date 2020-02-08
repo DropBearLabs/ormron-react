@@ -3,16 +3,12 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { Provider } from "react-redux";
-import { createStore, combineReducers } from "redux";
+import { createStore } from "redux";
 import GsoReduicer from "./store/reduicers";
+import { composeWithDevTools } from "redux-devtools-extension";
 import * as serviceWorker from "./serviceWorker";
 
-// @ts-ignore
-const store = createStore(
-  GsoReduicer,
-  // @ts-ignore
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const store = createStore(GsoReduicer, composeWithDevTools());
 
 ReactDOM.render(
   <Provider store={store}>
