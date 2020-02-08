@@ -62,12 +62,6 @@ const PartyMember = (props: IPartyMemberProps) => {
     position: "relative" as "relative"
   };
 
-  const buttonStyle = {
-    position: "absolute" as "absolute",
-    bottom: "-20px",
-    left: "80px"
-  };
-
   const getImage = (id: string) => {
     const character = allParty.find((p: IPartyMember) => p.id === id);
     if (!character) {

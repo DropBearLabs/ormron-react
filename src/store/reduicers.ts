@@ -16,9 +16,13 @@ import {
   SET_PARTY
 } from "../data/Constants";
 import { gso } from "../data/Gso";
-import { findQuest } from "../data/helpers";
+import {
+  findQuest,
+  npcLevelStatus,
+  connectionLevelStatus
+} from "../data/helpers";
 import { IGso, IGsoQuest, IQuestStep, IGsoInfluence } from "../types/Types";
-import { IGsoLevel } from "../types/TypeLevels";
+import { IGsoLevel, ConnectionStatus } from "../types/TypeLevels";
 import {
   IPayloadNpcUpdate,
   IPayloadPartyUpdate,
@@ -34,8 +38,7 @@ const npcUpdate = (levelsToUpdate: IGsoLevel[], payload: IPayloadNpcUpdate) => {
   const { level, character, setTo } = payload;
   const levelsAll = levelsToUpdate.map((x: IGsoLevel) => x.id);
   const index = levelsAll.indexOf(level);
-  // @ts-ignore
-  levelsToUpdate[index].npcs[character] = setTo;
+  npcLevelStatus(levelsToUpdate[index], character, setTo);
   return levelsToUpdate;
 };
 
@@ -136,8 +139,7 @@ const openConnection = (
   const { level, entry } = payload;
   const levelsAll = levelsToUpdate.map((x: IGsoLevel) => x.id);
   const index = levelsAll.indexOf(level);
-  //@ts-ignore
-  levelsToUpdate[index].connections[entry] = "open";
+  connectionLevelStatus(levelsToUpdate[index], entry, ConnectionStatus.open);
   return {
     levels: levelsToUpdate
   };
@@ -166,10 +168,8 @@ const updateInfluence = (
   payload: IPayloadUpdateInfluence
 ) => {
   const { character, num } = payload;
-  // @ts-ignore
   const currentInfluence = influenceToUpdate[character].valueOf();
   const newInfluence = currentInfluence + num;
-  // @ts-ignore
   influenceToUpdate[character] = newInfluence;
   return influenceToUpdate;
 };

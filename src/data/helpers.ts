@@ -95,20 +95,32 @@ export function checkGlobalEvent(
 
 export function connectionLevelStatus(
   level: IGsoLevel,
-  name: IConnectionLevel
+  name: IConnectionLevel,
+  status?: ConnectionStatus
 ): ConnectionStatus {
-  if (name in level.connections) {
-    return level.connections[name as keyof typeof level.connections];
+  if (!(name in level.connections)) {
+    throw new Error(`Invalid connection name ${name} for level ${level.id}`);
   }
-  throw new Error(`Invalid connection name ${name} for level ${level.id}`);
+  if (status) {
+    // This may break when updating TS because it only works without a type check on status
+    level.connections = { ...level.connections, [name]: status };
+  }
+
+  return level.connections[name as keyof typeof level.connections];
 }
 
 export function npcLevelStatus(
   level: IGsoLevel,
-  name: INPCLevel
+  name: INPCLevel,
+  status?: number | false | undefined
 ): number | false | undefined {
-  if (name in level.npcs) {
-    return level.npcs[name as keyof typeof level.npcs];
+  if (!(name in level.npcs)) {
+    throw new Error(`Invalid NPC name ${name} for level ${level.id}`);
   }
-  throw new Error(`Invalid NPC name ${name} for level ${level.id}`);
+
+  if (status) {
+    // This may break when updating TS because it only works without a type check on status
+    level.npcs = { ...level.npcs, [name]: status };
+  }
+  return level.npcs[name as keyof typeof level.npcs];
 }

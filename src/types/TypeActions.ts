@@ -16,7 +16,7 @@ import {
   SET_PARTY
 } from "../data/Constants";
 import { IGsoQuest } from "./Types";
-import { INPCLevel } from "./TypeLevels";
+import { INPCLevel, IConnectionLevel } from "./TypeLevels";
 
 export enum MainCharacters {
   nell = "nell",
@@ -77,7 +77,7 @@ export interface IPayloaQuestUpdate {
 
 export interface IPayloadOpenConnection {
   level: string;
-  entry: string;
+  entry: IConnectionLevel;
 }
 
 export interface IPayloadUpdateInfluence {

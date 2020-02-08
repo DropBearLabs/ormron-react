@@ -34,12 +34,9 @@ export interface IGsoQuest {
   nextStep: string;
 }
 
-export interface IGsoInfluence {
-  [MainCharacters.nell]: number;
-  [MainCharacters.dart]: number;
-  [MainCharacters.tara]: number;
-  [MainCharacters.grey]: number;
-}
+export type IGsoInfluence = {
+  [c in MainCharacters]: number;
+};
 
 export interface IMap {
   id: number;
