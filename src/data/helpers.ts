@@ -111,16 +111,25 @@ export function connectionLevelStatus(
 
 export function npcLevelStatus(
   level: IGsoLevel,
-  name: INPCLevel,
-  status?: number | false | undefined
+  name: INPCLevel
 ): number | false | undefined {
   if (!(name in level.npcs)) {
     throw new Error(`Invalid NPC name ${name} for level ${level.id}`);
   }
 
-  if (status) {
-    // This may break when updating TS because it only works without a type check on status
-    level.npcs = { ...level.npcs, [name]: status };
+  return level.npcs[name as keyof typeof level.npcs];
+}
+
+export function setNpcLevelStatus(
+  level: IGsoLevel,
+  name: INPCLevel,
+  status: number | false | undefined
+): number | false | undefined {
+  if (!(name in level.npcs)) {
+    throw new Error(`Invalid NPC name ${name} for level ${level.id}`);
   }
+
+  // This may break when updating TS because it only works without a type check on status
+  level.npcs = { ...level.npcs, [name]: status };
   return level.npcs[name as keyof typeof level.npcs];
 }

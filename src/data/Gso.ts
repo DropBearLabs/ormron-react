@@ -65,7 +65,8 @@ export const gso: IGso = {
     [MainCharacters.nell]: 0,
     [MainCharacters.dart]: 0,
     [MainCharacters.tara]: 0,
-    [MainCharacters.grey]: 0
+    [MainCharacters.grey]: 0,
+    [MainCharacters.maya]: 0
   }
 };
 //*/
