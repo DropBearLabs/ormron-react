@@ -7,8 +7,8 @@ import {
   levelActive,
   questUpdate,
   openConnection,
-  selectParty,
-  activeDialogue,
+  showParty,
+  showDialogue,
   addGlobalEvent
 } from "./store/actions";
 import { findTrigger, checkGlobalEvent } from "./data/helpers";
@@ -46,15 +46,15 @@ export const Connection = (props: IConnectionProps) => {
   };
 
   const triggerEntry = () => {
-    if (connection.selectParty) {
+    if (connection.showParty) {
       const selectedParty = {
-        nell: connection.selectParty.includes("nell"),
-        tara: connection.selectParty.includes("tara"),
-        dart: connection.selectParty.includes("dart"),
-        maya: connection.selectParty.includes("maya"),
-        grey: connection.selectParty.includes("grey")
+        nell: connection.showParty.includes("nell"),
+        tara: connection.showParty.includes("tara"),
+        dart: connection.showParty.includes("dart"),
+        maya: connection.showParty.includes("maya"),
+        grey: connection.showParty.includes("grey")
       };
-      dispatch(selectParty(selectedParty));
+      dispatch(showParty(selectedParty));
     }
     if (connection.triggers) {
       connection.triggers.forEach((t: string) => triggerEvent(t));
@@ -90,7 +90,7 @@ export const Connection = (props: IConnectionProps) => {
         dispatch(openConnection(trigger.data));
         return;
       case ACTIVE_DIALOGUE:
-        dispatch(activeDialogue(trigger.data));
+        dispatch(showDialogue(trigger.data));
         return;
       case ADD_GLOBAL_EVENT:
         dispatch(addGlobalEvent(trigger.data));

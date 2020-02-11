@@ -9,21 +9,39 @@ export interface IGsoParty {
   [MainCharacters.maya]: boolean;
 }
 
+export interface ICharacterData {
+  id: MainCharacters;
+  life: number;
+  mana: number;
+  attack_physical: number;
+  attack_magic: number;
+}
+
+export interface ICharactersData {
+  [MainCharacters.nell]: ICharacterData;
+  [MainCharacters.dart]: ICharacterData;
+  [MainCharacters.tara]: ICharacterData;
+  [MainCharacters.grey]: ICharacterData;
+  [MainCharacters.maya]: ICharacterData;
+}
+
 export interface IGso {
-  chapter: number;
-  activeLevel: string;
+  showCharacters: boolean; // Display characters menu
+  showParty: IGsoParty | null; // Display party menu
+  chapter: number; // Currently open chapter
+  showQuests: string | null; // Display quests menu
+  showDialogue: number | null; // Display dialogue popup
+
+  activeLevel: string; // Level on the screen
+  showMap: string | null; // Display maps menu
   infoline: string | null;
-  activeDialogue: number | null;
-  activeMap: string | null;
   questsTaken: string[];
-  activeQuest: string | null;
   questsCompleted: string[];
   globalEvents: string[];
   quests: IGsoQuest[];
   levels: IGsoLevel[];
   maps: string[];
   party: string[];
-  selectParty: IGsoParty | null;
   setParty: IGsoParty;
   influence: IGsoInfluence;
 }
@@ -74,7 +92,7 @@ export interface IConnection {
   position: IPoint;
   open: string;
   closed: string;
-  selectParty: string[] | null;
+  showParty: string[] | null;
   triggers?: string[];
 }
 

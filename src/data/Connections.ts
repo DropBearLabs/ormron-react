@@ -13,7 +13,7 @@ export const connections: IConnection[] = [
     open: "temp-obj3c.png",
     closed: "temp-obj3.png",
     position: { x: 0, y: GROUNDLEVEL },
-    selectParty: ["maya"]
+    showParty: ["maya"]
   },
   {
     id: IGsoLevelOrmronStreetConnections.street_to_arena,
@@ -21,14 +21,14 @@ export const connections: IConnection[] = [
     closed: "temp-obj1.png",
     position: { x: SCREENWIDTH - 200, y: GROUNDLEVEL },
     triggers: ["1_Quest_win_3_fights", "1_Activate_ormron_arena"],
-    selectParty: ["maya"]
+    showParty: ["maya"]
   },
   {
     id: IGsoLevelOrmronStreetConnections.street_to_garden,
     open: "temp-obj2c.png",
     closed: "temp-obj2.png",
     position: { x: 400, y: GROUNDLEVEL },
-    selectParty: null,
+    showParty: null,
     triggers: [
       "1_Activate_ormron_garden",
       "1_Open_connection_arena",
@@ -40,7 +40,7 @@ export const connections: IConnection[] = [
     open: "temp-obj3c.png",
     closed: "temp-obj3.png",
     position: { x: 10, y: GROUNDLEVEL },
-    selectParty: null,
+    showParty: null,
     triggers: ["1_Activate_ormron_street"]
   },
   {
@@ -48,7 +48,7 @@ export const connections: IConnection[] = [
     open: "temp-obj3c.png",
     closed: "temp-obj3.png",
     position: { x: 10, y: GROUNDLEVEL },
-    selectParty: null,
+    showParty: null,
     triggers: ["1_Activate_ormron_street"]
   },
   {
@@ -56,13 +56,13 @@ export const connections: IConnection[] = [
     open: "temp-obj1c.png",
     closed: "temp-obj1.png",
     position: { x: 400, y: GROUNDLEVEL },
-    selectParty: null
+    showParty: null
   },
   {
     id: IGsoLevelOrmronGardenConnections.garden_to_school,
     open: "temp-obj2c.png",
     closed: "temp-obj2.png",
     position: { x: SCREENWIDTH - 200, y: GROUNDLEVEL },
-    selectParty: null
+    showParty: null
   }
 ];

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import {
-  activeDialogue,
+  showDialogue,
   questUpdate,
   updateMap,
   npcUpdate,
@@ -84,7 +84,7 @@ const DialogueChoices = (props: IDialogueChoiceProps) => {
   }
 
   const choiceMade = (c: IDialogueChoice) => {
-    dispatch(activeDialogue(c.nextDial));
+    dispatch(showDialogue(c.nextDial));
     props.setLineN(0);
     c.triggers.forEach((n: string) => triggerEvent(n));
   };
@@ -156,10 +156,10 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
         props.dialogue.triggers.forEach((t: string) => triggerEvent(t));
       }
       if (typeof props.dialogue.nextNode === "number") {
-        dispatch(activeDialogue(props.dialogue.nextNode));
+        dispatch(showDialogue(props.dialogue.nextNode));
         setLineN(0);
       } else {
-        dispatch(activeDialogue(null));
+        dispatch(showDialogue(null));
       }
     }
 

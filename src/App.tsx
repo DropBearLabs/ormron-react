@@ -23,6 +23,7 @@ import { IGso } from "./types/Types";
 import { Menu } from "./Menu";
 import { Quest } from "./Quest";
 import { IConnectionLevel, IGsoLevel, INPCLevel } from "./types/TypeLevels";
+import { Characters } from "./Characters";
 
 interface IInfolineProps {
   line: string | null;
@@ -46,18 +47,19 @@ const InfoLine = (props: IInfolineProps) => {
 };
 
 const App: React.FC = () => {
-  const dialogueInd = useSelector((state: IGso) => state.activeDialogue);
-  const levelId = useSelector((state: IGso) => state.activeLevel);
+  const showDialogue = useSelector((state: IGso) => state.showDialogue);
+  const activeLevel = useSelector((state: IGso) => state.activeLevel);
   const levelState = useSelector((state: IGso) => state.levels);
   const infoline = useSelector((state: IGso) => state.infoline);
-  const questActive = useSelector((state: IGso) => state.activeQuest);
+  const showQuests = useSelector((state: IGso) => state.showQuests);
   const questsTaken = useSelector((state: IGso) => state.questsTaken);
   const questsState = useSelector((state: IGso) => state.quests);
   const mapsState = useSelector((state: IGso) => state.maps);
-  const mapId = useSelector((state: IGso) => state.activeMap);
+  const showMap = useSelector((state: IGso) => state.showMap);
   const chapter = useSelector((state: IGso) => state.chapter);
-  const selectParty = useSelector((state: IGso) => state.selectParty);
+  const showParty = useSelector((state: IGso) => state.showParty);
   const party = useSelector((state: IGso) => state.party);
+  const showCharacters = useSelector((state: IGso) => state.showCharacters);
   const globalevents = useSelector((state: IGso) => state.globalEvents);
 
   const currentLevelState = (id: string) => {
@@ -71,12 +73,12 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <img src={findLevel(levelId).backgrounds[0].image} />
-      {findLevel(levelId).connections.map((c: string) => {
+      <img src={findLevel(activeLevel).backgrounds[0].image} />
+      {findLevel(activeLevel).connections.map((c: string) => {
         const connection = findConnection(c);
         const connectionId = (connection.id as unknown) as IConnectionLevel;
         const connectionState = connectionLevelStatus(
-          currentLevelState(levelId),
+          currentLevelState(activeLevel),
           connectionId
         );
 
@@ -89,32 +91,33 @@ const App: React.FC = () => {
           />
         );
       })}
-      {findLevel(levelId).npcs.map((n: string) => {
+      {findLevel(activeLevel).npcs.map((n: string) => {
         const npc = findNpc(n);
         const npcId = (npc.id as unknown) as INPCLevel;
-        const npcState = npcLevelStatus(currentLevelState(levelId), npcId);
+        const npcState = npcLevelStatus(currentLevelState(activeLevel), npcId);
         if (npc.available) {
           return <NPC npc={npc} key={npc.id} npcTrigger={npcState} />;
         }
       })}
-      {dialogueInd !== null ? (
-        <Dialogue dialogue={dialogues[dialogueInd]} />
+      {showDialogue !== null ? (
+        <Dialogue dialogue={dialogues[showDialogue]} />
       ) : null}
       {infoline !== null ? <InfoLine line={infoline} /> : null}
-      {<Menu activeQuest={questActive} quests={questsState} />}
-      {questActive !== null ? (
+      {<Menu showQuests={showQuests} quests={questsState} />}
+      {showQuests !== null ? (
         <Quest
-          active={questActive}
+          active={showQuests}
           allTakenQuests={questsState}
           quests={questsTaken.map((q: string) => findQuest(q))}
         />
       ) : null}
-      {mapId !== null ? (
+      {showMap !== null ? (
         <Map chapter={chapter} map={maps[0]} state={mapsState} />
       ) : null}
-      {selectParty !== null ? (
-        <Party party={party} selectParty={selectParty} />
+      {showParty !== null ? (
+        <Party party={party} showParty={showParty} />
       ) : null}
+      {showCharacters !== false ? <Characters /> : null}
     </div>
   );
 };

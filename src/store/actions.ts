@@ -18,7 +18,7 @@ import {
 } from "../data/Constants";
 import { IGsoParty } from "../types/Types";
 
-export const activeDialogue = (index: number | null) => {
+export const showDialogue = (index: number | null) => {
   return {
     payload: index,
     type: ACTIVE_DIALOGUE
@@ -92,7 +92,7 @@ export const endQuest = (condition: string[]) => {
   };
 };
 
-export const activeMap = (id: number | null) => ({
+export const showMap = (id: number | null) => ({
   payload: id,
   type: ACTIVE_MAP
 });
@@ -106,7 +106,7 @@ export const updateMap = (condition: [string, string]) => {
   };
 };
 
-export const selectParty = (required: IGsoParty | null) => {
+export const showParty = (required: IGsoParty | null) => {
   return {
     payload: required,
     type: SELECT_PARTY
@@ -144,15 +144,15 @@ export const updateInfluence = (condition: [string, number]) => {
 // });
 
 export default {
-  activeDialogue,
+  showDialogue,
   levelActive,
   npcUpdate,
   showInfoline,
   showQuests,
   endQuest,
-  activeMap,
+  showMap,
   updateMap,
-  selectParty,
+  showParty,
   questUpdate,
   openLevel
 };

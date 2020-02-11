@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import { IMap, IMapLevel } from "./types/Types";
-import { activeMap } from "./store/actions";
+import { showMap } from "./store/actions";
 
 interface ILevelProps {
   level: IMapLevel;
@@ -59,7 +59,7 @@ export const Map = (props: IMapProps) => {
       <img
         style={closeButtonStyle}
         src="temp-icon2.png"
-        onClick={() => dispatch(activeMap(null))}
+        onClick={() => dispatch(showMap(null))}
       />
       {props.map.levels.map((l: IMapLevel) => (
         <Level

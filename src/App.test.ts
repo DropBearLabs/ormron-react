@@ -6,12 +6,12 @@ let initialState: IGso = {
   chapter: 0,
   party: [],
   influence: [0, 0, 0, 0],
-  activeDialogue: null,
+  showDialogue: null,
   activeLevel: 0,
-  activeQuest: null,
-  activeMap: null,
+  showQuests: null,
+  showMap: null,
   infoline: null,
-  selectParty: null,
+  showParty: null,
   levels: [
     {
       npc_Olija: 0,
@@ -36,12 +36,12 @@ beforeEach(() => {
     chapter: 0,
     party: [],
     influence: [0, 0, 0, 0],
-    activeDialogue: null,
+    showDialogue: null,
     activeLevel: 0,
-    activeQuest: null,
-    activeMap: null,
+    showQuests: null,
+    showMap: null,
     infoline: null,
-    selectParty: null,
+    showParty: null,
     levels: [
       {
         npc_Olija: 0,
@@ -63,38 +63,38 @@ beforeEach(() => {
 });
 
 test("Activate dialogue", () => {
-  expect(reduicer(initialState, actions.activeDialogue(1))).toMatchObject({
-    activeDialogue: 1
+  expect(reduicer(initialState, actions.showDialogue(1))).toMatchObject({
+    showDialogue: 1
   });
 
-  initialState.activeDialogue = 1;
+  initialState.showDialogue = 1;
 
-  expect(reduicer(initialState, actions.activeDialogue(null))).toMatchObject({
-    activeDialogue: null
+  expect(reduicer(initialState, actions.showDialogue(null))).toMatchObject({
+    showDialogue: null
   });
 });
 
 test("Activate map", () => {
-  expect(reduicer(initialState, actions.activeMap(0))).toMatchObject({
-    activeMap: 0
+  expect(reduicer(initialState, actions.showMap(0))).toMatchObject({
+    showMap: 0
   });
 
-  initialState.activeMap = 0;
+  initialState.showMap = 0;
 
-  expect(reduicer(initialState, actions.activeMap(null))).toMatchObject({
-    activeMap: null
+  expect(reduicer(initialState, actions.showMap(null))).toMatchObject({
+    showMap: null
   });
 });
 
 test("Party selection", () => {
-  expect(reduicer(initialState, actions.selectParty(["maya"]))).toMatchObject({
-    selectParty: ["maya"]
+  expect(reduicer(initialState, actions.showParty(["maya"]))).toMatchObject({
+    showParty: ["maya"]
   });
 
-  initialState.selectParty = ["maya"];
+  initialState.showParty = ["maya"];
 
-  expect(reduicer(initialState, actions.selectParty(null))).toMatchObject({
-    selectParty: null
+  expect(reduicer(initialState, actions.showParty(null))).toMatchObject({
+    showParty: null
   });
 });
 

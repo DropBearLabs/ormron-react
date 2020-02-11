@@ -203,7 +203,7 @@ export default function GsoReduicer(
       });
     case SHOW_QUESTS:
       return Object.assign({}, state, {
-        activeQuest: action.payload
+        showQuests: action.payload
       });
     case UPDATE_QUEST:
       return Object.assign(
@@ -238,7 +238,7 @@ export default function GsoReduicer(
       });
     case ACTIVE_DIALOGUE:
       return Object.assign({}, state, {
-        activeDialogue: action.payload != null ? action.payload : null
+        showDialogue: action.payload != null ? action.payload : null
       });
     case UPDATE_PARTY:
       return Object.assign({}, state, {
@@ -246,7 +246,7 @@ export default function GsoReduicer(
       });
     case SELECT_PARTY:
       return Object.assign({}, state, {
-        selectParty: action.payload != null ? action.payload : null
+        showParty: action.payload != null ? action.payload : null
       });
     case SET_PARTY:
       return Object.assign({}, state, {
@@ -261,7 +261,7 @@ export default function GsoReduicer(
       });
     case ACTIVE_MAP:
       return Object.assign({}, state, {
-        activeMap: action.payload
+        showMap: action.payload
       });
     case MAP_UPDATE:
       return Object.assign({}, state, {

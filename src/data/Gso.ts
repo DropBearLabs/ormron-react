@@ -5,12 +5,14 @@ import { MainCharacters } from "../types/TypeActions";
 //*
 
 export const gso: IGso = {
+  showDialogue: null,
+  showCharacters: false,
+  showQuests: null,
+  showMap: null,
+  showParty: null,
   chapter: 0,
-  activeDialogue: null,
-  activeLevel: "ormron_street",
-  activeQuest: null,
-  activeMap: null,
   infoline: null,
+  activeLevel: "ormron_street",
   globalEvents: [],
   levels: [
     {
@@ -53,13 +55,12 @@ export const gso: IGso = {
   maps: ["ormron_streets"],
   questsTaken: [],
   party: ["maya"],
-  selectParty: null,
   setParty: {
-    maya: true,
-    tara: false,
-    grey: false,
-    dart: false,
-    nell: false
+    [MainCharacters.maya]: true,
+    [MainCharacters.tara]: false,
+    [MainCharacters.grey]: false,
+    [MainCharacters.dart]: false,
+    [MainCharacters.nell]: false
   },
   influence: {
     [MainCharacters.nell]: 0,

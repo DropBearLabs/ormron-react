@@ -1,51 +1,9 @@
 import React, { useState } from "react";
 import { IPartyMember, IGsoParty } from "./types/Types";
-import { selectParty, setParty } from "./store/actions";
+import { showParty, setParty } from "./store/actions";
 import { useDispatch } from "react-redux";
 import { MainCharacters } from "./types/TypeActions";
-
-const allParty: IPartyMember[] = [
-  {
-    id: MainCharacters.grey,
-    name: "Grey",
-    image: "temp-main4.png",
-    placeholder: "temp-main4black.png",
-    selected: "temp-main4selected.png",
-    opened: false
-  },
-  {
-    id: MainCharacters.dart,
-    name: "Dart",
-    image: "temp-main5.png",
-    placeholder: "temp-main5black.png",
-    selected: "temp-main5selected.png",
-    opened: true
-  },
-  {
-    id: MainCharacters.maya,
-    name: "Maya",
-    image: "temp-main1.png",
-    placeholder: "temp-main1black.png",
-    selected: "temp-main1selected.png",
-    opened: false
-  },
-  {
-    id: MainCharacters.nell,
-    name: "Nell",
-    image: "temp-main2.png",
-    placeholder: "temp-main2black.png",
-    selected: "temp-main2selected.png",
-    opened: true
-  },
-  {
-    id: MainCharacters.tara,
-    name: "Tara",
-    image: "temp-main3.png",
-    placeholder: "temp-main3black.png",
-    selected: "temp-main3selected.png",
-    opened: false
-  }
-];
+import { allParty } from "./data/Characters";
 
 interface IPartyMemberProps {
   char: IPartyMember;
@@ -90,19 +48,20 @@ const PartyMember = (props: IPartyMemberProps) => {
 
 interface IPartyProps {
   party: string[] | null;
-  selectParty: IGsoParty | null;
+  showParty: IGsoParty | null;
 }
 
 export const Party = (props: IPartyProps) => {
   const dispatch = useDispatch();
   const partyStyle = {
     top: "0",
-    right: "15px",
+    right: "50px",
     height: "750px",
-    width: "1024px",
+    width: "930px",
+    backgroundSize: "cover",
     position: "absolute" as "absolute",
     textAlign: "center" as "center",
-    backgroundImage: `url(temp-backg4.png)`
+    backgroundImage: `url(temp-backg5.png)`
   };
 
   const closeButtonStyle = {
@@ -118,7 +77,7 @@ export const Party = (props: IPartyProps) => {
     right: "100px"
   };
   const [currentSelection, setSelection] = useState<IGsoParty | null>(
-    props.selectParty
+    props.showParty
   );
 
   const selectMember = (id: MainCharacters) => {
@@ -139,7 +98,7 @@ export const Party = (props: IPartyProps) => {
   const setPartyExit = () => {
     if (currentSelection) {
       dispatch(setParty(currentSelection));
-      dispatch(selectParty(null));
+      dispatch(showParty(null));
     }
   };
 
@@ -148,7 +107,7 @@ export const Party = (props: IPartyProps) => {
       <img
         style={closeButtonStyle}
         src="temp-icon2.png"
-        onClick={() => dispatch(selectParty(null))}
+        onClick={() => dispatch(showParty(null))}
       />
       <h1>PARTY</h1>
       {allParty.map((char: IPartyMember) => {
