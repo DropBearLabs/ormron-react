@@ -10,7 +10,8 @@ import {
   IQuest,
   IQuestStep,
   IConnection,
-  INpc
+  INpc,
+  IPartyMember
 } from "../types/Types";
 import { ITrigger } from "../types/TypeTriggers";
 import {
@@ -19,6 +20,8 @@ import {
   ConnectionStatus,
   INPCLevel
 } from "../types/TypeLevels";
+import { MainCharacters } from "../types/TypeActions";
+import { allParty } from "./Characters";
 
 export function findConnection(id: string) {
   const connection = connections.find((c: IConnection) => c.id === id);
@@ -34,6 +37,14 @@ export function findQuest(id: string) {
     throw Error("Unknown quest id" + id);
   }
   return quest;
+}
+
+export function findPartyMember(id: MainCharacters) {
+  const character = allParty.find((p: IPartyMember) => p.id === id);
+  if (!character) {
+    throw Error("Unknown character id" + id);
+  }
+  return character;
 }
 
 export function findQuestEvent(search: string, id: string) {

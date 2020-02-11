@@ -41,9 +41,10 @@ export interface IGso {
   quests: IGsoQuest[];
   levels: IGsoLevel[];
   maps: string[];
-  party: string[];
+  party: MainCharacters[];
   setParty: IGsoParty;
   influence: IGsoInfluence;
+  charactersData: ICharactersData;
 }
 
 export interface IGsoQuest {

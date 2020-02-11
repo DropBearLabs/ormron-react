@@ -59,6 +59,7 @@ const App: React.FC = () => {
   const chapter = useSelector((state: IGso) => state.chapter);
   const showParty = useSelector((state: IGso) => state.showParty);
   const party = useSelector((state: IGso) => state.party);
+  const partyState = useSelector((state: IGso) => state.charactersData);
   const showCharacters = useSelector((state: IGso) => state.showCharacters);
   const globalevents = useSelector((state: IGso) => state.globalEvents);
 
@@ -117,7 +118,9 @@ const App: React.FC = () => {
       {showParty !== null ? (
         <Party party={party} showParty={showParty} />
       ) : null}
-      {showCharacters !== false ? <Characters /> : null}
+      {showCharacters !== false ? (
+        <Characters party={party} partyState={partyState} />
+      ) : null}
     </div>
   );
 };

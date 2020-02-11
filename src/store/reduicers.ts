@@ -31,7 +31,8 @@ import {
   IPayloadUpdateMap,
   IPayloadUpdateInfluence,
   IAction,
-  IPayload
+  IPayload,
+  MainCharacters
 } from "../types/TypeActions";
 
 const npcUpdate = (levelsToUpdate: IGsoLevel[], payload: IPayloadNpcUpdate) => {
@@ -42,7 +43,10 @@ const npcUpdate = (levelsToUpdate: IGsoLevel[], payload: IPayloadNpcUpdate) => {
   return levelsToUpdate;
 };
 
-const updateParty = (partyToUpdate: string[], payload: IPayloadPartyUpdate) => {
+const updateParty = (
+  partyToUpdate: MainCharacters[],
+  payload: IPayloadPartyUpdate
+) => {
   const { character, update } = payload;
   const found = partyToUpdate.includes(character);
   if (update === "add" && !found) {
@@ -188,7 +192,7 @@ export default function GsoReduicer(
   const quesstsTaken: string[] = [...state.questsTaken];
   const questsCompleted: string[] = [...state.questsCompleted];
   const globalEvents: string[] = [...state.globalEvents];
-  const partyToUpdate: string[] = [...state.party];
+  const partyToUpdate: MainCharacters[] = [...state.party];
   const influenceToUpdate: IGsoInfluence = { ...state.influence };
   const mapsToUpdate = [...state.maps];
 

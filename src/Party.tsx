@@ -4,6 +4,7 @@ import { showParty, setParty } from "./store/actions";
 import { useDispatch } from "react-redux";
 import { MainCharacters } from "./types/TypeActions";
 import { allParty } from "./data/Characters";
+import { findPartyMember } from "./data/helpers";
 
 interface IPartyMemberProps {
   char: IPartyMember;
@@ -21,10 +22,7 @@ const PartyMember = (props: IPartyMemberProps) => {
   };
 
   const getImage = (id: string) => {
-    const character = allParty.find((p: IPartyMember) => p.id === id);
-    if (!character) {
-      throw Error("Unknown character id" + id);
-    }
+    const character = findPartyMember(id as MainCharacters);
     let image = character.image;
     if (!char.opened) {
       image = character.placeholder;

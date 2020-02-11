@@ -6,7 +6,7 @@ import { MainCharacters } from "../types/TypeActions";
 
 export const gso: IGso = {
   showDialogue: null,
-  showCharacters: false,
+  showCharacters: true,
   showQuests: null,
   showMap: null,
   showParty: null,
@@ -54,7 +54,7 @@ export const gso: IGso = {
   questsCompleted: [],
   maps: ["ormron_streets"],
   questsTaken: [],
-  party: ["maya"],
+  party: [MainCharacters.maya],
   setParty: {
     [MainCharacters.maya]: true,
     [MainCharacters.tara]: false,
@@ -68,6 +68,43 @@ export const gso: IGso = {
     [MainCharacters.tara]: 0,
     [MainCharacters.grey]: 0,
     [MainCharacters.maya]: 0
+  },
+  charactersData: {
+    [MainCharacters.maya]: {
+      id: MainCharacters.maya,
+      life: 12,
+      mana: 15,
+      attack_physical: 2,
+      attack_magic: 4
+    },
+    [MainCharacters.nell]: {
+      id: MainCharacters.nell,
+      life: 12,
+      mana: 15,
+      attack_physical: 2,
+      attack_magic: 4
+    },
+    [MainCharacters.dart]: {
+      id: MainCharacters.dart,
+      life: 12,
+      mana: 15,
+      attack_physical: 2,
+      attack_magic: 4
+    },
+    [MainCharacters.tara]: {
+      id: MainCharacters.tara,
+      life: 12,
+      mana: 15,
+      attack_physical: 2,
+      attack_magic: 4
+    },
+    [MainCharacters.grey]: {
+      id: MainCharacters.grey,
+      life: 12,
+      mana: 15,
+      attack_physical: 2,
+      attack_magic: 4
+    }
   }
 };
 //*/

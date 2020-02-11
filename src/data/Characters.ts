@@ -16,7 +16,7 @@ export const allParty: IPartyMember[] = [
     image: "temp-main5.png",
     placeholder: "temp-main5black.png",
     selected: "temp-main5selected.png",
-    opened: true
+    opened: false
   },
   {
     id: MainCharacters.maya,
@@ -24,7 +24,7 @@ export const allParty: IPartyMember[] = [
     image: "temp-main1.png",
     placeholder: "temp-main1black.png",
     selected: "temp-main1selected.png",
-    opened: false
+    opened: true
   },
   {
     id: MainCharacters.nell,
@@ -32,7 +32,7 @@ export const allParty: IPartyMember[] = [
     image: "temp-main2.png",
     placeholder: "temp-main2black.png",
     selected: "temp-main2selected.png",
-    opened: true
+    opened: false
   },
   {
     id: MainCharacters.tara,
