@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { IPartyMember, IGsoParty } from "./types/Types";
+import {
+  IPartyMember,
+  IGsoParty,
+  MainCharacters
+} from "./types/TypeCharacters";
 import { showParty, setParty } from "./store/actions";
 import { useDispatch } from "react-redux";
-import { MainCharacters } from "./types/TypeActions";
 import { allParty } from "./data/Characters";
 import { findPartyMember } from "./data/helpers";
 

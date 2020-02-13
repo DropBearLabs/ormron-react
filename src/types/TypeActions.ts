@@ -17,14 +17,7 @@ import {
 } from "../data/Constants";
 import { IGsoQuest } from "./Types";
 import { INPCLevel, IConnectionLevel } from "./TypeLevels";
-
-export enum MainCharacters {
-  nell = "nell",
-  dart = "dart",
-  maya = "maya",
-  tara = "tara",
-  grey = "grey"
-}
+import { MainCharacters } from "./TypeCharacters";
 
 export type IAction =
   | ACTIVE_DIALOGUE

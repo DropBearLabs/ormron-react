@@ -16,7 +16,7 @@ import {
   ADD_GLOBAL_EVENT,
   SET_PARTY
 } from "../data/Constants";
-import { IGsoParty } from "../types/Types";
+import { IGsoParty } from "../types/TypeCharacters";
 
 export const showDialogue = (index: number | null) => {
   return {

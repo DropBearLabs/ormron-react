@@ -1,6 +1,6 @@
 import { IGso } from "../types/Types";
 import { ConnectionStatus } from "../types/TypeLevels";
-import { MainCharacters } from "../types/TypeActions";
+import { MainCharacters, ISpells } from "../types/TypeCharacters";
 //AFTER Tutorial
 //*
 
@@ -75,35 +75,40 @@ export const gso: IGso = {
       life: 12,
       mana: 15,
       attack_physical: 2,
-      attack_magic: 4
+      attack_magic: 4,
+      spells: [ISpells.maya_dispel1, ISpells.maya_heal1, ISpells.maya_healSelf]
     },
     [MainCharacters.nell]: {
       id: MainCharacters.nell,
       life: 12,
       mana: 15,
       attack_physical: 2,
-      attack_magic: 4
+      attack_magic: 4,
+      spells: []
     },
     [MainCharacters.dart]: {
       id: MainCharacters.dart,
       life: 12,
       mana: 15,
       attack_physical: 2,
-      attack_magic: 4
+      attack_magic: 4,
+      spells: []
     },
     [MainCharacters.tara]: {
       id: MainCharacters.tara,
       life: 12,
       mana: 15,
       attack_physical: 2,
-      attack_magic: 4
+      attack_magic: 4,
+      spells: []
     },
     [MainCharacters.grey]: {
       id: MainCharacters.grey,
       life: 12,
       mana: 15,
       attack_physical: 2,
-      attack_magic: 4
+      attack_magic: 4,
+      spells: []
     }
   }
 };

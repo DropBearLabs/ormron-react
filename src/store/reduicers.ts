@@ -31,9 +31,9 @@ import {
   IPayloadUpdateMap,
   IPayloadUpdateInfluence,
   IAction,
-  IPayload,
-  MainCharacters
+  IPayload
 } from "../types/TypeActions";
+import { MainCharacters } from "../types/TypeCharacters";
 
 const npcUpdate = (levelsToUpdate: IGsoLevel[], payload: IPayloadNpcUpdate) => {
   const { level, character, setTo } = payload;

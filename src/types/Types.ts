@@ -1,29 +1,5 @@
 import { IGsoLevel, IConnectionLevel, INPCLevel } from "./TypeLevels";
-import { MainCharacters } from "./TypeActions";
-
-export interface IGsoParty {
-  [MainCharacters.nell]: boolean;
-  [MainCharacters.dart]: boolean;
-  [MainCharacters.tara]: boolean;
-  [MainCharacters.grey]: boolean;
-  [MainCharacters.maya]: boolean;
-}
-
-export interface ICharacterData {
-  id: MainCharacters;
-  life: number;
-  mana: number;
-  attack_physical: number;
-  attack_magic: number;
-}
-
-export interface ICharactersData {
-  [MainCharacters.nell]: ICharacterData;
-  [MainCharacters.dart]: ICharacterData;
-  [MainCharacters.tara]: ICharacterData;
-  [MainCharacters.grey]: ICharacterData;
-  [MainCharacters.maya]: ICharacterData;
-}
+import { MainCharacters, IGsoParty, ICharactersData } from "./TypeCharacters";
 
 export interface IGso {
   showCharacters: boolean; // Display characters menu
@@ -69,15 +45,6 @@ export interface IMapLevel {
   image: string;
   open: boolean;
   position: IPoint;
-}
-
-export interface IPartyMember {
-  id: MainCharacters;
-  name: string;
-  image: string;
-  placeholder: string;
-  selected: string;
-  opened: boolean;
 }
 
 export interface ILevel {

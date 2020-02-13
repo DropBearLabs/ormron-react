@@ -1,6 +1,4 @@
-import { IPartyMember } from "../types/Types";
-import { MainCharacters } from "../types/TypeActions";
-
+import { IPartyMember, MainCharacters } from "../types/TypeCharacters";
 export const allParty: IPartyMember[] = [
   {
     id: MainCharacters.grey,

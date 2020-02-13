@@ -4,14 +4,14 @@ import { npcs } from "./Npcs";
 import { quests } from "./Quests";
 import { triggers } from "./Triggers";
 import { connections } from "./Connections";
+import { spells } from "./Spells";
 import {
   IDialogue,
   ILevel,
   IQuest,
   IQuestStep,
   IConnection,
-  INpc,
-  IPartyMember
+  INpc
 } from "../types/Types";
 import { ITrigger } from "../types/TypeTriggers";
 import {
@@ -20,7 +20,12 @@ import {
   ConnectionStatus,
   INPCLevel
 } from "../types/TypeLevels";
-import { MainCharacters } from "../types/TypeActions";
+import {
+  MainCharacters,
+  IPartyMember,
+  ISpell,
+  ICharacterSpell
+} from "../types/TypeCharacters";
 import { allParty } from "./Characters";
 
 export function findConnection(id: string) {
@@ -29,6 +34,14 @@ export function findConnection(id: string) {
     throw Error("Unknown connection id" + id);
   }
   return connection;
+}
+
+export function findSpell(id: ISpell) {
+  const spell = spells.find((s: any) => s.id === id);
+  if (spell === undefined) {
+    throw Error("Unknown spell id" + id);
+  }
+  return spell;
 }
 
 export function findQuest(id: string) {
@@ -42,7 +55,7 @@ export function findQuest(id: string) {
 export function findPartyMember(id: MainCharacters) {
   const character = allParty.find((p: IPartyMember) => p.id === id);
   if (!character) {
-    throw Error("Unknown character id" + id);
+    throw Error("Unknown character id " + id);
   }
   return character;
 }
