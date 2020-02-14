@@ -1,3 +1,5 @@
+import { IPoint } from "./Types";
+
 export enum MainCharacters {
   nell = "nell",
   dart = "dart",
@@ -6,10 +8,20 @@ export enum MainCharacters {
   grey = "grey"
 }
 
-export enum ISpells {
+export enum Spells {
   maya_healSelf = "maya_healSelf",
+  maya_attackSimple = "maya_attackSimple",
+  maya_reinforce = "maya_reinforce",
   maya_heal1 = "maya_heal1",
-  maya_dispel1 = "maya_dispel1"
+  maya_attackMagic = "maya_attackMagic",
+  maya_heal3 = "maya_heal3",
+  maya_attackStun = "maya_attackStun",
+  maya_attackPush = "maya_attackPush",
+  maya_dispell = "maya_dispell",
+  maya_earthquake = "maya_earthquake",
+  maya_resurrect = "maya_resurrect",
+  maya_quickSand = "maya_quickSand",
+  maya_chamber = "maya_chamber"
 }
 
 export interface IGsoParty {
@@ -30,9 +42,11 @@ export interface IPartyMember {
 }
 
 export interface ICharacterSpell {
-  id: ISpells;
+  id: Spells;
+  name: string;
   description: string;
   image: string;
+  position: IPoint;
 }
 
 export interface ICharacterData {
@@ -41,7 +55,7 @@ export interface ICharacterData {
   mana: number;
   attack_physical: number;
   attack_magic: number;
-  spells: ISpells[];
+  spells: ISpell[];
 }
 
 export interface ICharactersData {
@@ -53,7 +67,7 @@ export interface ICharactersData {
 }
 
 export interface ISpell {
-  id: ISpells;
+  id: Spells;
   taken: boolean;
   available: boolean;
 }

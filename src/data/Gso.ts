@@ -1,6 +1,6 @@
 import { IGso } from "../types/Types";
 import { ConnectionStatus } from "../types/TypeLevels";
-import { MainCharacters, ISpells } from "../types/TypeCharacters";
+import { MainCharacters, Spells } from "../types/TypeCharacters";
 //AFTER Tutorial
 //*
 
@@ -76,7 +76,73 @@ export const gso: IGso = {
       mana: 15,
       attack_physical: 2,
       attack_magic: 4,
-      spells: [ISpells.maya_dispel1, ISpells.maya_heal1, ISpells.maya_healSelf]
+      spells: [
+        {
+          id: Spells.maya_healSelf,
+          taken: true,
+          available: true
+        },
+        {
+          id: Spells.maya_attackSimple,
+          taken: true,
+          available: true
+        },
+        {
+          id: Spells.maya_reinforce,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.maya_heal1,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.maya_attackMagic,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.maya_heal3,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.maya_attackStun,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.maya_attackPush,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.maya_dispell,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.maya_earthquake,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.maya_resurrect,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.maya_quickSand,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.maya_chamber,
+          taken: false,
+          available: false
+        }
+      ]
     },
     [MainCharacters.nell]: {
       id: MainCharacters.nell,

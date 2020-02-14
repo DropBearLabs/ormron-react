@@ -20,12 +20,7 @@ import {
   ConnectionStatus,
   INPCLevel
 } from "../types/TypeLevels";
-import {
-  MainCharacters,
-  IPartyMember,
-  ISpell,
-  ICharacterSpell
-} from "../types/TypeCharacters";
+import { MainCharacters, IPartyMember, Spells } from "../types/TypeCharacters";
 import { allParty } from "./Characters";
 
 export function findConnection(id: string) {
@@ -36,7 +31,7 @@ export function findConnection(id: string) {
   return connection;
 }
 
-export function findSpell(id: ISpell) {
+export function findSpell(id: Spells) {
   const spell = spells.find((s: any) => s.id === id);
   if (spell === undefined) {
     throw Error("Unknown spell id" + id);
