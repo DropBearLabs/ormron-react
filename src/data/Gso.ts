@@ -1,12 +1,10 @@
 import { IGso } from "../types/Types";
 import { ConnectionStatus } from "../types/TypeLevels";
 import { MainCharacters, Spells } from "../types/TypeCharacters";
-//AFTER Tutorial
-//*
 
 export const gso: IGso = {
   showDialogue: null,
-  showCharacters: true,
+  showCharacters: false,
   showQuests: null,
   showMap: null,
   showParty: null,

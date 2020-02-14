@@ -4,143 +4,32 @@ import {
   ICharactersData,
   ICharacterData,
   MainCharacters,
-  Spells,
-  ICharacterSpell,
   ISpell
 } from "./types/TypeCharacters";
-import { findPartyMember, findSpell } from "./data/helpers";
-import { IPoint } from "./types/Types";
-import { spells } from "./data/Spells";
-import { SSL_OP_NETSCAPE_CHALLENGE_BUG } from "constants";
+import { findPartyMember } from "./data/helpers";
+import { SpellsCircle, SpellDescription, SpellsAll } from "./Spells";
+import { useDispatch } from "react-redux";
+import { showCharacters } from "./store/actions";
 
-interface ISpellIconProps {
-  spell: ISpell;
-  spellData: ICharacterSpell;
-  setSpell: any;
-  position: IPoint;
+interface ICharacterStatsProps {
+  characterData: ICharacterData;
 }
-const SpellIcon = (props: ISpellIconProps) => {
-  const iconStyle = {
-    position: "absolute" as "absolute",
-    bottom: props.position.y,
-    left: props.position.x,
-    width: "50px",
-    height: "50px",
-    borderRadius: "25px",
-    backgroundImage: `url(${props.spellData.image}`,
-    opacity: props.spell.available ? "1" : "0.3"
-  };
-  return (
-    <div style={iconStyle} onClick={() => props.setSpell(props.spell)}></div>
-  );
-};
 
-interface ISpellDescriptionProps {
-  spell: ISpell | null;
-}
-const SpellDescription = (props: ISpellDescriptionProps) => {
-  const { spell } = props;
-  const spellData = spell ? findSpell(spell.id) : null;
-  const spellStyle = {
+const CharacterStats = (props: ICharacterStatsProps) => {
+  const characterStateStyle = {
     position: "absolute" as "absolute",
-    top: "150px",
-    right: "100px",
-    width: "450px",
-    height: "250px"
-  };
-  const descriptionStyle = {
-    width: "100%",
+    bottom: "30px",
+    left: "100px",
+    width: "300px",
+    height: "250px",
     textAlign: "left" as "left"
   };
   return (
-    <div style={spellStyle}>
-      {spellData ? (
-        <div style={descriptionStyle}>
-          <h1>{spellData.name}</h1>
-          <div>{spellData.description}</div>
-        </div>
-      ) : null}
-    </div>
-  );
-};
-
-interface SpellsAllProps {
-  spells: ISpell[];
-  setSpell: any;
-}
-const SpellsAll = (props: SpellsAllProps) => {
-  const spellsStyle = {
-    position: "absolute" as "absolute",
-    bottom: "30px",
-    right: "100px",
-    width: "450px",
-    height: "300px"
-  };
-
-  return (
-    <div style={spellsStyle}>
-      {props.spells.map((s: ISpell) => {
-        const spellData = findSpell(s.id);
-        return (
-          <SpellIcon
-            spell={s}
-            spellData={spellData}
-            key={s.id}
-            setSpell={props.setSpell}
-            position={spellData.position}
-          />
-        );
-      })}
-    </div>
-  );
-};
-
-interface SpellsCircleProps {
-  spells: ISpell[];
-  setSpell: any;
-}
-const SpellsCircle = (props: SpellsCircleProps) => {
-  let ind = -1;
-  const spellsStyle = {
-    position: "absolute" as "absolute",
-    top: "100px",
-    left: "55px",
-    width: "300px",
-    height: "300px"
-  };
-
-  return (
-    <div style={spellsStyle}>
-      {props.spells.map((s: ISpell) => {
-        const spellData = findSpell(s.id);
-        ind = ind + 1;
-        const x = [30, 0, -20, -10, 20, 70, 130, 190, 240, 270, 280, 260, 230];
-        const y = [
-          -20,
-          40,
-          100,
-          160,
-          210,
-          250,
-          270,
-          250,
-          210,
-          160,
-          100,
-          40,
-          -20
-        ];
-        const pos = { x: x[ind], y: y[ind] };
-        return (
-          <SpellIcon
-            spell={s}
-            spellData={spellData}
-            key={s.id}
-            setSpell={props.setSpell}
-            position={pos}
-          />
-        );
-      })}
+    <div style={characterStateStyle}>
+      <div>Life: {props.characterData.life}</div>
+      <div>Essence: {props.characterData.mana}</div>
+      <div>Physical Attack: {props.characterData.attack_physical}</div>
+      <div>Magical Attack: {props.characterData.attack_magic}</div>
     </div>
   );
 };
@@ -148,11 +37,10 @@ const SpellsCircle = (props: SpellsCircleProps) => {
 interface ICharacterProps {
   character: IPartyMember;
   characterData: ICharacterData;
-  setCharacter: React.Dispatch<SetStateAction<MainCharacters>>;
 }
 const Character = (props: ICharacterProps) => {
-  const { character, characterData, setCharacter } = props;
-  const [spell, setSpell] = useState(null);
+  const { character, characterData } = props;
+  const [spell, setSpell] = useState(characterData.spells[0]);
   const charStyle = {
     top: "100px",
     left: "100px",
@@ -178,6 +66,7 @@ interface ICharactersProps {
 }
 export const Characters = (props: ICharactersProps) => {
   const [char, setChar] = useState<MainCharacters>(MainCharacters.maya);
+  const dispatch = useDispatch();
   const partyStyle = {
     top: "0",
     right: "50px",
@@ -215,7 +104,11 @@ export const Characters = (props: ICharactersProps) => {
   const characterData = props.partyState[char];
   return (
     <div style={partyStyle}>
-      <img style={closeButtonStyle} src="temp-icon2.png" onClick={() => {}} />
+      <img
+        style={closeButtonStyle}
+        src="temp-icon2.png"
+        onClick={() => dispatch(showCharacters(false))}
+      />
       <ul>
         <li style={topMenuStyle}>
           <button onClick={findNextCharacter}>{"<<"}</button>
@@ -227,11 +120,8 @@ export const Characters = (props: ICharactersProps) => {
           <button onClick={findNextCharacter}>{">>"}</button>
         </li>
       </ul>
-      <Character
-        character={character}
-        characterData={characterData}
-        setCharacter={setChar}
-      />
+      <Character character={character} characterData={characterData} />
+      <CharacterStats characterData={characterData} />
     </div>
   );
 };

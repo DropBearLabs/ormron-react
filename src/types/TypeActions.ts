@@ -13,7 +13,8 @@ import {
   UPDATE_INFLUENCE,
   OPEN_CONNECTION,
   ADD_GLOBAL_EVENT,
-  SET_PARTY
+  SET_PARTY,
+  SHOW_CHARACTERS
 } from "../data/Constants";
 import { IGsoQuest } from "./Types";
 import { INPCLevel, IConnectionLevel } from "./TypeLevels";
@@ -34,6 +35,7 @@ export type IAction =
   | UPDATE_INFLUENCE
   | OPEN_CONNECTION
   | SET_PARTY
+  | SHOW_CHARACTERS
   | ADD_GLOBAL_EVENT;
 
 export type IPayload =

@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { IGsoQuest } from "./types/Types";
-import { showQuests, showMap } from "./store/actions";
+import { showQuests, showMap, showCharacters } from "./store/actions";
 
 interface IMenuProps {
   showQuests: string | null;
@@ -57,7 +57,11 @@ export const Menu = (props: IMenuProps) => {
             : dispatch(showQuests("none"))
         }
       />
-      <img style={iconInventoryStyle} src="temp-icon5.png" />
+      <img
+        style={iconInventoryStyle}
+        src="temp-icon5.png"
+        onClick={() => dispatch(showCharacters(true))}
+      />
     </div>
   );
 };

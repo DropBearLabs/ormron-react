@@ -32,3 +32,5 @@ export const ADD_GLOBAL_EVENT = "ADD_GLOBAL_EVENT";
 export type ADD_GLOBAL_EVENT = typeof ADD_GLOBAL_EVENT;
 export const SET_PARTY = "SET_PARTY";
 export type SET_PARTY = typeof SET_PARTY;
+export const SHOW_CHARACTERS = "SHOW_CHARACTERS";
+export type SHOW_CHARACTERS = typeof SHOW_CHARACTERS;

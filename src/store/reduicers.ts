@@ -13,7 +13,8 @@ import {
   UPDATE_INFLUENCE,
   OPEN_CONNECTION,
   ADD_GLOBAL_EVENT,
-  SET_PARTY
+  SET_PARTY,
+  SHOW_CHARACTERS
 } from "../data/Constants";
 import { gso } from "../data/Gso";
 import {
@@ -263,6 +264,8 @@ export default function GsoReduicer(
           action.payload as IPayloadUpdateInfluence
         )
       });
+    case SHOW_CHARACTERS:
+      return Object.assign({}, state, { showCharacters: action.payload });
     case ACTIVE_MAP:
       return Object.assign({}, state, {
         showMap: action.payload

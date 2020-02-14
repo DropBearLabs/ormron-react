@@ -14,7 +14,8 @@ import {
   OPEN_LEVEL,
   OPEN_CONNECTION,
   ADD_GLOBAL_EVENT,
-  SET_PARTY
+  SET_PARTY,
+  SHOW_CHARACTERS
 } from "../data/Constants";
 import { IGsoParty } from "../types/TypeCharacters";
 
@@ -135,6 +136,13 @@ export const updateInfluence = (condition: [string, number]) => {
   return {
     payload: { character, num },
     type: UPDATE_INFLUENCE
+  };
+};
+
+export const showCharacters = (characters: boolean) => {
+  return {
+    payload: characters,
+    type: SHOW_CHARACTERS
   };
 };
 
