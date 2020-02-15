@@ -27,12 +27,11 @@ import { IGsoLevel, ConnectionStatus } from "../types/TypeLevels";
 import {
   IPayloadNpcUpdate,
   IPayloadPartyUpdate,
-  IPayloaQuestUpdate,
+  IPayloadQuestUpdate,
   IPayloadOpenConnection,
   IPayloadUpdateMap,
   IPayloadUpdateInfluence,
-  IAction,
-  IPayload
+  IReturnAction
 } from "../types/TypeActions";
 import { MainCharacters } from "../types/TypeCharacters";
 
@@ -64,7 +63,7 @@ const questUpdate = (
   questsToUpdate: IGsoQuest[],
   quesstsTaken: string[],
   questsCompleted: string[],
-  payload: IPayloaQuestUpdate
+  payload: IPayloadQuestUpdate
 ) => {
   const { quest, step } = payload;
 
@@ -188,7 +187,7 @@ const initialState: IGso = gso;
 
 export default function GsoReduicer(
   state: IGso | void = initialState,
-  action: { type: IAction; payload: IPayload }
+  action: IReturnAction
 ) {
   if (!state) {
     return initialState;
@@ -223,7 +222,7 @@ export default function GsoReduicer(
           questsToUpdate,
           quesstsTaken,
           questsCompleted,
-          action.payload as IPayloaQuestUpdate
+          action.payload as IPayloadQuestUpdate
         )
       );
     case END_QUEST:

@@ -18,65 +18,75 @@ import {
   SHOW_CHARACTERS
 } from "../data/Constants";
 import { IGsoParty } from "../types/TypeCharacters";
+import { IReturnAction, IPayload } from "../types/TypeActions";
 
-export const showDialogue = (index: number | null) => {
+export const showDialogue = (index: number | null): IReturnAction => {
   return {
     payload: index,
     type: ACTIVE_DIALOGUE
   };
 };
 
-export const levelActive = (index: string) => ({
+export const showParty = (party: IGsoParty | null): IReturnAction => {
+  return {
+    payload: party as IPayload,
+    type: SELECT_PARTY
+  };
+};
+
+export const levelActive = (index: string): IReturnAction => ({
   payload: index,
   type: ACTIVATE_LEVEL
 });
 
-export const openConnection = (condition: [string, string]) => {
+export const openConnection = (condition: [string, string]): IReturnAction => {
   const level = condition[0];
   const entry = condition[1];
   return {
-    payload: { level, entry },
+    payload: { level, entry } as IPayload,
     type: OPEN_CONNECTION
   };
 };
 
-export const addGlobalEvent = (event: string) => {
+export const addGlobalEvent = (event: string): IReturnAction => {
   return {
     payload: event,
     type: ADD_GLOBAL_EVENT
   };
 };
 
-export const openLevel = (index: number) => {
+export const openLevel = (index: number): IReturnAction => {
   return {
     payload: index,
     type: OPEN_LEVEL
   };
 };
 
-export const npcUpdate = (condition: [string, string, number | null]) => {
+export const npcUpdate = (
+  condition: [string, string, number | null]
+): IReturnAction => {
   const level = condition[0];
   const character = condition[1];
   const setTo = condition[2];
   return {
-    payload: { level, character, setTo },
+    payload: { level, character, setTo } as IPayload,
     type: UPDATE_NPC
   };
 };
 
-export const showInfoline = (text: string | null) => ({
+export const showInfoline = (text: string | null): IReturnAction => ({
   payload: text,
   type: SHOW_INFOLINE
 });
 
-export const showQuests = (quest: string | null) => {
+export const showQuests = (quest: string | null): IReturnAction => {
   return {
     payload: quest,
     type: SHOW_QUESTS
   };
 };
 
-export const questUpdate = (condition: [string, string]) => {
+export const questUpdate = (condition: [string, string]): IReturnAction => {
   const quest = condition[0];
   const step = condition[1];
   return {
@@ -85,7 +95,7 @@ export const questUpdate = (condition: [string, string]) => {
   };
 };
 
-export const endQuest = (condition: string[]) => {
+export const endQuest = (condition: string[]): IReturnAction => {
   const quest = condition[0];
   return {
     payload: quest,
@@ -93,12 +103,12 @@ export const endQuest = (condition: string[]) => {
   };
 };
 
-export const showMap = (id: number | null) => ({
-  payload: id,
+export const showMap = (id: number | null): IReturnAction => ({
+  payload: id as IPayload,
   type: ACTIVE_MAP
 });
 
-export const updateMap = (condition: [string, string]) => {
+export const updateMap = (condition: [string, string]): IReturnAction => {
   const map = condition[0];
   const state = condition[1];
   return {
@@ -107,10 +117,12 @@ export const updateMap = (condition: [string, string]) => {
   };
 };
 
-export const showParty = (required: IGsoParty | null) => {
+export const updateInfluence = (condition: [string, number]): IReturnAction => {
+  const character = condition[0];
+  const num = condition[1];
   return {
-    payload: required,
-    type: SELECT_PARTY
+    payload: { character, num } as IPayload,
+    type: UPDATE_INFLUENCE
   };
 };
 
@@ -127,15 +139,6 @@ export const updateParty = (condition: string[]) => {
   return {
     payload: { character, update },
     type: UPDATE_PARTY
-  };
-};
-
-export const updateInfluence = (condition: [string, number]) => {
-  const character = condition[0];
-  const num = condition[1];
-  return {
-    payload: { character, num },
-    type: UPDATE_INFLUENCE
   };
 };
 

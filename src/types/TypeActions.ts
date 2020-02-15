@@ -14,11 +14,17 @@ import {
   OPEN_CONNECTION,
   ADD_GLOBAL_EVENT,
   SET_PARTY,
-  SHOW_CHARACTERS
+  SHOW_CHARACTERS,
+  OPEN_LEVEL
 } from "../data/Constants";
 import { IGsoQuest } from "./Types";
 import { INPCLevel, IConnectionLevel } from "./TypeLevels";
-import { MainCharacters } from "./TypeCharacters";
+import { MainCharacters, IGsoParty } from "./TypeCharacters";
+
+export interface IReturnAction {
+  type: IAction;
+  payload: IPayload;
+}
 
 export type IAction =
   | ACTIVE_DIALOGUE
@@ -36,16 +42,19 @@ export type IAction =
   | OPEN_CONNECTION
   | SET_PARTY
   | SHOW_CHARACTERS
+  | OPEN_LEVEL
   | ADD_GLOBAL_EVENT;
 
 export type IPayload =
   | IPayloadNpcUpdate
-  | IPayloaQuestUpdate
+  | IPayloadQuestUpdate
   | IPayloadOpenConnection
   | IPayloadDisplayQuests
   | IPayloadPartyUpdate
   | IPayloadUpdateInfluence
   | IPayloadUpdateMap
+  | IPayloadShowParty
+  | IPayloadSetParty
   | string
   | number
   | null;
@@ -65,7 +74,7 @@ export interface IPayloadPartyUpdate {
   update: string;
 }
 
-export interface IPayloaQuestUpdate {
+export interface IPayloadQuestUpdate {
   quest: string;
   step: string;
 }
@@ -83,4 +92,12 @@ export interface IPayloadUpdateInfluence {
 export interface IPayloadUpdateMap {
   map: string;
   state: string;
+}
+
+export interface IPayloadShowParty {
+  party: IGsoParty | null;
+}
+
+export interface IPayloadSetParty {
+  party: IGsoParty;
 }

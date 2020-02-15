@@ -1,5 +1,6 @@
 import { IGsoLevel, IConnectionLevel, INPCLevel } from "./TypeLevels";
 import { MainCharacters, IGsoParty, ICharactersData } from "./TypeCharacters";
+import { IAction, IPayload } from "./TypeActions";
 
 export interface IGso {
   showCharacters: boolean; // Display characters menu

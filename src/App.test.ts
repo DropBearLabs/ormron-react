@@ -1,65 +1,13 @@
 import actions from "./store/actions";
 import reduicer from "./store/reduicers";
 import { IGso } from "./types/Types";
+import { gso } from "./data/Gso";
+import { MainCharacters } from "./types/TypeCharacters";
 
-let initialState: IGso = {
-  chapter: 0,
-  party: [],
-  influence: [0, 0, 0, 0],
-  showDialogue: null,
-  activeLevel: 0,
-  showQuests: null,
-  showMap: null,
-  infoline: null,
-  showParty: null,
-  levels: [
-    {
-      npc_Olija: 0,
-      npc_Dario: false
-    },
-    {
-      npc_Dario1: 2
-    },
-    {
-      npc_Nell: false,
-      npc_Tara: false
-    }
-  ],
-  quests: [],
-  questsCompleted: [],
-  maps: [0],
-  questsTaken: []
-};
+let initialState: IGso = gso;
 
 beforeEach(() => {
-  initialState = {
-    chapter: 0,
-    party: [],
-    influence: [0, 0, 0, 0],
-    showDialogue: null,
-    activeLevel: 0,
-    showQuests: null,
-    showMap: null,
-    infoline: null,
-    showParty: null,
-    levels: [
-      {
-        npc_Olija: 0,
-        npc_Dario: false
-      },
-      {
-        npc_Dario1: 2
-      },
-      {
-        npc_Nell: false,
-        npc_Tara: false
-      }
-    ],
-    quests: [],
-    questsCompleted: [],
-    maps: [0],
-    questsTaken: []
-  };
+  initialState = gso;
 });
 
 test("Activate dialogue", () => {
@@ -79,7 +27,7 @@ test("Activate map", () => {
     showMap: 0
   });
 
-  initialState.showMap = 0;
+  initialState.showMap = "0";
 
   expect(reduicer(initialState, actions.showMap(null))).toMatchObject({
     showMap: null
@@ -87,11 +35,18 @@ test("Activate map", () => {
 });
 
 test("Party selection", () => {
-  expect(reduicer(initialState, actions.showParty(["maya"]))).toMatchObject({
-    showParty: ["maya"]
+  const party = {
+    [MainCharacters.nell]: false,
+    [MainCharacters.dart]: false,
+    [MainCharacters.tara]: true,
+    [MainCharacters.grey]: false,
+    [MainCharacters.maya]: true
+  };
+  expect(reduicer(initialState, actions.showParty(party))).toMatchObject({
+    showParty: party
   });
 
-  initialState.showParty = ["maya"];
+  initialState.showParty = party;
 
   expect(reduicer(initialState, actions.showParty(null))).toMatchObject({
     showParty: null
@@ -100,29 +55,59 @@ test("Party selection", () => {
 
 test("Quest update", () => {
   expect(
-    reduicer(initialState, actions.questUpdate([0, "0_ARENA_START"]))
+    reduicer(initialState, actions.questUpdate(["tutorial", "TALK_TO_DARIO"]))
   ).toMatchObject({
-    quests: [["0_ARENA_START"]],
-    questsTaken: [0]
+    quests: [
+      {
+        id: "tutorial",
+        completedSteps: [],
+        nextStep: "TALK_TO_DARIO"
+      }
+    ],
+    questsTaken: ["tutorial"]
   });
 
-  initialState.quests = [["0_ARENA_START"]];
-  initialState.questsTaken = [0];
+  initialState.quests = [
+    {
+      id: "tutorial",
+      completedSteps: [],
+      nextStep: "TALK_TO_DARIO"
+    }
+  ];
+  initialState.questsTaken = ["tutorial"];
 
   expect(
-    reduicer(initialState, actions.questUpdate([0, "0_ARENA_ACCESS"]))
+    reduicer(initialState, actions.questUpdate(["tutorial", "ENTER_ARENA"]))
   ).toMatchObject({
-    quests: [["0_ARENA_START", "0_ARENA_ACCESS"]],
-    questsTaken: [0]
+    quests: [
+      {
+        id: "tutorial",
+        completedSteps: ["TALK_TO_DARIO"],
+        nextStep: "ENTER_ARENA"
+      }
+    ],
+    questsTaken: ["tutorial"]
   });
 
-  initialState.quests = [["0_ARENA_START", "0_ARENA_ACCESS"]];
-  initialState.questsTaken = [0];
+  initialState.quests = [
+    {
+      id: "tutorial",
+      completedSteps: ["TALK_TO_DARIO"],
+      nextStep: "ENTER_ARENA"
+    }
+  ];
+  initialState.questsTaken = ["tutorial"];
 
   expect(
-    reduicer(initialState, actions.questUpdate([0, "0_ARENA_3FIGHTS"]))
+    reduicer(initialState, actions.questUpdate(["tutorial", "WIN_3_FIGHTS"]))
   ).toMatchObject({
-    quests: [["0_ARENA_START", "0_ARENA_ACCESS", "0_ARENA_3FIGHTS"]],
-    questsTaken: [0]
+    quests: [
+      {
+        id: "tutorial",
+        completedSteps: ["TALK_TO_DARIO", "ENTER_ARENA"],
+        nextStep: "WIN_3_FIGHTS"
+      }
+    ],
+    questsTaken: ["tutorial"]
   });
 });
