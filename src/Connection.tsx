@@ -77,6 +77,7 @@ export const Connection = (props: IConnectionProps) => {
         return;
       }
     }
+
     switch (trigger.triggerType) {
       case ACTIVATE_LEVEL:
         if (isOpen()) {

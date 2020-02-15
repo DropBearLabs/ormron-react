@@ -63,11 +63,26 @@ const updateParty = (
 const questUpdate = (
   questsToUpdate: IGsoQuest[],
   quesstsTaken: string[],
+  questsCompleted: string[],
   payload: IPayloaQuestUpdate
 ) => {
   const { quest, step } = payload;
+
   const questsAll = questsToUpdate.map((x: IGsoQuest) => x.id);
   const index = questsAll.indexOf(quest);
+
+  const oldState = questsToUpdate[index];
+  // If this step is already completed or quest is coompleted - do nothing
+  if (
+    questsCompleted.indexOf(quest) !== -1 ||
+    (oldState && oldState.completedSteps.indexOf(step) !== -1)
+  ) {
+    return {
+      quests: questsToUpdate,
+      questsTaken: quesstsTaken
+    };
+  }
+
   // If there's no quest with this name - create one;
   if (index === -1) {
     questsToUpdate.push({
@@ -77,16 +92,6 @@ const questUpdate = (
     });
     quesstsTaken.push(quest);
 
-    return {
-      quests: questsToUpdate,
-      questsTaken: quesstsTaken
-    };
-  }
-
-  const oldState = questsToUpdate[index];
-
-  // If this tep is already completed - do nothing
-  if (oldState.completedSteps.indexOf(step) !== -1) {
     return {
       quests: questsToUpdate,
       questsTaken: quesstsTaken
@@ -217,6 +222,7 @@ export default function GsoReduicer(
         questUpdate(
           questsToUpdate,
           quesstsTaken,
+          questsCompleted,
           action.payload as IPayloaQuestUpdate
         )
       );

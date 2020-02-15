@@ -62,7 +62,8 @@ export const Party = (props: IPartyProps) => {
     backgroundSize: "cover",
     position: "absolute" as "absolute",
     textAlign: "center" as "center",
-    backgroundImage: `url(temp-backg5.png)`
+    backgroundImage: `url(temp-backg5.png)`,
+    paddingTop: "70px"
   };
 
   const closeButtonStyle = {
@@ -105,11 +106,6 @@ export const Party = (props: IPartyProps) => {
 
   return (
     <div style={partyStyle}>
-      <img
-        style={closeButtonStyle}
-        src="temp-icon2.png"
-        onClick={() => dispatch(showParty(null))}
-      />
       <h1>PARTY</h1>
       {allParty.map((char: IPartyMember) => {
         if (props.party && props.party.indexOf(char.id) !== -1) {
