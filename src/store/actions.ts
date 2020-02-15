@@ -55,13 +55,6 @@ export const addGlobalEvent = (event: string): IReturnAction => {
   };
 };
 
-export const openLevel = (index: number): IReturnAction => {
-  return {
-    payload: index,
-    type: OPEN_LEVEL
-  };
-};
-
 export const npcUpdate = (
   condition: [string, string, number | null]
 ): IReturnAction => {
@@ -165,5 +158,6 @@ export default {
   updateMap,
   showParty,
   questUpdate,
-  openLevel
+  openConnection,
+  addGlobalEvent
 };
