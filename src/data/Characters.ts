@@ -6,7 +6,7 @@ export const allParty: IPartyMember[] = [
     image: "temp-main4.png",
     placeholder: "temp-main4black.png",
     selected: "temp-main4selected.png",
-    opened: false
+    opened: true
   },
   {
     id: MainCharacters.dart,

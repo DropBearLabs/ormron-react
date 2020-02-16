@@ -17,7 +17,7 @@ import {
   SHOW_CHARACTERS,
   OPEN_LEVEL
 } from "../data/Constants";
-import { IGsoQuest } from "./Types";
+import { IGsoQuest, IGso } from "./Types";
 import { INPCLevel, IConnectionLevel } from "./TypeLevels";
 import { MainCharacters, IGsoParty } from "./TypeCharacters";
 
@@ -55,8 +55,10 @@ export type IPayload =
   | IPayloadUpdateMap
   | IPayloadShowParty
   | IPayloadSetParty
+  | IGsoParty
   | string
   | number
+  | boolean
   | null;
 
 export interface IPayloadNpcUpdate {

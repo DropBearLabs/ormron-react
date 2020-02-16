@@ -11,14 +11,18 @@ import {
   SELECT_PARTY,
   UPDATE_PARTY,
   UPDATE_INFLUENCE,
-  OPEN_LEVEL,
   OPEN_CONNECTION,
   ADD_GLOBAL_EVENT,
   SET_PARTY,
   SHOW_CHARACTERS
 } from "../data/Constants";
 import { IGsoParty } from "../types/TypeCharacters";
-import { IReturnAction, IPayload } from "../types/TypeActions";
+import {
+  IReturnAction,
+  IPayload,
+  IPayloadSetParty,
+  IPayloadPartyUpdate
+} from "../types/TypeActions";
 
 export const showDialogue = (index: number | null): IReturnAction => {
   return {
@@ -119,25 +123,25 @@ export const updateInfluence = (condition: [string, number]): IReturnAction => {
   };
 };
 
-export const setParty = (party: IGsoParty) => {
+export const setParty = (party: IGsoParty): IReturnAction => {
   return {
     payload: party,
     type: SET_PARTY
   };
 };
 
-export const updateParty = (condition: string[]) => {
+export const updateParty = (condition: string[]): IReturnAction => {
   const character = condition[0];
   const update = condition[1];
   return {
-    payload: { character, update },
+    payload: { character, update } as IPayloadPartyUpdate,
     type: UPDATE_PARTY
   };
 };
 
-export const showCharacters = (characters: boolean) => {
+export const showCharacters = (characters: boolean): IReturnAction => {
   return {
-    payload: characters,
+    payload: characters as IPayload,
     type: SHOW_CHARACTERS
   };
 };
@@ -159,5 +163,9 @@ export default {
   showParty,
   questUpdate,
   openConnection,
-  addGlobalEvent
+  addGlobalEvent,
+  updateInfluence,
+  setParty,
+  updateParty,
+  showCharacters
 };

@@ -414,3 +414,87 @@ test("NPC Update", () => {
     ]
   });
 });
+
+test("Test infoline", () => {
+  expect(
+    reduicer(initialState, actions.showInfoline("Test infoline"))
+  ).toMatchObject({
+    infoline: "Test infoline"
+  });
+});
+
+test("Show and hide quests", () => {
+  expect(reduicer(initialState, actions.showQuests("tutorial"))).toMatchObject({
+    showQuests: "tutorial"
+  });
+
+  initialState.showQuests = "tutorial";
+
+  expect(reduicer(initialState, actions.showQuests(null))).toMatchObject({
+    showQuests: null
+  });
+});
+
+test("End quest", () => {
+  initialState.quests = [
+    {
+      id: "tutorial",
+      completedSteps: ["TALK_TO_DARIO", "ENTER_ARENA", "WIN_3_FIGHTS"],
+      nextStep: "TALK_TO_OLIJA"
+    }
+  ];
+  initialState.questsTaken = ["tutorial"];
+
+  expect(reduicer(initialState, actions.endQuest(["tutorial"]))).toMatchObject({
+    quests: [],
+    questsCompleted: ["tutorial"],
+    questsTaken: []
+  });
+});
+
+test("Update Map", () => {
+  expect(
+    reduicer(initialState, actions.updateMap(["ormron_arena", "OPEN"]))
+  ).toMatchObject({
+    maps: ["ormron_streets", "ormron_arena"]
+  });
+});
+
+test("Update Influence", () => {
+  expect(
+    reduicer(initialState, actions.updateInfluence(["nell", 1]))
+  ).toMatchObject({
+    influence: {
+      [MainCharacters.nell]: 1
+    }
+  });
+});
+
+test("Set Party", () => {
+  const setPartyMessage = {
+    [MainCharacters.maya]: true,
+    [MainCharacters.tara]: false,
+    [MainCharacters.grey]: true,
+    [MainCharacters.dart]: false,
+    [MainCharacters.nell]: false
+  };
+  expect(
+    reduicer(initialState, actions.setParty(setPartyMessage))
+  ).toMatchObject({
+    setParty: setPartyMessage
+  });
+});
+
+test("Update Party", () => {
+  expect(
+    reduicer(initialState, actions.updateParty(["nell", "add"]))
+  ).toMatchObject({
+    party: ["maya", "nell"]
+  });
+});
+
+test("Show Characters", () => {
+  expect(reduicer(initialState, actions.showCharacters(true))).toMatchObject({
+    showCharacters: true
+  });
+});
