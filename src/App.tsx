@@ -74,7 +74,10 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <img src={findLevel(activeLevel).backgrounds[0].image} />
+      <img
+        alt="level-background"
+        src={findLevel(activeLevel).backgrounds[0].image}
+      />
       {findLevel(activeLevel).connections.map((c: string) => {
         const connection = findConnection(c);
         const connectionId = (connection.id as unknown) as IConnectionLevel;
@@ -97,7 +100,14 @@ const App: React.FC = () => {
         const npcId = (npc.id as unknown) as INPCLevel;
         const npcState = npcLevelStatus(currentLevelState(activeLevel), npcId);
         if (npc.available) {
-          return <NPC npc={npc} key={npc.id} npcTrigger={npcState} />;
+          return (
+            <NPC
+              npc={npc}
+              key={npc.id}
+              npcTrigger={npcState}
+              scene={activeLevel}
+            />
+          );
         }
       })}
       {showDialogue !== null ? (

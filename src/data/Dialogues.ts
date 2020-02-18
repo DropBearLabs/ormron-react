@@ -140,7 +140,8 @@ export const dialogues: IDialogue[] = [
         triggers: ["1_Patry_add_Nell", "1_Nell_add"]
       },
       { text: "No way", nextDial: 12, id: 2, triggers: ["1_Nell_lost"] }
-    ]
+    ],
+    triggers: ["3_Dial_Tara_to_15"]
   },
   {
     id: 11,
