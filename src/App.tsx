@@ -17,6 +17,7 @@ import {
   npcLevelStatus
 } from "./data/helpers";
 import { findNpc } from "./data/helpers";
+import { runInDebug } from "./debug/debug.js";
 
 import "./App.css";
 import { IGso } from "./types/Types";
@@ -72,12 +73,21 @@ const App: React.FC = () => {
     return current;
   };
 
+  const debugStyle = {
+    position: "absolute" as "absolute",
+    top: "0px",
+    left: "0px"
+  };
+
   return (
     <div className="App">
       <img
         alt="level-background"
         src={findLevel(activeLevel).backgrounds[0].image}
       />
+      <button style={debugStyle} onClick={() => runInDebug()}>
+        RUN QUEST1
+      </button>
       {findLevel(activeLevel).connections.map((c: string) => {
         const connection = findConnection(c);
         const connectionId = (connection.id as unknown) as IConnectionLevel;

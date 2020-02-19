@@ -54,6 +54,7 @@ export const NPC = (props: INPCProps) => {
       style={npcStyle}
       onClick={() => triggerEvent()}
       data-testid={props.scene + "_" + [props.npc.id]}
+      id={props.scene + "_" + [props.npc.id]}
     >
       <NPCState state={props.npcTrigger !== null ? "temp-icon1.png" : null} />
     </div>

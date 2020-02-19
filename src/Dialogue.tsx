@@ -28,6 +28,7 @@ import {
 interface IDialogueLineProps {
   nextLine: () => void;
   line: string;
+  lineId: string;
   choice: boolean;
 }
 
@@ -42,7 +43,7 @@ const DialogueLine = (props: IDialogueLineProps) => {
     }
   };
   return (
-    <div style={dialogueLineStyle} onClick={showNextLine}>
+    <div style={dialogueLineStyle} onClick={showNextLine} id={props.lineId}>
       {props.line}
     </div>
   );
@@ -172,6 +173,7 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
       <DialogueLine
         line={props.dialogue.lines[lineN]}
         nextLine={nextLine}
+        lineId={"dialogue" + props.dialogue.id + "_line" + lineN}
         choice={typeof props.dialogue.choice === "object" && isLastLine(lineN)}
       />
       {props.dialogue.choice && isLastLine(lineN) ? (
