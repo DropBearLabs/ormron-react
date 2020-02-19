@@ -92,7 +92,11 @@ const DialogueChoices = (props: IDialogueChoiceProps) => {
   return (
     <div style={choicesStye}>
       {props.choice.map((c: IDialogueChoice) => (
-        <button key={c.id} onClick={() => choiceMade(c)}>
+        <button
+          key={c.id}
+          onClick={() => choiceMade(c)}
+          id={"dialogue_option_" + c.id}
+        >
           {c.text}
         </button>
       ))}

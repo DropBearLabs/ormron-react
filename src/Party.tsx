@@ -120,7 +120,11 @@ export const Party = (props: IPartyProps) => {
           />
         );
       })}
-      <button style={startButtonStyle} onClick={() => setPartyExit()}>
+      <button
+        style={startButtonStyle}
+        onClick={() => setPartyExit()}
+        id="select_party_button"
+      >
         Let'sGo
       </button>
     </div>

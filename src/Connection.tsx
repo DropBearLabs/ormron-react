@@ -102,7 +102,7 @@ export const Connection = (props: IConnectionProps) => {
   }
 
   return (
-    <div style={doorStyle} onClick={() => triggerEntry()}>
+    <div style={doorStyle} onClick={() => triggerEntry()} id={connection.id}>
       {connection.id}
     </div>
   );
