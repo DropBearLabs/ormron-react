@@ -15,11 +15,8 @@ function renderWithRedux(
   };
 }
 
-test.only("First quest walkthrough", async () => {
+test.only("Dialogue, scene loading and scene switch", async () => {
   const { getByAltText, getByTestId } = renderWithRedux(<App />);
   expect(getByAltText("level-background")).toHaveAttribute("src", "temp1.jpg");
   fireEvent.click(getByTestId("ormron_street_npc_Olija"));
-  // expect(getByTestId("background")).toHaveTextContent("No characters");
-  // expect(getByTestId("search")).toBeTruthy();
-  // expect(getByTestId("searchBtn")).toBeTruthy();
 });
