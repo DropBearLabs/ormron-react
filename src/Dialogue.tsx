@@ -87,7 +87,9 @@ const DialogueChoices = (props: IDialogueChoiceProps) => {
   const choiceMade = (c: IDialogueChoice) => {
     dispatch(showDialogue(c.nextDial));
     props.setLineN(0);
-    c.triggers.forEach((n: string) => triggerEvent(n));
+    if (c.triggers) {
+      c.triggers.forEach((n: string) => triggerEvent(n));
+    }
   };
   return (
     <div style={choicesStye}>

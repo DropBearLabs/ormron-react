@@ -140,8 +140,7 @@ export const dialogues: IDialogue[] = [
         triggers: ["1_Patry_add_Nell", "1_Nell_add"]
       },
       { text: "No way", nextDial: 12, id: 2, triggers: ["1_Nell_lost"] }
-    ],
-    triggers: ["3_Dial_Tara_to_15"]
+    ]
   },
   {
     id: 11,
@@ -150,7 +149,8 @@ export const dialogues: IDialogue[] = [
     lines: [
       "It's hard for you to find a team, isn't it? Sure, you can join me."
     ],
-    nextNode: 14
+    nextNode: 14,
+    triggers: ["1_Global_Nell_team"]
   },
   {
     id: 12,
@@ -174,6 +174,137 @@ export const dialogues: IDialogue[] = [
     id: 14,
     characterId: IGsoLevelOrmronGardenNPCs.char_Nell,
     image: "temp-dial4.png",
-    lines: ["Thank you so much. But what are we actually doing?"]
+    lines: ["Thank you so much. But what are we actually doing?"],
+    nextNode: 15
+  },
+  {
+    id: 15,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: [
+      "We need to go to the bedouins camp and figure out what's with water supplies.",
+      "Also someone went ahead, so we may grab them on our way."
+    ],
+    nextNode: 16
+  },
+  {
+    id: 16,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Nell,
+    image: "temp-dial4.png",
+    lines: [
+      "I know who it was. It was this arrogant snob, Dart or whatever his name is!"
+    ],
+    nextNode: 17
+  },
+  {
+    id: 17,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: [
+      "Master Dart? This is so cool! He is amazing!",
+      "Do you know he is the youngest master in the history of Ormron?"
+    ],
+    nextNode: 18
+  },
+  {
+    id: 18,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Nell,
+    image: "temp-dial4.png",
+    lines: ["I so don't care... Shall we go?"],
+    nextNode: 19
+  },
+  {
+    id: 19,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: [
+      "In a bit. It's nice here in the garden. Woundering who else enjoys the spring morning here."
+    ],
+    triggers: ["3_Dial_Tara_to_20"]
+  },
+  {
+    id: 20,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["Hi! Tara, isn't it?"],
+    nextNode: 21
+  },
+  {
+    id: 21,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Tara,
+    image: "temp-dial5.png",
+    lines: ["Who's asking?"],
+    nextNode: 22
+  },
+  {
+    id: 22,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: [
+      "I am Maya. We're in the same world history class. I heard you are the best fighter the school has!"
+    ],
+    nextNode: 23
+  },
+  {
+    id: 23,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Tara,
+    image: "temp-dial5.png",
+    lines: ["Maybe I am. What do you need?"],
+    nextNode: 24
+  },
+  {
+    id: 24,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["Are you doing your finals? How is it going?"],
+    nextNode: 25
+  },
+  {
+    id: 25,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Tara,
+    image: "temp-dial5.png",
+    lines: [
+      "I went though ten levels of Arena and now I am bored. Do you have something cool to do?"
+    ],
+    choice: [
+      {
+        text: "Yes! I am on a quest!",
+        nextDial: 26,
+        id: 1,
+        triggers: ["2_Patry_add_Tara", "1_Tara_add"]
+      },
+      { text: "Not at all", nextDial: 27, id: 2 }
+    ]
+  },
+  {
+    id: 26,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["Yes! Do you want to join me?"],
+    nextNode: 28,
+    triggers: ["1_Global_Tara_team"]
+  },
+  {
+    id: 27,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Tara,
+    image: "temp-dial5.png",
+    lines: [
+      "Then leave me alone, I need to train for the next level of arena."
+    ],
+    triggers: ["3_Dial_Tara_to_false"]
   }
+  // {
+  //   id: 28,
+  //   characterId:,
+  //   image:,
+  //   lines: [],
+  //   nextNode:
+  // },
+  // {
+  //   id:,
+  //   characterId:,
+  //   image:,
+  //   lines: [],
+  //   nextNode:
+  // },
 ];

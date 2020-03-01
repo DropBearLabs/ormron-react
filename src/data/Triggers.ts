@@ -75,9 +75,14 @@ export const triggers: ITrigger[] = [
     data: ["ormron_arena", "npc_Dario1", null]
   },
   {
-    id: "3_Dial_Tara_to_15",
+    id: "3_Dial_Tara_to_20",
     triggerType: UPDATE_NPC,
-    data: ["ormron_garden", "char_Tara", 15]
+    data: ["ormron_garden", "char_Tara", 20]
+  },
+  {
+    id: "3_Dial_Tara_to_false",
+    triggerType: UPDATE_NPC,
+    data: ["ormron_garden", "char_Tara", null]
   },
   {
     id: "1_Dial_Nell_handshake",
@@ -119,8 +124,14 @@ export const triggers: ITrigger[] = [
     triggerType: UPDATE_PARTY,
     data: ["nell", "add"]
   },
+  {
+    id: "2_Patry_add_Tara",
+    triggerType: UPDATE_PARTY,
+    data: ["tara", "add"]
+  },
   { id: "1_Nell_lost", triggerType: UPDATE_INFLUENCE, data: ["nell", -1] },
   { id: "1_Nell_add", triggerType: UPDATE_INFLUENCE, data: ["nell", 1] },
+  { id: "1_Tara_add", triggerType: UPDATE_INFLUENCE, data: ["tara", 1] },
   {
     id: "1_Activate_ormron_street",
     triggerType: ACTIVATE_LEVEL,
@@ -155,5 +166,15 @@ export const triggers: ITrigger[] = [
     id: "1_Global_Nell_handshake",
     triggerType: ADD_GLOBAL_EVENT,
     data: "NELL_HANDSHAKE"
+  },
+  {
+    id: "1_Global_Nell_team",
+    triggerType: ADD_GLOBAL_EVENT,
+    data: "NELL_PARTY"
+  },
+  {
+    id: "1_Global_Tara_team",
+    triggerType: ADD_GLOBAL_EVENT,
+    data: "TARA_PARTY"
   }
 ];

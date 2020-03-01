@@ -101,7 +101,7 @@ export interface IDialogueChoice {
   id: number;
   text: string;
   nextDial: number;
-  triggers: string[];
+  triggers?: string[];
 }
 
 export interface IQuest {
