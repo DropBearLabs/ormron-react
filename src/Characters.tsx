@@ -8,8 +8,9 @@ import {
 } from "./types/TypeCharacters";
 import { findPartyMember } from "./data/helpers";
 import { SpellsCircle, SpellDescription, SpellsAll } from "./Spells";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { showCharacters } from "./store/actions";
+import { IGso } from "./types/Types";
 
 interface ICharacterStatsProps {
   characterData: ICharacterData;
@@ -60,11 +61,9 @@ const Character = (props: ICharacterProps) => {
   );
 };
 
-interface ICharactersProps {
-  party: MainCharacters[];
-  partyState: ICharactersData;
-}
-export const Characters = (props: ICharactersProps) => {
+export const Characters = () => {
+  const party = useSelector((state: IGso) => state.party);
+  const partyState = useSelector((state: IGso) => state.charactersData);
   const [char, setChar] = useState<MainCharacters>(MainCharacters.maya);
   const dispatch = useDispatch();
   const partyStyle = {
@@ -92,16 +91,16 @@ export const Characters = (props: ICharactersProps) => {
   const character = findPartyMember(char);
 
   const findNextCharacter = () => {
-    const currentInd = props.party.indexOf(char);
+    const currentInd = party.indexOf(char);
     let next = 0;
-    if (currentInd < props.party.length - 1) {
+    if (currentInd < party.length - 1) {
       next = currentInd + 1;
     }
-    setChar(props.party[next]);
-    return findPartyMember(props.party[next]);
+    setChar(party[next]);
+    return findPartyMember(party[next]);
   };
 
-  const characterData = props.partyState[char];
+  const characterData = partyState[char];
   return (
     <div style={partyStyle}>
       <img

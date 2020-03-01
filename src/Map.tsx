@@ -1,7 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { IMap, IMapLevel } from "./types/Types";
+import { IMap, IMapLevel, IGso } from "./types/Types";
 import { showMap } from "./store/actions";
 
 interface ILevelProps {
@@ -26,11 +26,11 @@ const Level = (props: ILevelProps) => {
 };
 
 interface IMapProps {
-  chapter: number;
   map: IMap;
-  state: string[];
 }
 export const Map = (props: IMapProps) => {
+  const state = useSelector((s: IGso) => s.maps);
+  const chapter = useSelector((s: IGso) => s.chapter);
   const dispatch = useDispatch();
   const mapStyle = {
     backgroundImage: `url(temp-backg4.png)`,
@@ -51,7 +51,7 @@ export const Map = (props: IMapProps) => {
   };
 
   const isAvailable = (id: string) => {
-    const level = props.state.find((l: string) => l === id);
+    const level = state.find((l: string) => l === id);
     return level !== undefined;
   };
   return (
@@ -65,7 +65,7 @@ export const Map = (props: IMapProps) => {
         <Level
           level={l}
           available={isAvailable(l.id)}
-          key={props.chapter + "_" + l.id}
+          key={chapter + "_" + l.id}
         />
       ))}
     </div>

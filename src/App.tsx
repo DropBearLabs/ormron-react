@@ -26,8 +26,6 @@ import { Quest } from "./Quest";
 import { IConnectionLevel, IGsoLevel, INPCLevel } from "./types/TypeLevels";
 import { Characters } from "./Characters";
 
-const GSOContext = React.createContext(null);
-
 interface IInfolineProps {
   line: string | null;
 }
@@ -56,13 +54,8 @@ const App: React.FC = () => {
   const infoline = useSelector((state: IGso) => state.infoline);
   const showQuests = useSelector((state: IGso) => state.showQuests);
   const questsTaken = useSelector((state: IGso) => state.questsTaken);
-  const questsState = useSelector((state: IGso) => state.quests);
-  const mapsState = useSelector((state: IGso) => state.maps);
   const showMap = useSelector((state: IGso) => state.showMap);
-  const chapter = useSelector((state: IGso) => state.chapter);
   const showParty = useSelector((state: IGso) => state.showParty);
-  const party = useSelector((state: IGso) => state.party);
-  const partyState = useSelector((state: IGso) => state.charactersData);
   const showCharacters = useSelector((state: IGso) => state.showCharacters);
 
   const currentLevelState = (id: string) => {
@@ -120,27 +113,15 @@ const App: React.FC = () => {
           );
         }
       })}
-      {showDialogue !== null ? (
-        <Dialogue dialogue={dialogues[showDialogue]} />
-      ) : null}
-      {infoline !== null ? <InfoLine line={infoline} /> : null}
-      {<Menu showQuests={showQuests} quests={questsState} />}
-      {showQuests !== null ? (
-        <Quest
-          active={showQuests}
-          allTakenQuests={questsState}
-          quests={questsTaken.map((q: string) => findQuest(q))}
-        />
-      ) : null}
-      {showMap !== null ? (
-        <Map chapter={chapter} map={maps[0]} state={mapsState} />
-      ) : null}
-      {showParty !== null ? (
-        <Party party={party} showParty={showParty} />
-      ) : null}
-      {showCharacters !== false ? (
-        <Characters party={party} partyState={partyState} />
-      ) : null}
+      {showDialogue && <Dialogue dialogue={dialogues[showDialogue]} />}
+      {infoline && <InfoLine line={infoline} />}
+      <Menu />
+      {showQuests && (
+        <Quest quests={questsTaken.map((q: string) => findQuest(q))} />
+      )}
+      {showMap && <Map map={maps[0]} />}
+      {showParty && <Party />}
+      {showCharacters && <Characters />}
     </div>
   );
 };

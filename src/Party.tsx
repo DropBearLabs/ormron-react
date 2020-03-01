@@ -5,9 +5,10 @@ import {
   MainCharacters
 } from "./types/TypeCharacters";
 import { showParty, setParty } from "./store/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { allParty } from "./data/Characters";
 import { findPartyMember } from "./data/helpers";
+import { IGso } from "./types/Types";
 
 interface IPartyMemberProps {
   char: IPartyMember;
@@ -47,12 +48,9 @@ const PartyMember = (props: IPartyMemberProps) => {
   );
 };
 
-interface IPartyProps {
-  party: string[] | null;
-  showParty: IGsoParty | null;
-}
-
-export const Party = (props: IPartyProps) => {
+export const Party = () => {
+  const displayParty = useSelector((state: IGso) => state.showParty);
+  const party = useSelector((state: IGso) => state.party);
   const dispatch = useDispatch();
   const partyStyle = {
     top: "0",
@@ -79,7 +77,7 @@ export const Party = (props: IPartyProps) => {
     right: "100px"
   };
   const [currentSelection, setSelection] = useState<IGsoParty | null>(
-    props.showParty
+    displayParty
   );
 
   const selectMember = (id: MainCharacters) => {
@@ -108,7 +106,7 @@ export const Party = (props: IPartyProps) => {
     <div style={partyStyle}>
       <h1>PARTY</h1>
       {allParty.map((char: IPartyMember) => {
-        if (props.party && props.party.indexOf(char.id) !== -1) {
+        if (party && party.indexOf(char.id) !== -1) {
           char.opened = true;
         }
         return (

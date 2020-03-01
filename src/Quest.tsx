@@ -1,6 +1,6 @@
 import React from "react";
-import { IQuest, IQuestStep, IGsoQuest } from "./types/Types";
-import { useDispatch } from "react-redux";
+import { IQuest, IQuestStep, IGsoQuest, IGso } from "./types/Types";
+import { useDispatch, useSelector } from "react-redux";
 import { showQuests } from "./store/actions";
 import { quests } from "./data/Quests";
 import { isCompositeComponent } from "react-dom/test-utils";
@@ -28,7 +28,7 @@ const SingleLine = (props: ISingleLineProps) => {
 
 interface ISingleQuestProps {
   quest: IGsoQuest;
-  active: string;
+  active: string | null;
 }
 const SingleQuest = (props: ISingleQuestProps) => {
   const singleQuestStyle = {
@@ -62,10 +62,10 @@ const SingleQuest = (props: ISingleQuestProps) => {
 
 interface IQuestProps {
   quests: IQuest[];
-  allTakenQuests: IGsoQuest[];
-  active: string;
 }
 export const Quest = (props: IQuestProps) => {
+  const active = useSelector((state: IGso) => state.showQuests);
+  const allTakenQuests = useSelector((state: IGso) => state.quests);
   const dispatch = useDispatch();
   const menuStyle = {
     top: "0px",
@@ -93,13 +93,11 @@ export const Quest = (props: IQuestProps) => {
       />
       {props.quests &&
         props.quests.map((q: IQuest) => {
-          const quest = props.allTakenQuests.find(
-            (t: IGsoQuest) => t.id === q.id
-          );
+          const quest = allTakenQuests.find((t: IGsoQuest) => t.id === q.id);
           if (quest === undefined) {
             throw new Error(`Quest with id ${q.id} doesn't exist`);
           }
-          return <SingleQuest key={q.id} active={props.active} quest={quest} />;
+          return <SingleQuest key={q.id} active={active} quest={quest} />;
         })}
     </div>
   );

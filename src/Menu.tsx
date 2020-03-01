@@ -1,14 +1,10 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { IGsoQuest } from "./types/Types";
+import { useDispatch, useSelector } from "react-redux";
+import { IGso } from "./types/Types";
 import { showQuests, showMap, showCharacters } from "./store/actions";
 
-interface IMenuProps {
-  showQuests: string | null;
-  quests: IGsoQuest[];
-}
-
-export const Menu = (props: IMenuProps) => {
+export const Menu = () => {
+  const quests = useSelector((state: IGso) => state.quests);
   const dispatch = useDispatch();
   const menuStyle = {
     top: "0",
@@ -52,8 +48,8 @@ export const Menu = (props: IMenuProps) => {
         style={iconQuestStyle}
         src="temp-icon4.png"
         onClick={() =>
-          props.quests[0]
-            ? dispatch(showQuests(props.quests[0].id))
+          quests[0]
+            ? dispatch(showQuests(quests[0].id))
             : dispatch(showQuests("none"))
         }
       />
