@@ -293,14 +293,47 @@ export const dialogues: IDialogue[] = [
       "Then leave me alone, I need to train for the next level of arena."
     ],
     triggers: ["3_Dial_Tara_to_false"]
+  },
+  {
+    id: 28,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: [
+      "We're going to bedoins camp. To check water supply.",
+      "And catch up with Master Dart."
+    ],
+    nextNode: 32
+  },
+  {
+    id: 29,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["I am going to bedoins camp. To check water supply."],
+    nextNode: 30
+  },
+  {
+    id: 30,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Tara,
+    image: "temp-dial5.png",
+    lines: ["I though Master Dart was doing that. I saw him leaving earlier."],
+    nextNode: 31
+  },
+  {
+    id: 31,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["Let's go, we need to try to catch up."],
+    triggers: ["3_Dial_Tara_to_false"]
+  },
+  {
+    id: 32,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Tara,
+    image: "temp-dial5.png",
+    lines: [
+      "Master Dart? Ha, I beat his score in the arena last week. He's probably still bitter about that."
+    ],
+    nextNode: 31
   }
-  // {
-  //   id: 28,
-  //   characterId:,
-  //   image:,
-  //   lines: [],
-  //   nextNode:
-  // },
   // {
   //   id:,
   //   characterId:,

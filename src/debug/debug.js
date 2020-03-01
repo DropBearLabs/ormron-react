@@ -4,7 +4,7 @@ const clickThrough = id => {
     setTimeout(function() {
       document.getElementById(id).click();
       resolve();
-    }, 1000)
+    }, 600)
   );
 };
 
@@ -55,11 +55,27 @@ export const runInDebug = async () => {
     "dialogue_option_1",
     "dialogue11_line0",
     "dialogue14_line0",
-    "dialogue15_line0"
-    // "dialogue16_line0",
-    // "dialogue17_line0",
-    // "dialogue17_line1",
-    // "dialogue18_line0",
-    // "dialogue19_line0"
+    "dialogue15_line0",
+    "dialogue15_line1",
+    "dialogue16_line0",
+    "dialogue17_line0",
+    "dialogue17_line1",
+    "dialogue18_line0",
+    "dialogue19_line0"
+  ]);
+
+  await clickThrough("ormron_garden_char_Tara");
+  await passDialogue([
+    "dialogue20_line0",
+    "dialogue21_line0",
+    "dialogue22_line0",
+    "dialogue23_line0",
+    "dialogue24_line0",
+    "dialogue_option_1",
+    "dialogue26_line0",
+    "dialogue28_line0",
+    "dialogue28_line1",
+    "dialogue32_line0",
+    "dialogue31_line0"
   ]);
 };

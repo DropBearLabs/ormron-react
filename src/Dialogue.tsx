@@ -164,10 +164,11 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
         props.dialogue.triggers.forEach((t: string) => triggerEvent(t));
       }
       if (typeof props.dialogue.nextNode === "number") {
+        // This Dialogue continues normally
         dispatch(showDialogue(props.dialogue.nextNode));
         setLineN(0);
       } else if (typeof props.dialogue.nextNode === "object") {
-        console.log("Got dialogue object");
+        // This dialogue continuation depends on a global event
         const next = checkGlobalEvent(
           globalevents,
           "yes",
@@ -180,6 +181,7 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
         }
         setLineN(0);
       } else {
+        // There's no continuation, drop the dialogue
         dispatch(showDialogue(null));
       }
     }

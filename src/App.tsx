@@ -113,15 +113,17 @@ const App: React.FC = () => {
           );
         }
       })}
-      {showDialogue && <Dialogue dialogue={dialogues[showDialogue]} />}
-      {infoline && <InfoLine line={infoline} />}
+      {showDialogue !== null ? (
+        <Dialogue dialogue={dialogues[showDialogue]} />
+      ) : null}
+      {infoline !== null ? <InfoLine line={infoline} /> : null}
       <Menu />
-      {showQuests && (
+      {showQuests !== null ? (
         <Quest quests={questsTaken.map((q: string) => findQuest(q))} />
-      )}
-      {showMap && <Map map={maps[0]} />}
-      {showParty && <Party />}
-      {showCharacters && <Characters />}
+      ) : null}
+      {showMap !== null ? <Map map={maps[0]} /> : null}
+      {showParty !== null ? <Party /> : null}
+      {showCharacters !== false ? <Characters /> : null}
     </div>
   );
 };
