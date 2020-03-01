@@ -26,6 +26,8 @@ import { Quest } from "./Quest";
 import { IConnectionLevel, IGsoLevel, INPCLevel } from "./types/TypeLevels";
 import { Characters } from "./Characters";
 
+const GSOContext = React.createContext(null);
+
 interface IInfolineProps {
   line: string | null;
 }
@@ -62,7 +64,6 @@ const App: React.FC = () => {
   const party = useSelector((state: IGso) => state.party);
   const partyState = useSelector((state: IGso) => state.charactersData);
   const showCharacters = useSelector((state: IGso) => state.showCharacters);
-  const globalevents = useSelector((state: IGso) => state.globalEvents);
 
   const currentLevelState = (id: string) => {
     const current = levelState.find((l: IGsoLevel) => l.id === id);
@@ -98,7 +99,6 @@ const App: React.FC = () => {
 
         return (
           <Connection
-            globalevents={globalevents}
             connection={connection}
             key={connection.id}
             connectionState={connectionState}

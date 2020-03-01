@@ -1,7 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { IConnection } from "./types/Types";
+import { IConnection, IGso } from "./types/Types";
 
 import {
   levelActive,
@@ -24,11 +24,11 @@ import { ITrigger } from "./types/TypeTriggers";
 interface IConnectionProps {
   connection: IConnection;
   connectionState: string;
-  globalevents: string[];
 }
 export const Connection = (props: IConnectionProps) => {
   const dispatch = useDispatch();
-  const { connection, connectionState, globalevents } = props;
+  const globalevents = useSelector((state: IGso) => state.globalEvents);
+  const { connection, connectionState } = props;
   const doorStyle = {
     left: connection.position.x,
     bottom: connection.position.y,

@@ -83,7 +83,9 @@ export interface INpc {
 }
 
 export interface IDialContinuation {
-  id: string;
+  event: string;
+  nextYes: number;
+  nextNo: number;
 }
 
 export interface IDialogue {

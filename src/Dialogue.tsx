@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   showDialogue,
@@ -12,8 +12,8 @@ import {
   openConnection,
   addGlobalEvent
 } from "./store/actions";
-import { IDialogue, IDialogueChoice } from "./types/Types";
-import { findTrigger } from "./data/helpers";
+import { IDialogue, IDialogueChoice, IGso } from "./types/Types";
+import { findTrigger, checkGlobalEvent } from "./data/helpers";
 import {
   ADD_GLOBAL_EVENT,
   UPDATE_PARTY,
@@ -112,6 +112,7 @@ interface IDialogueOutputProps {
 
 const DialogueOutput = (props: IDialogueOutputProps) => {
   const dispatch = useDispatch();
+  const globalevents = useSelector((state: IGso) => state.globalEvents);
   const dialoguePaperStyle = {
     height: "200px",
     width: "1024px",
@@ -164,6 +165,19 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
       }
       if (typeof props.dialogue.nextNode === "number") {
         dispatch(showDialogue(props.dialogue.nextNode));
+        setLineN(0);
+      } else if (typeof props.dialogue.nextNode === "object") {
+        console.log("Got dialogue object");
+        const next = checkGlobalEvent(
+          globalevents,
+          "yes",
+          props.dialogue.nextNode.event
+        );
+        if (next) {
+          dispatch(showDialogue(props.dialogue.nextNode.nextYes));
+        } else {
+          dispatch(showDialogue(props.dialogue.nextNode.nextNo));
+        }
         setLineN(0);
       } else {
         dispatch(showDialogue(null));

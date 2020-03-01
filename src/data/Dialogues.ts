@@ -168,7 +168,8 @@ export const dialogues: IDialogue[] = [
     image: "temp-dial4.png",
     lines: [
       "It is unfair, Lady Maya. But I am sure we will end up on one team somehow!"
-    ]
+    ],
+    triggers: ["3_Dial_Tara_to_20"]
   },
   {
     id: 14,
@@ -281,7 +282,7 @@ export const dialogues: IDialogue[] = [
     characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
     image: "temp-dial1.png",
     lines: ["Yes! Do you want to join me?"],
-    nextNode: 28,
+    nextNode: { event: "NELL_PARTY", nextYes: 28, nextNo: 29 },
     triggers: ["1_Global_Tara_team"]
   },
   {
