@@ -18,7 +18,7 @@ export const gso: IGso = {
       npcs: {
         npc_Olija: 0,
         npc_Dario: null,
-        char_Maya: null
+        char_Maya: false
       },
       connections: {
         street_to_garden: ConnectionStatus.closed,
@@ -39,7 +39,7 @@ export const gso: IGso = {
       id: "ormron_garden",
       npcs: {
         char_Tara: null,
-        char_Nell: null
+        char_Nell: false
       },
       connections: {
         garden_to_street: ConnectionStatus.open,

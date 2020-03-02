@@ -131,8 +131,8 @@ export function connectionLevelStatus(
 export function npcLevelStatus(
   level: IGsoLevel,
   name: INPCLevel,
-  status?: number | null
-): number | null {
+  status?: number | null | false
+): number | null | false {
   if (!(name in level.npcs)) {
     throw new Error(`Invalid NPC name ${name} for level ${level.id}`);
   }

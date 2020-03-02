@@ -31,7 +31,8 @@ import {
   IPayloadOpenConnection,
   IPayloadUpdateMap,
   IPayloadUpdateInfluence,
-  IReturnAction
+  IReturnAction,
+  IPayloadLevelNpcsUpdate
 } from "../types/TypeActions";
 import { MainCharacters } from "../types/TypeCharacters";
 

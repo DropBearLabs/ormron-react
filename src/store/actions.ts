@@ -20,7 +20,6 @@ import { IGsoParty } from "../types/TypeCharacters";
 import {
   IReturnAction,
   IPayload,
-  IPayloadSetParty,
   IPayloadPartyUpdate
 } from "../types/TypeActions";
 
@@ -60,7 +59,7 @@ export const addGlobalEvent = (event: string): IReturnAction => {
 };
 
 export const npcUpdate = (
-  condition: [string, string, number | null]
+  condition: [string, string, number | null | false]
 ): IReturnAction => {
   const level = condition[0];
   const character = condition[1];

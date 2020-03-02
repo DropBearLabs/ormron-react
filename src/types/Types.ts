@@ -1,6 +1,5 @@
 import { IGsoLevel, IConnectionLevel, INPCLevel } from "./TypeLevels";
 import { MainCharacters, IGsoParty, ICharactersData } from "./TypeCharacters";
-import { IAction, IPayload } from "./TypeActions";
 
 export interface IGso {
   showCharacters: boolean; // Display characters menu
@@ -79,7 +78,6 @@ export interface INpc {
   name: string;
   image: string;
   position: IPoint;
-  available: boolean;
 }
 
 export interface IDialContinuation {

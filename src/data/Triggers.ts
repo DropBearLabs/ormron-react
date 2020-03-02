@@ -158,6 +158,11 @@ export const triggers: ITrigger[] = [
     data: ["ormron_street", "street_to_garden"]
   },
   {
+    id: "3_Open_connection_gazebo",
+    triggerType: OPEN_CONNECTION,
+    data: ["ormron_garden", "garden_to_gazebo"]
+  },
+  {
     id: "1_Global_Tutorial_complete",
     triggerType: ADD_GLOBAL_EVENT,
     data: "TUTORIAL_COMPLETE"
@@ -176,5 +181,11 @@ export const triggers: ITrigger[] = [
     id: "1_Global_Tara_team",
     triggerType: ADD_GLOBAL_EVENT,
     data: "TARA_PARTY"
+  },
+  {
+    id: "3_Tara_remove_from_level",
+    triggerType: UPDATE_NPC,
+    data: ["ormron_garden", "char_Tara", false],
+    condition: [["yes", "TARA_PARTY"]]
   }
 ];

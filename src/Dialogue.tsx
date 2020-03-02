@@ -153,6 +153,7 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
         return;
       case ADD_GLOBAL_EVENT:
         dispatch(addGlobalEvent(trigger.data));
+        return;
       default:
         return;
     }

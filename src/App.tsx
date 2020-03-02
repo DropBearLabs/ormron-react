@@ -102,7 +102,7 @@ const App: React.FC = () => {
         const npc = findNpc(n);
         const npcId = (npc.id as unknown) as INPCLevel;
         const npcState = npcLevelStatus(currentLevelState(activeLevel), npcId);
-        if (npc.available) {
+        if (npc && npcState !== false) {
           return (
             <NPC
               npc={npc}

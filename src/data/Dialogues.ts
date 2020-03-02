@@ -292,7 +292,7 @@ export const dialogues: IDialogue[] = [
     lines: [
       "Then leave me alone, I need to train for the next level of arena."
     ],
-    triggers: ["3_Dial_Tara_to_false"]
+    triggers: ["3_Dial_Tara_to_false", "3_Open_connection_gazebo"]
   },
   {
     id: 28,
@@ -302,7 +302,8 @@ export const dialogues: IDialogue[] = [
       "We're going to bedoins camp. To check water supply.",
       "And catch up with Master Dart."
     ],
-    nextNode: 32
+    nextNode: 32,
+    triggers: ["3_Tara_remove_from_level"]
   },
   {
     id: 29,
@@ -322,8 +323,7 @@ export const dialogues: IDialogue[] = [
     id: 31,
     characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
     image: "temp-dial1.png",
-    lines: ["Let's go, we need to try to catch up."],
-    triggers: ["3_Dial_Tara_to_false"]
+    lines: ["Let's go, we need to try to catch up."]
   },
   {
     id: 32,
@@ -332,7 +332,8 @@ export const dialogues: IDialogue[] = [
     lines: [
       "Master Dart? Ha, I beat his score in the arena last week. He's probably still bitter about that."
     ],
-    nextNode: 31
+    nextNode: 31,
+    triggers: ["3_Open_connection_gazebo"]
   }
   // {
   //   id:,

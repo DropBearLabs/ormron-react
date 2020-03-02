@@ -55,6 +55,7 @@ export type IPayload =
   | IPayloadUpdateMap
   | IPayloadShowParty
   | IPayloadSetParty
+  | IPayloadLevelNpcsUpdate
   | IGsoParty
   | string
   | number
@@ -64,7 +65,7 @@ export type IPayload =
 export interface IPayloadNpcUpdate {
   level: string;
   character: INPCLevel;
-  setTo: number | null;
+  setTo: number | null | false;
 }
 
 export interface IPayloadDisplayQuests {
@@ -74,6 +75,12 @@ export interface IPayloadDisplayQuests {
 export interface IPayloadPartyUpdate {
   character: MainCharacters;
   update: string;
+}
+
+export interface IPayloadLevelNpcsUpdate {
+  level: string;
+  npc: string;
+  state: "add" | "remove";
 }
 
 export interface IPayloadQuestUpdate {
