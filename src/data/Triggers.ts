@@ -13,7 +13,29 @@ import {
 import { ITrigger } from "../types/TypeTriggers";
 
 export const triggers: ITrigger[] = [
+  // GLOBAL EVENTS
   { id: "1_Game_Start", triggerType: ADD_GLOBAL_EVENT, data: "GAME_START" },
+  {
+    id: "1_Global_Tutorial_complete",
+    triggerType: ADD_GLOBAL_EVENT,
+    data: "TUTORIAL_COMPLETE"
+  },
+  {
+    id: "1_Global_Nell_handshake",
+    triggerType: ADD_GLOBAL_EVENT,
+    data: "NELL_HANDSHAKE"
+  },
+  {
+    id: "1_Global_Nell_team",
+    triggerType: ADD_GLOBAL_EVENT,
+    data: "NELL_PARTY"
+  },
+  {
+    id: "1_Global_Tara_team",
+    triggerType: ADD_GLOBAL_EVENT,
+    data: "TARA_PARTY"
+  },
+  // UPDATES FOR THE MAP POINTS
   {
     id: "1_Map_update_open",
     triggerType: MAP_UPDATE,
@@ -44,6 +66,7 @@ export const triggers: ITrigger[] = [
     triggerType: MAP_UPDATE,
     data: ["desert_1", "OPEN"]
   },
+  // NPC DIALOGUE UPDATES
   {
     id: "1_Dial_Oliga_to_false",
     triggerType: UPDATE_NPC,
@@ -94,6 +117,13 @@ export const triggers: ITrigger[] = [
     ]
   },
   {
+    id: "3_Tara_remove_from_level",
+    triggerType: UPDATE_NPC,
+    data: ["ormron_garden", "char_Tara", false],
+    condition: [["yes", "TARA_PARTY"]]
+  },
+  // QUEST UPDATES
+  {
     id: "1_Quest_talk_to_Dario",
     triggerType: UPDATE_QUEST,
     data: ["tutorial", "TALK_TO_DARIO"]
@@ -119,6 +149,7 @@ export const triggers: ITrigger[] = [
     triggerType: UPDATE_QUEST,
     data: ["waterproblems", "CAMP_START"]
   },
+  // PARTY UPDATES
   {
     id: "1_Patry_add_Nell",
     triggerType: UPDATE_PARTY,
@@ -132,6 +163,7 @@ export const triggers: ITrigger[] = [
   { id: "1_Nell_lost", triggerType: UPDATE_INFLUENCE, data: ["nell", -1] },
   { id: "1_Nell_add", triggerType: UPDATE_INFLUENCE, data: ["nell", 1] },
   { id: "1_Tara_add", triggerType: UPDATE_INFLUENCE, data: ["tara", 1] },
+  // ACTIVATE LEVELS
   {
     id: "1_Activate_ormron_street",
     triggerType: ACTIVATE_LEVEL,
@@ -148,6 +180,12 @@ export const triggers: ITrigger[] = [
     data: "ormron_garden"
   },
   {
+    id: "3_Activate_ormron_gazebo",
+    triggerType: ACTIVATE_LEVEL,
+    data: "ormron_gazebo"
+  },
+  // ACTIVATE CONNECTIONS
+  {
     id: "1_Open_connection_arena",
     triggerType: OPEN_CONNECTION,
     data: ["ormron_street", "street_to_arena"]
@@ -161,31 +199,5 @@ export const triggers: ITrigger[] = [
     id: "3_Open_connection_gazebo",
     triggerType: OPEN_CONNECTION,
     data: ["ormron_garden", "garden_to_gazebo"]
-  },
-  {
-    id: "1_Global_Tutorial_complete",
-    triggerType: ADD_GLOBAL_EVENT,
-    data: "TUTORIAL_COMPLETE"
-  },
-  {
-    id: "1_Global_Nell_handshake",
-    triggerType: ADD_GLOBAL_EVENT,
-    data: "NELL_HANDSHAKE"
-  },
-  {
-    id: "1_Global_Nell_team",
-    triggerType: ADD_GLOBAL_EVENT,
-    data: "NELL_PARTY"
-  },
-  {
-    id: "1_Global_Tara_team",
-    triggerType: ADD_GLOBAL_EVENT,
-    data: "TARA_PARTY"
-  },
-  {
-    id: "3_Tara_remove_from_level",
-    triggerType: UPDATE_NPC,
-    data: ["ormron_garden", "char_Tara", false],
-    condition: [["yes", "TARA_PARTY"]]
   }
 ];

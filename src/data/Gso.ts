@@ -39,12 +39,23 @@ export const gso: IGso = {
       id: "ormron_garden",
       npcs: {
         char_Tara: null,
-        char_Nell: false
+        char_Nell: false,
+        npc_AmuletGirl: null
       },
       connections: {
         garden_to_street: ConnectionStatus.open,
         garden_to_gazebo: ConnectionStatus.closed,
         garden_to_school: ConnectionStatus.closed
+      }
+    },
+    {
+      id: "ormron_gazebo",
+      npcs: {
+        char_Grey: null,
+        npc_SchoolGirl: null
+      },
+      connections: {
+        gazebo_to_garden: ConnectionStatus.open
       }
     }
   ],

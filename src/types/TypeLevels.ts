@@ -24,7 +24,6 @@ export enum IGsoLevelOrmronStreetNPCs {
   npc_Dario = "npc_Dario",
   char_Maya = "char_Maya"
 }
-
 type IGsoLevelOrmronStreet = IConnectedLevel<
   IGsoLevelOrmronStreetConnections,
   IGsoLevelOrmronStreetNPCs
@@ -38,7 +37,6 @@ export enum IGsoLevelOrmronArenaConnections {
 export enum IGsoLevelOrmronArenaNPCs {
   npc_Dario1 = "npc_Dario1"
 }
-
 type IGsoLevelOrmronArena = IConnectedLevel<
   IGsoLevelOrmronArenaConnections,
   IGsoLevelOrmronArenaNPCs
@@ -53,9 +51,9 @@ export enum IGsoLevelOrmronGardenConnections {
 }
 export enum IGsoLevelOrmronGardenNPCs {
   char_Tara = "char_Tara",
-  char_Nell = "char_Nell"
+  char_Nell = "char_Nell",
+  npc_AmuletGirl = "npc_AmuletGirl"
 }
-
 type IGsoLevelOrmronGarden = IConnectedLevel<
   IGsoLevelOrmronGardenConnections,
   IGsoLevelOrmronGardenNPCs
@@ -63,17 +61,34 @@ type IGsoLevelOrmronGarden = IConnectedLevel<
   id: string;
 };
 
+export enum IGsoLevelOrmronGazeboConnections {
+  gazebo_to_garden = "gazebo_to_garden"
+}
+export enum IGsoLevelOrmronGazeboNPCs {
+  char_Grey = "char_Grey",
+  npc_SchoolGirl = "npc_SchoolGirl"
+}
+type IGsoLevelOrmronGazebo = IConnectedLevel<
+  IGsoLevelOrmronGazeboConnections,
+  IGsoLevelOrmronGazeboNPCs
+> & {
+  id: string;
+};
+
 export type IGsoLevel =
   | IGsoLevelOrmronStreet
   | IGsoLevelOrmronArena
-  | IGsoLevelOrmronGarden;
+  | IGsoLevelOrmronGarden
+  | IGsoLevelOrmronGazebo;
 
 export type IConnectionLevel =
   | IGsoLevelOrmronStreetConnections
   | IGsoLevelOrmronArenaConnections
-  | IGsoLevelOrmronGardenConnections;
+  | IGsoLevelOrmronGardenConnections
+  | IGsoLevelOrmronGazeboConnections;
 
 export type INPCLevel =
   | IGsoLevelOrmronStreetNPCs
   | IGsoLevelOrmronArenaNPCs
-  | IGsoLevelOrmronGardenNPCs;
+  | IGsoLevelOrmronGardenNPCs
+  | IGsoLevelOrmronGazeboNPCs;

@@ -2,7 +2,8 @@ import { IConnection } from "../types/Types";
 import {
   IGsoLevelOrmronStreetConnections,
   IGsoLevelOrmronArenaConnections,
-  IGsoLevelOrmronGardenConnections
+  IGsoLevelOrmronGardenConnections,
+  IGsoLevelOrmronGazeboConnections
 } from "../types/TypeLevels";
 const SCREENWIDTH = 1024;
 const GROUNDLEVEL = 200;
@@ -56,7 +57,8 @@ export const connections: IConnection[] = [
     open: "temp-obj1c.png",
     closed: "temp-obj1.png",
     position: { x: 400, y: GROUNDLEVEL },
-    showParty: null
+    showParty: null,
+    triggers: ["3_Activate_ormron_gazebo"]
   },
   {
     id: IGsoLevelOrmronGardenConnections.garden_to_school,
@@ -64,5 +66,13 @@ export const connections: IConnection[] = [
     closed: "temp-obj2.png",
     position: { x: SCREENWIDTH - 200, y: GROUNDLEVEL },
     showParty: null
+  },
+  {
+    id: IGsoLevelOrmronGazeboConnections.gazebo_to_garden,
+    open: "temp-obj2c.png",
+    closed: "temp-obj2.png",
+    position: { x: 10, y: GROUNDLEVEL },
+    showParty: null,
+    triggers: ["1_Activate_ormron_garden"]
   }
 ];

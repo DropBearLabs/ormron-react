@@ -5,7 +5,9 @@ import {
   IGsoLevelOrmronArenaConnections,
   IGsoLevelOrmronArenaNPCs,
   IGsoLevelOrmronGardenNPCs,
-  IGsoLevelOrmronGardenConnections
+  IGsoLevelOrmronGardenConnections,
+  IGsoLevelOrmronGazeboConnections,
+  IGsoLevelOrmronGazeboNPCs
 } from "../types/TypeLevels";
 
 export const levels: ILevel[] = [
@@ -36,15 +38,20 @@ export const levels: ILevel[] = [
       IGsoLevelOrmronGardenConnections.garden_to_gazebo,
       IGsoLevelOrmronGardenConnections.garden_to_school
     ],
-    npcs: [IGsoLevelOrmronGardenNPCs.char_Tara]
-  }
-  /*
+    npcs: [
+      IGsoLevelOrmronGardenNPCs.char_Tara,
+      IGsoLevelOrmronGardenNPCs.npc_AmuletGirl
+    ]
+  },
   {
     id: "ormron_gazebo",
     backgrounds: [{ image: "temp4.jpg" }],
-    connections: [],
-    npcs: []
-  },
+    connections: [IGsoLevelOrmronGazeboConnections.gazebo_to_garden],
+    npcs: [
+      IGsoLevelOrmronGazeboNPCs.char_Grey,
+      IGsoLevelOrmronGazeboNPCs.npc_SchoolGirl
+    ]
+  } /*
   {
     id: "ormron_school",
     backgrounds: [{ image: "temp5.jpg" }],
