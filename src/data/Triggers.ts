@@ -98,6 +98,11 @@ export const triggers: ITrigger[] = [
     data: ["ormron_arena", "npc_Dario1", null]
   },
   {
+    id: "1_Dial_Dario_to_default",
+    triggerType: UPDATE_NPC,
+    data: ["ormron_street", "npc_Dario", "Dario_first_quest"]
+  },
+  {
     id: "3_Dial_Tara_to_20",
     triggerType: UPDATE_NPC,
     data: ["ormron_garden", "char_Tara", 20]

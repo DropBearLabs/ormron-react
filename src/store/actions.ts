@@ -59,7 +59,7 @@ export const addGlobalEvent = (event: string): IReturnAction => {
 };
 
 export const npcUpdate = (
-  condition: [string, string, number | null | false]
+  condition: [string, string, number | null | false | string]
 ): IReturnAction => {
   const level = condition[0];
   const character = condition[1];

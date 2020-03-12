@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { showDialogue, showInfoline } from "./store/actions";
 import { INpc } from "./types/Types";
+import { findDefaultLine } from "./data/helpers";
 
 interface INPCStateProps {
   state: string | null;
+  line?: string;
 }
 
 const NPCState = (props: INPCStateProps) => {
@@ -15,8 +17,17 @@ const NPCState = (props: INPCStateProps) => {
     marginTop: "-100px",
     border: "0"
   };
+  const lineStyle = {
+    position: "absolute" as "absolute",
+    top: "-50px",
+    width: "100%",
+    fontSize: "18px",
+    textShadow: "0px 1px 2px #ccc, 1px 1px 10px #ccc"
+  };
 
-  if (props.state) {
+  if (props.line) {
+    return <div style={lineStyle}>{props.line}</div>;
+  } else if (props.state) {
     return <img style={imgStyle} src={props.state} />;
   } else {
     return null;
@@ -39,12 +50,18 @@ export const NPC = (props: INPCProps) => {
     position: "absolute" as "absolute",
     textAlign: "center" as "center"
   };
-
+  const [line, setLine] = useState("");
   const dispatch = useDispatch();
   function triggerEvent() {
     // dispatch(showInfoline(null));
     if (props.npcTrigger === null) {
       return;
+    } else if (typeof props.npcTrigger === "string") {
+      const defaultLine = findDefaultLine(props.npcTrigger);
+      setLine(defaultLine.line);
+      setTimeout(() => {
+        setLine("");
+      }, 2000);
     } else {
       dispatch(showDialogue(props.npcTrigger));
     }
@@ -56,7 +73,14 @@ export const NPC = (props: INPCProps) => {
       data-testid={props.scene + "_" + [props.npc.id]}
       id={props.scene + "_" + [props.npc.id]}
     >
-      <NPCState state={props.npcTrigger !== null ? "temp-icon1.png" : null} />
+      <NPCState
+        state={
+          props.npcTrigger !== null && typeof props.npcTrigger !== "string"
+            ? "temp-icon1.png"
+            : null
+        }
+        line={line}
+      />
     </div>
   );
 };

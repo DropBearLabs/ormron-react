@@ -97,6 +97,11 @@ export interface IDialogue {
   triggers?: string[];
 }
 
+export interface IDefaultLine {
+  id: string;
+  line: string;
+}
+
 export interface IDialogueChoice {
   id: number;
   text: string;

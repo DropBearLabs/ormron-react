@@ -1,5 +1,5 @@
 import { levels } from "./Levels";
-import { dialogues } from "./Dialogues";
+import { dialogues, defaultLines } from "./Dialogues";
 import { npcs } from "./Npcs";
 import { quests } from "./Quests";
 import { triggers } from "./Triggers";
@@ -11,7 +11,8 @@ import {
   IQuest,
   IQuestStep,
   IConnection,
-  INpc
+  INpc,
+  IDefaultLine
 } from "../types/Types";
 import { ITrigger } from "../types/TypeTriggers";
 import {
@@ -98,6 +99,16 @@ export function findLevel(levelId: string) {
     throw Error("Unknown level id" + levelId);
   }
   return level;
+}
+
+export function findDefaultLine(lineId: string) {
+  const line: IDefaultLine | undefined = defaultLines.find(
+    (d: IDefaultLine) => d.id === lineId
+  );
+  if (line === undefined) {
+    throw Error("Unknown dialog id" + lineId);
+  }
+  return line;
 }
 
 export function checkGlobalEvent(
