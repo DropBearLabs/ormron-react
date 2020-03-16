@@ -25,7 +25,7 @@ const SpellIcon = (props: ISpellIconProps) => {
 };
 
 interface ISpellDescriptionProps {
-  spell: ISpell | null;
+  spell: ISpell;
 }
 export const SpellDescription = (props: ISpellDescriptionProps) => {
   const { spell } = props;

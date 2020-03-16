@@ -155,10 +155,10 @@ export const gso: IGso = {
     },
     [MainCharacters.nell]: {
       id: MainCharacters.nell,
-      life: 12,
-      mana: 15,
-      attack_physical: 2,
-      attack_magic: 4,
+      life: 13,
+      mana: 13,
+      attack_physical: 4,
+      attack_magic: 2,
       spells: []
     },
     [MainCharacters.dart]: {
@@ -171,11 +171,67 @@ export const gso: IGso = {
     },
     [MainCharacters.tara]: {
       id: MainCharacters.tara,
-      life: 12,
-      mana: 15,
-      attack_physical: 2,
-      attack_magic: 4,
-      spells: []
+      life: 14,
+      mana: 10,
+      attack_physical: 4,
+      attack_magic: 2,
+      spells: [
+        {
+          id: Spells.tara_attack1,
+          taken: true,
+          available: true
+        },
+        {
+          id: Spells.tara_attack2a,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.tara_attack2b,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.tara_bleed,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.tara_attack3a,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.tara_attack3b,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.tara_will,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.tara_pare,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.tara_pull,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.tara_push,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.tara_finish,
+          taken: false,
+          available: false
+        }
+      ]
     },
     [MainCharacters.grey]: {
       id: MainCharacters.grey,

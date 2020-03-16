@@ -21,7 +21,18 @@ export enum Spells {
   maya_earthquake = "maya_earthquake",
   maya_resurrect = "maya_resurrect",
   maya_quickSand = "maya_quickSand",
-  maya_chamber = "maya_chamber"
+  maya_chamber = "maya_chamber",
+  tara_attack1 = "tara_attack1",
+  tara_attack2a = "tara_attack2a",
+  tara_attack2b = "tara_attack2b",
+  tara_bleed = "tara_bleed",
+  tara_attack3a = "tara_attack3a",
+  tara_attack3b = "tara_attack3b",
+  tara_pull = "tara_pull",
+  tara_finish = "tara_finish",
+  tara_push = "tara_push",
+  tara_will = "tara_will",
+  tara_pare = "tara_pare"
 }
 
 export interface IGsoParty {

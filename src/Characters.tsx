@@ -1,4 +1,4 @@
-import React, { useState, SetStateAction } from "react";
+import React, { useState, SetStateAction, useEffect } from "react";
 import {
   IPartyMember,
   ICharactersData,
@@ -11,6 +11,7 @@ import { SpellsCircle, SpellDescription, SpellsAll } from "./Spells";
 import { useDispatch, useSelector } from "react-redux";
 import { showCharacters } from "./store/actions";
 import { IGso } from "./types/Types";
+import { SSL_OP_NETSCAPE_CHALLENGE_BUG } from "constants";
 
 interface ICharacterStatsProps {
   characterData: ICharacterData;
@@ -38,10 +39,11 @@ const CharacterStats = (props: ICharacterStatsProps) => {
 interface ICharacterProps {
   character: IPartyMember;
   characterData: ICharacterData;
+  setSpell: any;
+  spell: any;
 }
 const Character = (props: ICharacterProps) => {
-  const { character, characterData } = props;
-  const [spell, setSpell] = useState(characterData.spells[0]);
+  const { character, characterData, setSpell, spell } = props;
   const charStyle = {
     top: "100px",
     left: "100px",
@@ -89,6 +91,12 @@ export const Characters = () => {
   };
 
   const character = findPartyMember(char);
+  const characterData = partyState[char];
+  useEffect(() => {
+    setSpell(characterData.spells[0]);
+  }, [party, characterData]);
+
+  const [spell, setSpell] = useState(characterData.spells[0]);
 
   const findNextCharacter = () => {
     const currentInd = party.indexOf(char);
@@ -97,10 +105,10 @@ export const Characters = () => {
       next = currentInd + 1;
     }
     setChar(party[next]);
+    setSpell(characterData.spells[0]);
     return findPartyMember(party[next]);
   };
 
-  const characterData = partyState[char];
   return (
     <div style={partyStyle}>
       <img
@@ -119,7 +127,12 @@ export const Characters = () => {
           <button onClick={findNextCharacter}>{">>"}</button>
         </li>
       </ul>
-      <Character character={character} characterData={characterData} />
+      <Character
+        character={character}
+        characterData={characterData}
+        setSpell={setSpell}
+        spell={spell}
+      />
       <CharacterStats characterData={characterData} />
     </div>
   );
