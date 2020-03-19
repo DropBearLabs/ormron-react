@@ -22,6 +22,7 @@ export enum Spells {
   maya_resurrect = "maya_resurrect",
   maya_quickSand = "maya_quickSand",
   maya_chamber = "maya_chamber",
+
   tara_attack1 = "tara_attack1",
   tara_attack2a = "tara_attack2a",
   tara_attack2b = "tara_attack2b",
@@ -32,7 +33,46 @@ export enum Spells {
   tara_finish = "tara_finish",
   tara_push = "tara_push",
   tara_will = "tara_will",
-  tara_pare = "tara_pare"
+  tara_pare = "tara_pare",
+
+  nell_fireFist = "nell_fireFist",
+  nell_doubleTap = "nell_doubleTap",
+  nell_fireBall = "nell_fireBall",
+  nell_fireRain = "nell_fireRain",
+  nell_intoCorner = "nell_intoCorner",
+  nell_forestFire = "nell_forestFire",
+  nell_cross = "nell_cross",
+  nell_protect = "nell_protect",
+  nell_protect2 = "nell_protect2",
+  nell_berserker = "nell_berserker",
+  nell_burn = "nell_burn",
+  nell_fireWall = "nell_fireWall",
+
+  dart_wave = "dart_wave",
+  dart_icePick = "dart_icePick",
+  dart_deepWater = "dart_deepWater",
+  dart_whirPool = "dart_whirPool",
+  dart_ripCurl = "dart_ripCurl",
+  dart_blizzard = "dart_blizzard",
+  dart_drown = "dart_drown",
+  dart_tsunami = "dart_tsunami",
+  dart_fear = "dart_fear",
+  dart_soulCatcher = "dart_soulCatcher",
+  dart_frostBite = "dart_frostBite",
+  dart_iceberg = "dart_iceberg",
+
+  grey_blast = "grey_blast",
+  grey_numb = "grey_numb",
+  grey_pullIn = "grey_pullIn",
+  grey_poison = "grey_poison",
+  grey_toxin = "grey_toxin",
+  grey_sellOut = "grey_sellOut",
+  grey_chaos = "grey_chaos",
+  grey_stun = "grey_stun",
+  grey_soundWave = "grey_soundWave",
+  grey_tornado = "grey_tornado",
+  grey_gust = "grey_gust",
+  grey_cyclone = "grey_cyclone"
 }
 
 export interface IGsoParty {

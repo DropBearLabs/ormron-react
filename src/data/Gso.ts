@@ -159,7 +159,68 @@ export const gso: IGso = {
       mana: 13,
       attack_physical: 4,
       attack_magic: 2,
-      spells: []
+      spells: [
+        {
+          id: Spells.nell_fireFist,
+          taken: true,
+          available: true
+        },
+        {
+          id: Spells.nell_doubleTap,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.nell_fireBall,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.nell_fireRain,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.nell_intoCorner,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.nell_forestFire,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.nell_cross,
+          taken: true,
+          available: true
+        },
+        {
+          id: Spells.nell_protect,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.nell_protect2,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.nell_berserker,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.nell_burn,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.nell_fireWall,
+          taken: false,
+          available: false
+        }
+      ]
     },
     [MainCharacters.dart]: {
       id: MainCharacters.dart,
@@ -167,7 +228,68 @@ export const gso: IGso = {
       mana: 15,
       attack_physical: 2,
       attack_magic: 4,
-      spells: []
+      spells: [
+        {
+          id: Spells.dart_wave,
+          taken: true,
+          available: true
+        },
+        {
+          id: Spells.dart_icePick,
+          taken: true,
+          available: true
+        },
+        {
+          id: Spells.dart_deepWater,
+          taken: true,
+          available: true
+        },
+        {
+          id: Spells.dart_whirPool,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.dart_ripCurl,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.dart_blizzard,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.dart_drown,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.dart_tsunami,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.dart_fear,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.dart_soulCatcher,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.dart_frostBite,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.dart_iceberg,
+          taken: false,
+          available: false
+        }
+      ]
     },
     [MainCharacters.tara]: {
       id: MainCharacters.tara,
@@ -239,7 +361,68 @@ export const gso: IGso = {
       mana: 15,
       attack_physical: 2,
       attack_magic: 4,
-      spells: []
+      spells: [
+        {
+          id: Spells.grey_blast,
+          taken: true,
+          available: true
+        },
+        {
+          id: Spells.grey_numb,
+          taken: true,
+          available: true
+        },
+        {
+          id: Spells.grey_pullIn,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.grey_poison,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.grey_toxin,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.grey_sellOut,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.grey_chaos,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.grey_stun,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.grey_soundWave,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.grey_toxin,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.grey_gust,
+          taken: false,
+          available: false
+        },
+        {
+          id: Spells.grey_cyclone,
+          taken: false,
+          available: false
+        }
+      ]
     }
   }
 };
