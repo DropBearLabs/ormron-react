@@ -63,13 +63,19 @@ export const gso: IGso = {
   questsCompleted: [],
   maps: ["ormron_streets"],
   questsTaken: [],
-  party: [MainCharacters.maya],
+  party: [
+    MainCharacters.maya,
+    MainCharacters.tara,
+    MainCharacters.nell,
+    MainCharacters.dart,
+    MainCharacters.grey
+  ],
   setParty: {
     [MainCharacters.maya]: true,
-    [MainCharacters.tara]: false,
-    [MainCharacters.grey]: false,
-    [MainCharacters.dart]: false,
-    [MainCharacters.nell]: false
+    [MainCharacters.tara]: true,
+    [MainCharacters.grey]: true,
+    [MainCharacters.dart]: true,
+    [MainCharacters.nell]: true
   },
   influence: {
     [MainCharacters.nell]: 0,
@@ -192,8 +198,8 @@ export const gso: IGso = {
         },
         {
           id: Spells.nell_cross,
-          taken: true,
-          available: true
+          taken: false,
+          available: false
         },
         {
           id: Spells.nell_protect,
@@ -241,8 +247,8 @@ export const gso: IGso = {
         },
         {
           id: Spells.dart_deepWater,
-          taken: true,
-          available: true
+          taken: false,
+          available: false
         },
         {
           id: Spells.dart_whirPool,
@@ -408,7 +414,7 @@ export const gso: IGso = {
           available: false
         },
         {
-          id: Spells.grey_toxin,
+          id: Spells.grey_tornado,
           taken: false,
           available: false
         },

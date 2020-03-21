@@ -58,7 +58,11 @@ const Character = (props: ICharacterProps) => {
         setSpell={setSpell}
       />
       <SpellDescription spell={spell} />
-      <SpellsAll spells={characterData.spells} setSpell={setSpell} />
+      <SpellsAll
+        spells={characterData.spells}
+        setSpell={setSpell}
+        backgroud={character.spellBackground}
+      />
     </div>
   );
 };

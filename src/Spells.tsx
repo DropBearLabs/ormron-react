@@ -2,25 +2,32 @@ import React, { useState } from "react";
 import { ISpell, ICharacterSpell } from "./types/TypeCharacters";
 import { IPoint } from "./types/Types";
 import { findSpell } from "./data/helpers";
+import { blue } from "color-name";
 interface ISpellIconProps {
   spell: ISpell;
   spellData: ICharacterSpell;
   setSpell: any;
   position: IPoint;
+  size: string;
 }
 const SpellIcon = (props: ISpellIconProps) => {
   const iconStyle = {
     position: "absolute" as "absolute",
     bottom: props.position.y,
     left: props.position.x,
-    width: "50px",
-    height: "50px",
+    width: props.size === "small" ? "30px" : "50px",
+    height: props.size === "small" ? "30px" : "50px",
     borderRadius: "25px",
+    //filter: props.size === "small" ? "blur(5px)" : "blur(0)",
     backgroundImage: `url(${props.spellData.image}`,
-    opacity: props.spell.available ? "1" : "0.3"
+    opacity: props.spell.available ? "1" : "0.5"
   };
   return (
-    <div style={iconStyle} onClick={() => props.setSpell(props.spell)}></div>
+    <div
+      style={iconStyle}
+      data-name={props.spellData.name}
+      onClick={() => props.setSpell(props.spell)}
+    ></div>
   );
 };
 
@@ -56,14 +63,17 @@ export const SpellDescription = (props: ISpellDescriptionProps) => {
 interface ISpellsAllProps {
   spells: ISpell[];
   setSpell: any;
+  backgroud: string;
 }
 export const SpellsAll = (props: ISpellsAllProps) => {
   const spellsStyle = {
     position: "absolute" as "absolute",
     bottom: "30px",
-    right: "100px",
-    width: "450px",
-    height: "300px"
+    right: "150px",
+    width: "400px",
+    height: "400px",
+    backgroundImage: `url("${props.backgroud}")`,
+    backgroundSize: "cover"
   };
 
   return (
@@ -77,6 +87,7 @@ export const SpellsAll = (props: ISpellsAllProps) => {
             key={s.id}
             setSpell={props.setSpell}
             position={spellData.position}
+            size="small"
           />
         );
       })}
@@ -127,6 +138,7 @@ export const SpellsCircle = (props: ISpellsCircleProps) => {
             key={s.id}
             setSpell={props.setSpell}
             position={pos}
+            size="med"
           />
         );
       })}

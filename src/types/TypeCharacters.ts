@@ -90,6 +90,7 @@ export interface IPartyMember {
   placeholder: string;
   selected: string;
   opened: boolean;
+  spellBackground: string;
 }
 
 export interface ICharacterSpell {
