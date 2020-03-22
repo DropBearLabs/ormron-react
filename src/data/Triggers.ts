@@ -35,6 +35,11 @@ export const triggers: ITrigger[] = [
     triggerType: ADD_GLOBAL_EVENT,
     data: "TARA_PARTY"
   },
+  {
+    id: "3_Global_Amulet_quest_taken",
+    triggerType: ADD_GLOBAL_EVENT,
+    data: "AMULET_QUEST_TAKEN"
+  },
   // UPDATES FOR THE MAP POINTS
   {
     id: "1_Map_update_open",
@@ -113,6 +118,16 @@ export const triggers: ITrigger[] = [
     data: ["ormron_garden", "char_Tara", null]
   },
   {
+    id: "3_Dial_AmuletGirl_to_default",
+    triggerType: UPDATE_NPC,
+    data: ["ormron_garden", "npc_AmuletGirl", "AmuletGirl_first_quest"]
+  },
+  {
+    id: "3_Dial_AmuletGirl_to_33",
+    triggerType: UPDATE_NPC,
+    data: ["ormron_garden", "npc_AmuletGirl", 33]
+  },
+  {
     id: "1_Dial_Nell_handshake",
     triggerType: ACTIVE_DIALOGUE,
     data: 8,
@@ -153,6 +168,11 @@ export const triggers: ITrigger[] = [
     id: "2_Quest_go_to_camp",
     triggerType: UPDATE_QUEST,
     data: ["waterproblems", "CAMP_START"]
+  },
+  {
+    id: "3_Quest_amulet_find",
+    triggerType: UPDATE_QUEST,
+    data: ["findamulet", "FIND_AMULET"]
   },
   // PARTY UPDATES
   {

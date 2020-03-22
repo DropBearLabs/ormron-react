@@ -2,7 +2,8 @@ import { IDialogue, IDefaultLine } from "../types/Types";
 import {
   IGsoLevelOrmronStreetNPCs,
   IGsoLevelOrmronArenaNPCs,
-  IGsoLevelOrmronGardenNPCs
+  IGsoLevelOrmronGardenNPCs,
+  IGsoLevelOrmronGazeboNPCs
 } from "../types/TypeLevels";
 
 export const defaultLines: IDefaultLine[] = [
@@ -318,7 +319,11 @@ export const dialogues: IDialogue[] = [
     lines: [
       "Then leave me alone, I need to train for the next level of arena."
     ],
-    triggers: ["3_Dial_Tara_to_false", "3_Open_connection_gazebo"]
+    triggers: [
+      "3_Dial_Tara_to_false",
+      "3_Open_connection_gazebo",
+      "3_Dial_AmuletGirl_to_33"
+    ]
   },
   {
     id: 28,
@@ -329,7 +334,7 @@ export const dialogues: IDialogue[] = [
       "And catch up with Master Dart."
     ],
     nextNode: 32,
-    triggers: ["3_Tara_remove_from_level"]
+    triggers: ["3_Tara_remove_from_level", "3_Dial_AmuletGirl_to_33"]
   },
   {
     id: 29,
@@ -360,6 +365,116 @@ export const dialogues: IDialogue[] = [
     ],
     nextNode: 31,
     triggers: ["3_Open_connection_gazebo"]
+  },
+  {
+    id: 33,
+    characterId: IGsoLevelOrmronGardenNPCs.npc_AmuletGirl,
+    image: "temp-dial8.png",
+    lines: ["Are you going to Bedouinh's camp by any chance?"],
+    nextNode: 34
+  },
+  {
+    id: 34,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["Yes, headmaster Olija told me..."],
+    nextNode: 35
+  },
+  {
+    id: 35,
+    characterId: IGsoLevelOrmronGardenNPCs.npc_AmuletGirl,
+    image: "temp-dial8.png",
+    lines: [
+      "Super! Look, I've been there with my teacher a couple of weeks ago and left my amulet there.",
+      "Can you bring it back if you see it? It's circular with a snake head on it,",
+      "Been in my family for generations, my Granny will kill me if I won't get it back!"
+    ],
+    choice: [
+      {
+        text: "Sure, why not",
+        nextDial: 36,
+        id: 1,
+        triggers: ["3_Global_Amulet_quest_taken"]
+      },
+      {
+        text: "Not interested",
+        nextDial: 37,
+        id: 2
+      }
+    ]
+  },
+  {
+    id: 36,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["I will lok for it if I have time."],
+    nextNode: 38,
+    triggers: ["3_Quest_amulet_find"]
+  },
+  {
+    id: 37,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["Go and look for your amulet yourslef!"],
+    nextNode: 39
+  },
+  {
+    id: 38,
+    characterId: IGsoLevelOrmronGardenNPCs.npc_AmuletGirl,
+    image: "temp-dial8.png",
+    lines: [
+      "Thank you! It's like super old. Your family been here for agrs you know how important these things are!"
+    ],
+    triggers: ["3_Dial_AmuletGirl_to_default"]
+  },
+  {
+    id: 39,
+    characterId: IGsoLevelOrmronGardenNPCs.npc_AmuletGirl,
+    image: "temp-dial8.png",
+    lines: [
+      "Wow, attitude! You think if your family is one of the oldest here, you're better than the rest of us?"
+    ],
+    triggers: ["3_Dial_AmuletGirl_to_default"]
+  },
+  {
+    id: 40,
+    characterId: IGsoLevelOrmronGazeboNPCs.npc_SchoolGirl,
+    image: "temp-dial10.png",
+    lines: ["Hi! How is it going? Where are you heading?"],
+    nextNode: 41
+  },
+  {
+    id: 41,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["To bedouin's camp... I need..."],
+    nextNode: 42
+  },
+  {
+    id: 42,
+    characterId: IGsoLevelOrmronGazeboNPCs.npc_SchoolGirl,
+    image: "temp-dial10.png",
+    lines: [
+      "I though Master Dart was doing that! It's not like I am following him or anything...",
+      "I totally do, he is so handsome! But I lost him after the bridge. So disapointing...",
+      "Say Hi for me if you see him! He totally remembers me, we were in the same herbal therapy class!"
+    ],
+    nextNode: { event: "NELL_PARTY", nextYes: 43, nextNo: 44 }
+  },
+  {
+    id: 43,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Nell,
+    image: "temp-dial4.png",
+    lines: ["Dart again. It's just annoying!"],
+    nextNode: 44
+  },
+  {
+    id: 44,
+    characterId: IGsoLevelOrmronGazeboNPCs.npc_SchoolGirl,
+    image: "temp-dial10.png",
+    lines: [
+      "I envy you so much, you get to chase Master Dart and have an official excuse to do so!"
+    ]
   }
   // {
   //   id:,

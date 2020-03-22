@@ -35,5 +35,13 @@ export const quests: IQuest[] = [
         event: "1_CAMP_RIVER"
       }
     ]
+  },
+  {
+    id: "findamulet",
+    main: false,
+    name: "Find forgotten Amulet",
+    steps: [
+      { name: "Ask about amulet in bedouin's camp", event: "FIND_AMULET" }
+    ]
   }
 ];
