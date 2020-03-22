@@ -172,7 +172,6 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
         // This dialogue continuation depends on a global event
         const next = checkGlobalEvent(
           globalevents,
-          "yes",
           props.dialogue.nextNode.event
         );
         if (next) {

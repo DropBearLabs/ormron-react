@@ -131,16 +131,13 @@ export const triggers: ITrigger[] = [
     id: "1_Dial_Nell_handshake",
     triggerType: ACTIVE_DIALOGUE,
     data: 8,
-    condition: [
-      ["not", "NELL_HANDSHAKE"],
-      ["yes", "TUTORIAL_COMPLETE"]
-    ]
+    condition: ["TUTORIAL_COMPLETE"]
   },
   {
     id: "3_Tara_remove_from_level",
     triggerType: UPDATE_NPC,
     data: ["ormron_garden", "char_Tara", false],
-    condition: [["yes", "TARA_PARTY"]]
+    condition: ["TARA_PARTY"]
   },
   // QUEST UPDATES
   {

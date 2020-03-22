@@ -111,16 +111,12 @@ export function findDefaultLine(lineId: string) {
   return line;
 }
 
-export function checkGlobalEvent(
-  global: string[],
-  status: string,
-  event: string
-) {
-  if (status === "not") {
-    return global.indexOf(event) === -1;
-  } else {
-    return global.indexOf(event) !== -1;
+export function checkGlobalEvent(global: string[], events: string[] | string) {
+  console.log("checkGlobalEvent", global, events);
+  if (typeof events === "string") {
+    return global.indexOf(events) !== -1;
   }
+  return events.every((e: string) => global.includes(e));
 }
 
 export function connectionLevelStatus(

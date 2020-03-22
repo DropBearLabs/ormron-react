@@ -81,7 +81,7 @@ export interface INpc {
 }
 
 export interface IDialContinuation {
-  event: string;
+  event: string[];
   nextYes: number;
   nextNo: number;
 }

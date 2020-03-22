@@ -70,10 +70,7 @@ export const Connection = (props: IConnectionProps) => {
     // }, 2000);
     // }
     if (trigger.condition) {
-      const res = trigger.condition.every((cond: string[]) =>
-        checkGlobalEvent(globalevents, cond[0], cond[1])
-      );
-      if (!res) {
+      if (!checkGlobalEvent(globalevents, trigger.condition)) {
         return;
       }
     }
