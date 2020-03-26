@@ -3,7 +3,8 @@ import {
   IGsoLevelOrmronStreetNPCs,
   IGsoLevelOrmronArenaNPCs,
   IGsoLevelOrmronGardenNPCs,
-  IGsoLevelOrmronGazeboNPCs
+  IGsoLevelOrmronGazeboNPCs,
+  IGsoLevelOrmronGazeboConnections
 } from "../types/TypeLevels";
 
 export const defaultLines: IDefaultLine[] = [
@@ -138,7 +139,7 @@ export const dialogues: IDialogue[] = [
     image: "temp-dial4.png",
     lines: ["Hi, Lady Maya!"],
     nextNode: 9,
-    triggers: ["1_Global_Nell_handshake"]
+    triggers: ["1_Global_GARDEN_HANDSHAKE"]
   },
   {
     id: 9,
@@ -345,7 +346,12 @@ export const dialogues: IDialogue[] = [
     characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
     image: "temp-dial1.png",
     lines: ["I am going to bedoins camp. To check water supply."],
-    nextNode: 30
+    nextNode: 30,
+    triggers: [
+      "3_Tara_remove_from_level",
+      "3_Open_connection_gazebo",
+      "3_Dial_AmuletGirl_to_33"
+    ]
   },
   {
     id: 30,
@@ -411,7 +417,7 @@ export const dialogues: IDialogue[] = [
     id: 36,
     characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
     image: "temp-dial1.png",
-    lines: ["I will lok for it if I have time."],
+    lines: ["I will look for it if I have time."],
     nextNode: 38,
     triggers: ["3_Quest_amulet_find"]
   },
@@ -482,7 +488,365 @@ export const dialogues: IDialogue[] = [
     image: "temp-dial10.png",
     lines: [
       "I envy you so much, you get to chase Master Dart and have an official excuse to do so!"
+    ],
+    triggers: ["3_Dial_ShcoolGirl_to_null"]
+  },
+  {
+    id: 45,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: [
+      "Look who's here. Grey. The laziest mage of Ormron. At least that's how he calls himself."
+    ],
+    nextNode: {
+      event: { event: "TARA_PARTY", status: true },
+      nextYes: 46,
+      nextNo: 47
+    }
+  },
+  {
+    // This is nell only line
+    id: 46,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["I thought everyone should be busy with their finals today."],
+    nextNode: 48
+  },
+  {
+    // This is nell only line
+    id: 47,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["I thought everyone should be busy with their finals today."],
+    nextNode: {
+      event: { event: "NELL_PARTY", status: true },
+      nextYes: 51,
+      nextNo: 54
+    }
+  },
+  {
+    id: 48,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Tara,
+    image: "temp-dial5.png",
+    lines: [
+      "I think we better to find someone who may actually want to join.",
+      "Grey doesn't want anything. Ever."
+    ],
+    nextNode: 49
+  },
+  {
+    id: 49,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["How do you know?"],
+    nextNode: 50
+  },
+  {
+    id: 50,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Tara,
+    image: "temp-dial5.png",
+    lines: [
+      "I have him in most of my classes. Sleeping is the only thing that exitest him."
+    ],
+    choice: [
+      {
+        text: "If you say so",
+        nextDial: 55,
+        id: 1,
+        triggers: ["1_Tara_add"]
+      },
+      {
+        text: "There's no harm in talking",
+        nextDial: 56,
+        id: 2,
+        triggers: ["1_Tara_lost"]
+      }
     ]
+  },
+  {
+    id: 51,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Nell,
+    image: "temp-dial4.png",
+    lines: [
+      "Lady Maya, do you want to ask him if he joins us? He's a pretty cool dude!"
+    ],
+    nextNode: 52
+  },
+  {
+    id: 52,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["What's cool about him?"],
+    nextNode: 53
+  },
+  {
+    id: 53,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Nell,
+    image: "temp-dial4.png",
+    lines: ["I heard he is very good. Just doesn't like to show it."],
+    triggers: ["3_Dial_Grey_to_57"]
+  },
+  {
+    id: 54,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: [
+      "I heard he impressed everyone on his last exam, not sure how though..."
+    ],
+    triggers: ["3_Dial_Grey_to_57"]
+  },
+  {
+    id: 55,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["Sure, if you say so. We can always talk to him after the finals."],
+    triggers: ["3_Dial_Grey_to_null"]
+  },
+  {
+    id: 56,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["I think we need a strong mage on our team. Let's talk to him."],
+    triggers: ["3_Dial_Grey_to_57", "1_Nell_add"]
+  },
+  {
+    id: 57,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["Hi! Are you busy with something?"],
+    nextNode: 58
+  },
+  {
+    id: 58,
+    characterId: IGsoLevelOrmronGazeboNPCs.char_Grey,
+    image: "temp-dial6.png",
+    lines: ["Hi. Sorry, I don't remember your name."],
+    nextNode: 59
+  },
+  {
+    id: 59,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["It's Maya."],
+    nextNode: 60
+  },
+  {
+    id: 60,
+    characterId: IGsoLevelOrmronGazeboNPCs.char_Grey,
+    image: "temp-dial6.png",
+    lines: ["Do you want something, Maya? Please say no."],
+    choice: [
+      {
+        text: "Not at all",
+        nextDial: 61,
+        id: 1,
+        triggers: ["1_Grey_add"]
+      },
+      {
+        text: "Yes, join my team!",
+        nextDial: 63,
+        id: 2,
+        triggers: ["1_Grey_lost"]
+      }
+    ]
+  },
+  {
+    id: 61,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["No, just wanted to introduce myself."],
+    nextNode: 62
+  },
+  {
+    id: 62,
+    characterId: IGsoLevelOrmronGazeboNPCs.char_Grey,
+    image: "temp-dial6.png",
+    lines: ["Amazing. Enjoy your day. Ideally - somewhere else."],
+    triggers: ["3_Dial_Grey_to_null"]
+  },
+  {
+    id: 63,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["Yes. I was wondering if you want to join my team for the finals."],
+    nextNode: 64,
+    triggers: ["1_Global_Grey_team"]
+  },
+  {
+    id: 64,
+    characterId: IGsoLevelOrmronGazeboNPCs.char_Grey,
+    image: "temp-dial6.png",
+    lines: ["I guess for finals I have to. What's the plan?"],
+    nextNode: 65
+  },
+  {
+    id: 65,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["Team task is to go to bedouin's camp and check on water supply."],
+    nextNode: 66
+  },
+  {
+    id: 66,
+    characterId: IGsoLevelOrmronGazeboNPCs.char_Grey,
+    image: "temp-dial6.png",
+    lines: ["I though Dart had this task."],
+    nextNode: {
+      event: { event: "NELL_PARTY", status: true },
+      nextYes: 67,
+      nextNo: 68
+    }
+  },
+  {
+    id: 67,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["Looks like everyone knows it exept me!"],
+    nextNode: 68
+  },
+  {
+    id: 68,
+    characterId: IGsoLevelOrmronGazeboNPCs.char_Grey,
+    image: "temp-dial6.png",
+    lines: ["He told me before he left."],
+    nextNode: {
+      event: { event: "TARA_PARTY", status: true },
+      nextYes: 69,
+      nextNo: 70
+    }
+  },
+  {
+    // TARA IN THE OARTY
+    id: 69,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Tara,
+    image: "temp-dial5.png",
+    lines: ["Why you of all people?"],
+    nextNode: {
+      event: [{ event: "NELL_PARTY", status: true }],
+      nextYes: 71,
+      nextNo: 72
+    }
+  },
+  {
+    id: 70,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["Why you of all people?"],
+    nextNode: {
+      event: [{ event: "NELL_PARTY", status: true }],
+      nextYes: 73,
+      nextNo: 84
+    }
+  },
+  {
+    // ALL IN PARTY
+    id: 71,
+    characterId: IGsoLevelOrmronGazeboNPCs.char_Grey,
+    image: "temp-dial6.png",
+    lines: [
+      "Because I am a cool dude and the only one who's not in love with him in the school?"
+    ],
+    nextNode: 74
+  },
+  {
+    // None of them
+    id: 72,
+    characterId: IGsoLevelOrmronGazeboNPCs.char_Grey,
+    image: "temp-dial6.png",
+    lines: [
+      "Because I am a cool dude and the only one who's not in love with him in the school?"
+    ],
+    nextNode: 77
+  },
+  {
+    id: 73,
+    characterId: IGsoLevelOrmronGazeboNPCs.char_Grey,
+    image: "temp-dial6.png",
+    lines: [
+      "Because I am a cool dude and the only one who's not in love with him in the school?"
+    ],
+    nextNode: 80
+  },
+  {
+    id: 74,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Nell,
+    image: "temp-dial4.png",
+    lines: ["I am not in love with him!"],
+    nextNode: 75
+  },
+  {
+    id: 75,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Tara,
+    image: "temp-dial5.png",
+    lines: ["Yes, everyone knows you have a soft spot for Maya."],
+    nextNode: 76
+  },
+  {
+    id: 76,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Nell,
+    image: "temp-dial4.png",
+    lines: ["Shut up! As if you're not pining for Dart!"],
+    nextNode: 77
+  },
+  {
+    id: 77,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Tara,
+    image: "temp-dial5.png",
+    lines: ["That's just stupid. I am not in love with him!"],
+    nextNode: 79
+  },
+  {
+    id: 78,
+    characterId: IGsoLevelOrmronGazeboNPCs.char_Grey,
+    image: "temp-dial6.png",
+    lines: [
+      "Because I am a cool dude and the only one who's not in love with him in the school?"
+    ],
+    nextNode: 77
+  },
+  {
+    id: 79,
+    characterId: IGsoLevelOrmronGazeboNPCs.char_Grey,
+    image: "temp-dial6.png",
+    lines: ["Yes, keep saying that maybe you will belive it."],
+    nextNode: 83
+  },
+  {
+    id: 80,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Nell,
+    image: "temp-dial4.png",
+    lines: ["Hey!"],
+    nextNode: 83
+  },
+  {
+    id: 81,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["I am not in love with him!"],
+    nextNode: 82
+  },
+  {
+    id: 82,
+    characterId: IGsoLevelOrmronGazeboNPCs.char_Grey,
+    image: "temp-dial6.png",
+    lines: ["Yea, sure, I don't really care."],
+    nextNode: 83
+  },
+  {
+    id: 83,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["Unbeliavable. Let's go."],
+    triggers: ["3_Dial_Grey_to_null", "4_Grey_remove_from_level"]
+  },
+  {
+    id: 84,
+    characterId: IGsoLevelOrmronGazeboNPCs.char_Grey,
+    image: "temp-dial6.png",
+    lines: [
+      "Because I am a cool dude and the only one who's not in love with him in the school?"
+    ],
+    nextNode: 81
   }
   // {
   //   id:,

@@ -33,7 +33,7 @@ export const connections: IConnection[] = [
     triggers: [
       "1_Activate_ormron_garden",
       "1_Open_connection_arena",
-      "1_Dial_Nell_handshake"
+      "1_Dial_Garden_handshake"
     ]
   },
   {
@@ -58,7 +58,7 @@ export const connections: IConnection[] = [
     closed: "temp-obj1.png",
     position: { x: 400, y: GROUNDLEVEL },
     showParty: null,
-    triggers: ["3_Activate_ormron_gazebo"]
+    triggers: ["3_Activate_ormron_gazebo", "4_Dial_Gazebo_handshake"]
   },
   {
     id: IGsoLevelOrmronGardenConnections.garden_to_school,

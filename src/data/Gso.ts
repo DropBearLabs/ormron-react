@@ -52,7 +52,7 @@ export const gso: IGso = {
       id: "ormron_gazebo",
       npcs: {
         char_Grey: null,
-        npc_SchoolGirl: null
+        npc_SchoolGirl: 40
       },
       connections: {
         gazebo_to_garden: ConnectionStatus.open
@@ -63,19 +63,13 @@ export const gso: IGso = {
   questsCompleted: [],
   maps: ["ormron_streets"],
   questsTaken: [],
-  party: [
-    MainCharacters.maya,
-    MainCharacters.tara,
-    MainCharacters.nell,
-    MainCharacters.dart,
-    MainCharacters.grey
-  ],
+  party: [MainCharacters.maya],
   setParty: {
     [MainCharacters.maya]: true,
-    [MainCharacters.tara]: true,
-    [MainCharacters.grey]: true,
-    [MainCharacters.dart]: true,
-    [MainCharacters.nell]: true
+    [MainCharacters.tara]: false,
+    [MainCharacters.grey]: false,
+    [MainCharacters.dart]: false,
+    [MainCharacters.nell]: false
   },
   influence: {
     [MainCharacters.nell]: 0,

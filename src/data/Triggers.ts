@@ -21,9 +21,9 @@ export const triggers: ITrigger[] = [
     data: "TUTORIAL_COMPLETE"
   },
   {
-    id: "1_Global_Nell_handshake",
+    id: "1_Global_GARDEN_HANDSHAKE",
     triggerType: ADD_GLOBAL_EVENT,
-    data: "NELL_HANDSHAKE"
+    data: "GARDEN_HANDSHAKE"
   },
   {
     id: "1_Global_Nell_team",
@@ -34,6 +34,11 @@ export const triggers: ITrigger[] = [
     id: "1_Global_Tara_team",
     triggerType: ADD_GLOBAL_EVENT,
     data: "TARA_PARTY"
+  },
+  {
+    id: "1_Global_Grey_team",
+    triggerType: ADD_GLOBAL_EVENT,
+    data: "GREY_PARTY"
   },
   {
     id: "3_Global_Amulet_quest_taken",
@@ -128,19 +133,46 @@ export const triggers: ITrigger[] = [
     data: ["ormron_garden", "npc_AmuletGirl", 33]
   },
   {
-    id: "1_Dial_Nell_handshake",
+    id: "3_Dial_Grey_to_null",
+    triggerType: UPDATE_NPC,
+    data: ["ormron_gazebo", "char_Grey", null]
+  },
+  {
+    id: "3_Dial_Grey_to_57",
+    triggerType: UPDATE_NPC,
+    data: ["ormron_gazebo", "char_Grey", 57]
+  },
+  {
+    id: "3_Dial_ShcoolGirl_to_null",
+    triggerType: UPDATE_NPC,
+    data: ["ormron_gazebo", "npc_SchoolGirl", null]
+  },
+  {
+    id: "1_Dial_Garden_handshake",
     triggerType: ACTIVE_DIALOGUE,
     data: 8,
     condition: [
       { event: "TUTORIAL_COMPLETE", status: true },
-      { event: "NELL_HANDSHAKE", status: false }
+      { event: "GARDEN_HANDSHAKE", status: false }
     ]
+  },
+  {
+    id: "4_Dial_Gazebo_handshake",
+    triggerType: ACTIVE_DIALOGUE,
+    data: 45,
+    condition: [{ event: "GAZEBO_HANDSHAKE", status: false }]
   },
   {
     id: "3_Tara_remove_from_level",
     triggerType: UPDATE_NPC,
     data: ["ormron_garden", "char_Tara", false],
     condition: { event: "TARA_PARTY", status: true }
+  },
+  {
+    id: "4_Grey_remove_from_level",
+    triggerType: UPDATE_NPC,
+    data: ["ormron_gazebo", "char_Grey", false],
+    condition: { event: "GREY_PARTY", status: true }
   },
   // QUEST UPDATES
   {
@@ -188,6 +220,9 @@ export const triggers: ITrigger[] = [
   { id: "1_Nell_lost", triggerType: UPDATE_INFLUENCE, data: ["nell", -1] },
   { id: "1_Nell_add", triggerType: UPDATE_INFLUENCE, data: ["nell", 1] },
   { id: "1_Tara_add", triggerType: UPDATE_INFLUENCE, data: ["tara", 1] },
+  { id: "1_Tara_lost", triggerType: UPDATE_INFLUENCE, data: ["tara", -1] },
+  { id: "1_Grey_lost", triggerType: UPDATE_INFLUENCE, data: ["grey", -1] },
+  { id: "1_Grey_add", triggerType: UPDATE_INFLUENCE, data: ["grey", 1] },
   // ACTIVATE LEVELS
   {
     id: "1_Activate_ormron_street",
