@@ -80,8 +80,13 @@ export interface INpc {
   position: IPoint;
 }
 
+export interface ICondition {
+  event: string;
+  status: boolean;
+}
+
 export interface IDialContinuation {
-  event: string[];
+  event: ICondition[] | ICondition;
   nextYes: number;
   nextNo: number;
 }

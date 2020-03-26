@@ -13,7 +13,7 @@ import {
   addGlobalEvent
 } from "./store/actions";
 import { IDialogue, IDialogueChoice, IGso } from "./types/Types";
-import { findTrigger, checkGlobalEvent } from "./data/helpers";
+import { findTrigger, checkGlobalEvents } from "./data/helpers";
 import {
   ADD_GLOBAL_EVENT,
   UPDATE_PARTY,
@@ -170,7 +170,7 @@ const DialogueOutput = (props: IDialogueOutputProps) => {
         setLineN(0);
       } else if (typeof props.dialogue.nextNode === "object") {
         // This dialogue continuation depends on a global event
-        const next = checkGlobalEvent(
+        const next = checkGlobalEvents(
           globalevents,
           props.dialogue.nextNode.event
         );

@@ -11,7 +11,7 @@ import {
   showDialogue,
   addGlobalEvent
 } from "./store/actions";
-import { findTrigger, checkGlobalEvent } from "./data/helpers";
+import { findTrigger, checkGlobalEvents } from "./data/helpers";
 import {
   ACTIVATE_LEVEL,
   UPDATE_QUEST,
@@ -70,7 +70,8 @@ export const Connection = (props: IConnectionProps) => {
     // }, 2000);
     // }
     if (trigger.condition) {
-      if (!checkGlobalEvent(globalevents, trigger.condition)) {
+      console.log("trigger event", trigger.id);
+      if (!checkGlobalEvents(globalevents, trigger.condition)) {
         return;
       }
     }

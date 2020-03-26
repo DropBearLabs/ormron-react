@@ -1,5 +1,4 @@
 const clickThrough = id => {
-  console.log(id);
   return new Promise((resolve, reject) =>
     setTimeout(function() {
       document.getElementById(id).click();

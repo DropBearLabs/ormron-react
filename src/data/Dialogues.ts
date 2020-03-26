@@ -309,7 +309,11 @@ export const dialogues: IDialogue[] = [
     characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
     image: "temp-dial1.png",
     lines: ["Yes! Do you want to join me?"],
-    nextNode: { event: ["NELL_PARTY"], nextYes: 28, nextNo: 29 },
+    nextNode: {
+      event: { event: "NELL_PARTY", status: true },
+      nextYes: 28,
+      nextNo: 29
+    },
     triggers: ["1_Global_Tara_team"]
   },
   {
@@ -459,7 +463,11 @@ export const dialogues: IDialogue[] = [
       "I totally do, he is so handsome! But I lost him after the bridge. So disapointing...",
       "Say Hi for me if you see him! He totally remembers me, we were in the same herbal therapy class!"
     ],
-    nextNode: { event: ["NELL_PARTY"], nextYes: 43, nextNo: 44 }
+    nextNode: {
+      event: { event: "NELL_PARTY", status: true },
+      nextYes: 43,
+      nextNo: 44
+    }
   },
   {
     id: 43,
