@@ -22,13 +22,21 @@ export const levels: ILevel[] = [
     npcs: [
       IGsoLevelOrmronStreetNPCs.npc_Olija,
       IGsoLevelOrmronStreetNPCs.npc_Dario
+    ],
+    triggers: [
+      {
+        triggers: ["1_Dial_Desert_handshake"],
+        coordinates: { x: 50, y: 0 },
+        width: 150
+      }
     ]
   },
   {
     id: "ormron_arena",
     backgrounds: [{ image: "temp2.jpg" }],
     connections: [IGsoLevelOrmronArenaConnections.arena_to_street],
-    npcs: [IGsoLevelOrmronArenaNPCs.npc_Dario1]
+    npcs: [IGsoLevelOrmronArenaNPCs.npc_Dario1],
+    triggers: []
   },
   {
     id: "ormron_garden",
@@ -41,7 +49,8 @@ export const levels: ILevel[] = [
     npcs: [
       IGsoLevelOrmronGardenNPCs.char_Tara,
       IGsoLevelOrmronGardenNPCs.npc_AmuletGirl
-    ]
+    ],
+    triggers: []
   },
   {
     id: "ormron_gazebo",
@@ -50,7 +59,8 @@ export const levels: ILevel[] = [
     npcs: [
       IGsoLevelOrmronGazeboNPCs.char_Grey,
       IGsoLevelOrmronGazeboNPCs.npc_SchoolGirl
-    ]
+    ],
+    triggers: []
   } /*
   {
     id: "ormron_school",

@@ -157,6 +157,12 @@ export const triggers: ITrigger[] = [
     ]
   },
   {
+    id: "1_Dial_Desert_handshake",
+    triggerType: ACTIVE_DIALOGUE,
+    data: 85,
+    condition: [{ event: "TUTORIAL_COMPLETE", status: true }]
+  },
+  {
     id: "4_Dial_Gazebo_handshake",
     triggerType: ACTIVE_DIALOGUE,
     data: 45,

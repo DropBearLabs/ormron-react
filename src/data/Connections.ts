@@ -13,8 +13,8 @@ export const connections: IConnection[] = [
     id: IGsoLevelOrmronStreetConnections.street_to_map,
     open: "temp-obj3c.png",
     closed: "temp-obj3.png",
-    position: { x: 0, y: GROUNDLEVEL },
-    showParty: ["maya"]
+    position: { x: -100, y: GROUNDLEVEL },
+    showParty: null
   },
   {
     id: IGsoLevelOrmronStreetConnections.street_to_arena,

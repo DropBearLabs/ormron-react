@@ -124,6 +124,17 @@ await clickThrough("street_to_garden");
     "dialogue79_line0",
     'dialogue83_line0'
   ]);
+
+  await clickThrough("ormron_gazebo_npc_SchoolGirl");
+  await passDialogue([
+    "dialogue40_line0",
+    "dialogue41_line0",
+    "dialogue42_line0",
+    "dialogue42_line1",
+    "dialogue42_line2",
+    "dialogue43_line0",
+    "dialogue44_line0"
+  ]);
 };
 
 export const runInDebugNell = async () => {

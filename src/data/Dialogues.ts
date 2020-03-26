@@ -3,8 +3,7 @@ import {
   IGsoLevelOrmronStreetNPCs,
   IGsoLevelOrmronArenaNPCs,
   IGsoLevelOrmronGardenNPCs,
-  IGsoLevelOrmronGazeboNPCs,
-  IGsoLevelOrmronGazeboConnections
+  IGsoLevelOrmronGazeboNPCs
 } from "../types/TypeLevels";
 
 export const defaultLines: IDefaultLine[] = [
@@ -847,12 +846,124 @@ export const dialogues: IDialogue[] = [
       "Because I am a cool dude and the only one who's not in love with him in the school?"
     ],
     nextNode: 81
+  },
+  {
+    id: 85,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["I need to make sure I have everything I need before I leave..."],
+    nextNode: {
+      event: [
+        { event: "NELL_PARTY", status: true },
+        { event: "TARA_PARTY", status: true },
+        { event: "GREY_PARTY", status: true }
+      ],
+      nextYes: 86,
+      nextNo: 96
+    }
+  },
+  {
+    id: 86,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["Wait! I think someone needs to stay in case Dart comes back."],
+    nextNode: 87
+    //Trigger "all team"
+  },
+  {
+    id: 87,
+    characterId: IGsoLevelOrmronGazeboNPCs.char_Grey,
+    image: "temp-dial6.png",
+    lines: ["Happy to stay behind"],
+    choice: [
+      {
+        text: "Sure",
+        nextDial: 88,
+        id: 1,
+        triggers: ["1_Grey_add"]
+      },
+      {
+        text: "No, I need you!",
+        nextDial: 89,
+        id: 2,
+        triggers: ["1_Grey_lost"]
+      }
+    ]
+  },
+  {
+    id: 88,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["Sure. Tell him we're at the camp if you see him."],
+    nextNode: 90
+  },
+  {
+    id: 89,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["No, I need you. Let me think."],
+    choice: [
+      {
+        text: "Tara stays",
+        nextDial: 91,
+        id: 1,
+        triggers: ["1_Tara_lost"]
+      },
+      {
+        text: "Nell stays",
+        nextDial: 92,
+        id: 2,
+        triggers: ["1_Nell_lost"]
+      }
+    ]
+  },
+  {
+    id: 90,
+    characterId: IGsoLevelOrmronGazeboNPCs.char_Grey,
+    image: "temp-dial6.png",
+    lines: ["Sure. Tell him we're at the camp if you see him."],
+    nextNode: 95
+  },
+  {
+    id: 91,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["Tara, you stay!"],
+    nextNode: 93
+  },
+  {
+    id: 92,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["Nell, you stay!"],
+    nextNode: 94
+  },
+  {
+    id: 93,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Tara,
+    image: "temp-dial5.png",
+    lines: ["So you asked me to join you to leave me behind?", "Not cool!"],
+    nextNode: 96
+  },
+  {
+    id: 94,
+    characterId: IGsoLevelOrmronGardenNPCs.char_Nell,
+    image: "temp-dial4.png",
+    lines: ["But, Lady Maya, I thought you wanted me on your team..."],
+    nextNode: 96
+  },
+  {
+    id: 95,
+    characterId: IGsoLevelOrmronGazeboNPCs.char_Grey,
+    image: "temp-dial6.png",
+    lines: ["As if he would care... Good luck!"],
+    nextNode: 96
+  },
+  {
+    id: 96,
+    characterId: IGsoLevelOrmronStreetNPCs.char_Maya,
+    image: "temp-dial1.png",
+    lines: ["So, Desert heart, here I go..."]
+    // Trigger Lonly Traveller
   }
-  // {
-  //   id:,
-  //   characterId:,
-  //   image:,
-  //   lines: [],
-  //   nextNode:
-  // },
 ];

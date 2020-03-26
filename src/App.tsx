@@ -25,11 +25,41 @@ import {
 } from "./debug/debug.js";
 
 import "./App.css";
-import { IGso } from "./types/Types";
+import { IGso, ILevelTrigger } from "./types/Types";
 import { Menu } from "./Menu";
 import { Quest } from "./Quest";
 import { IConnectionLevel, IGsoLevel, INPCLevel } from "./types/TypeLevels";
 import { Characters } from "./Characters";
+import { LevelTrigger } from "./LevelTrigger";
+
+const Debug = () => (
+  <>
+    <button
+      style={{ position: "absolute", top: 0, left: 200 }}
+      onClick={() => runInDebugAll()}
+    >
+      RUN ALL
+    </button>
+    <button
+      style={{ position: "absolute", top: 0, left: 300 }}
+      onClick={() => runInDebugNell()}
+    >
+      RUN NELL
+    </button>
+    <button
+      style={{ position: "absolute", top: 0, left: 400 }}
+      onClick={() => runInDebugTara()}
+    >
+      RUN TARA
+    </button>
+    <button
+      style={{ position: "absolute", top: 0, left: 500 }}
+      onClick={() => runInDebugGrey()}
+    >
+      RUN GREY
+    </button>
+  </>
+);
 
 interface IInfolineProps {
   line: string | null;
@@ -74,34 +104,13 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
+      {findLevel(activeLevel).triggers.map((t: ILevelTrigger) => {
+        return <LevelTrigger trigger={t} />;
+      })}
       <img
         alt="level-background"
         src={findLevel(activeLevel).backgrounds[0].image}
       />
-      <button
-        style={{ position: "absolute", top: 0, left: 0 }}
-        onClick={() => runInDebugAll()}
-      >
-        RUN ALL
-      </button>
-      <button
-        style={{ position: "absolute", top: 0, left: 100 }}
-        onClick={() => runInDebugNell()}
-      >
-        RUN NELL
-      </button>
-      <button
-        style={{ position: "absolute", top: 0, left: 200 }}
-        onClick={() => runInDebugTara()}
-      >
-        RUN TARA
-      </button>
-      <button
-        style={{ position: "absolute", top: 0, left: 300 }}
-        onClick={() => runInDebugGrey()}
-      >
-        RUN GREY
-      </button>
       {findLevel(activeLevel).connections.map((c: string) => {
         const connection = findConnection(c);
         const connectionId = (connection.id as unknown) as IConnectionLevel;
@@ -144,6 +153,7 @@ const App: React.FC = () => {
       {showMap !== null ? <Map map={maps[0]} /> : null}
       {showParty !== null ? <Party /> : null}
       {showCharacters !== false ? <Characters /> : null}
+      <Debug />
     </div>
   );
 };

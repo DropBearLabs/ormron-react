@@ -47,12 +47,17 @@ export interface IMapLevel {
   position: IPoint;
 }
 
+export interface ILevelTrigger {
+  triggers: string[];
+  coordinates: IPoint;
+  width: number;
+}
 export interface ILevel {
   id: string;
   connections: string[];
   backgrounds: IBackground[];
   npcs: string[];
-  triggers?: number[];
+  triggers: ILevelTrigger[];
 }
 
 export interface IConnection {
