@@ -1,7 +1,6 @@
 import React, { useState, SetStateAction, useEffect } from "react";
 import {
   IPartyMember,
-  ICharactersData,
   ICharacterData,
   MainCharacters,
   ISpell
@@ -11,7 +10,6 @@ import { SpellsCircle, SpellDescription, SpellsAll } from "./Spells";
 import { useDispatch, useSelector } from "react-redux";
 import { showCharacters } from "./store/actions";
 import { IGso } from "./types/Types";
-import { SSL_OP_NETSCAPE_CHALLENGE_BUG } from "constants";
 
 interface ICharacterStatsProps {
   characterData: ICharacterData;

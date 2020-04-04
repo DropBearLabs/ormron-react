@@ -157,8 +157,8 @@ export const gso: IGso = {
       id: MainCharacters.nell,
       life: 13,
       mana: 13,
-      attack_physical: 4,
-      attack_magic: 2,
+      attack_physical: 3,
+      attack_magic: 3,
       spells: [
         {
           id: Spells.nell_fireFist,
@@ -226,8 +226,8 @@ export const gso: IGso = {
       id: MainCharacters.dart,
       life: 12,
       mana: 15,
-      attack_physical: 2,
-      attack_magic: 4,
+      attack_physical: 3,
+      attack_magic: 3,
       spells: [
         {
           id: Spells.dart_wave,
