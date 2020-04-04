@@ -9,12 +9,40 @@ let alterations = [
     'NoPhysical'
 ];
 
-function calculateAttack(physical, magical, effectsAttack, effectsDefend){
+let envs = [
+    'fog',
+    'storm',
+    'air'
+]
+
+function calculateAttack(physical, magical, effectsAttack, effectsDefend, env, elementAttack, elementDefend){
+    let elementSequence = ['air','fire','metal','earth','water'];
+
     let tiers = [ 
-        -25, -10, 0, 10, 20
+        -40, -30, -20, -10, 0, 10, 20, 30, 40
     ];
-    let aTier = 2;
-    // eslint-disable-next-line default-case
+    let aTier = 4;
+
+    if(env==='fog'){
+        aTier = aTier-1;
+    }
+    if(env==='storm'){
+        aTier = aTier-2;
+    }
+    if(env==='air'){
+        aTier = aTier+1;
+    }
+    const sequence = elementSequence.indexOf(elementAttack)-elementSequence.indexOf(elementDefend);
+    console.log("Here's the sequence", sequence)
+    if(sequence===1 || sequence===4){
+        console.log(elementAttack+" follows "+elementDefend+" attack lessens");
+        aTier = aTier-1;
+    }
+    if(sequence===-1){
+        console.log(elementAttack+" preceids "+elementDefend+" attack grows");
+        aTier = aTier+1;
+    }
+
     effectsAttack.forEach(element => {
         if(element === 'Frightened'){
             aTier = aTier-1;
@@ -46,10 +74,10 @@ function calculateAttack(physical, magical, effectsAttack, effectsDefend){
         if(element==="NoPhysical"){
             physical = 0;
         }
-    })
+    });
 
     // Set to min and max
-    aTier = aTier>4 ? 4 : aTier;
+    aTier = aTier>8 ? 8 : aTier;
     aTier = aTier<0 ? 0 : aTier;
 
 
