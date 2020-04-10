@@ -83,6 +83,7 @@ const InfoLine = (props: IInfolineProps) => {
 };
 
 const App: React.FC = () => {
+  const showFight = useSelector((state: IGso) => state.showFight);
   const showDialogue = useSelector((state: IGso) => state.showDialogue);
   const activeLevel = useSelector((state: IGso) => state.activeLevel);
   const levelState = useSelector((state: IGso) => state.levels);
@@ -101,6 +102,10 @@ const App: React.FC = () => {
     }
     return current;
   };
+
+  if (showFight) {
+    return <div className="App">Fight</div>;
+  }
 
   return (
     <div className="App">

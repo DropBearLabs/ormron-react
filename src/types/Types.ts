@@ -7,6 +7,7 @@ export interface IGso {
   chapter: number; // Currently open chapter
   showQuests: string | null; // Display quests menu
   showDialogue: number | null; // Display dialogue popup
+  showFight: boolean; // Switch to fight
 
   activeLevel: string; // Level on the screen
   showMap: string | null; // Display maps menu
