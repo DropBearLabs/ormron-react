@@ -1,4 +1,4 @@
-const {calculateAttack, calculateMove} = require('./fight');
+const {calculateAttack, calculateMove} = require('../fightengine');
 
 test("Attack with one alteration", () => {
   expect(calculateAttack(10, 10, ["Frightened"], ["Defended"])).toEqual([8, 8, 16]);

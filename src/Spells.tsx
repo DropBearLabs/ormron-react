@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { ISpell, ICharacterSpell } from "./types/TypeCharacters";
 import { IPoint } from "./types/Types";
 import { findSpell } from "./data/helpers";
-import { blue } from "color-name";
 interface ISpellIconProps {
   spell: ISpell;
   spellData: ICharacterSpell;

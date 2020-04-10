@@ -1,9 +1,9 @@
-import actions from "./store/actions";
-import reduicer from "./store/reduicers";
-import { IGso } from "./types/Types";
-import { gso } from "./data/Gso";
-import { MainCharacters, Spells } from "./types/TypeCharacters";
-import { ConnectionStatus } from "./types/TypeLevels";
+import actions from "../store/actions";
+import reduicer from "../store/reduicers";
+import { IGso } from "../types/Types";
+import { gso } from "../data/Gso";
+import { MainCharacters, Spells } from "../types/TypeCharacters";
+import { ConnectionStatus } from "../types/TypeLevels";
 
 let initialState: IGso = gso;
 
@@ -45,7 +45,8 @@ beforeEach(() => {
         id: "ormron_garden",
         npcs: {
           char_Tara: null,
-          char_Nell: null
+          char_Nell: null,
+          npc_AmuletGirl: null
         },
         connections: {
           garden_to_street: ConnectionStatus.open,
