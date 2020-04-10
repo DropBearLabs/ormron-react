@@ -3,7 +3,8 @@ import {
   IGsoLevelOrmronStreetNPCs,
   IGsoLevelOrmronArenaNPCs,
   IGsoLevelOrmronGardenNPCs,
-  IGsoLevelOrmronGazeboNPCs
+  IGsoLevelOrmronGazeboNPCs,
+  IGsoLevelOrmronArenaConnections
 } from "../types/TypeLevels";
 const GROUNDLEVEL = 150;
 export const npcs: INpc[] = [
@@ -30,6 +31,12 @@ export const npcs: INpc[] = [
     image: "temp-npc2.png",
     name: "Dario",
     position: { x: 700, y: GROUNDLEVEL - 50 }
+  },
+  {
+    id: IGsoLevelOrmronArenaNPCs.enemy_Snake1,
+    image: "enemy_snake_prev.png",
+    name: "Sand Snake",
+    position: { x: 300, y: GROUNDLEVEL - 50 }
   },
   {
     id: IGsoLevelOrmronGardenNPCs.char_Tara,

@@ -35,7 +35,10 @@ export const levels: ILevel[] = [
     id: "ormron_arena",
     backgrounds: [{ image: "temp2.jpg" }],
     connections: [IGsoLevelOrmronArenaConnections.arena_to_street],
-    npcs: [IGsoLevelOrmronArenaNPCs.npc_Dario1],
+    npcs: [
+      IGsoLevelOrmronArenaNPCs.enemy_Snake1,
+      IGsoLevelOrmronArenaNPCs.npc_Dario1
+    ],
     triggers: []
   },
   {

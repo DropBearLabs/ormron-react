@@ -8,6 +8,41 @@ export enum MainCharacters {
   grey = "grey"
 }
 
+export enum Enemies {
+  sandnake1 = "sandnake1",
+  bigsandnake1 = "bigsandnake1",
+  sandghost1 = "sandghost1",
+  sandmummy1 = "sandmummy1",
+  sandwrath1 = "sandwrath1"
+}
+
+export enum Alterations {
+  Dispelled = "Dispelled",
+  Frightened = "Frightened",
+  Reinforced = "Reinforced",
+  Blessed = "Blessed",
+  Defended = "Defended",
+  Panicing = "Panicing",
+  NoMagic = "NoMagic",
+  NoPhysical = "NoPhysical",
+  Numb = "Numb",
+  Blinded = "Blinded"
+}
+
+export enum EnvEffects {
+  fog = "fog",
+  storm = "storm",
+  air = "air"
+}
+
+export enum Elements {
+  air = "air",
+  fire = "fire",
+  metal = "metal",
+  earth = "earth",
+  water = "water"
+}
+
 export enum Spells {
   maya_healSelf = "maya_healSelf",
   maya_attackSimple = "maya_attackSimple",

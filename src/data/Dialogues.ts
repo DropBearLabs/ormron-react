@@ -8,24 +8,24 @@ import {
 
 export const defaultLines: IDefaultLine[] = [
   {
-    id: "Olija_first_quest",
+    id: "Static_Olija_first_quest",
     line: "I thought I gave you a task already"
   },
   {
-    id: "Dario_first_quest",
+    id: "Static_Dario_first_quest",
     line: "Feel free to drop into arena any time for training"
   },
   {
-    id: "AmuletGirl_first_quest",
+    id: "Static_AmuletGirl_first_quest",
     line: "Why aren't you at the camp already?"
   },
   {
-    id: "SchoolGirl_first_quest",
+    id: "Static_SchoolGirl_first_quest",
     line:
       "I envy you so much, you get to chase Master Dart and have an official excuse to do so!"
   },
   {
-    id: "SchoolSecretary_first_quest",
+    id: "Static_SchoolSecretary_first_quest",
     line:
       "I am sorry, Grandmaster Gai is busy with school affairs, try again later or come back tomorrow"
   }

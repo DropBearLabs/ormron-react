@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { showDialogue, showInfoline } from "./store/actions";
+import { showDialogue, showInfoline, showFight } from "./store/actions";
 import { INpc } from "./types/Types";
 import { findDefaultLine } from "./data/helpers";
 
@@ -37,7 +37,7 @@ const NPCState = (props: INPCStateProps) => {
 interface INPCProps {
   npc: INpc;
   scene: any;
-  npcTrigger: number | null;
+  npcTrigger: number | null | string;
 }
 
 export const NPC = (props: INPCProps) => {
@@ -56,14 +56,21 @@ export const NPC = (props: INPCProps) => {
     // dispatch(showInfoline(null));
     if (props.npcTrigger === null) {
       return;
-    } else if (typeof props.npcTrigger === "string") {
-      const defaultLine = findDefaultLine(props.npcTrigger);
-      setLine(defaultLine.line);
-      setTimeout(() => {
-        setLine("");
-      }, 2000);
-    } else {
+    } else if (typeof props.npcTrigger === "number") {
       dispatch(showDialogue(props.npcTrigger));
+    } else {
+      const triigerParsed = props.npcTrigger.split("_");
+      if (triigerParsed[0] === "Static") {
+        const defaultLine = findDefaultLine(props.npcTrigger);
+        setLine(defaultLine.line);
+        setTimeout(() => {
+          setLine("");
+        }, 2000);
+      }
+      if (triigerParsed[0] === "Fight") {
+        console.log("THIS IS A FIGHT");
+        dispatch(showFight(props.npcTrigger[1]));
+      }
     }
   }
   return (

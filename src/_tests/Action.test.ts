@@ -36,6 +36,7 @@ beforeEach(() => {
       {
         id: "ormron_arena",
         npcs: {
+          enemy_Snake1: 0,
           npc_Dario1: 5
         },
         connections: {

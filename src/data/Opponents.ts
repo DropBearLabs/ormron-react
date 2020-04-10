@@ -50,15 +50,15 @@ export const enemies: IFightOpponent[] = [
 
 export const enemySets: Array<{ id: string; opponents: IFightOpponent[] }> = [
   {
-    id: "sand_easy1",
+    id: "sandEasy1",
     opponents: [enemies[0], enemies[0], enemies[0]]
   },
   {
-    id: "sand_easy2",
+    id: "sandEasy2",
     opponents: [enemies[0], enemies[1]]
   },
   {
-    id: "sand_easy2",
+    id: "sandEasy3",
     opponents: [enemies[0], enemies[0], enemies[1]]
   }
 ];

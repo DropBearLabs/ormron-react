@@ -83,9 +83,9 @@ export const showQuests = (quest: string | null): IReturnAction => {
   };
 };
 
-export const showFight = (opponent: string | null): IReturnAction => {
+export const showFight = (opponents: string | null): IReturnAction => {
   return {
-    payload: opponent,
+    payload: opponents,
     type: SHOW_FIGHT
   };
 };

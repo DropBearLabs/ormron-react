@@ -30,6 +30,7 @@ export const gso: IGso = {
     {
       id: "ormron_arena",
       npcs: {
+        enemy_Snake1: "Fight_sandEasy1",
         npc_Dario1: 5
       },
       connections: {

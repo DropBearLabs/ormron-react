@@ -35,6 +35,7 @@ export enum IGsoLevelOrmronArenaConnections {
   arena_to_street = "arena_to_street"
 }
 export enum IGsoLevelOrmronArenaNPCs {
+  enemy_Snake1 = "enemy_Snake1",
   npc_Dario1 = "npc_Dario1"
 }
 type IGsoLevelOrmronArena = IConnectedLevel<

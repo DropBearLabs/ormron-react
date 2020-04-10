@@ -110,7 +110,7 @@ export const triggers: ITrigger[] = [
   {
     id: "1_Dial_Dario_to_default",
     triggerType: UPDATE_NPC,
-    data: ["ormron_street", "npc_Dario", "Dario_first_quest"]
+    data: ["ormron_street", "npc_Dario", "Static_Dario_first_quest"]
   },
   {
     id: "3_Dial_Tara_to_20",
