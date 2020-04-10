@@ -12,6 +12,7 @@ beforeEach(() => {
     showDialogue: null,
     showCharacters: false,
     showQuests: null,
+    showFight: false,
     showMap: null,
     showParty: null,
     chapter: 0,
@@ -497,5 +498,11 @@ test("Update Party", () => {
 test("Show Characters", () => {
   expect(reduicer(initialState, actions.showCharacters(true))).toMatchObject({
     showCharacters: true
+  });
+});
+
+test("Show Fighting scene", () => {
+  expect(reduicer(initialState, actions.showFight("something"))).toMatchObject({
+    showFight: true
   });
 });

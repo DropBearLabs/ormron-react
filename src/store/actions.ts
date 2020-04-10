@@ -14,7 +14,8 @@ import {
   OPEN_CONNECTION,
   ADD_GLOBAL_EVENT,
   SET_PARTY,
-  SHOW_CHARACTERS
+  SHOW_CHARACTERS,
+  SHOW_FIGHT
 } from "../data/Constants";
 import { IGsoParty } from "../types/TypeCharacters";
 import {
@@ -79,6 +80,13 @@ export const showQuests = (quest: string | null): IReturnAction => {
   return {
     payload: quest,
     type: SHOW_QUESTS
+  };
+};
+
+export const showFight = (opponent: string | null): IReturnAction => {
+  return {
+    payload: opponent,
+    type: SHOW_FIGHT
   };
 };
 
@@ -166,5 +174,6 @@ export default {
   updateInfluence,
   setParty,
   updateParty,
-  showCharacters
+  showCharacters,
+  showFight
 };

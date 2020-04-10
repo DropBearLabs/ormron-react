@@ -15,9 +15,10 @@ import {
   ADD_GLOBAL_EVENT,
   SET_PARTY,
   SHOW_CHARACTERS,
-  OPEN_LEVEL
+  OPEN_LEVEL,
+  SHOW_FIGHT
 } from "../data/Constants";
-import { IGsoQuest, IGso } from "./Types";
+import { IGsoQuest } from "./Types";
 import { INPCLevel, IConnectionLevel } from "./TypeLevels";
 import { MainCharacters, IGsoParty } from "./TypeCharacters";
 
@@ -43,6 +44,7 @@ export type IAction =
   | SET_PARTY
   | SHOW_CHARACTERS
   | OPEN_LEVEL
+  | SHOW_FIGHT
   | ADD_GLOBAL_EVENT;
 
 export type IPayload =

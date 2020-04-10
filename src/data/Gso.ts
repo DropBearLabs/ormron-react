@@ -8,7 +8,7 @@ export const gso: IGso = {
   showQuests: null,
   showMap: null,
   showParty: null,
-  showFight: true,
+  showFight: false,
   chapter: 0,
   infoline: null,
   activeLevel: "ormron_street",

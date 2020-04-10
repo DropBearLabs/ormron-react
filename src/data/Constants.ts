@@ -34,3 +34,5 @@ export const SET_PARTY = "SET_PARTY";
 export type SET_PARTY = typeof SET_PARTY;
 export const SHOW_CHARACTERS = "SHOW_CHARACTERS";
 export type SHOW_CHARACTERS = typeof SHOW_CHARACTERS;
+export const SHOW_FIGHT = "SHOW_FIGHT";
+export type SHOW_FIGHT = typeof SHOW_FIGHT;

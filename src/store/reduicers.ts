@@ -14,7 +14,8 @@ import {
   OPEN_CONNECTION,
   ADD_GLOBAL_EVENT,
   SET_PARTY,
-  SHOW_CHARACTERS
+  SHOW_CHARACTERS,
+  SHOW_FIGHT
 } from "../data/Constants";
 import { gso } from "../data/Gso";
 import {
@@ -31,8 +32,7 @@ import {
   IPayloadOpenConnection,
   IPayloadUpdateMap,
   IPayloadUpdateInfluence,
-  IReturnAction,
-  IPayloadLevelNpcsUpdate
+  IReturnAction
 } from "../types/TypeActions";
 import { MainCharacters } from "../types/TypeCharacters";
 
@@ -280,6 +280,9 @@ export default function GsoReduicer(
       return Object.assign({}, state, {
         maps: updateMap(mapsToUpdate, action.payload as IPayloadUpdateMap)
       });
+    /* FIGHTING */
+    case SHOW_FIGHT:
+      return Object.assign({}, state, { showFight: true });
     /* not refactored */
     case SHOW_INFOLINE:
       return Object.assign({}, state, { infoline: action.payload });
