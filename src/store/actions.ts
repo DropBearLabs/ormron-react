@@ -83,7 +83,7 @@ export const showQuests = (quest: string | null): IReturnAction => {
   };
 };
 
-export const showFight = (opponents: string | null): IReturnAction => {
+export const showFight = (opponents: string): IReturnAction => {
   return {
     payload: opponents,
     type: SHOW_FIGHT

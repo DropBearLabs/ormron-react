@@ -18,13 +18,8 @@ import {
   SHOW_FIGHT
 } from "../data/Constants";
 import { gso } from "../data/Gso";
-import {
-  findQuest,
-  npcLevelStatus,
-  connectionLevelStatus
-} from "../data/helpers";
-import { IGso, IGsoQuest, IQuestStep, IGsoInfluence } from "../types/Types";
-import { IGsoLevel, ConnectionStatus } from "../types/TypeLevels";
+import { IGso, IGsoQuest, IGsoInfluence } from "../types/Types";
+import { IGsoLevel } from "../types/TypeLevels";
 import {
   IPayloadNpcUpdate,
   IPayloadPartyUpdate,
@@ -35,154 +30,7 @@ import {
   IReturnAction
 } from "../types/TypeActions";
 import { MainCharacters } from "../types/TypeCharacters";
-
-const npcUpdate = (levelsToUpdate: IGsoLevel[], payload: IPayloadNpcUpdate) => {
-  const { level, character, setTo } = payload;
-  const levelsAll = levelsToUpdate.map((x: IGsoLevel) => x.id);
-  const index = levelsAll.indexOf(level);
-  npcLevelStatus(levelsToUpdate[index], character, setTo);
-  return levelsToUpdate;
-};
-
-const updateParty = (
-  partyToUpdate: MainCharacters[],
-  payload: IPayloadPartyUpdate
-) => {
-  const { character, update } = payload;
-  const found = partyToUpdate.includes(character);
-  if (update === "add" && !found) {
-    partyToUpdate.push(character);
-  }
-  if (update === "remove" && found) {
-    const index = partyToUpdate.indexOf(character);
-    partyToUpdate.splice(index, 1);
-  }
-  return partyToUpdate;
-};
-
-const questUpdate = (
-  questsToUpdate: IGsoQuest[],
-  quesstsTaken: string[],
-  questsCompleted: string[],
-  payload: IPayloadQuestUpdate
-) => {
-  const { quest, step } = payload;
-
-  const questsAll = questsToUpdate.map((x: IGsoQuest) => x.id);
-  const index = questsAll.indexOf(quest);
-
-  const oldState = questsToUpdate[index];
-  // If this step is already completed or quest is coompleted - do nothing
-  if (
-    questsCompleted.indexOf(quest) !== -1 ||
-    (oldState && oldState.completedSteps.indexOf(step) !== -1)
-  ) {
-    return {
-      quests: questsToUpdate,
-      questsTaken: quesstsTaken
-    };
-  }
-
-  // If there's no quest with this name - create one;
-  if (index === -1) {
-    questsToUpdate.push({
-      id: quest,
-      completedSteps: [],
-      nextStep: step
-    });
-    quesstsTaken.push(quest);
-
-    return {
-      quests: questsToUpdate,
-      questsTaken: quesstsTaken
-    };
-  }
-
-  const steps = findQuest(quest).steps.map((x: IQuestStep) => x.event);
-  const lastStepIndex = steps.indexOf(oldState.nextStep);
-  const newStepIndex = steps.indexOf(step);
-
-  // If this step is not the next step for this quest - do nothing
-  if (newStepIndex - 1 !== lastStepIndex) {
-    return {
-      quests: questsToUpdate,
-      questsTaken: quesstsTaken
-    };
-  }
-
-  // Update the quest and move on
-  questsToUpdate[index] = {
-    id: quest,
-    completedSteps: oldState.completedSteps.concat(oldState.nextStep),
-    nextStep: step
-  };
-
-  return {
-    quests: questsToUpdate,
-    questsTaken: quesstsTaken
-  };
-};
-
-const endQuest = (
-  questsTaken: string[],
-  questsCompleted: string[],
-  questsToUpdate: IGsoQuest[],
-  payload: string
-) => {
-  questsCompleted.push(payload);
-  const updatedTaken = questsTaken.filter((q: string) => q !== payload);
-  const updatedQuests = questsToUpdate.filter(
-    (q: IGsoQuest) => q.id !== payload
-  );
-
-  return {
-    quests: updatedQuests,
-    questsCompleted,
-    questsTaken: updatedTaken
-  };
-};
-
-const openConnection = (
-  levelsToUpdate: IGsoLevel[],
-  payload: IPayloadOpenConnection
-) => {
-  const { level, entry } = payload;
-  const levelsAll = levelsToUpdate.map((x: IGsoLevel) => x.id);
-  const index = levelsAll.indexOf(level);
-  connectionLevelStatus(levelsToUpdate[index], entry, ConnectionStatus.open);
-  return {
-    levels: levelsToUpdate
-  };
-};
-
-const addGlobalEvent = (globalEvents: string[], payload: string) => {
-  const newEvents = globalEvents.concat(payload);
-  return newEvents;
-};
-
-const updateMap = (mapsToUpdate: string[], payload: IPayloadUpdateMap) => {
-  const { map, state } = payload;
-  const exists = mapsToUpdate.find((m: string) => map === m);
-  if (state === "OPEN" && !exists) {
-    mapsToUpdate.push(map);
-  }
-  if (state === "CLOSE" && exists) {
-    const index = mapsToUpdate.indexOf(map);
-    mapsToUpdate.slice(index, 1);
-  }
-  return mapsToUpdate;
-};
-
-const updateInfluence = (
-  influenceToUpdate: IGsoInfluence,
-  payload: IPayloadUpdateInfluence
-) => {
-  const { character, num } = payload;
-  const currentInfluence = influenceToUpdate[character].valueOf();
-  const newInfluence = currentInfluence + num;
-  influenceToUpdate[character] = newInfluence;
-  return influenceToUpdate;
-};
+import engine from "../store/engine";
 
 const initialState: IGso = gso;
 
@@ -209,7 +57,10 @@ export default function GsoReduicer(
       });
     case UPDATE_NPC:
       return Object.assign({}, state, {
-        levels: npcUpdate(levelsToUpdate, action.payload as IPayloadNpcUpdate)
+        levels: engine.npcUpdate(
+          levelsToUpdate,
+          action.payload as IPayloadNpcUpdate
+        )
       });
     case SHOW_QUESTS:
       return Object.assign({}, state, {
@@ -219,7 +70,7 @@ export default function GsoReduicer(
       return Object.assign(
         {},
         state,
-        questUpdate(
+        engine.questUpdate(
           questsToUpdate,
           quesstsTaken,
           questsCompleted,
@@ -230,7 +81,7 @@ export default function GsoReduicer(
       return Object.assign(
         {},
         state,
-        endQuest(
+        engine.endQuest(
           quesstsTaken,
           questsCompleted,
           questsToUpdate,
@@ -241,11 +92,17 @@ export default function GsoReduicer(
       return Object.assign(
         {},
         state,
-        openConnection(levelsToUpdate, action.payload as IPayloadOpenConnection)
+        engine.openConnection(
+          levelsToUpdate,
+          action.payload as IPayloadOpenConnection
+        )
       );
     case ADD_GLOBAL_EVENT:
       return Object.assign({}, state, {
-        globalEvents: addGlobalEvent(globalEvents, action.payload as string)
+        globalEvents: engine.addGlobalEvent(
+          globalEvents,
+          action.payload as string
+        )
       });
     case ACTIVE_DIALOGUE:
       return Object.assign({}, state, {
@@ -253,7 +110,10 @@ export default function GsoReduicer(
       });
     case UPDATE_PARTY:
       return Object.assign({}, state, {
-        party: updateParty(partyToUpdate, action.payload as IPayloadPartyUpdate)
+        party: engine.updateParty(
+          partyToUpdate,
+          action.payload as IPayloadPartyUpdate
+        )
       });
     case SELECT_PARTY:
       return Object.assign({}, state, {
@@ -265,7 +125,7 @@ export default function GsoReduicer(
       });
     case UPDATE_INFLUENCE:
       return Object.assign({}, state, {
-        influence: updateInfluence(
+        influence: engine.updateInfluence(
           influenceToUpdate,
           action.payload as IPayloadUpdateInfluence
         )
@@ -278,11 +138,17 @@ export default function GsoReduicer(
       });
     case MAP_UPDATE:
       return Object.assign({}, state, {
-        maps: updateMap(mapsToUpdate, action.payload as IPayloadUpdateMap)
+        maps: engine.updateMap(
+          mapsToUpdate,
+          action.payload as IPayloadUpdateMap
+        )
       });
     /* FIGHTING */
     case SHOW_FIGHT:
-      return Object.assign({}, state, { showFight: true });
+      return Object.assign({}, state, {
+        showFight: true,
+        fightField: engine.generateFightField(action.payload as string)
+      });
     /* not refactored */
     case SHOW_INFOLINE:
       return Object.assign({}, state, { infoline: action.payload });

@@ -9,6 +9,7 @@ let initialState: IGso = gso;
 
 beforeEach(() => {
   initialState = {
+    fightField: null,
     showDialogue: null,
     showCharacters: false,
     showQuests: null,
