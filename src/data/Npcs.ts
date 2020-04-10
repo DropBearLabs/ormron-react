@@ -3,7 +3,6 @@ import {
   IGsoLevelOrmronStreetNPCs,
   IGsoLevelOrmronArenaNPCs,
   IGsoLevelOrmronGardenNPCs,
-  IGsoLevelOrmronGardenConnections,
   IGsoLevelOrmronGazeboNPCs
 } from "../types/TypeLevels";
 const GROUNDLEVEL = 150;
