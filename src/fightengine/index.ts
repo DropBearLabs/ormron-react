@@ -121,7 +121,7 @@ function moveAvailable(from: IFightCell, to: IFightCell) {
   const yDiff = Math.abs(from.coordinates.y - to.coordinates.y);
   return xDiff + yDiff === 1;
 }
-function calculateMove(from: IFightCell, to: IFightCell) {
+function checkMove(from: IFightCell, to: IFightCell) {
   if (
     (from.coordinates.x > 0 && to.coordinates.x < 0) ||
     (from.coordinates.x < 0 && to.coordinates.x > 0)
@@ -143,7 +143,7 @@ function calculateMove(from: IFightCell, to: IFightCell) {
   if (endOfTheField(from, to)) {
     return "You can't jump over a field";
   }
-  return "Move is possible";
+  return true;
 }
 
-module.exports = { calculateAttack, calculateMove };
+module.exports = { calculateAttack, checkMove };

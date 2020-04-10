@@ -1,4 +1,4 @@
-const {calculateAttack, calculateMove} = require('../fightengine');
+const {calculateAttack, checkMove} = require('../fightengine');
 
 test("Attack with one alteration", () => {
   expect(calculateAttack(10, 10, ["Frightened"], ["Defended"])).toEqual([8, 8, 16]);
@@ -52,16 +52,16 @@ test("Attack with elements, environment, alterations and effects", () => {
 })
 
 test("Test one cell move", () => {
-    expect(calculateMove({x:3, y:3, taken: true}, {x:2, y:3, taken: false}, "MOVE")).toEqual("Move is possible");
-    expect(calculateMove({x:3, y:3, taken: true}, {x:4, y:3, taken: false}, "MOVE")).toEqual("Move is possible");
-    expect(calculateMove({x:3, y:3, taken: true}, {x:3, y:2, taken: false}, "MOVE")).toEqual("Move is possible");
-    expect(calculateMove({x:3, y:3, taken: true}, {x:3, y:4, taken: false}, "MOVE")).toEqual("Move is possible");
-    expect(calculateMove({x:3, y:3, taken: true}, {x:1, y:2, taken: false}, "MOVE")).toEqual("You can't jump over a cell");
-    expect(calculateMove({x:3, y:3, taken: true}, {x:2, y:2, taken: false}, "MOVE")).toEqual("You can't jump over a cell");
-    expect(calculateMove({x:1, y:4, taken: true}, {x:1, y:5, taken: false}, "MOVE")).toEqual("You can't jump over a field");
-    expect(calculateMove({x:1, y:2, taken: true}, {x:1, y:2, taken: false}, "MOVE")).toEqual("You can't move to the same cell");
-    expect(calculateMove({x:-1, y:2, taken: true}, {x:1, y:2, taken: false}, "MOVE")).toEqual("You can't make this move, it's on opposite territory");
-    expect(calculateMove({x:1, y:2, taken: false}, {x:1, y:2, taken: false}, "MOVE")).toEqual("You can't make this move, the cell is not taken");
-    expect(calculateMove({x:1, y:2, taken: true}, {x:1, y:2, taken: true}, "MOVE")).toEqual("You can't make this move, the cell you trying to move to is taken");
-    expect(calculateMove({x:1, y:2, taken: true}, {x:2, y:2, taken: false}, "MOVE")).toEqual("Move is possible");
+    expect(checkMove({coordinates: {x:3, y:3}, character: true}, {coordinates: {x:2, y:3}, character: null}, "MOVE")).toEqual(true);
+    expect(checkMove({coordinates: {x:3, y:3}, character: true}, {coordinates: {x:4, y:3}, character: null}, "MOVE")).toEqual(true);
+    expect(checkMove({coordinates: {x:3, y:3}, character: true}, {coordinates: {x:3, y:2}, character: null}, "MOVE")).toEqual(true);
+    expect(checkMove({coordinates: {x:3, y:3}, character: true}, {coordinates: {x:3, y:4}, character: null}, "MOVE")).toEqual(true);
+    expect(checkMove({coordinates: {x:1, y:2}, character: true}, {coordinates: {x:2, y:2}, character: null}, "MOVE")).toEqual(true);
+    expect(checkMove({coordinates: {x:3, y:3}, character: true}, {coordinates: {x:1, y:2}, character: null}, "MOVE")).toEqual("You can't jump over a cell");
+    expect(checkMove({coordinates: {x:3, y:3}, character: true}, {coordinates: {x:2, y:2}, character: null}, "MOVE")).toEqual("You can't jump over a cell");
+    expect(checkMove({coordinates: {x:1, y:4}, character: true}, {coordinates: {x:1, y:5}, character: null}, "MOVE")).toEqual("You can't jump over a field");
+    expect(checkMove({coordinates: {x:1, y:2}, character: true}, {coordinates: {x:1, y:2}, character: null}, "MOVE")).toEqual("You can't move to the same cell");
+    expect(checkMove({coordinates: {x:1, y:2}, character: null}, {coordinates: {x:1, y:2}, character: null}, "MOVE")).toEqual("You can't make this move, the cell is not taken");
+    expect(checkMove({coordinates: {x:1, y:2}, character: true}, {coordinates: {x:1, y:2}, character: true}, "MOVE")).toEqual("You can't make this move, the cell you trying to move to is taken");
+    expect(checkMove({coordinates: {x:-1, y:2}, character: true}, {coordinates: {x:1, y:2}, character: null}, "MOVE")).toEqual("You can't make this move, it's on opposite territory");
 })
