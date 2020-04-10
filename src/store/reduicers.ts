@@ -31,6 +31,7 @@ import {
 } from "../types/TypeActions";
 import { MainCharacters } from "../types/TypeCharacters";
 import engine from "../store/engine";
+import { IFightCell } from "../types/TypesFights";
 
 const initialState: IGso = gso;
 
@@ -147,7 +148,11 @@ export default function GsoReduicer(
     case SHOW_FIGHT:
       return Object.assign({}, state, {
         showFight: true,
-        fightField: engine.generateFightField(action.payload as string)
+        fightField: engine.generateFightField(
+          action.payload as string,
+          state.setParty,
+          state.charactersData
+        )
       });
     /* not refactored */
     case SHOW_INFOLINE:

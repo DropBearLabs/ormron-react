@@ -1,6 +1,28 @@
 import { Alterations, EnvEffects, Elements } from "../types/TypeCharacters";
 import { IFightCell } from "../types/TypesFights";
 
+/* HELPERS */
+function sameCell(from: IFightCell, to: IFightCell) {
+  return (
+    from.coordinates.x === to.coordinates.x &&
+    from.coordinates.y === to.coordinates.y
+  );
+}
+function endOfTheField(from: IFightCell, to: IFightCell) {
+  return (
+    from.coordinates.x > 4 ||
+    to.coordinates.x > 4 ||
+    from.coordinates.y > 4 ||
+    to.coordinates.y > 4
+  );
+}
+function moveAvailable(from: IFightCell, to: IFightCell) {
+  const xDiff = Math.abs(from.coordinates.x - to.coordinates.x);
+  const yDiff = Math.abs(from.coordinates.y - to.coordinates.y);
+  return xDiff + yDiff === 1;
+}
+
+/* ATTACKING */
 function calculateAttack(
   physical: number,
   magical: number,
@@ -102,25 +124,7 @@ function calculateAttack(
   return [physicalAttack, magicalAttack, physicalAttack + magicalAttack];
 }
 
-function sameCell(from: IFightCell, to: IFightCell) {
-  return (
-    from.coordinates.x === to.coordinates.x &&
-    from.coordinates.y === to.coordinates.y
-  );
-}
-function endOfTheField(from: IFightCell, to: IFightCell) {
-  return (
-    from.coordinates.x > 4 ||
-    to.coordinates.x > 4 ||
-    from.coordinates.y > 4 ||
-    to.coordinates.y > 4
-  );
-}
-function moveAvailable(from: IFightCell, to: IFightCell) {
-  const xDiff = Math.abs(from.coordinates.x - to.coordinates.x);
-  const yDiff = Math.abs(from.coordinates.y - to.coordinates.y);
-  return xDiff + yDiff === 1;
-}
+/* MOVING */
 function checkMove(from: IFightCell, to: IFightCell) {
   if (
     (from.coordinates.x > 0 && to.coordinates.x < 0) ||

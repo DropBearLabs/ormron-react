@@ -23,7 +23,7 @@ export interface IGso {
   setParty: IGsoParty;
   influence: IGsoInfluence;
   charactersData: ICharactersData;
-  fightField: IFightCell[][] | null;
+  fightField: IFightCell[] | null;
 }
 
 export interface IGsoQuest {

@@ -65,7 +65,7 @@ export const gso: IGso = {
   questsCompleted: [],
   maps: ["ormron_streets"],
   questsTaken: [],
-  party: [MainCharacters.maya],
+  party: [MainCharacters.maya, MainCharacters.dart, MainCharacters.nell],
   setParty: {
     [MainCharacters.maya]: true,
     [MainCharacters.tara]: false,

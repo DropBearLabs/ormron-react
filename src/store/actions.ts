@@ -83,13 +83,6 @@ export const showQuests = (quest: string | null): IReturnAction => {
   };
 };
 
-export const showFight = (opponents: string): IReturnAction => {
-  return {
-    payload: opponents,
-    type: SHOW_FIGHT
-  };
-};
-
 export const questUpdate = (condition: [string, string]): IReturnAction => {
   const quest = condition[0];
   const step = condition[1];
@@ -150,6 +143,13 @@ export const showCharacters = (characters: boolean): IReturnAction => {
   return {
     payload: characters as IPayload,
     type: SHOW_CHARACTERS
+  };
+};
+
+export const showFight = (opponents: string): IReturnAction => {
+  return {
+    payload: opponents,
+    type: SHOW_FIGHT
   };
 };
 

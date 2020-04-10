@@ -1,7 +1,10 @@
 import {
   findQuest,
   npcLevelStatus,
-  connectionLevelStatus
+  connectionLevelStatus,
+  getRandomInt,
+  findEnemiesFromSet,
+  findFightCell
 } from "../data/helpers";
 import {
   IPayloadNpcUpdate,
@@ -12,8 +15,14 @@ import {
   IPayloadUpdateInfluence
 } from "../types/TypeActions";
 import { IGsoLevel, ConnectionStatus } from "../types/TypeLevels";
-import { MainCharacters } from "../types/TypeCharacters";
+import {
+  MainCharacters,
+  IGsoParty,
+  ICharactersData
+} from "../types/TypeCharacters";
 import { IGsoQuest, IQuestStep, IGsoInfluence } from "../types/Types";
+import { field } from "../data/Field";
+import { IFightCell } from "../types/TypesFights";
 
 const npcUpdate = (levelsToUpdate: IGsoLevel[], payload: IPayloadNpcUpdate) => {
   const { level, character, setTo } = payload;
@@ -102,8 +111,6 @@ const questUpdate = (
   };
 };
 
-const generateFightField = (opponentsSet: string) => {};
-
 const endQuest = (
   questsTaken: string[],
   questsCompleted: string[],
@@ -163,6 +170,41 @@ const updateInfluence = (
   const newInfluence = currentInfluence + num;
   influenceToUpdate[character] = newInfluence;
   return influenceToUpdate;
+};
+
+const generateFightField = (
+  opponentsSet: string,
+  party: IGsoParty,
+  characters: ICharactersData
+) => {
+  const emptyField: IFightCell[] = field;
+  const fightField: IFightCell[] = JSON.parse(JSON.stringify(emptyField));
+  const opponents = findEnemiesFromSet(opponentsSet);
+  // @ts-ignore
+  const activePartyMembers = Object.keys(party).filter(k => party[k]);
+  // @ts-ignore
+  const heroes = activePartyMembers.map(m => characters[m]);
+  heroes.forEach(h => {
+    let x = 1;
+    let y = 1;
+    do {
+      x = getRandomInt(4) + 1;
+      y = getRandomInt(4) + 1;
+    } while (findFightCell(fightField, { x, y }).character !== null);
+    findFightCell(fightField, { x, y }).character = h;
+  });
+
+  opponents.forEach(e => {
+    let x = 1;
+    let y = 1;
+    do {
+      x = getRandomInt(4) + 1;
+      y = getRandomInt(4) + 1;
+    } while (findFightCell(fightField, { x: -x, y }).character !== null);
+    findFightCell(fightField, { x: -x, y }).character = e;
+  });
+
+  return fightField;
 };
 
 export default {

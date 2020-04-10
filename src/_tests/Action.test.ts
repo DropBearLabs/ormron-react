@@ -503,8 +503,26 @@ test("Show Characters", () => {
   });
 });
 
-test("Show Fighting scene", () => {
-  expect(reduicer(initialState, actions.showFight("something"))).toMatchObject({
+test("Show Fighting scene one character", () => {
+  const result = reduicer(initialState, actions.showFight("sandEasy1"));
+  expect(result).toMatchObject({
     showFight: true
   });
+  expect(result.fightField).toBeDefined();
+  //@ts-ignore
+  expect(result.fightField.filter(f => f.character !== null).length).toEqual(4);
+});
+
+test("Show Fighting scene tree characters", () => {
+  initialState.setParty = {
+    [MainCharacters.maya]: true,
+    [MainCharacters.tara]: true,
+    [MainCharacters.grey]: true,
+    [MainCharacters.dart]: false,
+    [MainCharacters.nell]: false
+  };
+
+  const result = reduicer(initialState, actions.showFight("sandEasy1"));
+  //@ts-ignore
+  expect(result.fightField.filter(f => f.character !== null).length).toEqual(6);
 });

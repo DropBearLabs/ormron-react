@@ -1,5 +1,5 @@
 import { IPoint } from "./Types";
-import { MainCharacters, Enemies } from "./TypeCharacters";
+import { MainCharacters, Enemies, ICharacterData } from "./TypeCharacters";
 
 export interface IFightOpponent {
   id: string;
@@ -13,5 +13,5 @@ export interface IFightOpponent {
 
 export interface IFightCell {
   coordinates: IPoint;
-  character: MainCharacters | Enemies | null;
+  character: ICharacterData | IFightOpponent | null;
 }

@@ -1,5 +1,4 @@
 const clickThrough = id => {
-  console.log(id);
   return new Promise((resolve, reject) =>
     setTimeout(function() {
       document.getElementById(id).click();
@@ -28,6 +27,7 @@ export const runInDebugAll = async () => {
   await passDialogue(["dialogue3_line0", "dialogue4_line0", "dialogue4_line1"]);
 
   await clickThrough("street_to_arena");
+  /*
   await clickThrough("select_party_button");
 
   await clickThrough("ormron_arena_npc_Dario1");
@@ -45,7 +45,7 @@ export const runInDebugAll = async () => {
     "dialogue7_line4"
   ]);
 
-await clickThrough("street_to_garden");
+  await clickThrough("street_to_garden");
   await passDialogue([
     "dialogue8_line0",
     "dialogue9_line0",
@@ -134,7 +134,7 @@ await clickThrough("street_to_garden");
     "dialogue42_line2",
     "dialogue43_line0",
     "dialogue44_line0"
-  ]);
+  ]); */
 };
 
 export const runInDebugNell = async () => {

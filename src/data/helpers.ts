@@ -12,7 +12,8 @@ import {
   IQuestStep,
   IConnection,
   INpc,
-  IDefaultLine
+  IDefaultLine,
+  IPoint
 } from "../types/Types";
 import { ITrigger } from "../types/TypeTriggers";
 import {
@@ -23,6 +24,8 @@ import {
 } from "../types/TypeLevels";
 import { MainCharacters, IPartyMember, Spells } from "../types/TypeCharacters";
 import { allParty } from "./Characters";
+import { enemySets } from "./Opponents";
+import { IFightCell } from "../types/TypesFights";
 
 export function findConnection(id: string) {
   const connection = connections.find((c: IConnection) => c.id === id);
@@ -111,6 +114,24 @@ export function findDefaultLine(lineId: string) {
   return line;
 }
 
+export function findEnemiesFromSet(setId: string) {
+  const set = enemySets.find(s => s.id === setId);
+  if (set === undefined) {
+    throw Error("Unknown opponent set id " + setId);
+  }
+  return set.opponents;
+}
+
+export function findFightCell(field: IFightCell[], coord: IPoint) {
+  const cell = field.find(
+    c => c.coordinates.x === coord.x && c.coordinates.y === coord.y
+  );
+  if (cell === undefined) {
+    throw Error("Couldn't find a cell with requested coordinates");
+  }
+  return cell;
+}
+
 function checkGlobalEvent(global: string[], event: string, state: boolean) {
   if (state) {
     return global.includes(event);
@@ -164,4 +185,8 @@ export function npcLevelStatus(
     level.npcs = { ...level.npcs, [name]: status };
   }
   return level.npcs[name as keyof typeof level.npcs];
+}
+
+export function getRandomInt(max: number) {
+  return Math.floor(Math.random() * Math.floor(max));
 }

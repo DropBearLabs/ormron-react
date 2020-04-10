@@ -1,8 +1,9 @@
 import { IFightOpponent } from "../types/TypesFights";
+import { Enemies } from "../types/TypeCharacters";
 
 export const enemies: IFightOpponent[] = [
   {
-    id: "sandnake1",
+    id: Enemies.sandnake1,
     name: "Sand Snake",
     image: "enemy_snake1.png",
     life: 10,
@@ -11,7 +12,7 @@ export const enemies: IFightOpponent[] = [
     attack_magic: 2
   },
   {
-    id: "bigsandnake1",
+    id: Enemies.bigsandnake1,
     name: "Big Sand Snake",
     image: "enemy_bigsnake1.png",
     life: 12,
@@ -20,7 +21,7 @@ export const enemies: IFightOpponent[] = [
     attack_magic: 4
   },
   {
-    id: "sandghost1",
+    id: Enemies.sandghost1,
     name: "Sand Ghost",
     image: "enemy_ghost1.png",
     life: 11,
@@ -29,7 +30,7 @@ export const enemies: IFightOpponent[] = [
     attack_magic: 5
   },
   {
-    id: "sandmummy1",
+    id: Enemies.sandmummy1,
     name: "Mummy",
     image: "enemy_ghost1.png",
     life: 11,
@@ -38,7 +39,7 @@ export const enemies: IFightOpponent[] = [
     attack_magic: 3
   },
   {
-    id: "sandwrath1",
+    id: Enemies.sandwrath1,
     name: "Sand Wraith",
     image: "enemy_wraith1.png",
     life: 15,

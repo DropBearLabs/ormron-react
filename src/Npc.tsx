@@ -68,8 +68,8 @@ export const NPC = (props: INPCProps) => {
         }, 2000);
       }
       if (triigerParsed[0] === "Fight") {
-        console.log("THIS IS A FIGHT");
-        dispatch(showFight(props.npcTrigger[1]));
+        console.log("THIS IS A FIGHT", triigerParsed[1]);
+        dispatch(showFight(triigerParsed[1]));
       }
     }
   }
