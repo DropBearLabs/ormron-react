@@ -2,7 +2,12 @@ import actions from "../store/actions";
 import reduicer from "../store/reduicers";
 import { IGso } from "../types/Types";
 import { gso } from "../data/Gso";
-import { MainCharacters, Spells } from "../types/TypeCharacters";
+import { field } from "../data/Field";
+import {
+  MainCharacters,
+  Spells,
+  ICharacterData
+} from "../types/TypeCharacters";
 import { ConnectionStatus } from "../types/TypeLevels";
 
 let initialState: IGso = gso;
@@ -508,9 +513,14 @@ test("Show Fighting scene one character", () => {
   expect(result).toMatchObject({
     showFight: true
   });
-  expect(result.fightField).toBeDefined();
+  expect(result).toBeDefined();
+  const newField = result.fightField;
   //@ts-ignore
-  expect(result.fightField.filter(f => f.character !== null).length).toEqual(4);
+  expect(newField.character).toBeDefined();
+  //@ts-ignore
+  expect(newField.action).toBeDefined();
+  //@ts-ignore
+  expect(newField.field.filter(f => f.character !== null).length).toEqual(4);
 });
 
 test("Show Fighting scene tree characters", () => {
@@ -522,7 +532,63 @@ test("Show Fighting scene tree characters", () => {
     [MainCharacters.nell]: false
   };
 
-  const result = reduicer(initialState, actions.showFight("sandEasy1"));
+  const result = reduicer(initialState, actions.showFight("sandEasy1"))
+    .fightField;
   //@ts-ignore
-  expect(result.fightField.filter(f => f.character !== null).length).toEqual(6);
+  expect(result.field.filter(f => f.character !== null).length).toEqual(6);
+});
+
+test("Fight character selected", () => {
+  const tara = {
+    id: "tara",
+    life: 12,
+    mana: 15,
+    attack_physical: 2,
+    attack_magic: 4,
+    spells: []
+  } as ICharacterData;
+
+  initialState.fightField = field;
+  initialState.fightField.field[0] = {
+    coordinates: { x: 4, y: 1 },
+    character: tara,
+    state: null
+  };
+  const result = reduicer(
+    initialState,
+    actions.fightCharacterSelected({ x: 4, y: 1 })
+  ).fightField;
+  //@ts-ignore
+  expect(result.character).toMatchObject(tara);
+});
+
+test("Fight character is going to move", () => {
+  const tara = {
+    id: "tara",
+    life: 12,
+    mana: 15,
+    attack_physical: 2,
+    attack_magic: 4,
+    spells: []
+  } as ICharacterData;
+
+  initialState.fightField = field;
+  initialState.fightField.field[5] = {
+    coordinates: { x: 3, y: 2 },
+    character: tara,
+    state: null
+  };
+  initialState.fightField.character = tara;
+  const result = reduicer(
+    initialState,
+    actions.fightCharacterPossibleMoves({ x: 3, y: 2 })
+  );
+  //@ts-ignore
+  expect(result.fightField.field[1]).toMatchObject({ state: "green" });
+  //@ts-ignore
+  expect(result.fightField.field[4]).toMatchObject({ state: "green" });
+  //@ts-ignore
+  expect(result.fightField.field[6]).toMatchObject({ state: "green" });
+  //@ts-ignore
+  expect(result.fightField.field[9]).toMatchObject({ state: "green" });
 });

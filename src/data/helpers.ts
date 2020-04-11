@@ -127,7 +127,12 @@ export function findFightCell(field: IFightCell[], coord: IPoint) {
     c => c.coordinates.x === coord.x && c.coordinates.y === coord.y
   );
   if (cell === undefined) {
-    throw Error("Couldn't find a cell with requested coordinates");
+    throw Error(
+      "Couldn't find a cell with requested coordinates " +
+        coord.x +
+        " " +
+        coord.y
+    );
   }
   return cell;
 }

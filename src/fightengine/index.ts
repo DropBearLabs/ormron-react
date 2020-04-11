@@ -23,7 +23,7 @@ function moveAvailable(from: IFightCell, to: IFightCell) {
 }
 
 /* ATTACKING */
-function calculateAttack(
+export function calculateAttack(
   physical: number,
   magical: number,
   alterAttack: Alterations[],
@@ -125,7 +125,7 @@ function calculateAttack(
 }
 
 /* MOVING */
-function checkMove(from: IFightCell, to: IFightCell) {
+export function checkMove(from: IFightCell, to: IFightCell) {
   if (
     (from.coordinates.x > 0 && to.coordinates.x < 0) ||
     (from.coordinates.x < 0 && to.coordinates.x > 0)
@@ -149,5 +149,3 @@ function checkMove(from: IFightCell, to: IFightCell) {
   }
   return true;
 }
-
-module.exports = { calculateAttack, checkMove };

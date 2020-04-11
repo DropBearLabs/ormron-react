@@ -31,6 +31,7 @@ import { Quest } from "./Quest";
 import { IConnectionLevel, IGsoLevel, INPCLevel } from "./types/TypeLevels";
 import { Characters } from "./Characters";
 import { LevelTrigger } from "./LevelTrigger";
+import { Field } from "./Field";
 
 const Debug = () => (
   <>
@@ -104,7 +105,11 @@ const App: React.FC = () => {
   };
 
   if (showFight) {
-    return <div className="App">Fight</div>;
+    return (
+      <div className="App">
+        <Field />
+      </div>
+    );
   }
 
   return (

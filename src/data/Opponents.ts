@@ -9,7 +9,9 @@ export const enemies: IFightOpponent[] = [
     life: 10,
     mana: 3,
     attack_physical: 4,
-    attack_magic: 2
+    attack_magic: 2,
+    spells: [],
+    enemy: true
   },
   {
     id: Enemies.bigsandnake1,
@@ -18,7 +20,9 @@ export const enemies: IFightOpponent[] = [
     life: 12,
     mana: 5,
     attack_physical: 5,
-    attack_magic: 4
+    attack_magic: 4,
+    spells: [],
+    enemy: true
   },
   {
     id: Enemies.sandghost1,
@@ -27,7 +31,9 @@ export const enemies: IFightOpponent[] = [
     life: 11,
     mana: 5,
     attack_physical: 3,
-    attack_magic: 5
+    attack_magic: 5,
+    spells: [],
+    enemy: true
   },
   {
     id: Enemies.sandmummy1,
@@ -36,7 +42,9 @@ export const enemies: IFightOpponent[] = [
     life: 11,
     mana: 3,
     attack_physical: 5,
-    attack_magic: 3
+    attack_magic: 3,
+    spells: [],
+    enemy: true
   },
   {
     id: Enemies.sandwrath1,
@@ -45,7 +53,9 @@ export const enemies: IFightOpponent[] = [
     life: 15,
     mana: 8,
     attack_physical: 5,
-    attack_magic: 5
+    attack_magic: 5,
+    spells: [],
+    enemy: true
   }
 ];
 

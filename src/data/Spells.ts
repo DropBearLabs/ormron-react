@@ -1,5 +1,4 @@
 import { Spells, ICharacterSpell } from "../types/TypeCharacters";
-import { SpellDescription } from "../Spells";
 
 export const spells: ICharacterSpell[] = [
   {

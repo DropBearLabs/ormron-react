@@ -15,7 +15,9 @@ import {
   ADD_GLOBAL_EVENT,
   SET_PARTY,
   SHOW_CHARACTERS,
-  SHOW_FIGHT
+  SHOW_FIGHT,
+  FIGHT_CHARACTER_SELECTED,
+  FIGHT_CHARACTER_POSSIBLE_MOVES
 } from "../data/Constants";
 import { IGsoParty } from "../types/TypeCharacters";
 import {
@@ -23,6 +25,7 @@ import {
   IPayload,
   IPayloadPartyUpdate
 } from "../types/TypeActions";
+import { IPoint } from "../types/Types";
 
 export const showDialogue = (index: number | null): IReturnAction => {
   return {
@@ -153,6 +156,20 @@ export const showFight = (opponents: string): IReturnAction => {
   };
 };
 
+export const fightCharacterSelected = (coord: IPoint): IReturnAction => {
+  return {
+    payload: coord as IPoint,
+    type: FIGHT_CHARACTER_SELECTED
+  };
+};
+
+export const fightCharacterPossibleMoves = (coord: IPoint): IReturnAction => {
+  return {
+    payload: coord as IPoint,
+    type: FIGHT_CHARACTER_POSSIBLE_MOVES
+  };
+};
+
 // export const clearLevelTriggers = (index: number) => ({
 //   payload: index,
 //   type: LEVEL_TIGGERS_CLEAR
@@ -175,5 +192,7 @@ export default {
   setParty,
   updateParty,
   showCharacters,
-  showFight
+  showFight,
+  fightCharacterSelected,
+  fightCharacterPossibleMoves
 };

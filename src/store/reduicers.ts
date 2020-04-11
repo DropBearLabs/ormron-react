@@ -15,10 +15,12 @@ import {
   ADD_GLOBAL_EVENT,
   SET_PARTY,
   SHOW_CHARACTERS,
-  SHOW_FIGHT
+  SHOW_FIGHT,
+  FIGHT_CHARACTER_SELECTED,
+  FIGHT_CHARACTER_POSSIBLE_MOVES
 } from "../data/Constants";
 import { gso } from "../data/Gso";
-import { IGso, IGsoQuest, IGsoInfluence } from "../types/Types";
+import { IGso, IGsoQuest, IGsoInfluence, IPoint } from "../types/Types";
 import { IGsoLevel } from "../types/TypeLevels";
 import {
   IPayloadNpcUpdate,
@@ -31,7 +33,7 @@ import {
 } from "../types/TypeActions";
 import { MainCharacters } from "../types/TypeCharacters";
 import engine from "../store/engine";
-import { IFightCell } from "../types/TypesFights";
+import { IFightCell, IField } from "../types/TypesFights";
 
 const initialState: IGso = gso;
 
@@ -152,6 +154,21 @@ export default function GsoReduicer(
           action.payload as string,
           state.setParty,
           state.charactersData
+        )
+      });
+    case FIGHT_CHARACTER_SELECTED:
+      console.log("state.fightField", state.fightField);
+      return Object.assign({}, state, {
+        fightField: engine.fightCharacterSelected(
+          state.fightField as IField,
+          (action.payload as unknown) as IPoint
+        )
+      });
+    case FIGHT_CHARACTER_POSSIBLE_MOVES:
+      return Object.assign({}, state, {
+        fightField: engine.fightCharacterPossibleMoves(
+          state.fightField as IField,
+          (action.payload as unknown) as IPoint
         )
       });
     /* not refactored */
