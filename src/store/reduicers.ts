@@ -35,7 +35,7 @@ import {
 } from "../types/TypeActions";
 import { MainCharacters } from "../types/TypeCharacters";
 import engine from "../store/engine";
-import { IFightCell, IField } from "../types/TypesFights";
+import { IField } from "../types/TypesFights";
 
 const initialState: IGso = gso;
 
@@ -53,6 +53,7 @@ export default function GsoReduicer(
   const globalEvents: string[] = [...state.globalEvents];
   const partyToUpdate: MainCharacters[] = [...state.party];
   const influenceToUpdate: IGsoInfluence = { ...state.influence };
+  const fieldToUpdate: IField = { ...state.fightField };
   const mapsToUpdate = [...state.maps];
 
   switch (action.type) {
@@ -158,26 +159,26 @@ export default function GsoReduicer(
           state.charactersData
         )
       });
+    // HACK TO JOIN 2 STATES
     case FIGHT_CHARACTER_SELECTED:
-      console.log("state.fightField", state.fightField);
-      return Object.assign({}, state, {
+      const newState = Object.assign({}, state, {
         fightField: engine.fightCharacterSelected(
-          state.fightField as IField,
-          (action.payload as unknown) as IPoint
+          fieldToUpdate,
+          action.payload as IPoint
         )
       });
-    case FIGHT_CHARACTER_POSSIBLE_MOVES:
-      return Object.assign({}, state, {
+      //case FIGHT_CHARACTER_POSSIBLE_MOVES:
+      return Object.assign({}, newState, {
         fightField: engine.fightCharacterPossibleMoves(
-          state.fightField as IField,
-          (action.payload as unknown) as IPoint
+          fieldToUpdate,
+          action.payload as IPoint
         )
       });
     case FIGHT_CHARACTER_MOVES:
       return Object.assign({}, state, {
         fightField: engine.fightCharacterMove(
-          state.fightField as IField,
-          action.payload as IPayloadPoints
+          fieldToUpdate,
+          action.payload as IPoint
         )
       });
     /* not refactored */

@@ -1,5 +1,10 @@
 import { IPoint } from "./Types";
-import { Enemies, ICharacterData, ICharacterSpell } from "./TypeCharacters";
+import {
+  Enemies,
+  ICharacterData,
+  ISpell,
+  MainCharacters
+} from "./TypeCharacters";
 
 export interface IFightOpponent {
   id: Enemies;
@@ -9,18 +14,36 @@ export interface IFightOpponent {
   mana: number;
   attack_physical: number;
   attack_magic: number;
-  spells: ICharacterSpell[];
-  enemy?: true;
+  spells: ISpell[];
 }
 
 export interface IField {
-  field: IFightCell[];
-  character: any;
-  action: string;
+  positions: IFightPosition[];
+  heroes: ICharacterData[];
+  enemies: IFightOpponent[];
+  active: ISubject;
+  action: "move" | "act" | "defend" | null;
+  highlighted: IPoint[];
 }
 
-export interface IFightCell {
+interface ISubjectCharacter {
+  id: MainCharacters;
+  type: "character";
+}
+
+interface ISubjectEnemy {
+  id: Enemies;
+  type: "enemy";
+}
+
+interface ISubjectEmpty {
+  id: undefined;
+  type: "empty";
+}
+
+export type ISubject = ISubjectCharacter | ISubjectEnemy | ISubjectEmpty;
+
+export interface IFightPosition {
   coordinates: IPoint;
-  state: string | null;
-  character: ICharacterData | IFightOpponent | null;
+  subject: ISubject;
 }

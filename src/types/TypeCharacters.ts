@@ -1,4 +1,5 @@
 import { IPoint } from "./Types";
+import { IFightOpponent } from "./TypesFights";
 
 export enum MainCharacters {
   nell = "nell",
@@ -110,13 +111,8 @@ export enum Spells {
   grey_cyclone = "grey_cyclone"
 }
 
-export interface IGsoParty {
-  [MainCharacters.nell]: boolean;
-  [MainCharacters.dart]: boolean;
-  [MainCharacters.tara]: boolean;
-  [MainCharacters.grey]: boolean;
-  [MainCharacters.maya]: boolean;
-}
+// FIXME: this can be just an array
+export type IGsoParty = { [c in MainCharacters]: boolean };
 
 export interface IPartyMember {
   id: MainCharacters;
@@ -145,13 +141,8 @@ export interface ICharacterData {
   spells: ISpell[];
 }
 
-export interface ICharactersData {
-  [MainCharacters.nell]: ICharacterData;
-  [MainCharacters.dart]: ICharacterData;
-  [MainCharacters.tara]: ICharacterData;
-  [MainCharacters.grey]: ICharacterData;
-  [MainCharacters.maya]: ICharacterData;
-}
+// FIXME: this can be just an array
+export type ICharactersData = { [c in MainCharacters]: ICharacterData };
 
 export interface ISpell {
   id: Spells;

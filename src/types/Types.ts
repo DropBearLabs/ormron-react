@@ -1,6 +1,6 @@
 import { IGsoLevel, IConnectionLevel, INPCLevel } from "./TypeLevels";
 import { MainCharacters, IGsoParty, ICharactersData } from "./TypeCharacters";
-import { IFightCell } from "./TypesFights";
+import { IField } from "./TypesFights";
 
 export interface IGso {
   showCharacters: boolean; // Display characters menu
@@ -23,7 +23,7 @@ export interface IGso {
   setParty: IGsoParty;
   influence: IGsoInfluence;
   charactersData: ICharactersData;
-  fightField: { field: IFightCell[]; character: any; action: string } | null;
+  fightField: IField;
 }
 
 export interface IGsoQuest {

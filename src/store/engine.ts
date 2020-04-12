@@ -4,7 +4,8 @@ import {
   connectionLevelStatus,
   getRandomInt,
   findEnemiesFromSet,
-  findFightCell
+  findCellSubject,
+  pointsInclude
 } from "../data/helpers";
 import {
   IPayloadNpcUpdate,
@@ -19,12 +20,12 @@ import { IGsoLevel, ConnectionStatus } from "../types/TypeLevels";
 import {
   MainCharacters,
   IGsoParty,
-  ICharactersData
+  ICharactersData,
+  ICharacterData
 } from "../types/TypeCharacters";
 import { IGsoQuest, IQuestStep, IGsoInfluence, IPoint } from "../types/Types";
-import { field } from "../data/Field";
-import { IFightCell, IField } from "../types/TypesFights";
-import { calculateAttack, checkMove } from "../fightengine";
+import { IField, ISubject } from "../types/TypesFights";
+import { checkMove } from "../fightengine";
 
 const npcUpdate = (levelsToUpdate: IGsoLevel[], payload: IPayloadNpcUpdate) => {
   const { level, character, setTo } = payload;
@@ -179,70 +180,78 @@ const generateFightField = (
   party: IGsoParty,
   characters: ICharactersData
 ) => {
-  const emptyField: IFightCell[] = field.field;
-  const fightField: IFightCell[] = JSON.parse(JSON.stringify(emptyField));
-  const opponents = findEnemiesFromSet(opponentsSet);
-  // @ts-ignore
-  const activePartyMembers = Object.keys(party).filter(k => party[k]);
-  // @ts-ignore
-  const heroes = activePartyMembers.map(m => characters[m]);
+  const enemies = findEnemiesFromSet(opponentsSet);
+  const heroes = Object.values(characters).filter(
+    (c: ICharacterData) => party[c.id]
+  );
+  const field: IField = {
+    positions: [],
+    heroes,
+    enemies,
+    active: { id: undefined, type: "empty" },
+    action: null,
+    highlighted: []
+  };
+
   heroes.forEach(h => {
     let x = 1;
     let y = 1;
     do {
       x = getRandomInt(4) + 1;
       y = getRandomInt(4) + 1;
-    } while (findFightCell(fightField, { x, y }).character !== null);
-    findFightCell(fightField, { x, y }).character = h;
+    } while (findCellSubject(field, { x, y }).type !== "empty");
+    const subject: ISubject = { type: "character", id: h.id };
+    field.positions.push({ coordinates: { x, y }, subject });
   });
 
-  opponents.forEach(e => {
+  enemies.forEach(e => {
     let x = 1;
     let y = 1;
     do {
       x = getRandomInt(4) + 1;
       y = getRandomInt(4) + 1;
-    } while (findFightCell(fightField, { x: -x, y }).character !== null);
-    findFightCell(fightField, { x: -x, y }).character = e;
+    } while (findCellSubject(field, { x: -x, y }).type !== "empty");
+    const subject: ISubject = { type: "enemy", id: e.id };
+    field.positions.push({ coordinates: { x: -x, y }, subject });
   });
-  return { action: "", character: null, field: fightField };
+  return field;
 };
 
-const fightCharacterSelected = (emptyField: IField, coord: IPoint) => {
-  const fightField: IField = JSON.parse(JSON.stringify(emptyField));
-  const fight: IFightCell[] = JSON.parse(JSON.stringify(emptyField.field));
-  fightField.field = fight;
-  const characterCell = findFightCell(fightField.field, coord);
-  fightField.character = characterCell.character;
-  return fightField;
+const fightCharacterSelected = (field: IField, coord: IPoint) => {
+  const subject = findCellSubject(field, coord);
+  if (!subject) {
+    throw "You can't select an empty cell as a character";
+  }
+  field.active = subject;
+  return field;
 };
 
-const fightCharacterPossibleMoves = (emptyField: IField, coord: IPoint) => {
-  const fightField: IField = JSON.parse(JSON.stringify(emptyField));
-  const fight: IFightCell[] = JSON.parse(JSON.stringify(emptyField.field));
-  fightField.field = fight;
-  const characterCell = findFightCell(fightField.field, coord);
-  const allowed = fightField.field.filter(
-    f => checkMove(characterCell, f) === true
-  );
-  allowed.forEach(a => (a.state = "green"));
-  return fightField;
+const fightCharacterPossibleMoves = (field: IField, coord: IPoint) => {
+  const moves = [
+    { x: coord.x - 1, y: coord.y },
+    { x: coord.x + 1, y: coord.y },
+    { x: coord.x, y: coord.y - 1 },
+    { x: coord.x, y: coord.y + 1 }
+  ];
+  const allowed = moves.filter(f => checkMove(field, coord, f) === true);
+  field.highlighted = allowed;
+  return field;
 };
 
-const fightCharacterMove = (emptyField: IField, payload: IPayloadPoints) => {
-  const fightField: IField = JSON.parse(JSON.stringify(emptyField));
-  const fight: IFightCell[] = JSON.parse(JSON.stringify(emptyField.field));
-  fightField.field = fight;
-  fightField.field.forEach(f => (f.state = null));
-  const oldCell = fightField.field.indexOf(
-    findFightCell(fightField.field, payload.from)
+const fightCharacterMove = (field: IField, coord: IPoint) => {
+  if (!pointsInclude(field.highlighted, coord)) {
+    throw "This move is not allowed";
+  }
+
+  const positionFrom = field.positions.find(
+    p => p.subject.type === "character" && p.subject.id === field.active.id
   );
-  fightField.field[oldCell].character = null;
-  const newCell = fightField.field.indexOf(
-    findFightCell(fightField.field, payload.to)
-  );
-  fightField.field[newCell].character = fightField.character;
-  return fightField;
+  if (!positionFrom) {
+    throw "This position doesn't exist";
+  }
+  positionFrom.coordinates = coord;
+  field.highlighted = [];
+  return field;
 };
 
 export default {

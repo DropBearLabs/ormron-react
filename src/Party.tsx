@@ -86,10 +86,8 @@ export const Party = () => {
     }
 
     const select =
-      currentSelection &&
-      Object.values(currentSelection).filter(
-        (c: { s: string; b: boolean }) => c
-      );
+      currentSelection && Object.values(currentSelection).filter(x => x);
+
     if (select && select.length <= 3) {
       setSelection(currentSelection && { ...currentSelection });
     }

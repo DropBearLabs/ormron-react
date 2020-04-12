@@ -1,24 +1,18 @@
 import { Alterations, EnvEffects, Elements } from "../types/TypeCharacters";
-import { IFightCell } from "../types/TypesFights";
+import { IField } from "../types/TypesFights";
+import { IPoint } from "../types/Types";
+import { findCellSubject } from "../data/helpers";
 
 /* HELPERS */
-function sameCell(from: IFightCell, to: IFightCell) {
-  return (
-    from.coordinates.x === to.coordinates.x &&
-    from.coordinates.y === to.coordinates.y
-  );
+function sameCell(from: IPoint, to: IPoint) {
+  return from.x === to.x && from.y === to.y;
 }
-function endOfTheField(from: IFightCell, to: IFightCell) {
-  return (
-    from.coordinates.x > 4 ||
-    to.coordinates.x > 4 ||
-    from.coordinates.y > 4 ||
-    to.coordinates.y > 4
-  );
+function endOfTheField(from: IPoint, to: IPoint) {
+  return from.x > 4 || to.x > 4 || from.y > 4 || to.y > 4;
 }
-function moveAvailable(from: IFightCell, to: IFightCell) {
-  const xDiff = Math.abs(from.coordinates.x - to.coordinates.x);
-  const yDiff = Math.abs(from.coordinates.y - to.coordinates.y);
+function moveAvailable(from: IPoint, to: IPoint) {
+  const xDiff = Math.abs(from.x - to.x);
+  const yDiff = Math.abs(from.y - to.y);
   return xDiff + yDiff === 1;
 }
 
@@ -125,17 +119,14 @@ export function calculateAttack(
 }
 
 /* MOVING */
-export function checkMove(from: IFightCell, to: IFightCell) {
-  if (
-    (from.coordinates.x > 0 && to.coordinates.x < 0) ||
-    (from.coordinates.x < 0 && to.coordinates.x > 0)
-  ) {
+export function checkMove(field: IField, from: IPoint, to: IPoint) {
+  if ((from.x > 0 && to.x < 0) || (from.x < 0 && to.x > 0)) {
     return "You can't make this move, it's on opposite territory";
   }
-  if (!from.character) {
+  if (findCellSubject(field, from).type !== "character") {
     return "You can't make this move, the cell is not taken";
   }
-  if (to.character) {
+  if (findCellSubject(field, to).type !== "empty") {
     return "You can't make this move, the cell you trying to move to is taken";
   }
   if (sameCell(from, to)) {

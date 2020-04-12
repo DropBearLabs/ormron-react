@@ -172,12 +172,9 @@ export const fightCharacterPossibleMoves = (coord: IPoint): IReturnAction => {
   };
 };
 
-export const fightCharacterMoves = (
-  from: IPoint,
-  to: IPoint
-): IReturnAction => {
+export const fightCharacterMoves = (to: IPoint): IReturnAction => {
   return {
-    payload: { from, to } as IPayloadPoints,
+    payload: to as IPoint,
     type: FIGHT_CHARACTER_MOVES
   };
 };

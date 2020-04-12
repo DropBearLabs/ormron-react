@@ -427,6 +427,13 @@ export const gso: IGso = {
       ]
     }
   },
-  fightField: null
+  fightField: {
+    positions: [],
+    heroes: [],
+    enemies: [],
+    active: { id: undefined, type: "empty" },
+    action: null,
+    highlighted: []
+  }
 };
 //*/

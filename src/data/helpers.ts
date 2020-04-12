@@ -25,7 +25,7 @@ import {
 import { MainCharacters, IPartyMember, Spells } from "../types/TypeCharacters";
 import { allParty } from "./Characters";
 import { enemySets } from "./Opponents";
-import { IFightCell } from "../types/TypesFights";
+import { ISubject, IField } from "../types/TypesFights";
 
 export function findConnection(id: string) {
   const connection = connections.find((c: IConnection) => c.id === id);
@@ -122,21 +122,6 @@ export function findEnemiesFromSet(setId: string) {
   return set.opponents;
 }
 
-export function findFightCell(field: IFightCell[], coord: IPoint) {
-  const cell = field.find(
-    c => c.coordinates.x === coord.x && c.coordinates.y === coord.y
-  );
-  if (cell === undefined) {
-    throw Error(
-      "Couldn't find a cell with requested coordinates " +
-        coord.x +
-        " " +
-        coord.y
-    );
-  }
-  return cell;
-}
-
 function checkGlobalEvent(global: string[], event: string, state: boolean) {
   if (state) {
     return global.includes(event);
@@ -194,4 +179,18 @@ export function npcLevelStatus(
 
 export function getRandomInt(max: number) {
   return Math.floor(Math.random() * Math.floor(max));
+}
+
+export function findCellSubject(field: IField, coord: IPoint): ISubject {
+  const position = field.positions.find(
+    p => p.coordinates.x === coord.x && p.coordinates.y === coord.y
+  );
+  if (!position) {
+    return { id: undefined, type: "empty" };
+  }
+  return position.subject;
+}
+
+export function pointsInclude(points: IPoint[], point: IPoint) {
+  return points.find(h => h.x === point.x && h.y === point.y);
 }
