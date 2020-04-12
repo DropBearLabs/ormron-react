@@ -1,18 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { IGso, IPoint } from "./types/Types";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  findPartyMember,
-  pointsInclude,
-  findCellSubject
-} from "./data/helpers";
-import { ICharacterData, MainCharacters } from "./types/TypeCharacters";
-import { IFightOpponent, ISubject } from "./types/TypesFights";
-import {
-  fightCharacterSelected,
-  fightCharacterPossibleMoves,
-  fightCharacterMoves
-} from "./store/actions";
+import { pointsInclude, findCellSubject } from "./data/helpers";
+import { ISubject } from "./types/TypesFights";
+import { fightCharacterSelected, fightCharacterMoves } from "./store/actions";
 
 interface ISubjectProps {
   subject: ISubject;

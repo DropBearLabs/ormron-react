@@ -1,5 +1,4 @@
 import { IPoint } from "./Types";
-import { IFightOpponent } from "./TypesFights";
 
 export enum MainCharacters {
   nell = "nell",
