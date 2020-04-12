@@ -6,7 +6,8 @@ import { ICharacterData } from "./types/TypeCharacters";
 import { IFightOpponent } from "./types/TypesFights";
 import {
   fightCharacterSelected,
-  fightCharacterPossibleMoves
+  fightCharacterPossibleMoves,
+  fightCharacterMoves
 } from "./store/actions";
 
 interface IEnemyProps {
@@ -41,10 +42,11 @@ interface ICellProps {
   index: number;
   row: number;
   setCell: any;
+  setMoveCell: any;
   action: string;
 }
 
-const Cell = ({ index, row, setCell, action }: ICellProps) => {
+const Cell = ({ index, row, setCell, action, setMoveCell }: ICellProps) => {
   const fightField = useSelector((state: IGso) => state.fightField);
   const dispatch = useDispatch();
   if (fightField == null) {
@@ -52,8 +54,8 @@ const Cell = ({ index, row, setCell, action }: ICellProps) => {
   }
   const cell = findFightCell(fightField.field, { x: index, y: row });
   const cellStyle = {
-    width: "100px",
-    height: "100px",
+    width: "120px",
+    height: "120px",
     border: "1px solid black",
     backgroundColor: cell.state === "green" ? "#00ff8a" : undefined
   };
@@ -69,7 +71,8 @@ const Cell = ({ index, row, setCell, action }: ICellProps) => {
       console.log("Selected enemy");
     }
     if (!cell.character && action === "move") {
-      console.log("I am trying to move to this cell");
+      console.log("I want to move");
+      setMoveCell(cell);
     }
     if (!cell.character && action == "") {
       setCell(null);
@@ -93,6 +96,7 @@ interface IRowProps {
   index: number;
   setCell: any;
   action: string;
+  setMoveCell: any;
 }
 const Row = (props: IRowProps) => {
   const rowStyle = {
@@ -108,6 +112,7 @@ const Row = (props: IRowProps) => {
           row={props.index}
           setCell={props.setCell}
           action={props.action}
+          setMoveCell={props.setMoveCell}
         />
       ))}
     </tr>
@@ -116,14 +121,21 @@ const Row = (props: IRowProps) => {
 
 export const Field = () => {
   const [cell, setCell] = useState(null);
-  const [action, setAction] = useState("");
+  const [moveCell, setMoveCell] = useState(null);
+  const [action, setAction] = useState("move");
   const dispatch = useDispatch();
   useEffect(() => {
     if (action && cell !== null) {
       //@ts-ignore
       dispatch(fightCharacterPossibleMoves(cell.coordinates));
     }
-  }, [action]);
+    if (action == "move" && cell !== null && moveCell !== null) {
+      //@ts-ignore
+      dispatch(fightCharacterMoves(cell.coordinates, moveCell.coordinates));
+      setCell(null);
+      setMoveCell(null);
+    }
+  }, [action, moveCell, cell]);
   return (
     <div>
       <h1>
@@ -132,7 +144,13 @@ export const Field = () => {
       <table>
         <tbody>
           {[1, 2, 3, 4].map(index => (
-            <Row key={index} index={index} setCell={setCell} action={action} />
+            <Row
+              key={index}
+              index={index}
+              setCell={setCell}
+              action={action}
+              setMoveCell={setMoveCell}
+            />
           ))}
         </tbody>
       </table>

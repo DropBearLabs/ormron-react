@@ -17,13 +17,15 @@ import {
   SHOW_CHARACTERS,
   SHOW_FIGHT,
   FIGHT_CHARACTER_SELECTED,
-  FIGHT_CHARACTER_POSSIBLE_MOVES
+  FIGHT_CHARACTER_POSSIBLE_MOVES,
+  FIGHT_CHARACTER_MOVES
 } from "../data/Constants";
 import { IGsoParty } from "../types/TypeCharacters";
 import {
   IReturnAction,
   IPayload,
-  IPayloadPartyUpdate
+  IPayloadPartyUpdate,
+  IPayloadPoints
 } from "../types/TypeActions";
 import { IPoint } from "../types/Types";
 
@@ -170,6 +172,16 @@ export const fightCharacterPossibleMoves = (coord: IPoint): IReturnAction => {
   };
 };
 
+export const fightCharacterMoves = (
+  from: IPoint,
+  to: IPoint
+): IReturnAction => {
+  return {
+    payload: { from, to } as IPayloadPoints,
+    type: FIGHT_CHARACTER_MOVES
+  };
+};
+
 // export const clearLevelTriggers = (index: number) => ({
 //   payload: index,
 //   type: LEVEL_TIGGERS_CLEAR
@@ -194,5 +206,6 @@ export default {
   showCharacters,
   showFight,
   fightCharacterSelected,
-  fightCharacterPossibleMoves
+  fightCharacterPossibleMoves,
+  fightCharacterMoves
 };

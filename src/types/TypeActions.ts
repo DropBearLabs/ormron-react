@@ -18,7 +18,8 @@ import {
   OPEN_LEVEL,
   SHOW_FIGHT,
   FIGHT_CHARACTER_SELECTED,
-  FIGHT_CHARACTER_POSSIBLE_MOVES
+  FIGHT_CHARACTER_POSSIBLE_MOVES,
+  FIGHT_CHARACTER_MOVES
 } from "../data/Constants";
 import { IGsoQuest, IPoint } from "./Types";
 import { INPCLevel, IConnectionLevel } from "./TypeLevels";
@@ -49,6 +50,7 @@ export type IAction =
   | SHOW_FIGHT
   | FIGHT_CHARACTER_SELECTED
   | FIGHT_CHARACTER_POSSIBLE_MOVES
+  | FIGHT_CHARACTER_MOVES
   | ADD_GLOBAL_EVENT;
 
 export type IPayload =
@@ -62,12 +64,18 @@ export type IPayload =
   | IPayloadShowParty
   | IPayloadSetParty
   | IPayloadLevelNpcsUpdate
+  | IPayloadPoints
   | IPoint
   | IGsoParty
   | string
   | number
   | boolean
   | null;
+
+export interface IPayloadPoints {
+  from: IPoint;
+  to: IPoint;
+}
 
 export interface IPayloadNpcUpdate {
   level: string;

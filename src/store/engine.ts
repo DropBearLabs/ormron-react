@@ -12,7 +12,8 @@ import {
   IPayloadQuestUpdate,
   IPayloadOpenConnection,
   IPayloadUpdateMap,
-  IPayloadUpdateInfluence
+  IPayloadUpdateInfluence,
+  IPayloadPoints
 } from "../types/TypeActions";
 import { IGsoLevel, ConnectionStatus } from "../types/TypeLevels";
 import {
@@ -228,6 +229,22 @@ const fightCharacterPossibleMoves = (emptyField: IField, coord: IPoint) => {
   return fightField;
 };
 
+const fightCharacterMove = (emptyField: IField, payload: IPayloadPoints) => {
+  const fightField: IField = JSON.parse(JSON.stringify(emptyField));
+  const fight: IFightCell[] = JSON.parse(JSON.stringify(emptyField.field));
+  fightField.field = fight;
+  fightField.field.forEach(f => (f.state = null));
+  const oldCell = fightField.field.indexOf(
+    findFightCell(fightField.field, payload.from)
+  );
+  fightField.field[oldCell].character = null;
+  const newCell = fightField.field.indexOf(
+    findFightCell(fightField.field, payload.to)
+  );
+  fightField.field[newCell].character = fightField.character;
+  return fightField;
+};
+
 export default {
   npcUpdate,
   updateParty,
@@ -239,5 +256,6 @@ export default {
   updateMap,
   updateInfluence,
   fightCharacterSelected,
-  fightCharacterPossibleMoves
+  fightCharacterPossibleMoves,
+  fightCharacterMove
 };
