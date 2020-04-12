@@ -107,19 +107,6 @@ export const Field = () => {
   const [action, setAction] = useState("move");
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // if (action && cell !== null) {
-    //   //@ts-ignore
-    //   dispatch(fightCharacterPossibleMoves(cell.coordinates));
-    // }
-    // if (action == "move" && cell !== null && moveCell !== null) {
-    //   //@ts-ignore
-    //   dispatch(fightCharacterMoves(cell.coordinates, moveCell.coordinates));
-    //   setCell(null);
-    //   setMoveCell(null);
-    // }
-  }, [action]);
-
   const onCellClick = (point: IPoint) => {
     const subject = findCellSubject(fightField, point);
     if (subject.type === "character") {

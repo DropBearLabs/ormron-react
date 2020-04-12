@@ -52,16 +52,20 @@ test("Attack with elements, environment, alterations and effects", () => {
 })
 
 test("Test one cell move", () => {
-    expect(checkMove({coordinates: {x:3, y:3}, character: true}, {coordinates: {x:2, y:3}, character: null}, "MOVE")).toEqual(true);
-    expect(checkMove({coordinates: {x:3, y:3}, character: true}, {coordinates: {x:4, y:3}, character: null}, "MOVE")).toEqual(true);
-    expect(checkMove({coordinates: {x:3, y:3}, character: true}, {coordinates: {x:3, y:2}, character: null}, "MOVE")).toEqual(true);
-    expect(checkMove({coordinates: {x:3, y:3}, character: true}, {coordinates: {x:3, y:4}, character: null}, "MOVE")).toEqual(true);
-    expect(checkMove({coordinates: {x:1, y:2}, character: true}, {coordinates: {x:2, y:2}, character: null}, "MOVE")).toEqual(true);
-    expect(checkMove({coordinates: {x:3, y:3}, character: true}, {coordinates: {x:1, y:2}, character: null}, "MOVE")).toEqual("You can't jump over a cell");
-    expect(checkMove({coordinates: {x:3, y:3}, character: true}, {coordinates: {x:2, y:2}, character: null}, "MOVE")).toEqual("You can't jump over a cell");
-    expect(checkMove({coordinates: {x:1, y:4}, character: true}, {coordinates: {x:1, y:5}, character: null}, "MOVE")).toEqual("You can't jump over a field");
-    expect(checkMove({coordinates: {x:1, y:2}, character: true}, {coordinates: {x:1, y:2}, character: null}, "MOVE")).toEqual("You can't move to the same cell");
-    expect(checkMove({coordinates: {x:1, y:2}, character: null}, {coordinates: {x:1, y:2}, character: null}, "MOVE")).toEqual("You can't make this move, the cell is not taken");
-    expect(checkMove({coordinates: {x:1, y:2}, character: true}, {coordinates: {x:1, y:2}, character: true}, "MOVE")).toEqual("You can't make this move, the cell you trying to move to is taken");
-    expect(checkMove({coordinates: {x:-1, y:2}, character: true}, {coordinates: {x:1, y:2}, character: null}, "MOVE")).toEqual("You can't make this move, it's on opposite territory");
+    const field = {
+        positions: [
+            {coordinates:{x:3, y:2}, subject: {type:"character", id:"maya"}},
+            {coordinates:{x:4, y:3}, subject: {type:"character", id:"dart"}},
+            {coordinates:{x:-4, y:3}, subject: {type:"enemy", id:"sandnake1"}},
+            {coordinates:{x:-2, y:2}, subject: {type:"enemy", id:"sandnake1"}},
+            {coordinates:{x:-3, y:2}, subject: {type:"enemy", id:"sandnake1"}}
+        ]
+    };
+    expect(checkMove(field, {x:3, y:2}, {x:3, y:3})).toEqual(true);
+    expect(checkMove(field, {x:3, y:2}, {x:3, y:1})).toEqual(true);
+    expect(checkMove(field, {x:3, y:2}, {x:4, y:2})).toEqual(true);
+    expect(checkMove(field, {x:3, y:2}, {x:2, y:2})).toEqual(true);
+    expect(checkMove(field, {x:3, y:2}, {x:1, y:2})).toEqual("You can't jump over a cell");
+    expect(checkMove(field, {x:4, y:3}, {x:5, y:3})).toEqual("You can't jump over a field");
+    expect(checkMove(field, {x:4, y:3}, {x:4, y:3})).toEqual("You can't make this move, the cell you trying to move to is taken");
 })

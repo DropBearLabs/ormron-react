@@ -2,11 +2,11 @@ import actions from "../store/actions";
 import reduicer from "../store/reduicers";
 import { IGso } from "../types/Types";
 import { gso } from "../data/Gso";
-import { field } from "../data/Field";
 import {
   MainCharacters,
   Spells,
-  ICharacterData
+  ICharacterData,
+  Enemies
 } from "../types/TypeCharacters";
 import { ConnectionStatus } from "../types/TypeLevels";
 
@@ -14,7 +14,14 @@ let initialState: IGso = gso;
 
 beforeEach(() => {
   initialState = {
-    fightField: null,
+    fightField: {
+      positions: [],
+      heroes: [],
+      enemies: [],
+      active: { id: undefined, type: "empty" },
+      action: null,
+      highlighted: []
+    },
     showDialogue: null,
     showCharacters: false,
     showQuests: null,
@@ -514,13 +521,10 @@ test("Show Fighting scene one character", () => {
     showFight: true
   });
   expect(result).toBeDefined();
-  const newField = result.fightField;
-  //@ts-ignore
-  expect(newField.character).toBeDefined();
-  //@ts-ignore
-  expect(newField.action).toBeDefined();
-  //@ts-ignore
-  expect(newField.field.filter(f => f.character !== null).length).toEqual(4);
+  expect(result.fightField.heroes).toBeDefined();
+  expect(result.fightField.enemies).toBeDefined();
+  expect(result.fightField.heroes.length).toEqual(1);
+  expect(result.fightField.enemies.length).toEqual(3);
 });
 
 test("Show Fighting scene tree characters", () => {
@@ -532,63 +536,45 @@ test("Show Fighting scene tree characters", () => {
     [MainCharacters.nell]: false
   };
 
-  const result = reduicer(initialState, actions.showFight("sandEasy1"))
-    .fightField;
-  //@ts-ignore
-  expect(result.field.filter(f => f.character !== null).length).toEqual(6);
+  const result = reduicer(initialState, actions.showFight("sandEasy1"));
+  expect(result).toBeDefined();
+  expect(result.fightField.heroes).toBeDefined();
+  expect(result.fightField.enemies).toBeDefined();
+  expect(result.fightField.heroes.length).toEqual(3);
+  expect(result.fightField.enemies.length).toEqual(3);
 });
 
 test("Fight character selected", () => {
-  const tara = {
-    id: "tara",
-    life: 12,
-    mana: 15,
-    attack_physical: 2,
-    attack_magic: 4,
-    spells: []
-  } as ICharacterData;
+  initialState.fightField.positions = [
+    {
+      coordinates: { x: 3, y: 2 },
+      subject: { type: "character", id: MainCharacters.maya }
+    },
+    {
+      coordinates: { x: 4, y: 3 },
+      subject: { type: "character", id: MainCharacters.dart }
+    },
+    {
+      coordinates: { x: -4, y: 3 },
+      subject: { type: "enemy", id: Enemies.sandnake1 }
+    },
+    {
+      coordinates: { x: -2, y: 2 },
+      subject: { type: "enemy", id: Enemies.sandnake1 }
+    },
+    {
+      coordinates: { x: -3, y: 2 },
+      subject: { type: "enemy", id: Enemies.sandnake1 }
+    }
+  ];
 
-  initialState.fightField = field;
-  initialState.fightField.field[0] = {
-    coordinates: { x: 4, y: 1 },
-    character: tara,
-    state: null
-  };
   const result = reduicer(
     initialState,
-    actions.fightCharacterSelected({ x: 4, y: 1 })
-  ).fightField;
-  //@ts-ignore
-  expect(result.character).toMatchObject(tara);
-});
-
-test("Fight character is going to move", () => {
-  const tara = {
-    id: "tara",
-    life: 12,
-    mana: 15,
-    attack_physical: 2,
-    attack_magic: 4,
-    spells: []
-  } as ICharacterData;
-
-  initialState.fightField = field;
-  initialState.fightField.field[5] = {
-    coordinates: { x: 3, y: 2 },
-    character: tara,
-    state: null
-  };
-  initialState.fightField.character = tara;
-  const result = reduicer(
-    initialState,
-    actions.fightCharacterPossibleMoves({ x: 3, y: 2 })
+    actions.fightCharacterSelected({ x: 3, y: 2 })
   );
-  //@ts-ignore
-  expect(result.fightField.field[1]).toMatchObject({ state: "green" });
-  //@ts-ignore
-  expect(result.fightField.field[4]).toMatchObject({ state: "green" });
-  //@ts-ignore
-  expect(result.fightField.field[6]).toMatchObject({ state: "green" });
-  //@ts-ignore
-  expect(result.fightField.field[9]).toMatchObject({ state: "green" });
+
+  expect(result.fightField.active).toMatchObject({
+    id: "maya",
+    type: "character"
+  });
 });
