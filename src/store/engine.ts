@@ -5,7 +5,9 @@ import {
   getRandomInt,
   findEnemiesFromSet,
   findCellSubject,
-  pointsInclude
+  pointsInclude,
+  findSpell,
+  findCharacterCoord
 } from "../data/helpers";
 import {
   IPayloadNpcUpdate,
@@ -13,15 +15,15 @@ import {
   IPayloadQuestUpdate,
   IPayloadOpenConnection,
   IPayloadUpdateMap,
-  IPayloadUpdateInfluence,
-  IPayloadPoints
+  IPayloadUpdateInfluence
 } from "../types/TypeActions";
 import { IGsoLevel, ConnectionStatus } from "../types/TypeLevels";
 import {
   MainCharacters,
   IGsoParty,
   ICharactersData,
-  ICharacterData
+  ICharacterData,
+  Spells
 } from "../types/TypeCharacters";
 import { IGsoQuest, IQuestStep, IGsoInfluence, IPoint } from "../types/Types";
 import { IField, ISubject } from "../types/TypesFights";
@@ -214,7 +216,6 @@ const generateFightField = (
     const subject: ISubject = { type: "enemy", id: e.id };
     field.positions.push({ coordinates: { x, y }, subject });
   });
-  console.log("field", field);
   return field;
 };
 
@@ -255,6 +256,18 @@ const fightCharacterMove = (field: IField, coord: IPoint) => {
   return field;
 };
 
+const fightCharacterActs = (field: IField, spellId: Spells) => {
+  field.highlighted = [];
+  const spell = findSpell(spellId);
+  const position = findCharacterCoord(field);
+
+  field.highlighted = spell.area.map(s => ({
+    x: position.coordinates.x + s.x,
+    y: position.coordinates.y + s.y
+  }));
+  return field;
+};
+
 export default {
   npcUpdate,
   updateParty,
@@ -267,5 +280,6 @@ export default {
   updateInfluence,
   fightCharacterSelected,
   fightCharacterPossibleMoves,
-  fightCharacterMove
+  fightCharacterMove,
+  fightCharacterActs
 };

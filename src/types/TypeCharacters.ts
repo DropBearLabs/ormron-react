@@ -148,4 +148,5 @@ export interface ISpell {
   id: Spells;
   taken: boolean;
   available: boolean;
+  heal?: true;
 }

@@ -19,11 +19,12 @@ import {
   SHOW_FIGHT,
   FIGHT_CHARACTER_SELECTED,
   FIGHT_CHARACTER_POSSIBLE_MOVES,
-  FIGHT_CHARACTER_MOVES
+  FIGHT_CHARACTER_MOVES,
+  FIGHT_CHARACTER_ACTS
 } from "../data/Constants";
 import { IGsoQuest, IPoint } from "./Types";
 import { INPCLevel, IConnectionLevel } from "./TypeLevels";
-import { MainCharacters, IGsoParty } from "./TypeCharacters";
+import { MainCharacters, IGsoParty, ISpell, Spells } from "./TypeCharacters";
 
 export interface IReturnAction {
   type: IAction;
@@ -51,6 +52,7 @@ export type IAction =
   | FIGHT_CHARACTER_SELECTED
   | FIGHT_CHARACTER_POSSIBLE_MOVES
   | FIGHT_CHARACTER_MOVES
+  | FIGHT_CHARACTER_ACTS
   | ADD_GLOBAL_EVENT;
 
 export type IPayload =
@@ -64,18 +66,13 @@ export type IPayload =
   | IPayloadShowParty
   | IPayloadSetParty
   | IPayloadLevelNpcsUpdate
-  | IPayloadPoints
   | IPoint
   | IGsoParty
+  | Spells
   | string
   | number
   | boolean
   | null;
-
-export interface IPayloadPoints {
-  from: IPoint;
-  to: IPoint;
-}
 
 export interface IPayloadNpcUpdate {
   level: string;

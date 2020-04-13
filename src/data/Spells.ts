@@ -8,7 +8,7 @@ export const spells: ICharacterSpell[] = [
       "Pudding danish chocolate cake icing halvah icing bear claw. Sweet roll oat cake candy canes gummi bears cake tart. Donut sesame snaps cheesecake fruitcake dragée wafer chupa chups tootsie roll. ",
     image: "temp-spell2.jpg",
     position: { x: 180, y: 15 },
-    area: []
+    area: [{ x: 0, y: 0 }]
   },
   {
     id: Spells.maya_attackSimple,
@@ -17,7 +17,7 @@ export const spells: ICharacterSpell[] = [
       "Sweet sweet cake muffin jelly beans. Tiramisu oat cake chocolate pastry tootsie roll tart wafer liquorice tart. Oat cake tart toffee sweet croissant candy canes macaroon.",
     image: "temp-spell2.jpg",
     position: { x: 135, y: 40 },
-    area: []
+    area: [{ x: +2, y: 0 }]
   },
   {
     id: Spells.maya_reinforce,
@@ -35,7 +35,7 @@ export const spells: ICharacterSpell[] = [
       "Gummi bears gummi bears gummies pudding tiramisu macaroon powder chupa chups cheesecake. Oat cake jelly-o jelly gingerbread apple pie. Sweet pudding marshmallow.",
     image: "temp-spell2.jpg",
     position: { x: 215, y: 110 },
-    area: []
+    area: [{ x: 0, y: +1 }]
   },
   {
     id: Spells.maya_attackMagic,
@@ -44,7 +44,7 @@ export const spells: ICharacterSpell[] = [
       "Gummies cheesecake oat cake liquorice cake. Toffee caramels croissant sugar plum. Carrot cake candy chocolate powder sesame snaps powder chocolate cake.",
     image: "temp-spell2.jpg",
     position: { x: 125, y: 105 },
-    area: []
+    area: [{ x: +2, y: 1 }]
   },
   {
     id: Spells.maya_heal3,
@@ -335,7 +335,7 @@ export const spells: ICharacterSpell[] = [
       "Caramels pastry powder marshmallow dessert cotton candy tiramisu sesame snaps. Bonbon croissant ice cream. Candy canes fruitcake soufflé pudding candy. Cake carrot cake pudding gummies icing soufflé.",
     image: "temp-spell4.jpg",
     position: { x: 150, y: 45 },
-    area: [{ x: -3, y: 0 }]
+    area: [{ x: 2, y: 0 }]
   },
   {
     id: Spells.dart_icePick,
@@ -345,8 +345,8 @@ export const spells: ICharacterSpell[] = [
     image: "temp-spell4.jpg",
     position: { x: 270, y: 55 },
     area: [
-      { x: -3, y: 0 },
-      { x: -2, y: 0 }
+      { x: 2, y: 0 },
+      { x: 1, y: 0 }
     ]
   },
   {
@@ -357,8 +357,8 @@ export const spells: ICharacterSpell[] = [
     image: "temp-spell4.jpg",
     position: { x: 225, y: 145 },
     area: [
-      { x: -3, y: 0 },
-      { x: -3, y: +1 }
+      { x: 2, y: 0 },
+      { x: 2, y: +1 }
     ]
   },
   {
@@ -369,8 +369,8 @@ export const spells: ICharacterSpell[] = [
     image: "temp-spell4.jpg",
     position: { x: 305, y: 140 },
     area: [
-      { x: -3, y: 0 },
-      { x: -4, y: +1 }
+      { x: 3, y: 0 },
+      { x: 2, y: +1 }
     ]
   },
   {

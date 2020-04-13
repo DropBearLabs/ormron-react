@@ -91,7 +91,8 @@ export const gso: IGso = {
         {
           id: Spells.maya_healSelf,
           taken: true,
-          available: true
+          available: true,
+          heal: true
         },
         {
           id: Spells.maya_attackSimple,
@@ -106,7 +107,8 @@ export const gso: IGso = {
         {
           id: Spells.maya_heal1,
           taken: false,
-          available: false
+          available: false,
+          heal: true
         },
         {
           id: Spells.maya_attackMagic,

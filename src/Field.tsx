@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IGso, IPoint } from "./types/Types";
 import { useSelector, useDispatch } from "react-redux";
 import { pointsInclude, findCellSubject } from "./data/helpers";
 import { ISubject } from "./types/TypesFights";
-import { fightCharacterSelected, fightCharacterMoves } from "./store/actions";
+import {
+  fightCharacterSelected,
+  fightCharacterMoves,
+  fightCharacterActs
+} from "./store/actions";
+import { ISpell } from "./types/TypeCharacters";
 
-const Spells = () => {
+interface ISpellsProps {
+  setSpell: (spell: any) => void;
+}
+const Spells = (props: ISpellsProps) => {
   const style = {
     width: "400px",
     height: "200px",
@@ -29,8 +37,8 @@ const Spells = () => {
         {character.spells
           .filter(s => s.taken)
           .map(s => (
-            <li>
-              <button>{s.id}</button>
+            <li key={s.id}>
+              <button onClick={() => props.setSpell(s.id)}>{s.id}</button>
             </li>
           ))}
       </ul>
@@ -63,21 +71,24 @@ const Character = ({ subject }: ISubjectProps) => {
 interface ICellProps {
   index: number;
   row: number;
+  spell: string | null;
   onClick: (point: IPoint) => void;
 }
 
-const Cell = ({ index, row, onClick }: ICellProps) => {
+const Cell = ({ index, row, spell, onClick }: ICellProps) => {
   const fightField = useSelector((state: IGso) => state.fightField);
   if (fightField == null) {
     throw "We are loading fight field with null";
   }
   const point = { x: index, y: row };
   const highlighted = pointsInclude(fightField.highlighted, point);
+  const colour = spell ? "#ff41cc" : "#41ff89";
+  // #ff41cc
   const cellStyle = {
     width: "120px",
     height: "120px",
     border: "1px solid black",
-    backgroundColor: highlighted ? "#00ff8a" : undefined
+    backgroundColor: highlighted ? colour : undefined
   };
 
   const subject = findCellSubject(fightField, point);
@@ -102,6 +113,7 @@ const Cell = ({ index, row, onClick }: ICellProps) => {
 
 interface IRowProps {
   index: number;
+  spell: string | null;
   onClick: (point: IPoint) => void;
 }
 const Row = (props: IRowProps) => {
@@ -117,6 +129,7 @@ const Row = (props: IRowProps) => {
           key={index}
           row={props.index}
           onClick={props.onClick}
+          spell={props.spell}
         />
       ))}
     </tr>
@@ -130,29 +143,44 @@ export const Field = () => {
   }
   const character = fightField.active;
   const [action, setAction] = useState("move");
+  const [spell, setSpell] = useState(null);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (action === "act" && spell !== null) {
+      //@ts-ignore
+      dispatch(fightCharacterActs(spell));
+    }
+  }, [action, spell]);
 
   const onCellClick = (point: IPoint) => {
     const subject = findCellSubject(fightField, point);
     if (subject.type === "character") {
       dispatch(fightCharacterSelected(point));
     }
-    if (pointsInclude(fightField.highlighted, point)) {
+    if (!spell && pointsInclude(fightField.highlighted, point)) {
       dispatch(fightCharacterMoves(point));
     }
-    if (action === "act") {
+    if (!spell && pointsInclude(fightField.highlighted, point)) {
+      console.log("I want to apply the spell");
     }
   };
+
   return (
     <div>
       <h1>
         Fight character: {character.id || "none"}, action: {action}
       </h1>
-      {action === "act" ? <Spells /> : null};
+      {action === "act" ? <Spells setSpell={setSpell} /> : null};
       <table>
         <tbody>
           {[0, 1, 2, 3].map(index => (
-            <Row key={index} index={index} onClick={onCellClick} />
+            <Row
+              key={index}
+              index={index}
+              onClick={onCellClick}
+              spell={spell}
+            />
           ))}
         </tbody>
       </table>
@@ -176,6 +204,7 @@ export const Field = () => {
           <button
             onClick={() => {
               setAction("");
+              setSpell(null);
               //dispatch cleanup
             }}
           >

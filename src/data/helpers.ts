@@ -191,6 +191,15 @@ export function findCellSubject(field: IField, coord: IPoint): ISubject {
   return position.subject;
 }
 
+export function findCharacterCoord(field: IField) {
+  const char = field.active;
+  const position = field.positions.find(p => p.subject.id === char.id);
+  if (!position) {
+    throw new Error(`Character ${char.id} is not found on a field`);
+  }
+  return position;
+}
+
 export function pointsInclude(points: IPoint[], point: IPoint) {
   return points.find(h => h.x === point.x && h.y === point.y);
 }

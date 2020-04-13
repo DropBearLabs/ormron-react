@@ -18,14 +18,14 @@ import {
   SHOW_FIGHT,
   FIGHT_CHARACTER_SELECTED,
   FIGHT_CHARACTER_POSSIBLE_MOVES,
-  FIGHT_CHARACTER_MOVES
+  FIGHT_CHARACTER_MOVES,
+  FIGHT_CHARACTER_ACTS
 } from "../data/Constants";
-import { IGsoParty } from "../types/TypeCharacters";
+import { IGsoParty, Spells } from "../types/TypeCharacters";
 import {
   IReturnAction,
   IPayload,
-  IPayloadPartyUpdate,
-  IPayloadPoints
+  IPayloadPartyUpdate
 } from "../types/TypeActions";
 import { IPoint } from "../types/Types";
 
@@ -176,6 +176,14 @@ export const fightCharacterMoves = (to: IPoint): IReturnAction => {
   return {
     payload: to as IPoint,
     type: FIGHT_CHARACTER_MOVES
+  };
+};
+
+export const fightCharacterActs = (spell: Spells): IReturnAction => {
+  console.log("action called", spell);
+  return {
+    payload: spell as Spells,
+    type: FIGHT_CHARACTER_ACTS
   };
 };
 
