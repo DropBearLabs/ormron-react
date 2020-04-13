@@ -194,26 +194,27 @@ const generateFightField = (
   };
 
   heroes.forEach(h => {
-    let x = 1;
-    let y = 1;
+    let x = 0;
+    let y = 0;
     do {
-      x = getRandomInt(4) + 1;
-      y = getRandomInt(4) + 1;
+      x = getRandomInt(4);
+      y = getRandomInt(4);
     } while (findCellSubject(field, { x, y }).type !== "empty");
     const subject: ISubject = { type: "character", id: h.id };
     field.positions.push({ coordinates: { x, y }, subject });
   });
 
   enemies.forEach(e => {
-    let x = 1;
-    let y = 1;
+    let x = 4;
+    let y = 0;
     do {
-      x = getRandomInt(4) + 1;
-      y = getRandomInt(4) + 1;
-    } while (findCellSubject(field, { x: -x, y }).type !== "empty");
+      x = getRandomInt(3) + x;
+      y = getRandomInt(4);
+    } while (findCellSubject(field, { x, y }).type !== "empty");
     const subject: ISubject = { type: "enemy", id: e.id };
-    field.positions.push({ coordinates: { x: -x, y }, subject });
+    field.positions.push({ coordinates: { x, y }, subject });
   });
+  console.log("field", field);
   return field;
 };
 

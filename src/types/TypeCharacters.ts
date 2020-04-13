@@ -129,6 +129,7 @@ export interface ICharacterSpell {
   description: string;
   image: string;
   position: IPoint;
+  area: IPoint[];
 }
 
 export interface ICharacterData {

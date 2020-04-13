@@ -5,6 +5,39 @@ import { pointsInclude, findCellSubject } from "./data/helpers";
 import { ISubject } from "./types/TypesFights";
 import { fightCharacterSelected, fightCharacterMoves } from "./store/actions";
 
+const Spells = () => {
+  const style = {
+    width: "400px",
+    height: "200px",
+    position: "absolute" as "absolute",
+    backgroundColor: "white",
+    border: "1px solid black"
+  };
+
+  const fightField = useSelector((state: IGso) => state.fightField);
+  if (fightField == null) {
+    throw "We are loading fight field with null";
+  }
+  const character = fightField.heroes.find(c => fightField.active.id === c.id);
+  if (!character) {
+    throw `Can't find the character ${fightField.active.id} to display spells`;
+  }
+  return (
+    <div style={style}>
+      <h3>Spells for {character.id}</h3>
+      <ul>
+        {character.spells
+          .filter(s => s.taken)
+          .map(s => (
+            <li>
+              <button>{s.id}</button>
+            </li>
+          ))}
+      </ul>
+    </div>
+  );
+};
+
 interface ISubjectProps {
   subject: ISubject;
 }
@@ -61,6 +94,7 @@ const Cell = ({ index, row, onClick }: ICellProps) => {
 
   return (
     <td style={cellStyle} onClick={() => onClick(point)}>
+      {point.x + " x " + point.y}
       {cell}
     </td>
   );
@@ -77,7 +111,7 @@ const Row = (props: IRowProps) => {
   };
   return (
     <tr style={rowStyle}>
-      {[4, 3, 2, 1, -1, -2, -3, -4].map(index => (
+      {[0, 1, 2, 3, 4, 5, 6, 7].map(index => (
         <Cell
           index={index}
           key={index}
@@ -106,15 +140,18 @@ export const Field = () => {
     if (pointsInclude(fightField.highlighted, point)) {
       dispatch(fightCharacterMoves(point));
     }
+    if (action === "act") {
+    }
   };
   return (
     <div>
       <h1>
         Fight character: {character.id || "none"}, action: {action}
       </h1>
+      {action === "act" ? <Spells /> : null};
       <table>
         <tbody>
-          {[1, 2, 3, 4].map(index => (
+          {[0, 1, 2, 3].map(index => (
             <Row key={index} index={index} onClick={onCellClick} />
           ))}
         </tbody>

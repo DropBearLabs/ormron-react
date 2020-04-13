@@ -243,13 +243,13 @@ export const gso: IGso = {
         },
         {
           id: Spells.dart_deepWater,
-          taken: false,
-          available: false
+          taken: true,
+          available: true
         },
         {
           id: Spells.dart_whirPool,
-          taken: false,
-          available: false
+          taken: true,
+          available: true
         },
         {
           id: Spells.dart_ripCurl,

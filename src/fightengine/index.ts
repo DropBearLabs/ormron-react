@@ -8,7 +8,7 @@ function sameCell(from: IPoint, to: IPoint) {
   return from.x === to.x && from.y === to.y;
 }
 function endOfTheField(from: IPoint, to: IPoint) {
-  return from.x > 4 || to.x > 4 || from.y > 4 || to.y > 4;
+  return from.x > 7 || to.x > 7 || from.y > 4 || to.y > 4;
 }
 function moveAvailable(from: IPoint, to: IPoint) {
   const xDiff = Math.abs(from.x - to.x);
@@ -120,7 +120,7 @@ export function calculateAttack(
 
 /* MOVING */
 export function checkMove(field: IField, from: IPoint, to: IPoint) {
-  if ((from.x > 0 && to.x < 0) || (from.x < 0 && to.x > 0)) {
+  if ((from.x <= 3 && to.x > 3) || (from.x > 3 && to.x <= 3)) {
     return "You can't make this move, it's on opposite territory";
   }
   if (findCellSubject(field, from).type !== "character") {
