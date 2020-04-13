@@ -1,6 +1,6 @@
 import { IGso } from "../types/Types";
 import { ConnectionStatus } from "../types/TypeLevels";
-import { MainCharacters, Spells } from "../types/TypeCharacters";
+import { MainCharacters, Spells, Elements } from "../types/TypeCharacters";
 
 export const gso: IGso = {
   showDialogue: null,
@@ -87,6 +87,7 @@ export const gso: IGso = {
       mana: 15,
       attack_physical: 2,
       attack_magic: 4,
+      element: Elements.earth,
       spells: [
         {
           id: Spells.maya_healSelf,
@@ -163,6 +164,7 @@ export const gso: IGso = {
       mana: 13,
       attack_physical: 3,
       attack_magic: 3,
+      element: Elements.fire,
       spells: [
         {
           id: Spells.nell_fireFist,
@@ -232,6 +234,7 @@ export const gso: IGso = {
       mana: 15,
       attack_physical: 3,
       attack_magic: 3,
+      element: Elements.water,
       spells: [
         {
           id: Spells.dart_wave,
@@ -301,6 +304,7 @@ export const gso: IGso = {
       mana: 10,
       attack_physical: 4,
       attack_magic: 2,
+      element: Elements.metal,
       spells: [
         {
           id: Spells.tara_attack1,
@@ -365,6 +369,7 @@ export const gso: IGso = {
       mana: 15,
       attack_physical: 2,
       attack_magic: 4,
+      element: Elements.air,
       spells: [
         {
           id: Spells.grey_blast,

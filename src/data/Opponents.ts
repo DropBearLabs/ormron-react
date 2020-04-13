@@ -1,5 +1,5 @@
 import { IFightOpponent } from "../types/TypesFights";
-import { Enemies } from "../types/TypeCharacters";
+import { Enemies, Elements } from "../types/TypeCharacters";
 
 export const enemies: IFightOpponent[] = [
   {
@@ -10,6 +10,7 @@ export const enemies: IFightOpponent[] = [
     mana: 3,
     attack_physical: 4,
     attack_magic: 2,
+    element: Elements.earth,
     spells: []
   },
   {
@@ -20,6 +21,7 @@ export const enemies: IFightOpponent[] = [
     mana: 5,
     attack_physical: 5,
     attack_magic: 4,
+    element: Elements.earth,
     spells: []
   },
   {
@@ -29,6 +31,7 @@ export const enemies: IFightOpponent[] = [
     life: 11,
     mana: 5,
     attack_physical: 3,
+    element: Elements.air,
     attack_magic: 5,
     spells: []
   },
@@ -40,6 +43,7 @@ export const enemies: IFightOpponent[] = [
     mana: 3,
     attack_physical: 5,
     attack_magic: 3,
+    element: Elements.earth,
     spells: []
   },
   {
@@ -50,21 +54,42 @@ export const enemies: IFightOpponent[] = [
     mana: 8,
     attack_physical: 5,
     attack_magic: 5,
+    element: Elements.earth,
     spells: []
   }
 ];
 
-export const enemySets: Array<{ id: string; opponents: IFightOpponent[] }> = [
-  {
-    id: "sandEasy1",
-    opponents: [enemies[0], enemies[0], enemies[0]]
-  },
-  {
-    id: "sandEasy2",
-    opponents: [enemies[0], enemies[1]]
-  },
-  {
-    id: "sandEasy3",
-    opponents: [enemies[0], enemies[0], enemies[1]]
+export type IFightOpponentWithKey = IFightOpponent & { key: number };
+
+export const enemySets = (id: string): IFightOpponentWithKey[] => {
+  const set = [
+    {
+      id: "sandEasy1",
+      value: [
+        Object.assign({}, enemies[0], { key: 0 }),
+        Object.assign({}, enemies[0], { key: 1 }),
+        Object.assign({}, enemies[0], { key: 2 })
+      ]
+    },
+    {
+      id: "sandEasy2",
+      value: [
+        Object.assign({}, enemies[0], { key: 0 }),
+        Object.assign({}, enemies[1], { key: 0 })
+      ]
+    },
+    {
+      id: "sandEasy3",
+      value: [
+        Object.assign({}, enemies[0], { key: 0 }),
+        Object.assign({}, enemies[0], { key: 1 }),
+        Object.assign({}, enemies[1], { key: 0 })
+      ]
+    }
+  ];
+  const selectedSet = set.find(s => s.id === id);
+  if (!selectedSet) {
+    throw new Error("You are requesting opponent set that doesn't exist");
   }
-];
+  return selectedSet.value;
+};

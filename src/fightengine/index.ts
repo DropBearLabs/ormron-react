@@ -22,11 +22,11 @@ export function calculateAttack(
   magical: number,
   alterAttack: Alterations[],
   alterDefend: Alterations[],
-  env: EnvEffects,
+  env: EnvEffects | null,
   elementAttack: Elements,
   elementDefend: Elements,
-  effectAttack: string,
-  effectDefend: string
+  effectAttack: string | null,
+  effectDefend: string | null
 ) {
   const elementSequence = [
     Elements.air,

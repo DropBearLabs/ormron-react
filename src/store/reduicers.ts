@@ -18,7 +18,8 @@ import {
   SHOW_FIGHT,
   FIGHT_CHARACTER_SELECTED,
   FIGHT_CHARACTER_ACTS,
-  FIGHT_CHARACTER_MOVES
+  FIGHT_CHARACTER_MOVES,
+  FIGHT_CHARACTER_SPELL
 } from "../data/Constants";
 import { gso } from "../data/Gso";
 import { IGso, IGsoQuest, IGsoInfluence, IPoint } from "../types/Types";
@@ -32,7 +33,7 @@ import {
   IPayloadUpdateInfluence,
   IReturnAction
 } from "../types/TypeActions";
-import { MainCharacters, ISpell, Spells } from "../types/TypeCharacters";
+import { MainCharacters, Spells } from "../types/TypeCharacters";
 import engine from "../store/engine";
 import { IField } from "../types/TypesFights";
 
@@ -184,6 +185,15 @@ export default function GsoReduicer(
       return Object.assign({}, state, {
         fightField: engine.fightCharacterActs(
           fieldToUpdate,
+          action.payload as Spells
+        )
+      });
+    case FIGHT_CHARACTER_SPELL:
+      const characters = state.charactersData;
+      return Object.assign({}, state, {
+        fightField: engine.fightCharacterSpell(
+          fieldToUpdate,
+          characters,
           action.payload as Spells
         )
       });

@@ -22,9 +22,14 @@ import {
   ConnectionStatus,
   INPCLevel
 } from "../types/TypeLevels";
-import { MainCharacters, IPartyMember, Spells } from "../types/TypeCharacters";
+import {
+  MainCharacters,
+  IPartyMember,
+  Spells,
+  Enemies
+} from "../types/TypeCharacters";
 import { allParty } from "./Characters";
-import { enemySets } from "./Opponents";
+import { enemySets, enemies } from "./Opponents";
 import { ISubject, IField } from "../types/TypesFights";
 
 export function findConnection(id: string) {
@@ -114,14 +119,6 @@ export function findDefaultLine(lineId: string) {
   return line;
 }
 
-export function findEnemiesFromSet(setId: string) {
-  const set = enemySets.find(s => s.id === setId);
-  if (set === undefined) {
-    throw Error("Unknown opponent set id " + setId);
-  }
-  return set.opponents;
-}
-
 function checkGlobalEvent(global: string[], event: string, state: boolean) {
   if (state) {
     return global.includes(event);
@@ -202,4 +199,12 @@ export function findCharacterCoord(field: IField) {
 
 export function pointsInclude(points: IPoint[], point: IPoint) {
   return points.find(h => h.x === point.x && h.y === point.y);
+}
+
+export function findEnemy(id: Enemies) {
+  const enemy = enemies.find(e => e.id === id);
+  if (!enemy) {
+    throw new Error(`Enemy ${id} is not found in enemies data`);
+  }
+  return enemy;
 }

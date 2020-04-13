@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { IGso, IPoint } from "./types/Types";
 import { useSelector, useDispatch } from "react-redux";
 import { pointsInclude, findCellSubject } from "./data/helpers";
-import { ISubject } from "./types/TypesFights";
+import { ISubject, ISubjectEnemy } from "./types/TypesFights";
 import {
   fightCharacterSelected,
   fightCharacterMoves,
-  fightCharacterActs
+  fightCharacterActs,
+  fightCharacterSpell
 } from "./store/actions";
 import { ISpell } from "./types/TypeCharacters";
 
@@ -56,7 +57,8 @@ const Enemy = ({ subject }: ISubjectProps) => {
     height: "100px",
     backgroundColor: "red"
   };
-  return <div style={style}>{subject.id}</div>;
+  const sbj = subject as ISubjectEnemy;
+  return <div style={style}>{sbj.id + "_" + sbj.key}</div>;
 };
 
 const Character = ({ subject }: ISubjectProps) => {
@@ -161,8 +163,12 @@ export const Field = () => {
     if (!spell && pointsInclude(fightField.highlighted, point)) {
       dispatch(fightCharacterMoves(point));
     }
-    if (!spell && pointsInclude(fightField.highlighted, point)) {
+    if (spell && pointsInclude(fightField.highlighted, point)) {
       console.log("I want to apply the spell");
+      //@ts-ignore
+      dispatch(fightCharacterSpell(spell));
+      setSpell(null);
+      setAction("");
     }
   };
 
@@ -171,7 +177,25 @@ export const Field = () => {
       <h1>
         Fight character: {character.id || "none"}, action: {action}
       </h1>
-      {action === "act" ? <Spells setSpell={setSpell} /> : null};
+      {action === "act" ? <Spells setSpell={setSpell} /> : null}
+      <table>
+        <tbody>
+          {fightField.heroes.map(h => (
+            <tr>
+              <td>
+                {h.id}: life:{h.life}
+              </td>
+            </tr>
+          ))}
+          {fightField.enemies.map(h => (
+            <tr>
+              <td>
+                {h.id}: life:{h.life}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       <table>
         <tbody>
           {[0, 1, 2, 3].map(index => (

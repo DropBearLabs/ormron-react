@@ -3,7 +3,6 @@ import {
   npcLevelStatus,
   connectionLevelStatus,
   getRandomInt,
-  findEnemiesFromSet,
   findCellSubject,
   pointsInclude,
   findSpell,
@@ -27,7 +26,8 @@ import {
 } from "../types/TypeCharacters";
 import { IGsoQuest, IQuestStep, IGsoInfluence, IPoint } from "../types/Types";
 import { IField, ISubject } from "../types/TypesFights";
-import { checkMove } from "../fightengine";
+import { checkMove, calculateAttack } from "../fightengine";
+import { enemySets, IFightOpponentWithKey } from "../data/Opponents";
 
 const npcUpdate = (levelsToUpdate: IGsoLevel[], payload: IPayloadNpcUpdate) => {
   const { level, character, setTo } = payload;
@@ -182,7 +182,7 @@ const generateFightField = (
   party: IGsoParty,
   characters: ICharactersData
 ) => {
-  const enemies = findEnemiesFromSet(opponentsSet);
+  const enemies = enemySets(opponentsSet);
   const heroes = Object.values(characters).filter(
     (c: ICharacterData) => party[c.id]
   );
@@ -213,7 +213,7 @@ const generateFightField = (
       x = getRandomInt(3) + x;
       y = getRandomInt(4);
     } while (findCellSubject(field, { x, y }).type !== "empty");
-    const subject: ISubject = { type: "enemy", id: e.id };
+    const subject: ISubject = { type: "enemy", id: e.id, key: e.key };
     field.positions.push({ coordinates: { x, y }, subject });
   });
   return field;
@@ -259,12 +259,93 @@ const fightCharacterMove = (field: IField, coord: IPoint) => {
 const fightCharacterActs = (field: IField, spellId: Spells) => {
   field.highlighted = [];
   const spell = findSpell(spellId);
-  const position = findCharacterCoord(field);
+  const character = findCharacterCoord(field);
 
   field.highlighted = spell.area.map(s => ({
-    x: position.coordinates.x + s.x,
-    y: position.coordinates.y + s.y
+    x: character.coordinates.x + s.x,
+    y: character.coordinates.y + s.y
   }));
+  return field;
+};
+
+const fightCharacterSpell = (
+  field: IField,
+  characters: ICharactersData,
+  spellId: Spells
+) => {
+  const character = findCharacterCoord(field);
+  if (character.subject.type !== "character") {
+    throw new Error("You are trying to act with no character");
+  }
+  const actingCharacter = field.heroes.find(c => c.id === character.subject.id);
+  if (!actingCharacter) {
+    throw new Error("There is no active character");
+  }
+  const characterData = characters[character.subject.id];
+  const spell = characterData.spells.find(s => s.id === spellId);
+  if (!spell) {
+    throw new Error("The character doesn't have this spell");
+  }
+  const attackAreaContent: ISubject[] = field.highlighted
+    .map(c => {
+      if (findCellSubject(field, c).id) {
+        return findCellSubject(field, c);
+      }
+    })
+    .filter((f): f is ISubject => f !== undefined && f.type !== "empty");
+
+  const enemies = attackAreaContent.map(c =>
+    field.enemies.find(
+      (e: IFightOpponentWithKey) => e.id === c.id && e.key === c.key
+    )
+  );
+  console.log("enemies", enemies);
+  const chars = attackAreaContent.map(c =>
+    field.heroes.find(h => h.id === c.id)
+  );
+  console.log("chars", chars);
+  if (enemies.length > 0) {
+    enemies.forEach(e => {
+      if (e == undefined) return;
+      const attack = calculateAttack(
+        actingCharacter.attack_physical,
+        actingCharacter.attack_magic,
+        [],
+        [],
+        null,
+        actingCharacter.element,
+        e.element,
+        null,
+        null
+      );
+      console.log(
+        `for ${e.id} the currentLife is ${
+          e.life
+        }, got attacked for ${attack} and now is ${e.life - attack[2]}`
+      );
+      e.life = e.life - attack[2];
+      console.log("e.life", e.life);
+      return e;
+    });
+  }
+  field.highlighted = [];
+  field.enemies.forEach(e => {
+    if (e.life <= 0) {
+      const enemyPos = field.positions.find(
+        p => e.id === p.subject.id && e.key === p.subject.key
+      );
+      if (!enemyPos) {
+        throw new Error("You killed the enemy that had no position");
+      }
+      field.positions = field.positions.filter(
+        p =>
+          p.coordinates.x !== enemyPos.coordinates.x ||
+          p.coordinates.y !== enemyPos.coordinates.y
+      );
+    }
+  });
+
+  field.enemies = field.enemies.filter(e => e.life > 0);
   return field;
 };
 
@@ -281,5 +362,6 @@ export default {
   fightCharacterSelected,
   fightCharacterPossibleMoves,
   fightCharacterMove,
-  fightCharacterActs
+  fightCharacterActs,
+  fightCharacterSpell
 };

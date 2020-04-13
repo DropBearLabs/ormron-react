@@ -138,6 +138,7 @@ export interface ICharacterData {
   mana: number;
   attack_physical: number;
   attack_magic: number;
+  element: Elements;
   spells: ISpell[];
 }
 

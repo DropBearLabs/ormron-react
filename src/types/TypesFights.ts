@@ -3,8 +3,10 @@ import {
   Enemies,
   ICharacterData,
   ISpell,
-  MainCharacters
+  MainCharacters,
+  Elements
 } from "./TypeCharacters";
+import { IFightOpponentWithKey } from "../data/Opponents";
 
 export interface IFightOpponent {
   id: Enemies;
@@ -14,26 +16,28 @@ export interface IFightOpponent {
   mana: number;
   attack_physical: number;
   attack_magic: number;
+  element: Elements;
   spells: ISpell[];
 }
 
 export interface IField {
   positions: IFightPosition[];
   heroes: ICharacterData[];
-  enemies: IFightOpponent[];
+  enemies: IFightOpponentWithKey[];
   active: ISubject;
   action: "move" | "act" | "defend" | null;
   highlighted: IPoint[];
 }
 
-interface ISubjectCharacter {
+export interface ISubjectCharacter {
   id: MainCharacters;
   type: "character";
 }
 
-interface ISubjectEnemy {
+export interface ISubjectEnemy {
   id: Enemies;
   type: "enemy";
+  key?: number;
 }
 
 interface ISubjectEmpty {
