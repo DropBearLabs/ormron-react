@@ -16,6 +16,99 @@ function moveAvailable(from: IPoint, to: IPoint) {
   return xDiff + yDiff === 1;
 }
 
+function calcuateTierPerEnvironment(
+  aTier: number,
+  env: EnvEffects | null
+): number {
+  if (env === EnvEffects.fog) {
+    aTier = aTier - 1;
+  }
+  if (env === EnvEffects.storm) {
+    aTier = aTier - 2;
+  }
+  if (env === EnvEffects.air) {
+    aTier = aTier + 1;
+  }
+  return aTier;
+}
+
+function attackingCharAlterations(
+  aTier: number,
+  alterAttackChar: Alterations[]
+): number {
+  alterAttackChar.forEach(element => {
+    if (element === Alterations.Frightened) {
+      aTier = aTier - 1;
+    }
+    if (element === Alterations.Reinforced) {
+      aTier = aTier + 1;
+    }
+    if (element === Alterations.Panicing) {
+      aTier = aTier - 1;
+    }
+    if (element === Alterations.Blessed) {
+      aTier = aTier + 1;
+    }
+  });
+  return aTier;
+}
+
+function defendingCharAlterations(
+  aTier: number,
+  magical: number,
+  physical: number,
+  alterDefendChar: Alterations[]
+): number[] {
+  alterDefendChar.forEach(element => {
+    if (element === Alterations.Defended) {
+      aTier = aTier - 1;
+    }
+    if (element === Alterations.Blessed) {
+      aTier = aTier - 1;
+    }
+    if (element === Alterations.Panicing) {
+      aTier = aTier + 1;
+    }
+    if (element === Alterations.NoMagic) {
+      magical = 0;
+    }
+    if (element === Alterations.NoPhysical) {
+      physical = 0;
+    }
+  });
+  return [aTier, magical, physical];
+}
+
+function applyEffects(
+  magical: number,
+  physical: number,
+  alterAttackChar: Alterations[],
+  alterDefendChar: Alterations[]
+): number[] {
+  if (
+    alterDefendChar.includes(Alterations.Defended) ||
+    alterDefendChar.includes(Alterations.HalfMagic)
+  ) {
+    magical = magical / 2;
+  }
+
+  if (
+    alterDefendChar.includes(Alterations.Defended) ||
+    alterDefendChar.includes(Alterations.HalfPhysical)
+  ) {
+    physical = physical / 2;
+  }
+
+  if (alterAttackChar.includes(Alterations.Numb)) {
+    magical = 0;
+  }
+
+  if (alterAttackChar.includes(Alterations.Blinded)) {
+    physical = 0;
+  }
+  return [magical, physical];
+}
+
 /* ATTACKING */
 export function calculateAttack(
   physical: number,
@@ -39,53 +132,22 @@ export function calculateAttack(
   let bTier = 4;
 
   // Check the environment
-  if (env === EnvEffects.fog) {
-    aTier = aTier - 1;
-  }
-  if (env === EnvEffects.storm) {
-    aTier = aTier - 2;
-  }
-  if (env === EnvEffects.air) {
-    aTier = aTier + 1;
-  }
+  aTier = calcuateTierPerEnvironment(aTier, env);
 
-  alterAttackChar.forEach(element => {
-    if (element === Alterations.Frightened) {
-      aTier = aTier - 1;
-    }
-    if (element === Alterations.Reinforced) {
-      aTier = aTier + 1;
-    }
-    if (element === Alterations.Panicing) {
-      aTier = aTier - 1;
-    }
-    if (element === Alterations.Blessed) {
-      aTier = aTier + 1;
-    }
-  });
+  aTier = attackingCharAlterations(aTier, alterAttackChar);
 
-  alterDefendChar.forEach(element => {
-    if (element === Alterations.Defended) {
-      aTier = aTier - 1;
-    }
-    if (element === Alterations.Blessed) {
-      aTier = aTier - 1;
-    }
-    if (element === Alterations.Panicing) {
-      aTier = aTier + 1;
-    }
-    if (element === Alterations.NoMagic) {
-      magical = 0;
-    }
-    if (element === Alterations.NoPhysical) {
-      physical = 0;
-    }
-  });
+  [aTier, magical, physical] = defendingCharAlterations(
+    aTier,
+    magical,
+    physical,
+    alterDefendChar
+  );
 
   // Set to min and max
   aTier = aTier > 8 ? 8 : aTier;
   aTier = aTier < 0 ? 0 : aTier;
   bTier = aTier;
+
   // Check the element sequence
   const sequence =
     elementSequence.indexOf(elementAttack) -
@@ -98,27 +160,12 @@ export function calculateAttack(
   }
 
   // Check the effects
-  if (
-    alterDefendChar.includes(Alterations.Defended) ||
-    alterDefendChar.includes(Alterations.HalfMagic)
-  ) {
-    magical = magical / 2;
-  }
-
-  if (
-    alterDefendChar.includes(Alterations.Defended) ||
-    alterDefendChar.includes(Alterations.HalfPhysical)
-  ) {
-    physical = physical / 2;
-  }
-
-  if (alterAttackChar.includes(Alterations.Numb)) {
-    magical = 0;
-  }
-
-  if (alterAttackChar.includes(Alterations.Blinded)) {
-    physical = 0;
-  }
+  [magical, physical] = applyEffects(
+    magical,
+    physical,
+    alterAttackChar,
+    alterDefendChar
+  );
 
   const aPercent = 100 + tiers[aTier];
   const bPercent = 100 + tiers[bTier];

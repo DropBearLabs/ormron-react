@@ -308,7 +308,9 @@ const fightCharacterSpell = (
   );
   if (enemies.length > 0) {
     enemies.forEach(e => {
-      if (e == undefined) return;
+      if (e === undefined) {
+        return;
+      }
       const attack = calculateAttack(
         spell.points_physical,
         spell.points_magical,
@@ -317,11 +319,6 @@ const fightCharacterSpell = (
         null,
         actingCharacter.element,
         e.element
-      );
-      console.log(
-        `for ${e.id} the currentLife is ${
-          e.life
-        }, got attacked for ${attack} and now is ${e.life - attack[2]}`
       );
       e.life = e.life - attack[2];
 
