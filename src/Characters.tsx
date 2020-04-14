@@ -28,8 +28,6 @@ const CharacterStats = (props: ICharacterStatsProps) => {
     <div style={characterStateStyle}>
       <div>Life: {props.characterData.life}</div>
       <div>Essence: {props.characterData.mana}</div>
-      <div>Physical Attack: {props.characterData.attack_physical}</div>
-      <div>Magical Attack: {props.characterData.attack_magic}</div>
     </div>
   );
 };

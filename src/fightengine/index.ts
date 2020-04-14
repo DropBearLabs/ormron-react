@@ -20,8 +20,8 @@ function moveAvailable(from: IPoint, to: IPoint) {
 export function calculateAttack(
   physical: number,
   magical: number,
-  alterAttack: Alterations[],
-  alterDefend: Alterations[],
+  alterAttackChar: Alterations[],
+  alterDefendChar: Alterations[],
   env: EnvEffects | null,
   elementAttack: Elements,
   elementDefend: Elements
@@ -49,7 +49,7 @@ export function calculateAttack(
     aTier = aTier + 1;
   }
 
-  alterAttack.forEach(element => {
+  alterAttackChar.forEach(element => {
     if (element === Alterations.Frightened) {
       aTier = aTier - 1;
     }
@@ -64,7 +64,7 @@ export function calculateAttack(
     }
   });
 
-  alterDefend.forEach(element => {
+  alterDefendChar.forEach(element => {
     if (element === Alterations.Defended) {
       aTier = aTier - 1;
     }
@@ -99,35 +99,33 @@ export function calculateAttack(
 
   // Check the effects
   if (
-    alterAttack.includes(Alterations.Defended) ||
-    alterAttack.includes(Alterations.HalfMagic)
+    alterDefendChar.includes(Alterations.Defended) ||
+    alterDefendChar.includes(Alterations.HalfMagic)
   ) {
     magical = magical / 2;
   }
 
   if (
-    alterAttack.includes(Alterations.Defended) ||
-    alterAttack.includes(Alterations.HalfPhysical)
+    alterDefendChar.includes(Alterations.Defended) ||
+    alterDefendChar.includes(Alterations.HalfPhysical)
   ) {
     physical = physical / 2;
   }
 
-  if (alterAttack.includes(Alterations.Numb)) {
+  if (alterAttackChar.includes(Alterations.Numb)) {
     magical = 0;
   }
 
-  if (alterAttack.includes(Alterations.Blinded)) {
+  if (alterAttackChar.includes(Alterations.Blinded)) {
     physical = 0;
   }
 
   const aPercent = 100 + tiers[aTier];
   const bPercent = 100 + tiers[bTier];
-  //console.log("The attack was with ", physical, magical);
-  //console.log("The resulting modificator is ", aPercent, bPercent);
+
   const physicalAttack = (physical * aPercent) / 100;
   const magicalAttack = (magical * bPercent) / 100;
 
-  //console.log("Your physical attack is " + physicalAttack + ", Your magical attack is "+ magicalAttack + ", damage is "+ (physicalAttack + magicalAttack));
   return [physicalAttack, magicalAttack, physicalAttack + magicalAttack];
 }
 

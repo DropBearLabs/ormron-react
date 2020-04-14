@@ -306,10 +306,10 @@ const fightCharacterSpell = (
     enemies.forEach(e => {
       if (e == undefined) return;
       const attack = calculateAttack(
-        actingCharacter.attack_physical,
-        actingCharacter.attack_magic,
+        spell.points_physical,
+        spell.points_magical,
         [],
-        [],
+        e.alterations,
         null,
         actingCharacter.element,
         e.element
@@ -320,6 +320,8 @@ const fightCharacterSpell = (
         }, got attacked for ${attack} and now is ${e.life - attack[2]}`
       );
       e.life = e.life - attack[2];
+
+      //TODO apply the character effect changes if required
       return e;
     });
   }

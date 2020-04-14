@@ -139,10 +139,9 @@ export interface ICharacterData {
   id: MainCharacters;
   life: number;
   mana: number;
-  attack_physical: number;
-  attack_magic: number;
   element: Elements;
   spells: ISpell[];
+  alterations: Alterations[];
 }
 
 // FIXME: this can be just an array
@@ -152,5 +151,9 @@ export interface ISpell {
   id: Spells;
   taken: boolean;
   available: boolean;
-  heal?: true;
+  type: "heal" | "attack";
+  points_magical: number;
+  points_physical: number;
+  price?: number;
+  effects?: Array<{ effect: Alterations; precent: number }>;
 }

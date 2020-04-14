@@ -1,6 +1,11 @@
 import { IGso } from "../types/Types";
 import { ConnectionStatus } from "../types/TypeLevels";
-import { MainCharacters, Spells, Elements } from "../types/TypeCharacters";
+import {
+  MainCharacters,
+  Spells,
+  Elements,
+  Alterations
+} from "../types/TypeCharacters";
 
 export const gso: IGso = {
   showDialogue: null,
@@ -84,45 +89,62 @@ export const gso: IGso = {
     [MainCharacters.maya]: {
       id: MainCharacters.maya,
       life: 12,
-      mana: 15,
-      attack_physical: 2,
-      attack_magic: 4,
+      mana: 5,
       element: Elements.earth,
+      alterations: [],
       spells: [
         {
           id: Spells.maya_healSelf,
           taken: true,
           available: true,
-          heal: true
+          type: "heal",
+          points_magical: 3,
+          points_physical: 0,
+          price: 3
         },
         {
           id: Spells.maya_attackSimple,
           taken: true,
-          available: true
+          available: true,
+          type: "attack",
+          points_magical: 0,
+          points_physical: 5
         },
+        {
+          id: Spells.maya_heal1,
+          taken: true,
+          available: true,
+          type: "heal",
+          points_magical: 3,
+          points_physical: 0
+        },
+        {
+          id: Spells.maya_attackMagic,
+          taken: true,
+          available: true,
+          type: "attack",
+          points_magical: 4,
+          points_physical: 0,
+          price: 3
+        },
+        {
+          id: Spells.maya_attackStun,
+          taken: true,
+          available: true,
+          type: "attack",
+          points_magical: 4,
+          points_physical: 2,
+          price: 3,
+          effects: [{ effect: Alterations.Numb, precent: 30 }]
+        }
+        /*
         {
           id: Spells.maya_reinforce,
           taken: false,
           available: false
         },
         {
-          id: Spells.maya_heal1,
-          taken: false,
-          available: false,
-          heal: true
-        },
-        {
-          id: Spells.maya_attackMagic,
-          taken: false,
-          available: false
-        },
-        {
           id: Spells.maya_heal3,
-          taken: false,
-          available: false
-        },
-        {
-          id: Spells.maya_attackStun,
           taken: false,
           available: false
         },
@@ -155,49 +177,69 @@ export const gso: IGso = {
           id: Spells.maya_chamber,
           taken: false,
           available: false
-        }
+        }*/
       ]
     },
     [MainCharacters.nell]: {
       id: MainCharacters.nell,
       life: 13,
-      mana: 13,
-      attack_physical: 3,
-      attack_magic: 3,
+      mana: 3,
       element: Elements.fire,
+      alterations: [],
       spells: [
         {
           id: Spells.nell_fireFist,
           taken: true,
-          available: true
+          available: true,
+          type: "attack",
+          points_magical: 3,
+          points_physical: 3,
+          price: 3
         },
         {
           id: Spells.nell_doubleTap,
-          taken: false,
-          available: false
+          taken: true,
+          available: true,
+          type: "attack",
+          points_magical: 3,
+          points_physical: 1,
+          price: 3
         },
+        {
+          id: Spells.nell_cross,
+          taken: true,
+          available: true,
+          type: "attack",
+          points_magical: 0,
+          points_physical: 4
+        },
+        {
+          id: Spells.nell_fireRain,
+          taken: true,
+          available: true,
+          type: "attack",
+          points_magical: 2,
+          points_physical: 4,
+          price: 4
+        },
+        {
+          id: Spells.nell_intoCorner,
+          taken: true,
+          available: true,
+          type: "attack",
+          points_magical: 2,
+          points_physical: 2,
+          price: 2,
+          effects: [{ effect: Alterations.Numb, precent: 30 }]
+        }
+        /*
         {
           id: Spells.nell_fireBall,
           taken: false,
           available: false
         },
         {
-          id: Spells.nell_fireRain,
-          taken: false,
-          available: false
-        },
-        {
-          id: Spells.nell_intoCorner,
-          taken: false,
-          available: false
-        },
-        {
           id: Spells.nell_forestFire,
-          taken: false,
-          available: false
-        },
-        {
-          id: Spells.nell_cross,
           taken: false,
           available: false
         },
@@ -225,37 +267,54 @@ export const gso: IGso = {
           id: Spells.nell_fireWall,
           taken: false,
           available: false
-        }
+        }*/
       ]
     },
     [MainCharacters.dart]: {
       id: MainCharacters.dart,
       life: 12,
-      mana: 15,
-      attack_physical: 3,
-      attack_magic: 3,
+      mana: 6,
       element: Elements.water,
+      alterations: [],
       spells: [
         {
           id: Spells.dart_wave,
           taken: true,
-          available: true
+          available: true,
+          type: "attack",
+          points_magical: 1,
+          points_physical: 3,
+          price: 1
         },
         {
           id: Spells.dart_icePick,
           taken: true,
-          available: true
+          available: true,
+          type: "attack",
+          points_magical: 3,
+          points_physical: 1,
+          price: 2
         },
         {
           id: Spells.dart_deepWater,
           taken: true,
-          available: true
+          available: true,
+          type: "attack",
+          points_magical: 2,
+          points_physical: 2,
+          price: 2
         },
         {
           id: Spells.dart_whirPool,
           taken: true,
-          available: true
-        },
+          available: true,
+          type: "attack",
+          points_magical: 2,
+          points_physical: 2,
+          price: 2,
+          effects: [{ effect: Alterations.Blinded, precent: 30 }]
+        }
+        /*
         {
           id: Spells.dart_ripCurl,
           taken: false,
@@ -295,37 +354,51 @@ export const gso: IGso = {
           id: Spells.dart_iceberg,
           taken: false,
           available: false
-        }
+        }*/
       ]
     },
     [MainCharacters.tara]: {
       id: MainCharacters.tara,
       life: 14,
-      mana: 10,
-      attack_physical: 4,
-      attack_magic: 2,
+      mana: 3,
       element: Elements.metal,
+      alterations: [],
       spells: [
         {
           id: Spells.tara_attack1,
           taken: true,
-          available: true
+          available: true,
+          type: "attack",
+          points_magical: 0,
+          points_physical: 4
         },
         {
           id: Spells.tara_attack2a,
-          taken: false,
-          available: false
+          taken: true,
+          available: true,
+          type: "attack",
+          points_magical: 0,
+          points_physical: 4
         },
         {
           id: Spells.tara_attack2b,
-          taken: false,
-          available: false
+          taken: true,
+          available: true,
+          type: "attack",
+          points_magical: 2,
+          points_physical: 3,
+          price: 2
         },
         {
           id: Spells.tara_bleed,
-          taken: false,
-          available: false
-        },
+          taken: true,
+          available: true,
+          type: "attack",
+          points_magical: 0,
+          points_physical: 4,
+          effects: [{ effect: Alterations.Panicing, precent: 30 }] //Replace with Bleed
+        }
+        /*
         {
           id: Spells.tara_attack3a,
           taken: false,
@@ -360,34 +433,57 @@ export const gso: IGso = {
           id: Spells.tara_finish,
           taken: false,
           available: false
-        }
+        }*/
       ]
     },
     [MainCharacters.grey]: {
       id: MainCharacters.grey,
       life: 12,
-      mana: 15,
-      attack_physical: 2,
-      attack_magic: 4,
+      mana: 8,
       element: Elements.air,
+      alterations: [],
       spells: [
         {
           id: Spells.grey_blast,
           taken: true,
-          available: true
+          available: true,
+          type: "attack",
+          points_magical: 2,
+          points_physical: 2,
+          price: 2
         },
         {
           id: Spells.grey_numb,
           taken: true,
-          available: true
+          available: true,
+          type: "attack",
+          points_magical: 3,
+          points_physical: 1,
+          price: 2,
+          effects: [{ effect: Alterations.Numb, precent: 30 }]
         },
         {
-          id: Spells.grey_pullIn,
-          taken: false,
-          available: false
+          id: Spells.grey_soundWave,
+          taken: true,
+          available: true,
+          type: "attack",
+          points_magical: 2,
+          points_physical: 2,
+          price: 2
         },
         {
           id: Spells.grey_poison,
+          taken: true,
+          available: true,
+          type: "attack",
+          points_magical: 1,
+          points_physical: 1,
+          price: 2,
+          effects: [{ effect: Alterations.Frightened, precent: 30 }] // Replace with poison
+        }
+        /*
+        {
+          id: Spells.grey_pullIn,
           taken: false,
           available: false
         },
@@ -412,11 +508,6 @@ export const gso: IGso = {
           available: false
         },
         {
-          id: Spells.grey_soundWave,
-          taken: false,
-          available: false
-        },
-        {
           id: Spells.grey_tornado,
           taken: false,
           available: false
@@ -430,7 +521,7 @@ export const gso: IGso = {
           id: Spells.grey_cyclone,
           taken: false,
           available: false
-        }
+        }*/
       ]
     }
   },

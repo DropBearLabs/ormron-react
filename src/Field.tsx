@@ -183,14 +183,26 @@ export const Field = () => {
           {fightField.heroes.map(h => (
             <tr>
               <td>
-                {h.id}: life:{h.life}
+                <b>{h.id}</b>
+              </td>
+              <td>
+                life: <b>{h.life}</b>
+              </td>
+              <td>
+                mana: <b>{h.mana}</b>
               </td>
             </tr>
           ))}
           {fightField.enemies.map(h => (
             <tr>
               <td>
-                {h.id}: life:{h.life}
+                <b>{h.id}</b>
+              </td>
+              <td>
+                life: <b>{h.life}</b>
+              </td>
+              <td>
+                mana: <b>{h.mana}</b>
               </td>
             </tr>
           ))}

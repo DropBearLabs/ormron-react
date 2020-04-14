@@ -126,7 +126,7 @@ export const spells: ICharacterSpell[] = [
       "Ice cream lollipop tootsie roll tart brownie soufflé chocolate cake. Cheesecake dessert powder gummi bears gummi bears. Donut ice cream biscuit jujubes macaroon dragée marshmallow.",
     image: "temp-spell3.jpg",
     position: { x: 200, y: 70 },
-    area: []
+    area: [{ x: +1, y: 0 }]
   },
   {
     id: Spells.tara_attack2a,
@@ -226,7 +226,7 @@ export const spells: ICharacterSpell[] = [
       "Sweet roll lollipop dessert chocolate bar ice cream. Halvah fruitcake marshmallow muffin sugar plum gingerbread sugar plum. Brownie marshmallow chocolate bar toffee ice cream.",
     image: "temp-spell1.jpg",
     position: { x: 105, y: 35 },
-    area: []
+    area: [{ x: +1, y: 0 }]
   },
   {
     id: Spells.nell_doubleTap,
@@ -235,7 +235,10 @@ export const spells: ICharacterSpell[] = [
       "Pudding soufflé pudding cake jelly-o icing jelly beans. Caramels cheesecake carrot cake bear claw sweet roll pudding. Chocolate bar marshmallow oat cake marzipan brownie. Sesame snaps muffin donut jelly topping.",
     image: "temp-spell1.jpg",
     position: { x: 190, y: 85 },
-    area: []
+    area: [
+      { x: +1, y: 0 },
+      { x: +1, y: -1 }
+    ]
   },
   {
     id: Spells.nell_fireBall,
@@ -253,7 +256,10 @@ export const spells: ICharacterSpell[] = [
       "Oat cake oat cake halvah danish macaroon chupa chups oat cake. Biscuit tootsie roll chocolate cake pudding. Ice cream pastry muffin chocolate lemon drops tootsie roll. Gummies apple pie gummi bears macaroon tart jelly carrot cake cake marshmallow.",
     image: "temp-spell1.jpg",
     position: { x: 146, y: 135 },
-    area: []
+    area: [
+      { x: +2, y: +1 },
+      { x: +2, y: 0 }
+    ]
   },
   {
     id: Spells.nell_intoCorner,
@@ -262,7 +268,10 @@ export const spells: ICharacterSpell[] = [
       "Oat cake chocolate bar gingerbread candy canes gummi bears tart oat cake marshmallow. Cupcake apple pie cake cake liquorice fruitcake caramels sesame snaps. Ice cream lemon drops lemon drops danish bear claw sweet croissant jujubes jelly.",
     image: "temp-spell1.jpg",
     position: { x: 190, y: 175 },
-    area: []
+    area: [
+      { x: +1, y: 0 },
+      { x: +2, y: +1 }
+    ]
   },
   {
     id: Spells.nell_forestFire,
@@ -280,7 +289,7 @@ export const spells: ICharacterSpell[] = [
       "Brownie marshmallow sugar plum pastry icing pie cookie. Sweet jelly-o sweet marzipan caramels chupa chups powder cake sweet roll. Powder lollipop dessert dessert cookie.",
     image: "temp-spell1.jpg",
     position: { x: 290, y: 230 },
-    area: []
+    area: [{ x: +1, y: 0 }]
   },
   {
     id: Spells.nell_protect,
@@ -453,7 +462,7 @@ export const spells: ICharacterSpell[] = [
       "Chupa chups jujubes toffee powder jelly. Macaroon ice cream sugar plum jelly-o candy apple pie tiramisu. Halvah sugar plum cupcake halvah gummi bears caramels gummi bears. Muffin croissant dragée chocolate bar.",
     image: "temp-spell5.jpg",
     position: { x: 210, y: 15 },
-    area: []
+    area: [{ x: +3, y: 0 }]
   },
   {
     id: Spells.grey_numb,
@@ -462,7 +471,7 @@ export const spells: ICharacterSpell[] = [
       "Sweet roll icing liquorice pudding pudding cotton candy chocolate bar toffee. Bonbon sugar plum cookie apple pie jelly-o tootsie roll danish. Dragée icing wafer ice cream brownie lemon drops pastry.",
     image: "temp-spell5.jpg",
     position: { x: 145, y: 55 },
-    area: []
+    area: [{ x: +2, y: 0 }]
   },
   {
     id: Spells.grey_pullIn,
@@ -480,7 +489,10 @@ export const spells: ICharacterSpell[] = [
       "Powder cake bonbon jelly-o croissant oat cake candy canes macaroon sweet. Cupcake macaroon apple pie cupcake. Marshmallow sweet roll bear claw sesame snaps pie icing sweet roll chocolate cake oat cake. Sugar plum macaroon lemon drops.",
     image: "temp-spell5.jpg",
     position: { x: 100, y: 120 },
-    area: []
+    area: [
+      { x: +3, y: 0 },
+      { x: +2, y: +1 }
+    ]
   },
   {
     id: Spells.grey_toxin,
@@ -525,7 +537,11 @@ export const spells: ICharacterSpell[] = [
       "Donut macaroon lemon drops croissant lemon drops marshmallow chocolate. Sweet macaroon topping muffin tootsie roll ice cream. Oat cake chupa chups gingerbread biscuit tart apple pie.",
     image: "temp-spell5.jpg",
     position: { x: 150, y: 270 },
-    area: []
+    area: [
+      { x: +3, y: 0 },
+      { x: +3, y: +1 },
+      { x: +3, y: -1 }
+    ]
   },
   {
     id: Spells.grey_gust,
