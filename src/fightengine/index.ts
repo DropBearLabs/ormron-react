@@ -24,9 +24,7 @@ export function calculateAttack(
   alterDefend: Alterations[],
   env: EnvEffects | null,
   elementAttack: Elements,
-  elementDefend: Elements,
-  effectAttack: string | null,
-  effectDefend: string | null
+  elementDefend: Elements
 ) {
   const elementSequence = [
     Elements.air,
@@ -100,11 +98,25 @@ export function calculateAttack(
   }
 
   // Check the effects
-  if (effectAttack === Alterations.Numb) {
+  if (
+    alterAttack.includes(Alterations.Defended) ||
+    alterAttack.includes(Alterations.HalfMagic)
+  ) {
+    magical = magical / 2;
+  }
+
+  if (
+    alterAttack.includes(Alterations.Defended) ||
+    alterAttack.includes(Alterations.HalfPhysical)
+  ) {
+    physical = physical / 2;
+  }
+
+  if (alterAttack.includes(Alterations.Numb)) {
     magical = 0;
   }
 
-  if (effectAttack === Alterations.Blinded) {
+  if (alterAttack.includes(Alterations.Blinded)) {
     physical = 0;
   }
 
@@ -114,6 +126,7 @@ export function calculateAttack(
   //console.log("The resulting modificator is ", aPercent, bPercent);
   const physicalAttack = (physical * aPercent) / 100;
   const magicalAttack = (magical * bPercent) / 100;
+
   //console.log("Your physical attack is " + physicalAttack + ", Your magical attack is "+ magicalAttack + ", damage is "+ (physicalAttack + magicalAttack));
   return [physicalAttack, magicalAttack, physicalAttack + magicalAttack];
 }

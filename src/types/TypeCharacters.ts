@@ -23,10 +23,13 @@ export enum Alterations {
   Blessed = "Blessed",
   Defended = "Defended",
   Panicing = "Panicing",
+  Numb = "Numb",
+  Blinded = "Blinded",
+
   NoMagic = "NoMagic",
   NoPhysical = "NoPhysical",
-  Numb = "Numb",
-  Blinded = "Blinded"
+  HalfMagic = "HalfMagic",
+  HalfPhysical = "HalfPhysical"
 }
 
 export enum EnvEffects {

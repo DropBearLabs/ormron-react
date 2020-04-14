@@ -46,8 +46,8 @@ test('Attack with elements, environment and alterations', () => {
 });
 
 test("Attack with elements, environment, alterations and effects", () => {
-    expect(calculateAttack(10, 10, ["Frightened"], ["Defended"], null, 'fire', 'metal', 'Numb')).toEqual([8, 0, 8]);
-    expect(calculateAttack(10, 10, ["Reinforced"], ["Panicing"], null, 'metal', 'fire', 'Blinded')).toEqual([0, 11, 11]);
+    expect(calculateAttack(10, 10, ["Frightened", 'Numb'], ["Defended"], null, 'fire', 'metal')).toEqual([8, 0, 8]);
+    expect(calculateAttack(10, 10, ["Reinforced", 'Blinded'], ["Panicing"], null, 'metal', 'fire')).toEqual([0, 11, 11]);
 
 })
 

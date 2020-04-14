@@ -1,5 +1,5 @@
 import { IFightOpponent } from "../types/TypesFights";
-import { Enemies, Elements } from "../types/TypeCharacters";
+import { Enemies, Elements, Alterations } from "../types/TypeCharacters";
 
 export const enemies: IFightOpponent[] = [
   {
@@ -59,31 +59,58 @@ export const enemies: IFightOpponent[] = [
   }
 ];
 
-export type IFightOpponentWithKey = IFightOpponent & { key: number };
+export type IFightOpponentWithKey = IFightOpponent & {
+  key: number;
+  alterations: Alterations[];
+};
 
 export const enemySets = (id: string): IFightOpponentWithKey[] => {
   const set = [
     {
       id: "sandEasy1",
       value: [
-        Object.assign({}, enemies[0], { key: 0 }),
-        Object.assign({}, enemies[0], { key: 1 }),
-        Object.assign({}, enemies[0], { key: 2 })
+        Object.assign({}, enemies[0], {
+          key: 0,
+          alterations: [Alterations.Dispelled]
+        }),
+        Object.assign({}, enemies[0], {
+          key: 1,
+          alterations: [Alterations.Dispelled]
+        }),
+        Object.assign({}, enemies[0], {
+          key: 2,
+          alterations: [Alterations.Dispelled]
+        })
       ]
     },
     {
       id: "sandEasy2",
       value: [
-        Object.assign({}, enemies[0], { key: 0 }),
-        Object.assign({}, enemies[1], { key: 0 })
+        Object.assign({}, enemies[0], {
+          key: 0,
+          alterations: [Alterations.Dispelled]
+        }),
+        Object.assign({}, enemies[1], {
+          key: 0,
+          alterations: [Alterations.Dispelled]
+        })
       ]
     },
     {
       id: "sandEasy3",
       value: [
-        Object.assign({}, enemies[0], { key: 0 }),
-        Object.assign({}, enemies[0], { key: 1 }),
-        Object.assign({}, enemies[1], { key: 0 })
+        Object.assign({}, enemies[0], {
+          key: 0,
+          alterations: [Alterations.Dispelled]
+        }),
+        Object.assign({}, enemies[0], {
+          key: 1,
+          alterations: [Alterations.Dispelled]
+        }),
+        Object.assign({}, enemies[1], {
+          key: 0,
+          alterations: [Alterations.Dispelled]
+        })
       ]
     }
   ];

@@ -299,11 +299,9 @@ const fightCharacterSpell = (
       (e: IFightOpponentWithKey) => e.id === c.id && e.key === c.key
     )
   );
-  console.log("enemies", enemies);
   const chars = attackAreaContent.map(c =>
     field.heroes.find(h => h.id === c.id)
   );
-  console.log("chars", chars);
   if (enemies.length > 0) {
     enemies.forEach(e => {
       if (e == undefined) return;
@@ -314,9 +312,7 @@ const fightCharacterSpell = (
         [],
         null,
         actingCharacter.element,
-        e.element,
-        null,
-        null
+        e.element
       );
       console.log(
         `for ${e.id} the currentLife is ${
@@ -324,7 +320,6 @@ const fightCharacterSpell = (
         }, got attacked for ${attack} and now is ${e.life - attack[2]}`
       );
       e.life = e.life - attack[2];
-      console.log("e.life", e.life);
       return e;
     });
   }
