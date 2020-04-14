@@ -6,7 +6,9 @@ import {
   MainCharacters,
   Spells,
   ICharacterData,
-  Enemies
+  Enemies,
+  Alterations,
+  Elements
 } from "../types/TypeCharacters";
 import { ConnectionStatus } from "../types/TypeLevels";
 
@@ -94,73 +96,52 @@ beforeEach(() => {
         id: MainCharacters.maya,
         life: 12,
         mana: 15,
-        attack_physical: 2,
-        attack_magic: 4,
+        element: Elements.earth,
+        alterations: [],
         spells: [
           {
             id: Spells.maya_healSelf,
             taken: true,
-            available: true
+            available: true,
+            type: "heal",
+            points_magical: 3,
+            points_physical: 0,
+            price: 3
           },
           {
             id: Spells.maya_attackSimple,
             taken: true,
-            available: true
-          },
-          {
-            id: Spells.maya_reinforce,
-            taken: false,
-            available: false
+            available: true,
+            type: "attack",
+            points_magical: 0,
+            points_physical: 5
           },
           {
             id: Spells.maya_heal1,
-            taken: false,
-            available: false
+            taken: true,
+            available: true,
+            type: "heal",
+            points_magical: 3,
+            points_physical: 0
           },
           {
             id: Spells.maya_attackMagic,
-            taken: false,
-            available: false
-          },
-          {
-            id: Spells.maya_heal3,
-            taken: false,
-            available: false
+            taken: true,
+            available: true,
+            type: "attack",
+            points_magical: 4,
+            points_physical: 0,
+            price: 3
           },
           {
             id: Spells.maya_attackStun,
-            taken: false,
-            available: false
-          },
-          {
-            id: Spells.maya_attackPush,
-            taken: false,
-            available: false
-          },
-          {
-            id: Spells.maya_dispell,
-            taken: false,
-            available: false
-          },
-          {
-            id: Spells.maya_earthquake,
-            taken: false,
-            available: false
-          },
-          {
-            id: Spells.maya_resurrect,
-            taken: false,
-            available: false
-          },
-          {
-            id: Spells.maya_quickSand,
-            taken: false,
-            available: false
-          },
-          {
-            id: Spells.maya_chamber,
-            taken: false,
-            available: false
+            taken: true,
+            available: true,
+            type: "attack",
+            points_magical: 4,
+            points_physical: 2,
+            price: 3,
+            effects: [{ effect: Alterations.Numb, precent: 30 }]
           }
         ]
       },
@@ -168,32 +149,32 @@ beforeEach(() => {
         id: MainCharacters.nell,
         life: 12,
         mana: 15,
-        attack_physical: 2,
-        attack_magic: 4,
+        element: Elements.earth,
+        alterations: [],
         spells: []
       },
       [MainCharacters.dart]: {
         id: MainCharacters.dart,
         life: 12,
         mana: 15,
-        attack_physical: 2,
-        attack_magic: 4,
+        element: Elements.earth,
+        alterations: [],
         spells: []
       },
       [MainCharacters.tara]: {
         id: MainCharacters.tara,
         life: 12,
         mana: 15,
-        attack_physical: 2,
-        attack_magic: 4,
+        element: Elements.earth,
+        alterations: [],
         spells: []
       },
       [MainCharacters.grey]: {
         id: MainCharacters.grey,
         life: 12,
         mana: 15,
-        attack_physical: 2,
-        attack_magic: 4,
+        element: Elements.earth,
+        alterations: [],
         spells: []
       }
     }

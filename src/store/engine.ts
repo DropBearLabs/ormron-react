@@ -286,6 +286,13 @@ const fightCharacterSpell = (
   if (!spell) {
     throw new Error("The character doesn't have this spell");
   }
+  if (spell.price) {
+    if (actingCharacter.mana - spell.price > 0) {
+      actingCharacter.mana = actingCharacter.mana - spell.price;
+    } else {
+      return field;
+    }
+  }
   const attackAreaContent: ISubject[] = field.highlighted
     .map(c => {
       if (findCellSubject(field, c).id) {
@@ -298,9 +305,6 @@ const fightCharacterSpell = (
     field.enemies.find(
       (e: IFightOpponentWithKey) => e.id === c.id && e.key === c.key
     )
-  );
-  const chars = attackAreaContent.map(c =>
-    field.heroes.find(h => h.id === c.id)
   );
   if (enemies.length > 0) {
     enemies.forEach(e => {
@@ -325,6 +329,12 @@ const fightCharacterSpell = (
       return e;
     });
   }
+
+  //TODO changes for the character (healing f.e)
+  const chars = attackAreaContent.map(c =>
+    field.heroes.find(h => h.id === c.id)
+  );
+
   field.highlighted = [];
   field.enemies.forEach(e => {
     if (e.life <= 0) {

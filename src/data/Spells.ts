@@ -44,7 +44,7 @@ export const spells: ICharacterSpell[] = [
       "Gummies cheesecake oat cake liquorice cake. Toffee caramels croissant sugar plum. Carrot cake candy chocolate powder sesame snaps powder chocolate cake.",
     image: "temp-spell2.jpg",
     position: { x: 125, y: 105 },
-    area: [{ x: +2, y: 1 }]
+    area: [{ x: +2, y: 0 }]
   },
   {
     id: Spells.maya_heal3,
@@ -62,7 +62,10 @@ export const spells: ICharacterSpell[] = [
       "Candy canes jelly beans fruitcake donut. Caramels wafer cake. Pudding fruitcake gummi bears dragée candy canes bear claw cotton candy.",
     image: "temp-spell2.jpg",
     position: { x: 90, y: 150 },
-    area: []
+    area: [
+      { x: +1, y: 0 },
+      { x: +2, y: 0 }
+    ]
   },
   {
     id: Spells.maya_attackPush,
