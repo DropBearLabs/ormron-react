@@ -20,7 +20,8 @@ import {
   FIGHT_CHARACTER_POSSIBLE_MOVES,
   FIGHT_CHARACTER_MOVES,
   FIGHT_CHARACTER_ACTS,
-  FIGHT_CHARACTER_SPELL
+  FIGHT_CHARACTER_SPELL,
+  FIGHT_CHARACTER_DEFEND
 } from "../data/Constants";
 import { IGsoParty, Spells } from "../types/TypeCharacters";
 import {
@@ -191,6 +192,13 @@ export const fightCharacterSpell = (spell: Spells): IReturnAction => {
   return {
     payload: spell as Spells,
     type: FIGHT_CHARACTER_SPELL
+  };
+};
+
+export const fightCharacterDefend = (): IReturnAction => {
+  return {
+    payload: null,
+    type: FIGHT_CHARACTER_DEFEND
   };
 };
 

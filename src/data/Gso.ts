@@ -529,7 +529,7 @@ export const gso: IGso = {
     positions: [],
     heroes: [],
     enemies: [],
-    active: { id: undefined, type: "empty" },
+    active: { id: undefined, type: "empty", state: null },
     action: null,
     highlighted: []
   }

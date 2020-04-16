@@ -12,7 +12,8 @@ import {
   fightCharacterSelected,
   fightCharacterMoves,
   fightCharacterActs,
-  fightCharacterSpell
+  fightCharacterSpell,
+  fightCharacterDefend
 } from "./store/actions";
 import { ISpell, Spells } from "./types/TypeCharacters";
 
@@ -150,6 +151,7 @@ export const Field = () => {
     throw "We are loading fight field with null";
   }
   const dispatch = useDispatch();
+  console.log("Character", fightField.active);
 
   const character: ISubject = fightField.active;
   const [action, setAction] = useState<string>("move");
@@ -159,6 +161,10 @@ export const Field = () => {
   const [spellData, setSpellData] = useState<ISpell | null>(null);
 
   useEffect(() => {
+    if (character.type == "character" && !spell && action === "defend") {
+      console.log("Here for defend");
+      dispatch(fightCharacterDefend());
+    }
     if (character.type == "character" && action === "act" && spell !== null) {
       dispatch(fightCharacterActs(spell));
       const spells = characters[character.id].spells;
@@ -178,7 +184,11 @@ export const Field = () => {
     if (!spell && pointsInclude(fightField.highlighted, point)) {
       dispatch(fightCharacterMoves(point));
     }
-    if (spell && pointsInclude(fightField.highlighted, point)) {
+    if (
+      spell &&
+      pointsInclude(fightField.highlighted, point) &&
+      action === "act"
+    ) {
       dispatch(fightCharacterSpell(spell));
       setSpell(null);
       setSpellData(null);
@@ -275,34 +285,27 @@ export const Field = () => {
           ))}
         </tbody>
       </table>
-      {
+      {character ? (
         <div>
-          <button
-            onClick={() => (character ? setAction("move") : setAction(""))}
-          >
-            Move
-          </button>
-          <button
-            onClick={() => (character ? setAction("act") : setAction(""))}
-          >
-            Act
-          </button>
-          <button
-            onClick={() => (character ? setAction("defend") : setAction(""))}
-          >
-            Defend
-          </button>
+          {character.state === "active" ? (
+            <button onClick={() => setAction("move")}>Move</button>
+          ) : null}
+          {character.state === "active" || character.state === "moved" ? (
+            <button onClick={() => setAction("act")}>Act</button>
+          ) : null}
+          {character.state === "active" ? (
+            <button onClick={() => setAction("defend")}>Defend</button>
+          ) : null}
           <button
             onClick={() => {
               setAction("");
               setSpell(null);
-              //dispatch cleanup
             }}
           >
             Cancel
           </button>
         </div>
-      }
+      ) : null}
     </div>
   );
 };

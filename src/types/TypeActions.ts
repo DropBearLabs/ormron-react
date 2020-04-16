@@ -21,7 +21,8 @@ import {
   FIGHT_CHARACTER_POSSIBLE_MOVES,
   FIGHT_CHARACTER_MOVES,
   FIGHT_CHARACTER_ACTS,
-  FIGHT_CHARACTER_SPELL
+  FIGHT_CHARACTER_SPELL,
+  FIGHT_CHARACTER_DEFEND
 } from "../data/Constants";
 import { IGsoQuest, IPoint } from "./Types";
 import { INPCLevel, IConnectionLevel } from "./TypeLevels";
@@ -55,6 +56,7 @@ export type IAction =
   | FIGHT_CHARACTER_MOVES
   | FIGHT_CHARACTER_ACTS
   | FIGHT_CHARACTER_SPELL
+  | FIGHT_CHARACTER_DEFEND
   | ADD_GLOBAL_EVENT;
 
 export type IPayload =

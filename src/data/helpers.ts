@@ -29,7 +29,7 @@ import {
   Enemies
 } from "../types/TypeCharacters";
 import { allParty } from "./Characters";
-import { enemySets, enemies } from "./Opponents";
+import { enemies } from "./Opponents";
 import { ISubject, IField } from "../types/TypesFights";
 
 export function findConnection(id: string) {
@@ -183,7 +183,7 @@ export function findCellSubject(field: IField, coord: IPoint): ISubject {
     p => p.coordinates.x === coord.x && p.coordinates.y === coord.y
   );
   if (!position) {
-    return { id: undefined, type: "empty" };
+    return { id: undefined, type: "empty", state: null };
   }
   return position.subject;
 }

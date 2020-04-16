@@ -32,17 +32,20 @@ export interface IField {
 export interface ISubjectCharacter {
   id: MainCharacters;
   type: "character";
+  state: string;
 }
 
 export interface ISubjectEnemy {
   id: Enemies;
   type: "enemy";
   key?: number;
+  state: null | "active" | "moved" | "casted" | "defened";
 }
 
 interface ISubjectEmpty {
   id: undefined;
   type: "empty";
+  state: null | "active" | "moved" | "casted" | "defened";
 }
 
 export type ISubject = ISubjectCharacter | ISubjectEnemy | ISubjectEmpty;

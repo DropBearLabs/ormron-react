@@ -20,7 +20,7 @@ beforeEach(() => {
       positions: [],
       heroes: [],
       enemies: [],
-      active: { id: undefined, type: "empty" },
+      active: { id: undefined, type: "empty", state: null },
       action: null,
       highlighted: []
     },
@@ -529,23 +529,23 @@ test("Fight character selected", () => {
   initialState.fightField.positions = [
     {
       coordinates: { x: 3, y: 2 },
-      subject: { type: "character", id: MainCharacters.maya }
+      subject: { type: "character", id: MainCharacters.maya, state: "active" }
     },
     {
       coordinates: { x: 4, y: 3 },
-      subject: { type: "character", id: MainCharacters.dart }
+      subject: { type: "character", id: MainCharacters.dart, state: "active" }
     },
     {
       coordinates: { x: -4, y: 3 },
-      subject: { type: "enemy", id: Enemies.sandnake1 }
+      subject: { type: "enemy", id: Enemies.sandnake1, state: "active" }
     },
     {
       coordinates: { x: -2, y: 2 },
-      subject: { type: "enemy", id: Enemies.sandnake1 }
+      subject: { type: "enemy", id: Enemies.sandnake1, state: "active" }
     },
     {
       coordinates: { x: -3, y: 2 },
-      subject: { type: "enemy", id: Enemies.sandnake1 }
+      subject: { type: "enemy", id: Enemies.sandnake1, state: "active" }
     }
   ];
 

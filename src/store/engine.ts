@@ -190,7 +190,7 @@ const generateFightField = (
     positions: [],
     heroes,
     enemies,
-    active: { id: undefined, type: "empty" },
+    active: { id: undefined, type: "empty", state: null },
     action: null,
     highlighted: []
   };
@@ -202,18 +202,23 @@ const generateFightField = (
       x = getRandomInt(4);
       y = getRandomInt(4);
     } while (findCellSubject(field, { x, y }).type !== "empty");
-    const subject: ISubject = { type: "character", id: h.id };
+    const subject: ISubject = { type: "character", id: h.id, state: "active" };
     field.positions.push({ coordinates: { x, y }, subject });
   });
 
   enemies.forEach(e => {
-    let x = 4;
+    let x = 0;
     let y = 0;
     do {
-      x = getRandomInt(3) + x;
+      x = getRandomInt(3) + 4;
       y = getRandomInt(4);
     } while (findCellSubject(field, { x, y }).type !== "empty");
-    const subject: ISubject = { type: "enemy", id: e.id, key: e.key };
+    const subject: ISubject = {
+      type: "enemy",
+      id: e.id,
+      key: e.key,
+      state: "active"
+    };
     field.positions.push({ coordinates: { x, y }, subject });
   });
   return field;
@@ -225,22 +230,29 @@ const fightCharacterSelected = (field: IField, coord: IPoint) => {
     throw "You can't select an empty cell as a character";
   }
   field.active = subject;
+
   return field;
 };
 
 const fightCharacterPossibleMoves = (field: IField, coord: IPoint) => {
-  const moves = [
-    { x: coord.x - 1, y: coord.y },
-    { x: coord.x + 1, y: coord.y },
-    { x: coord.x, y: coord.y - 1 },
-    { x: coord.x, y: coord.y + 1 }
-  ];
-  const allowed = moves.filter(f => checkMove(field, coord, f) === true);
-  field.highlighted = allowed;
+  if (field.active.state === "active") {
+    const moves = [
+      { x: coord.x - 1, y: coord.y },
+      { x: coord.x + 1, y: coord.y },
+      { x: coord.x, y: coord.y - 1 },
+      { x: coord.x, y: coord.y + 1 }
+    ];
+    const allowed = moves.filter(f => checkMove(field, coord, f) === true);
+    field.highlighted = allowed;
+  }
+
   return field;
 };
 
 const fightCharacterMove = (field: IField, coord: IPoint) => {
+  if (field.active.state !== "active") {
+    throw "You can't move your state is incorrect";
+  }
   if (!pointsInclude(field.highlighted, coord)) {
     throw "This move is not allowed";
   }
@@ -251,12 +263,18 @@ const fightCharacterMove = (field: IField, coord: IPoint) => {
   if (!positionFrom) {
     throw "This position doesn't exist";
   }
+  const character = findCharacterCoord(field);
+  field.active.state = "moved";
+
   positionFrom.coordinates = coord;
   field.highlighted = [];
   return field;
 };
 
 const fightCharacterActs = (field: IField, spellId: Spells) => {
+  if (field.active.state !== "active" && field.active.state !== "moved") {
+    throw "You can't move your state is incorrect";
+  }
   field.highlighted = [];
   const spell = findSpell(spellId);
   const character = findCharacterCoord(field);
@@ -273,6 +291,9 @@ const fightCharacterSpell = (
   characters: ICharactersData,
   spellId: Spells
 ) => {
+  if (field.active.state !== "active" && field.active.state !== "moved") {
+    throw "You can't move your state is incorrect";
+  }
   const character = findCharacterCoord(field);
   if (character.subject.type !== "character") {
     throw new Error("You are trying to act with no character");
@@ -293,6 +314,8 @@ const fightCharacterSpell = (
       return field;
     }
   }
+  field.active.state = "casted";
+
   const attackAreaContent: ISubject[] = field.highlighted
     .map(c => {
       if (findCellSubject(field, c).id) {
@@ -353,6 +376,14 @@ const fightCharacterSpell = (
   return field;
 };
 
+const fightCharacterDefend = (field: IField) => {
+  if (field.active.state !== "active") {
+    throw "You can't move your state is incorrect";
+  }
+  field.active.state = "defended";
+  return field;
+};
+
 export default {
   npcUpdate,
   updateParty,
@@ -367,5 +398,6 @@ export default {
   fightCharacterPossibleMoves,
   fightCharacterMove,
   fightCharacterActs,
-  fightCharacterSpell
+  fightCharacterSpell,
+  fightCharacterDefend
 };

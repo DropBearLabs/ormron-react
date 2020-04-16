@@ -19,7 +19,8 @@ import {
   FIGHT_CHARACTER_SELECTED,
   FIGHT_CHARACTER_ACTS,
   FIGHT_CHARACTER_MOVES,
-  FIGHT_CHARACTER_SPELL
+  FIGHT_CHARACTER_SPELL,
+  FIGHT_CHARACTER_DEFEND
 } from "../data/Constants";
 import { gso } from "../data/Gso";
 import { IGso, IGsoQuest, IGsoInfluence, IPoint } from "../types/Types";
@@ -196,6 +197,10 @@ export default function GsoReduicer(
           characters,
           action.payload as Spells
         )
+      });
+    case FIGHT_CHARACTER_DEFEND:
+      return Object.assign({}, state, {
+        fightField: engine.fightCharacterDefend(fieldToUpdate)
       });
     /* not refactored */
     case SHOW_INFOLINE:
