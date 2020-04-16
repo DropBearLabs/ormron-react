@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { IGso, IPoint } from "./types/Types";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  pointsInclude,
-  findCellSubject,
-  findSpell,
-  findPartyMember
-} from "./data/helpers";
+import { pointsInclude, findCellSubject } from "./data/helpers";
 import { ISubject, ISubjectEnemy } from "./types/TypesFights";
 import {
   fightCharacterSelected,
@@ -56,6 +51,7 @@ const SpellSelection = (props: ISpellSelectionProps) => {
 
 interface ISubjectProps {
   subject: ISubject;
+  active?: boolean;
 }
 
 const Enemy = ({ subject }: ISubjectProps) => {
@@ -68,11 +64,11 @@ const Enemy = ({ subject }: ISubjectProps) => {
   return <div style={style}>{sbj.id + "_" + sbj.key}</div>;
 };
 
-const Character = ({ subject }: ISubjectProps) => {
+const Character = ({ subject, active }: ISubjectProps) => {
   const style = {
     width: "100px",
     height: "100px",
-    backgroundColor: "green"
+    backgroundColor: active ? "blue" : "green"
   };
   return <div style={style}>{subject.id}</div>;
 };
@@ -108,7 +104,12 @@ const Cell = ({ index, row, spell, onClick }: ICellProps) => {
       cell = <Enemy subject={subject} />;
       break;
     case "character":
-      cell = <Character subject={subject} />;
+      cell = (
+        <Character
+          subject={subject}
+          active={subject.id === fightField.active.id}
+        />
+      );
       break;
   }
 
@@ -151,21 +152,25 @@ export const Field = () => {
     throw "We are loading fight field with null";
   }
   const dispatch = useDispatch();
-  console.log("Character", fightField.active);
 
   const character: ISubject = fightField.active;
   const [action, setAction] = useState<string>("move");
   const [spell, setSpell] = useState<Spells | null>(null);
-
-  const characters = useSelector((state: IGso) => state.charactersData);
   const [spellData, setSpellData] = useState<ISpell | null>(null);
 
+  const characters = useSelector((state: IGso) => state.charactersData);
+
   useEffect(() => {
-    if (character.type == "character" && !spell && action === "defend") {
-      console.log("Here for defend");
+    if (character.type === "character" && !spell && action === "defend") {
       dispatch(fightCharacterDefend());
+      setSpell(null);
+      setSpellData(null);
     }
-    if (character.type == "character" && action === "act" && spell !== null) {
+    if (
+      character.type === "character" &&
+      (action === "act" || action === "move") &&
+      spell !== null
+    ) {
       dispatch(fightCharacterActs(spell));
       const spells = characters[character.id].spells;
       const spellToDisplay = spells.find(s => s.id === spell);
@@ -180,15 +185,17 @@ export const Field = () => {
     const subject = findCellSubject(fightField, point);
     if (subject.type === "character") {
       dispatch(fightCharacterSelected(point));
+      setSpell(null);
+      setSpellData(null);
+      setAction("move");
     }
     if (!spell && pointsInclude(fightField.highlighted, point)) {
       dispatch(fightCharacterMoves(point));
+      setSpell(null);
+      setSpellData(null);
+      setAction("act");
     }
-    if (
-      spell &&
-      pointsInclude(fightField.highlighted, point) &&
-      action === "act"
-    ) {
+    if (spell && pointsInclude(fightField.highlighted, point)) {
       dispatch(fightCharacterSpell(spell));
       setSpell(null);
       setSpellData(null);
@@ -201,15 +208,17 @@ export const Field = () => {
       <h1>
         Fight character: {character.id || "none"}, action: {action}
       </h1>
-      {action === "act" ? <SpellSelection setSpell={setSpell} /> : null}
+      {action === "act" || character.state === "moved" ? (
+        <SpellSelection setSpell={setSpell} />
+      ) : null}
       <table>
         <tbody>
           <tr>
             <td>
               <table>
                 <tbody>
-                  {fightField.heroes.map(h => (
-                    <tr>
+                  {fightField.heroes.map((h, index) => (
+                    <tr key={index}>
                       <td>
                         <b>{h.id}</b>
                       </td>
@@ -221,8 +230,8 @@ export const Field = () => {
                       </td>
                     </tr>
                   ))}
-                  {fightField.enemies.map(h => (
-                    <tr>
+                  {fightField.enemies.map((h, index) => (
+                    <tr key={index}>
                       <td>
                         <b>{h.id}</b>
                       </td>

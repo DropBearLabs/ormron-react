@@ -177,6 +177,19 @@ const updateInfluence = (
   return influenceToUpdate;
 };
 
+const changeTurn = (field: IField) => {
+  const nextCharacters = field.positions.filter(
+    p =>
+      p.subject.state !== "defended" &&
+      p.subject.state !== "casted" &&
+      p.subject.type === "character"
+  );
+  if (nextCharacters.length === 0) {
+    throw "Everyone acted on this team";
+  }
+  fightCharacterSelected(field, nextCharacters[0].coordinates);
+};
+
 const generateFightField = (
   opponentsSet: string,
   party: IGsoParty,
@@ -268,6 +281,7 @@ const fightCharacterMove = (field: IField, coord: IPoint) => {
 
   positionFrom.coordinates = coord;
   field.highlighted = [];
+
   return field;
 };
 
@@ -283,6 +297,7 @@ const fightCharacterActs = (field: IField, spellId: Spells) => {
     x: character.coordinates.x + s.x,
     y: character.coordinates.y + s.y
   }));
+
   return field;
 };
 
@@ -373,6 +388,8 @@ const fightCharacterSpell = (
   });
 
   field.enemies = field.enemies.filter(e => e.life > 0);
+
+  changeTurn(field);
   return field;
 };
 
@@ -381,6 +398,9 @@ const fightCharacterDefend = (field: IField) => {
     throw "You can't move your state is incorrect";
   }
   field.active.state = "defended";
+  // TODO apply the efect to the active character
+
+  changeTurn(field);
   return field;
 };
 

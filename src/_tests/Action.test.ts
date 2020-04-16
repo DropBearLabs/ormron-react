@@ -5,7 +5,6 @@ import { gso } from "../data/Gso";
 import {
   MainCharacters,
   Spells,
-  ICharacterData,
   Enemies,
   Alterations,
   Elements
