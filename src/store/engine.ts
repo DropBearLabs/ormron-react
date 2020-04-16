@@ -179,10 +179,7 @@ const updateInfluence = (
 
 const changeTurn = (field: IField) => {
   const nextCharacters = field.positions.filter(
-    p =>
-      p.subject.state !== "defended" &&
-      p.subject.state !== "casted" &&
-      p.subject.type === "character"
+    p => p.subject.state !== "defended" && p.subject.state !== "casted" // && p.subject.type === "character"
   );
   if (nextCharacters.length === 0) {
     throw "Everyone acted on this team";
