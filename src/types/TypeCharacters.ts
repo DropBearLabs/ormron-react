@@ -110,7 +110,10 @@ export enum Spells {
   grey_soundWave = "grey_soundWave",
   grey_tornado = "grey_tornado",
   grey_gust = "grey_gust",
-  grey_cyclone = "grey_cyclone"
+  grey_cyclone = "grey_cyclone",
+
+  enemy_hit = "enemy_hit",
+  enemy_arrow = "enemy_arrow"
 }
 
 // FIXME: this can be just an array

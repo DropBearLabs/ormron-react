@@ -177,24 +177,54 @@ export function calculateAttack(
 }
 
 /* MOVING */
-export function checkMove(field: IField, from: IPoint, to: IPoint) {
-  if ((from.x <= 3 && to.x > 3) || (from.x > 3 && to.x <= 3)) {
-    return "You can't make this move, it's on opposite territory";
+export function checkMove(
+  field: IField,
+  from: IPoint,
+  to: IPoint,
+  type: string
+) {
+  if (type === "character") {
+    console.log("checking moves for character");
+    if ((from.x <= 3 && to.x > 3) || (from.x > 3 && to.x <= 3)) {
+      return "You can't make this move, it's on opposite territory";
+    }
+    if (findCellSubject(field, from).type !== "character") {
+      return "You can't make this move, the cell is not taken";
+    }
+    if (findCellSubject(field, to).type !== "empty") {
+      return "You can't make this move, the cell you trying to move to is taken";
+    }
+    if (sameCell(from, to)) {
+      return "You can't move to the same cell";
+    }
+    if (!moveAvailable(from, to)) {
+      return "You can't jump over a cell";
+    }
+    if (endOfTheField(from, to)) {
+      return "You can't jump over a field";
+    }
+    return true;
   }
-  if (findCellSubject(field, from).type !== "character") {
-    return "You can't make this move, the cell is not taken";
+  if (type === "enemy") {
+    console.log("checking moves for enemy");
+    if ((from.x <= 3 && to.x > 3) || (from.x > 3 && to.x <= 3)) {
+      return "You can't make this move, it's on opposite territory";
+    }
+    if (findCellSubject(field, from).type !== "enemy") {
+      return "You can't make this move, the cell is not taken";
+    }
+    if (findCellSubject(field, to).type !== "empty") {
+      return "You can't make this move, the cell you trying to move to is taken";
+    }
+    if (sameCell(from, to)) {
+      return "You can't move to the same cell";
+    }
+    if (!moveAvailable(from, to)) {
+      return "You can't jump over a cell";
+    }
+    if (endOfTheField(from, to)) {
+      return "You can't jump over a field";
+    }
+    return true;
   }
-  if (findCellSubject(field, to).type !== "empty") {
-    return "You can't make this move, the cell you trying to move to is taken";
-  }
-  if (sameCell(from, to)) {
-    return "You can't move to the same cell";
-  }
-  if (!moveAvailable(from, to)) {
-    return "You can't jump over a cell";
-  }
-  if (endOfTheField(from, to)) {
-    return "You can't jump over a field";
-  }
-  return true;
 }

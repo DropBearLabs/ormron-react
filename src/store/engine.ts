@@ -236,9 +236,12 @@ const generateFightField = (
 
 const fightCharacterSelected = (field: IField, coord: IPoint) => {
   const subject = findCellSubject(field, coord);
+  console.log("fightCharacterSelected", coord);
   if (!subject) {
     throw "You can't select an empty cell as a character";
   }
+  console.log("subject", subject);
+  field.highlighted = [];
   field.active = subject;
 
   return field;
@@ -252,7 +255,10 @@ const fightCharacterPossibleMoves = (field: IField, coord: IPoint) => {
       { x: coord.x, y: coord.y - 1 },
       { x: coord.x, y: coord.y + 1 }
     ];
-    const allowed = moves.filter(f => checkMove(field, coord, f) === true);
+    const allowed = moves.filter(
+      f => checkMove(field, coord, f, field.active.type) === true
+    );
+    console.log("fightCharacterPossibleMoves", allowed);
     field.highlighted = allowed;
   }
 

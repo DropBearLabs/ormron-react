@@ -1,5 +1,10 @@
 import { IFightOpponent } from "../types/TypesFights";
-import { Enemies, Elements, Alterations } from "../types/TypeCharacters";
+import {
+  Enemies,
+  Elements,
+  Alterations,
+  Spells
+} from "../types/TypeCharacters";
 
 export const enemies: IFightOpponent[] = [
   {
@@ -11,7 +16,18 @@ export const enemies: IFightOpponent[] = [
     attack_physical: 4,
     attack_magic: 2,
     element: Elements.earth,
-    spells: []
+    spells: [
+      {
+        id: Spells.enemy_hit,
+        taken: true,
+        available: true,
+        type: "attack",
+        points_magical: 0,
+        points_physical: 4,
+        price: 0,
+        effects: [{ effect: Alterations.Blinded, precent: 30 }]
+      }
+    ]
   },
   {
     id: Enemies.bigsandnake1,

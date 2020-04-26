@@ -11,6 +11,7 @@ import {
   fightCharacterDefend
 } from "./store/actions";
 import { ISpell, Spells } from "./types/TypeCharacters";
+import { enemies } from "./data/Opponents";
 
 interface ISpellSelectionProps {
   setSpell: (spell: any) => void;
@@ -54,11 +55,11 @@ interface ISubjectProps {
   active?: boolean;
 }
 
-const Enemy = ({ subject }: ISubjectProps) => {
+const Enemy = ({ subject, active }: ISubjectProps) => {
   const style = {
     width: "100px",
     height: "100px",
-    backgroundColor: "red"
+    backgroundColor: active ? "yellow" : "red"
   };
   const sbj = subject as ISubjectEnemy;
   return <div style={style}>{sbj.id + "_" + sbj.key}</div>;
@@ -101,7 +102,15 @@ const Cell = ({ index, row, spell, onClick }: ICellProps) => {
   let cell = null;
   switch (subject.type) {
     case "enemy":
-      cell = <Enemy subject={subject} />;
+      cell = (
+        <Enemy
+          subject={subject}
+          active={
+            subject.id === fightField.active.id &&
+            subject.key === fightField.active.key
+          }
+        />
+      );
       break;
     case "character":
       cell = (
@@ -161,18 +170,31 @@ export const Field = () => {
   const characters = useSelector((state: IGso) => state.charactersData);
 
   useEffect(() => {
-    if (character.type === "character" && !spell && action === "defend") {
+    if (/*character.type === "character" &&*/ !spell && action === "defend") {
       dispatch(fightCharacterDefend());
       setSpell(null);
       setSpellData(null);
     }
     if (
-      character.type === "character" &&
+      /*character.type === "character" && */
       (action === "act" || action === "move") &&
       spell !== null
     ) {
+      console.log("dispatch(fightCharacterActs(spell))", spell);
       dispatch(fightCharacterActs(spell));
-      const spells = characters[character.id].spells;
+      let spells: ISpell[] = [];
+      switch (character.type) {
+        case "character":
+          spells = characters[character.id].spells;
+          break;
+        case "enemy":
+          console.log("enemy", character.id);
+          console.log("enemies", enemies);
+          //spells = enemies[character.id].spells;
+          break;
+        default:
+          break;
+      }
       const spellToDisplay = spells.find(s => s.id === spell);
       if (!spellToDisplay) {
         throw new Error("Unidentified spell to display");
@@ -183,6 +205,15 @@ export const Field = () => {
 
   const onCellClick = (point: IPoint) => {
     const subject = findCellSubject(fightField, point);
+    setSpell(null);
+    setSpellData(null);
+    if (subject.type === "enemy" && character.type === "enemy") {
+      console.log("you are clicked on an active enemy and this is their turn");
+      dispatch(fightCharacterSelected(point));
+      setSpell(null);
+      setSpellData(null);
+      setAction("move");
+    }
     if (subject.type === "character") {
       dispatch(fightCharacterSelected(point));
       setSpell(null);
