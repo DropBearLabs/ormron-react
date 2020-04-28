@@ -6,7 +6,8 @@ import {
   findCellSubject,
   pointsInclude,
   findSpell,
-  findCharacterCoord
+  findCharacterCoord,
+  findAffectedEnemies
 } from "../data/helpers";
 import {
   IPayloadNpcUpdate,
@@ -23,14 +24,12 @@ import {
   ICharactersData,
   ICharacterData,
   Spells,
-  Enemies,
   ISpell
 } from "../types/TypeCharacters";
 import { IGsoQuest, IQuestStep, IGsoInfluence, IPoint } from "../types/Types";
-import { IField, ISubject } from "../types/TypesFights";
+import { IField, ISubject, ICastCell } from "../types/TypesFights";
 import { checkMove, calculateAttack } from "../fightengine";
 import { enemySets, IFightOpponentWithKey } from "../data/Opponents";
-import { identifier } from "@babel/types";
 
 const npcUpdate = (levelsToUpdate: IGsoLevel[], payload: IPayloadNpcUpdate) => {
   const { level, character, setTo } = payload;
@@ -180,14 +179,21 @@ const updateInfluence = (
   return influenceToUpdate;
 };
 
+const changeRound = (field: IField) => {
+  field.positions.map(p => (p.subject.state = "active"));
+  field.active = { id: undefined, type: "empty", state: null };
+  field.round = field.round + 1;
+};
+
 const changeTurn = (field: IField) => {
   const nextCharacters = field.positions.filter(
     p => p.subject.state !== "defended" && p.subject.state !== "casted" // && p.subject.type === "character"
   );
   if (nextCharacters.length === 0) {
-    throw "Everyone acted on this team";
+    changeRound(field);
+  } else {
+    fightCharacterSelected(field, nextCharacters[0].coordinates);
   }
-  fightCharacterSelected(field, nextCharacters[0].coordinates);
 };
 
 const generateFightField = (
@@ -204,8 +210,10 @@ const generateFightField = (
     heroes,
     enemies,
     active: { id: undefined, type: "empty", state: null },
-    action: null,
-    highlighted: []
+    turnActions: [],
+    highlighted: [],
+    round: 0,
+    stage: "heroselect"
   };
 
   heroes.forEach(h => {
@@ -239,11 +247,10 @@ const generateFightField = (
 
 const fightCharacterSelected = (field: IField, coord: IPoint) => {
   const subject = findCellSubject(field, coord);
-  console.log("fightCharacterSelected", coord);
   if (!subject) {
     throw "You can't select an empty cell as a character";
   }
-  console.log("subject", subject);
+  console.log("subject", coord, subject);
   field.highlighted = [];
   field.active = subject;
 
@@ -261,7 +268,6 @@ const fightCharacterPossibleMoves = (field: IField, coord: IPoint) => {
     const allowed = moves.filter(
       f => checkMove(field, coord, f, field.active.type) === true
     );
-    console.log("fightCharacterPossibleMoves", allowed);
     field.highlighted = allowed;
   }
 
@@ -288,7 +294,6 @@ const fightCharacterMove = (field: IField, coord: IPoint) => {
   if (!positionFrom) {
     throw "This position doesn't exist";
   }
-  const character = findCharacterCoord(field);
   field.active.state = "moved";
 
   positionFrom.coordinates = coord;
@@ -356,16 +361,25 @@ const fightCharacterSpell = (
       throw new Error("The character doesn't have this spell");
     }
   }
+  if (typeof spell === "undefined") {
+    throw new Error("The character doesn't have this spell");
+  }
+
+  const cast: ICastCell[] = findAffectedEnemies(field);
+  const subject: ICastCell = {
+    subject: field.active,
+    position: findCharacterCoord(field).coordinates
+  };
+
   field.active.state = "casted";
+  field.turnActions.push({
+    subject,
+    spell,
+    cast
+  });
+  console.log("field.turnActions", field.turnActions);
 
-  const attackAreaContent: ISubject[] = field.highlighted
-    .map(c => {
-      if (findCellSubject(field, c).id) {
-        return findCellSubject(field, c);
-      }
-    })
-    .filter((f): f is ISubject => f !== undefined && f.type !== "empty");
-
+  /* EXAMPLE OF LOGIC APPLYING THE DAMAGE
   const enemies = attackAreaContent.map(c =>
     field.enemies.find(
       (e: IFightOpponentWithKey) => e.id === c.id && e.key === c.key
@@ -400,7 +414,6 @@ const fightCharacterSpell = (
     field.heroes.find(h => h.id === c.id)
   );
 
-  field.highlighted = [];
   field.enemies.forEach(e => {
     if (e.life <= 0) {
       const enemyPos = field.positions.find(
@@ -418,7 +431,8 @@ const fightCharacterSpell = (
   });
 
   field.enemies = field.enemies.filter(e => e.life > 0);
-
+  */
+  field.highlighted = [];
   changeTurn(field);
   return field;
 };

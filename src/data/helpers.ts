@@ -30,7 +30,7 @@ import {
 } from "../types/TypeCharacters";
 import { allParty } from "./Characters";
 import { enemies } from "./Opponents";
-import { ISubject, IField } from "../types/TypesFights";
+import { ISubject, IField, ICastCell } from "../types/TypesFights";
 
 export function findConnection(id: string) {
   const connection = connections.find((c: IConnection) => c.id === id);
@@ -215,4 +215,14 @@ export function findEnemy(id: Enemies) {
     throw new Error(`Enemy ${id} is not found in enemies data`);
   }
   return enemy;
+}
+
+export function findAffectedEnemies(field: IField): ICastCell[] {
+  const affected: ICastCell[] = [];
+  field.highlighted.forEach(c => {
+    if (findCellSubject(field, c).id) {
+      affected.push({ subject: findCellSubject(field, c), position: c });
+    }
+  });
+  return affected;
 }

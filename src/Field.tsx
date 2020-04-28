@@ -28,16 +28,18 @@ const SpellSelection = (props: ISpellSelectionProps) => {
 
   const fightField = useSelector((state: IGso) => state.fightField);
   if (fightField == null) {
-    throw "We are loading fight field with null";
+    throw new Error("We are loading fight field with null");
   }
   const character =
-    fightField.active.type == "enemy"
+    fightField.active.type === "enemy"
       ? fightField.enemies.find(
           c => fightField.active.id === c.id && fightField.active.key === c.key
         )
       : fightField.heroes.find(c => fightField.active.id === c.id);
   if (!character) {
-    throw `Can't find the character ${fightField.active.id} to display spells`;
+    throw new Error(
+      `Can't find the character ${fightField.active.id} to display spells`
+    );
   }
   return (
     <div style={style}>
@@ -175,17 +177,12 @@ export const Field = () => {
   const characters = useSelector((state: IGso) => state.charactersData);
 
   useEffect(() => {
-    if (/*character.type === "character" &&*/ !spell && action === "defend") {
+    if (!spell && action === "defend") {
       dispatch(fightCharacterDefend());
       setSpell(null);
       setSpellData(null);
     }
-    if (
-      /*character.type === "character" && */
-      (action === "act" || action === "move") &&
-      spell !== null
-    ) {
-      console.log("DISPATCHING THE SPELL", spell);
+    if ((action === "act" || action === "move") && spell !== null) {
       dispatch(fightCharacterActs(spell));
       let spells: ISpell[] = [];
       switch (character.type) {
@@ -214,7 +211,6 @@ export const Field = () => {
     setSpell(null);
     setSpellData(null);
     if (subject.type === "enemy" && character.type === "enemy") {
-      console.log("you are clicked on an active enemy and this is their turn");
       dispatch(fightCharacterSelected(point));
       setSpell(null);
       setSpellData(null);

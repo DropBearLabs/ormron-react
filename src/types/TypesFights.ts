@@ -25,14 +25,16 @@ export interface IField {
   heroes: ICharacterData[];
   enemies: IFightOpponentWithKey[];
   active: ISubject;
-  action: "move" | "act" | "defend" | null;
+  turnActions: IFightAction[];
   highlighted: IPoint[];
+  round: number;
+  stage: "heroselect" | "heroact" | "enemyact" | "none";
 }
 
 export interface ISubjectCharacter {
   id: MainCharacters;
   type: "character";
-  state: string;
+  state: null | "active" | "moved" | "casted" | "defended";
   key?: number;
 }
 
@@ -40,13 +42,13 @@ export interface ISubjectEnemy {
   id: Enemies;
   type: "enemy";
   key?: number;
-  state: null | "active" | "moved" | "casted" | "defened";
+  state: null | "active" | "moved" | "casted" | "defended";
 }
 
 interface ISubjectEmpty {
   id: undefined;
   type: "empty";
-  state: null | "active" | "moved" | "casted" | "defened";
+  state: null | "active" | "moved" | "casted" | "defended";
   key?: number;
 }
 
@@ -55,4 +57,14 @@ export type ISubject = ISubjectCharacter | ISubjectEnemy | ISubjectEmpty;
 export interface IFightPosition {
   coordinates: IPoint;
   subject: ISubject;
+}
+
+export interface ICastCell {
+  subject: ISubject;
+  position: IPoint;
+}
+export interface IFightAction {
+  subject: ICastCell;
+  spell: ISpell;
+  cast: ICastCell[];
 }

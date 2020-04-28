@@ -530,8 +530,10 @@ export const gso: IGso = {
     heroes: [],
     enemies: [],
     active: { id: undefined, type: "empty", state: null },
-    action: null,
-    highlighted: []
+    turnActions: [],
+    highlighted: [],
+    round: 0,
+    stage: "none"
   }
 };
 //*/
