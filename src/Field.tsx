@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { IGso, IPoint } from "./types/Types";
 import { useSelector, useDispatch } from "react-redux";
 import { pointsInclude, findCellSubject } from "./data/helpers";
-import { ISubject, ISubjectEnemy } from "./types/TypesFights";
+import { ISubject, ISubjectEnemy, IFightOpponent } from "./types/TypesFights";
 import {
   fightCharacterSelected,
   fightCharacterMoves,
@@ -30,7 +30,12 @@ const SpellSelection = (props: ISpellSelectionProps) => {
   if (fightField == null) {
     throw "We are loading fight field with null";
   }
-  const character = fightField.heroes.find(c => fightField.active.id === c.id);
+  const character =
+    fightField.active.type == "enemy"
+      ? fightField.enemies.find(
+          c => fightField.active.id === c.id && fightField.active.key === c.key
+        )
+      : fightField.heroes.find(c => fightField.active.id === c.id);
   if (!character) {
     throw `Can't find the character ${fightField.active.id} to display spells`;
   }
@@ -180,7 +185,7 @@ export const Field = () => {
       (action === "act" || action === "move") &&
       spell !== null
     ) {
-      console.log("dispatch(fightCharacterActs(spell))", spell);
+      console.log("DISPATCHING THE SPELL", spell);
       dispatch(fightCharacterActs(spell));
       let spells: ISpell[] = [];
       switch (character.type) {
@@ -188,9 +193,10 @@ export const Field = () => {
           spells = characters[character.id].spells;
           break;
         case "enemy":
-          console.log("enemy", character.id);
-          console.log("enemies", enemies);
-          //spells = enemies[character.id].spells;
+          const enemyData = enemies.find(
+            e => e.id === character.id
+          ) as IFightOpponent;
+          spells = enemyData.spells;
           break;
         default:
           break;

@@ -22,12 +22,15 @@ import {
   IGsoParty,
   ICharactersData,
   ICharacterData,
-  Spells
+  Spells,
+  Enemies,
+  ISpell
 } from "../types/TypeCharacters";
 import { IGsoQuest, IQuestStep, IGsoInfluence, IPoint } from "../types/Types";
 import { IField, ISubject } from "../types/TypesFights";
 import { checkMove, calculateAttack } from "../fightengine";
 import { enemySets, IFightOpponentWithKey } from "../data/Opponents";
+import { identifier } from "@babel/types";
 
 const npcUpdate = (levelsToUpdate: IGsoLevel[], payload: IPayloadNpcUpdate) => {
   const { level, character, setTo } = payload;
@@ -273,9 +276,15 @@ const fightCharacterMove = (field: IField, coord: IPoint) => {
     throw "This move is not allowed";
   }
 
-  const positionFrom = field.positions.find(
-    p => p.subject.type === "character" && p.subject.id === field.active.id
-  );
+  const positionFrom = field.positions.find(p => {
+    if (p.subject.type === "character") {
+      return p.subject.id === field.active.id;
+    }
+    if (p.subject.type === "enemy" && p.subject.key === field.active.key) {
+      return p.subject.id === field.active.id;
+    }
+    return false;
+  });
   if (!positionFrom) {
     throw "This position doesn't exist";
   }
@@ -293,8 +302,9 @@ const fightCharacterActs = (field: IField, spellId: Spells) => {
     throw "You can't move your state is incorrect";
   }
   field.highlighted = [];
-  const spell = findSpell(spellId);
+  console.log(spellId);
   const character = findCharacterCoord(field);
+  const spell = findSpell(spellId);
 
   field.highlighted = spell.area.map(s => ({
     x: character.coordinates.x + s.x,
@@ -313,23 +323,37 @@ const fightCharacterSpell = (
     throw "You can't move your state is incorrect";
   }
   const character = findCharacterCoord(field);
-  if (character.subject.type !== "character") {
+  let spell: ISpell | undefined;
+  if (character.subject.type === "empty") {
     throw new Error("You are trying to act with no character");
   }
-  const actingCharacter = field.heroes.find(c => c.id === character.subject.id);
+  const actingCharacter =
+    character.subject.type === "character"
+      ? field.heroes.find(c => c.id === character.subject.id)
+      : field.enemies.find(
+          e => e.id === character.subject.id && e.key === character.subject.key
+        );
   if (!actingCharacter) {
     throw new Error("There is no active character");
   }
-  const characterData = characters[character.subject.id];
-  const spell = characterData.spells.find(s => s.id === spellId);
-  if (!spell) {
-    throw new Error("The character doesn't have this spell");
+  if (character.subject.type === "character") {
+    const characterData = characters[character.subject.id];
+    spell = characterData.spells.find(s => s.id === spellId);
+    if (typeof spell === "undefined") {
+      throw new Error("The character doesn't have this spell");
+    }
+    if (spell.price) {
+      if (actingCharacter.mana - spell.price > 0) {
+        actingCharacter.mana = actingCharacter.mana - spell.price;
+      } else {
+        return field;
+      }
+    }
   }
-  if (spell.price) {
-    if (actingCharacter.mana - spell.price > 0) {
-      actingCharacter.mana = actingCharacter.mana - spell.price;
-    } else {
-      return field;
+  if (character.subject.type === "enemy") {
+    spell = actingCharacter.spells.find(s => s.id === spellId);
+    if (typeof spell === "undefined") {
+      throw new Error("The character doesn't have this spell");
     }
   }
   field.active.state = "casted";
@@ -350,6 +374,9 @@ const fightCharacterSpell = (
   if (enemies.length > 0) {
     enemies.forEach(e => {
       if (e === undefined) {
+        return;
+      }
+      if (!spell) {
         return;
       }
       const attack = calculateAttack(

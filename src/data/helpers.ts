@@ -190,7 +190,15 @@ export function findCellSubject(field: IField, coord: IPoint): ISubject {
 
 export function findCharacterCoord(field: IField) {
   const char = field.active;
-  const position = field.positions.find(p => p.subject.id === char.id);
+  let position = null;
+  field.positions.find(p => p.subject.id === char.id);
+  if (field.active.key) {
+    position = field.positions.find(
+      p => p.subject.id === char.id && p.subject.key === char.key
+    );
+  } else {
+    position = field.positions.find(p => p.subject.id === char.id);
+  }
   if (!position) {
     throw new Error(`Character ${char.id} is not found on a field`);
   }

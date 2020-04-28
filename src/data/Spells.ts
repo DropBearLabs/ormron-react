@@ -572,5 +572,15 @@ export const spells: ICharacterSpell[] = [
     image: "temp-spell5.jpg",
     position: { x: 205, y: 340 },
     area: []
+  },
+  // ENEMIES
+  {
+    id: Spells.enemy_hit,
+    name: "Hit",
+    description:
+      "Wafer bonbon candy canes sweet apple pie pie cake. Wafer pudding chocolate bar lollipop tootsie roll tart.",
+    image: "temp-spell1.jpg",
+    position: { x: 205, y: 340 },
+    area: [{ x: -1, y: 0 }]
   }
 ];

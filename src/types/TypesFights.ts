@@ -33,6 +33,7 @@ export interface ISubjectCharacter {
   id: MainCharacters;
   type: "character";
   state: string;
+  key?: number;
 }
 
 export interface ISubjectEnemy {
@@ -46,6 +47,7 @@ interface ISubjectEmpty {
   id: undefined;
   type: "empty";
   state: null | "active" | "moved" | "casted" | "defened";
+  key?: number;
 }
 
 export type ISubject = ISubjectCharacter | ISubjectEnemy | ISubjectEmpty;
