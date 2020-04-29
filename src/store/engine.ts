@@ -185,14 +185,80 @@ const changeRound = (field: IField) => {
   field.round = field.round + 1;
 };
 
+const applyActions = (field: IField) => {
+  console.log("APPLYING ACTIONS");
+  console.log(field.turnActions);
+  field.turnActions.forEach(a => {
+    if (a.cast.length > 0) {
+      const character = field.heroes.find(c => c.id === a.subject.subject.id);
+      if (!character) {
+        throw new Error("Invalid attack, no character");
+      }
+      a.cast.forEach(c => {
+        const enemy = field.enemies.find(
+          e => e.id === c.subject.id && e.key === c.subject.key
+        );
+        if (!enemy) {
+          throw new Error("Invalid attack, no enemy");
+        }
+        const attack = calculateAttack(
+          a.spell.points_physical,
+          a.spell.points_magical,
+          [],
+          enemy.alterations,
+          null,
+          character.element,
+          enemy.element
+        );
+
+        // Apply changed to the enemy
+        enemy.life = enemy.life - attack[2];
+      });
+
+      //TODO apply the character effect changes if required
+    }
+  });
+
+  //TODO changes for the character (healing f.e)
+
+  field.enemies.forEach(e => {
+    if (e.life <= 0) {
+      const enemyPos = field.positions.find(
+        p => e.id === p.subject.id && e.key === p.subject.key
+      );
+      if (!enemyPos) {
+        throw new Error("You killed the enemy that had no position");
+      }
+      field.positions = field.positions.filter(
+        p =>
+          p.coordinates.x !== enemyPos.coordinates.x ||
+          p.coordinates.y !== enemyPos.coordinates.y
+      );
+    }
+  });
+
+  field.enemies = field.enemies.filter(e => e.life > 0);
+  field.turnActions = [];
+  field.stage = "hero_select";
+  // HACK to allow only characters act for now
+  changeRound(field);
+};
+
 const changeTurn = (field: IField) => {
-  const nextCharacters = field.positions.filter(
-    p => p.subject.state !== "defended" && p.subject.state !== "casted" // && p.subject.type === "character"
-  );
-  if (nextCharacters.length === 0) {
-    changeRound(field);
-  } else {
-    fightCharacterSelected(field, nextCharacters[0].coordinates);
+  if (field.stage === "hero_select") {
+    const nextCharacters = field.positions.filter(
+      p =>
+        p.subject.state !== "defended" &&
+        p.subject.state !== "casted" &&
+        p.subject.type === "character"
+    );
+    if (nextCharacters.length === 0) {
+      console.log("ALL CHARACTERS ACTED");
+      field.stage = "hero_act";
+      applyActions(field);
+    } else {
+      fightCharacterSelected(field, nextCharacters[0].coordinates);
+    }
   }
 };
 
@@ -213,7 +279,7 @@ const generateFightField = (
     turnActions: [],
     highlighted: [],
     round: 0,
-    stage: "heroselect"
+    stage: "hero_select"
   };
 
   heroes.forEach(h => {

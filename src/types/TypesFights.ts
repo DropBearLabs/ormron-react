@@ -28,7 +28,7 @@ export interface IField {
   turnActions: IFightAction[];
   highlighted: IPoint[];
   round: number;
-  stage: "heroselect" | "heroact" | "enemyact" | "none";
+  stage: "hero_select" | "hero_act" | "enemy_select" | "enemy_act" | "none";
 }
 
 export interface ISubjectCharacter {
