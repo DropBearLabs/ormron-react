@@ -33,9 +33,12 @@ export enum Alterations {
 }
 
 export enum EnvEffects {
-  fog = "fog",
-  storm = "storm",
-  air = "air"
+  fog = "fog", // mana grows every second round
+  storm = "storm", // random chance to be hit by lightnint every turn
+  air = "air", // mana grows faster
+  highlands = "high", // -1 health after 5th turn
+  sandstorm = "sandstorm", // distance attacks -1 Tier
+  tranch = "tranch" // clost attacks -1 Tier
 }
 
 export enum Elements {

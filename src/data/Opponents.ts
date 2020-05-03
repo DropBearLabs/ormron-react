@@ -11,7 +11,7 @@ export const enemies: IFightOpponent[] = [
     id: Enemies.sandnake1,
     name: "Sand Snake",
     image: "enemy_snake1.png",
-    life: 10,
+    life: 5,
     mana: 3,
     attack_physical: 4,
     attack_magic: 2,

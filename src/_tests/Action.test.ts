@@ -817,9 +817,7 @@ test.only("Fight character spell", () => {
   expect(result.fightField.active).toMatchObject({
     state: "casted"
   });
-
   expect(result.fightField.highlighted).toMatchObject([]);
-
   expect(result.fightField.turnActions[0].subject).toMatchObject({
     subject: { id: "maya", type: "character", state: "casted" },
     position: { x: 3, y: 1 }
