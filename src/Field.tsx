@@ -96,7 +96,7 @@ const Cell = ({ index, row, spell, onClick }: ICellProps) => {
   const point = { x: index, y: row };
   const highlighted = pointsInclude(fightField.highlighted, point);
   const colour = spell ? "#ff41cc" : "#41ff89";
-  // #ff41cc
+
   const cellStyle = {
     width: "120px",
     height: "120px",
@@ -179,8 +179,6 @@ export const Field = () => {
   useEffect(() => {
     if (!spell && action === "defend") {
       dispatch(fightCharacterDefend());
-      setSpell(null);
-      setSpellData(null);
     }
     if ((action === "act" || action === "move") && spell !== null) {
       dispatch(fightCharacterActs(spell));
@@ -208,38 +206,26 @@ export const Field = () => {
 
   const onCellClick = (point: IPoint) => {
     const subject = findCellSubject(fightField, point);
-    setSpell(null);
-    setSpellData(null);
-    if (subject.type === "enemy" && character.type === "enemy") {
-      dispatch(fightCharacterSelected(point));
-      setSpell(null);
-      setSpellData(null);
-      setAction("move");
-    }
     if (subject.type === "character") {
       dispatch(fightCharacterSelected(point));
-      setSpell(null);
-      setSpellData(null);
       setAction("move");
     }
     if (!spell && pointsInclude(fightField.highlighted, point)) {
       dispatch(fightCharacterMoves(point));
-      setSpell(null);
-      setSpellData(null);
       setAction("act");
     }
     if (spell && pointsInclude(fightField.highlighted, point)) {
       dispatch(fightCharacterSpell(spell));
+      setAction("");
       setSpell(null);
       setSpellData(null);
-      setAction("");
     }
   };
-
   return (
     <div>
       <h1>
-        Fight character: {character.id || "none"}, action: {action}
+        Fight character: {character.id || "none"}, action: {action}, spell:{" "}
+        {spell}
       </h1>
       {action === "act" || character.state === "moved" ? (
         <SpellSelection setSpell={setSpell} />

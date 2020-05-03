@@ -557,6 +557,287 @@ test("Fight character selected", () => {
 
   expect(result.fightField.active).toMatchObject({
     id: "maya",
-    type: "character"
+    type: "character",
+    state: "active"
   });
+
+  expect(result.fightField.highlighted).toMatchObject([
+    { x: 2, y: 2 },
+    { x: 3, y: 1 },
+    { x: 3, y: 3 }
+  ]);
+});
+
+test("Fight character moves", () => {
+  initialState.fightField.positions = [
+    {
+      coordinates: { x: 3, y: 2 },
+      subject: { type: "character", id: MainCharacters.maya, state: "active" }
+    },
+    {
+      coordinates: { x: 2, y: 3 },
+      subject: { type: "character", id: MainCharacters.dart, state: "active" }
+    },
+    {
+      coordinates: { x: 3, y: 4 },
+      subject: { type: "enemy", id: Enemies.sandnake1, state: "active" }
+    },
+    {
+      coordinates: { x: 4, y: 2 },
+      subject: { type: "enemy", id: Enemies.sandnake1, state: "active" }
+    },
+    {
+      coordinates: { x: 6, y: 2 },
+      subject: { type: "enemy", id: Enemies.sandnake1, state: "active" }
+    }
+  ];
+
+  initialState.fightField.active = {
+    id: MainCharacters.maya,
+    type: "character",
+    state: "active"
+  };
+
+  initialState.fightField.highlighted = [
+    { x: 2, y: 2 },
+    { x: 3, y: 1 },
+    { x: 3, y: 3 }
+  ];
+
+  const result = reduicer(
+    initialState,
+    actions.fightCharacterMoves({ x: 3, y: 1 })
+  );
+
+  expect(result.fightField.active).toMatchObject({
+    state: "moved"
+  });
+
+  expect(result.fightField.positions[0]).toMatchObject({
+    coordinates: { x: 3, y: 1 }
+  });
+});
+
+test("Fight character acts", () => {
+  initialState.fightField.positions = [
+    {
+      coordinates: { x: 3, y: 1 },
+      subject: { type: "character", id: MainCharacters.maya, state: "active" }
+    },
+    {
+      coordinates: { x: 2, y: 3 },
+      subject: { type: "character", id: MainCharacters.dart, state: "active" }
+    },
+    {
+      coordinates: { x: 4, y: 1 },
+      subject: { type: "enemy", id: Enemies.sandnake1, state: "active" }
+    },
+    {
+      coordinates: { x: 4, y: 2 },
+      subject: { type: "enemy", id: Enemies.sandnake1, state: "active" }
+    },
+    {
+      coordinates: { x: 6, y: 2 },
+      subject: { type: "enemy", id: Enemies.sandnake1, state: "active" }
+    }
+  ];
+
+  initialState.fightField.active = {
+    id: MainCharacters.maya,
+    type: "character",
+    state: "active"
+  };
+
+  const result = reduicer(
+    initialState,
+    actions.fightCharacterActs(Spells.maya_attackStun)
+  );
+
+  expect(result.fightField.highlighted).toMatchObject([
+    { x: 4, y: 1 },
+    { x: 5, y: 1 }
+  ]);
+});
+
+test.only("Fight character spell", () => {
+  initialState.fightField.positions = [
+    {
+      coordinates: { x: 3, y: 1 },
+      subject: { type: "character", id: MainCharacters.maya, state: "active" }
+    },
+    {
+      coordinates: { x: 2, y: 3 },
+      subject: { type: "character", id: MainCharacters.dart, state: "active" }
+    },
+    {
+      coordinates: { x: 4, y: 1 },
+      subject: { type: "enemy", id: Enemies.sandnake1, state: "active" }
+    },
+    {
+      coordinates: { x: 4, y: 2 },
+      subject: { type: "enemy", id: Enemies.sandnake1, state: "active" }
+    },
+    {
+      coordinates: { x: 6, y: 2 },
+      subject: { type: "enemy", id: Enemies.sandnake1, state: "active" }
+    }
+  ];
+
+  initialState.fightField.active = {
+    id: MainCharacters.maya,
+    type: "character",
+    state: "active"
+  };
+
+  initialState.fightField.highlighted = [
+    { x: 2, y: 2 },
+    { x: 3, y: 1 },
+    { x: 3, y: 3 }
+  ];
+
+  initialState.fightField.enemies = [
+    {
+      id: Enemies.sandnake1,
+      name: "Sand Snake",
+      image: "enemy_snake1.png",
+      life: 10,
+      mana: 3,
+      attack_physical: 4,
+      attack_magic: 2,
+      element: Elements.earth,
+      spells: [
+        {
+          id: Spells.enemy_hit,
+          taken: true,
+          available: true,
+          type: "attack",
+          points_magical: 0,
+          points_physical: 4,
+          price: 0,
+          effects: []
+        }
+      ],
+      key: 0,
+      alterations: [Alterations.Dispelled]
+    },
+    {
+      id: Enemies.sandnake1,
+      name: "Sand Snake",
+      image: "enemy_snake1.png",
+      life: 10,
+      mana: 3,
+      attack_physical: 4,
+      attack_magic: 2,
+      element: Elements.earth,
+      spells: [
+        {
+          id: Spells.enemy_hit,
+          taken: true,
+          available: true,
+          type: "attack",
+          points_magical: 0,
+          points_physical: 4,
+          price: 0,
+          effects: []
+        }
+      ],
+      key: 1,
+      alterations: [Alterations.Dispelled]
+    },
+    {
+      id: Enemies.sandnake1,
+      name: "Sand Snake",
+      image: "enemy_snake1.png",
+      life: 10,
+      mana: 3,
+      attack_physical: 4,
+      attack_magic: 2,
+      element: Elements.earth,
+      spells: [
+        {
+          id: Spells.enemy_hit,
+          taken: true,
+          available: true,
+          type: "attack",
+          points_magical: 0,
+          points_physical: 4,
+          price: 0,
+          effects: []
+        }
+      ],
+      key: 2,
+      alterations: [Alterations.Dispelled]
+    }
+  ];
+
+  initialState.fightField.heroes = [
+    {
+      id: MainCharacters.maya,
+      life: 12,
+      mana: 5,
+      element: Elements.earth,
+      alterations: [],
+      spells: [
+        {
+          id: Spells.maya_healSelf,
+          taken: true,
+          available: true,
+          type: "heal",
+          points_magical: 3,
+          points_physical: 0,
+          price: 3
+        },
+        {
+          id: Spells.maya_attackSimple,
+          taken: true,
+          available: true,
+          type: "attack",
+          points_magical: 0,
+          points_physical: 5
+        },
+        {
+          id: Spells.maya_attackStun,
+          taken: true,
+          available: true,
+          type: "attack",
+          points_magical: 4,
+          points_physical: 2,
+          price: 3,
+          effects: [{ effect: Alterations.Numb, precent: 30 }]
+        }
+      ]
+    }
+  ];
+
+  const result = reduicer(
+    initialState,
+    actions.fightCharacterSpell(Spells.maya_attackStun)
+  );
+
+  expect(result.fightField.active).toMatchObject({
+    state: "casted"
+  });
+
+  expect(result.fightField.highlighted).toMatchObject([]);
+
+  expect(result.fightField.turnActions[0].subject).toMatchObject({
+    subject: { id: "maya", type: "character", state: "casted" },
+    position: { x: 3, y: 1 }
+  });
+  expect(result.fightField.turnActions[0].spell).toMatchObject({
+    id: "maya_attackStun",
+    taken: true,
+    available: true,
+    type: "attack",
+    points_magical: 4,
+    points_physical: 2,
+    price: 3,
+    effects: [{ effect: "Numb", precent: 30 }]
+  });
+  expect(result.fightField.turnActions[0].cast).toMatchObject([
+    {
+      subject: { type: "character", id: "maya", state: "active" },
+      position: { x: 3, y: 1 }
+    }
+  ]);
 });

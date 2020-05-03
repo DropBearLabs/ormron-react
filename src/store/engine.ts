@@ -7,7 +7,8 @@ import {
   pointsInclude,
   findSpell,
   findCharacterCoord,
-  findAffectedEnemies
+  findAffectedEnemies,
+  findPartyMember
 } from "../data/helpers";
 import {
   IPayloadNpcUpdate,
@@ -29,7 +30,7 @@ import {
 import { IGsoQuest, IQuestStep, IGsoInfluence, IPoint } from "../types/Types";
 import { IField, ISubject, ICastCell } from "../types/TypesFights";
 import { checkMove, calculateAttack } from "../fightengine";
-import { enemySets, IFightOpponentWithKey } from "../data/Opponents";
+import { enemySets } from "../data/Opponents";
 
 const npcUpdate = (levelsToUpdate: IGsoLevel[], payload: IPayloadNpcUpdate) => {
   const { level, character, setTo } = payload;
@@ -179,13 +180,20 @@ const updateInfluence = (
   return influenceToUpdate;
 };
 
-const changeRound = (field: IField) => {
+const changeRound = (field: IField, characters: ICharactersData) => {
   field.positions.map(p => (p.subject.state = "active"));
   field.active = { id: undefined, type: "empty", state: null };
+  field.heroes.forEach(h => {
+    const characterData = characters[h.id];
+    if (h.mana < characterData.mana) {
+      h.mana++;
+    }
+  });
   field.round = field.round + 1;
+  return field;
 };
 
-const applyActions = (field: IField) => {
+const applyActions = (field: IField, characters: ICharactersData) => {
   console.log("APPLYING ACTIONS");
   console.log(field.turnActions);
   field.turnActions.forEach(a => {
@@ -241,10 +249,10 @@ const applyActions = (field: IField) => {
   field.turnActions = [];
   field.stage = "hero_select";
   // HACK to allow only characters act for now
-  changeRound(field);
+  changeRound(field, characters);
 };
 
-const changeTurn = (field: IField) => {
+const changeTurn = (field: IField, characters: ICharactersData) => {
   if (field.stage === "hero_select") {
     const nextCharacters = field.positions.filter(
       p =>
@@ -255,7 +263,7 @@ const changeTurn = (field: IField) => {
     if (nextCharacters.length === 0) {
       console.log("ALL CHARACTERS ACTED");
       field.stage = "hero_act";
-      applyActions(field);
+      applyActions(field, characters);
     } else {
       fightCharacterSelected(field, nextCharacters[0].coordinates);
     }
@@ -268,8 +276,10 @@ const generateFightField = (
   characters: ICharactersData
 ) => {
   const enemies = enemySets(opponentsSet);
-  const heroes = Object.values(characters).filter(
-    (c: ICharacterData) => party[c.id]
+  const heroes = JSON.parse(
+    JSON.stringify(
+      Object.values(characters).filter((c: ICharacterData) => party[c.id])
+    )
   );
   const field: IField = {
     positions: [],
@@ -282,7 +292,7 @@ const generateFightField = (
     stage: "hero_select"
   };
 
-  heroes.forEach(h => {
+  heroes.forEach((h: ICharacterData) => {
     let x = 0;
     let y = 0;
     do {
@@ -312,11 +322,11 @@ const generateFightField = (
 };
 
 const fightCharacterSelected = (field: IField, coord: IPoint) => {
+  console.log("fightCharacterSelected");
   const subject = findCellSubject(field, coord);
   if (!subject) {
     throw "You can't select an empty cell as a character";
   }
-  console.log("subject", coord, subject);
   field.highlighted = [];
   field.active = subject;
 
@@ -324,6 +334,7 @@ const fightCharacterSelected = (field: IField, coord: IPoint) => {
 };
 
 const fightCharacterPossibleMoves = (field: IField, coord: IPoint) => {
+  console.log("fightCharacterPossibleMoves");
   if (field.active.state === "active") {
     const moves = [
       { x: coord.x - 1, y: coord.y },
@@ -341,6 +352,7 @@ const fightCharacterPossibleMoves = (field: IField, coord: IPoint) => {
 };
 
 const fightCharacterMove = (field: IField, coord: IPoint) => {
+  console.log("fightCharacterMove");
   if (field.active.state !== "active") {
     throw "You can't move your state is incorrect";
   }
@@ -369,11 +381,11 @@ const fightCharacterMove = (field: IField, coord: IPoint) => {
 };
 
 const fightCharacterActs = (field: IField, spellId: Spells) => {
+  console.log("fightCharacterActs");
   if (field.active.state !== "active" && field.active.state !== "moved") {
     throw "You can't move your state is incorrect";
   }
   field.highlighted = [];
-  console.log(spellId);
   const character = findCharacterCoord(field);
   const spell = findSpell(spellId);
 
@@ -390,6 +402,7 @@ const fightCharacterSpell = (
   characters: ICharactersData,
   spellId: Spells
 ) => {
+  console.log("fightCharacterSpell", spellId);
   if (field.active.state !== "active" && field.active.state !== "moved") {
     throw "You can't move your state is incorrect";
   }
@@ -417,10 +430,12 @@ const fightCharacterSpell = (
       if (actingCharacter.mana - spell.price > 0) {
         actingCharacter.mana = actingCharacter.mana - spell.price;
       } else {
+        console.warn("Not enough mana");
         return field;
       }
     }
   }
+
   if (character.subject.type === "enemy") {
     spell = actingCharacter.spells.find(s => s.id === spellId);
     if (typeof spell === "undefined") {
@@ -443,74 +458,20 @@ const fightCharacterSpell = (
     spell,
     cast
   });
-  console.log("field.turnActions", field.turnActions);
 
-  /* EXAMPLE OF LOGIC APPLYING THE DAMAGE
-  const enemies = attackAreaContent.map(c =>
-    field.enemies.find(
-      (e: IFightOpponentWithKey) => e.id === c.id && e.key === c.key
-    )
-  );
-  if (enemies.length > 0) {
-    enemies.forEach(e => {
-      if (e === undefined) {
-        return;
-      }
-      if (!spell) {
-        return;
-      }
-      const attack = calculateAttack(
-        spell.points_physical,
-        spell.points_magical,
-        [],
-        e.alterations,
-        null,
-        actingCharacter.element,
-        e.element
-      );
-      e.life = e.life - attack[2];
-
-      //TODO apply the character effect changes if required
-      return e;
-    });
-  }
-
-  //TODO changes for the character (healing f.e)
-  const chars = attackAreaContent.map(c =>
-    field.heroes.find(h => h.id === c.id)
-  );
-
-  field.enemies.forEach(e => {
-    if (e.life <= 0) {
-      const enemyPos = field.positions.find(
-        p => e.id === p.subject.id && e.key === p.subject.key
-      );
-      if (!enemyPos) {
-        throw new Error("You killed the enemy that had no position");
-      }
-      field.positions = field.positions.filter(
-        p =>
-          p.coordinates.x !== enemyPos.coordinates.x ||
-          p.coordinates.y !== enemyPos.coordinates.y
-      );
-    }
-  });
-
-  field.enemies = field.enemies.filter(e => e.life > 0);
-  */
   field.highlighted = [];
-  changeTurn(field);
+  changeTurn(field, characters);
   return field;
 };
 
 const fightCharacterDefend = (field: IField) => {
+  console.log("fightCharacterDefend");
   if (field.active.state !== "active") {
     throw "You can't move your state is incorrect";
   }
   field.active.state = "defended";
   // TODO apply the efect to the active character
 
-  changeTurn(field);
   return field;
 };
 

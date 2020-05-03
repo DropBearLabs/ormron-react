@@ -228,5 +228,6 @@ export default {
   fightCharacterSelected,
   fightCharacterPossibleMoves,
   fightCharacterMoves,
+  fightCharacterActs,
   fightCharacterSpell
 };
